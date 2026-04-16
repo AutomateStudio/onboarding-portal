@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fafaf9;
+  color: #1a1a15;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography variants */
+.font-minimal {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.3px;
+}
+
+.font-elegant {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.5px;
+}
+
+.font-modern {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* Luxury shadows */
+.shadow-luxury-sm {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-luxury-md {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.shadow-luxury-lg {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+.shadow-luxury-xl {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.2);
+}
+
+/* Interactive elements */
+button,
+a {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a9a9a0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7a7a6e;
+}
+
+/* Focus states */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid #0066ff;
+  outline-offset: 2px;
+}
+
+/* Input styling */
+input[type='text'],
+input[type='email'],
+input[type='url'],
+textarea,
+select {
+  border: 1px solid #e8e8e6;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='url']:focus,
+textarea:focus,
+select:focus {
+  border-color: #0066ff;
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
