@@ -2,85 +2,80 @@
 
 import { motion } from 'framer-motion';
 import { useBrandStore } from '@/stores/brandStore';
-import { useLanguage } from '@/context/LanguageContext';
 
-const icons = ['🚀', '🎨', '👁️', '📦', '🔐'];
+const STEPS = ['Bienvenida', 'Identidad', 'Plan', 'Apps', 'Contenido', 'Acceso'];
+const ICONS = ['👋', '🎨', '💎', '⚡', '📝', '🔐'];
 
 export function Stepper() {
   const currentStep = useBrandStore((state) => state.currentStep);
-  const { lang, setLang, t } = useLanguage();
-  const steps = t.stepper.steps;
 
   return (
-    <div className="w-full bg-white border-b border-luxury-200">
-      <div className="max-w-7xl mx-auto px-6 py-8 relative">
-        {/* Language toggle */}
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-luxury-100 rounded-full p-1">
-          {(['en', 'es'] as const).map((l) => (
-            <button
-              key={l}
-              onClick={() => setLang(l)}
-              className={`px-3 py-1 rounded-full text-xs font-minimal font-semibold transition-all ${
-                lang === l ? 'bg-luxury-900 text-white' : 'text-luxury-600 hover:text-luxury-900'
-              }`}
-            >
-              {l.toUpperCase()}
-            </button>
-          ))}
+    <>
+      {/* Mobile: step name + progress bar */}
+      <div className="md:hidden">
+        <div className="flex items-center justify-between mb-1.5">
+          <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+            Paso {currentStep} · {STEPS[currentStep - 1]}
+          </p>
+          <p className="text-xs text-gray-400">{currentStep}/{STEPS.length}</p>
         </div>
-
-        {/* Mobile version */}
-        <div className="md:hidden">
-          <div className="text-center">
-            <p className="text-sm text-luxury-600 font-medium">
-              {t.stepper.stepOf(currentStep, steps.length)}
-            </p>
-            <p className="text-lg font-minimal font-semibold text-luxury-900 mt-2">
-              {steps[currentStep - 1]}
-            </p>
-          </div>
-        </div>
-
-        {/* Desktop version */}
-        <div className="hidden md:flex items-center justify-between pr-24">
-          {steps.map((title, index) => (
-            <motion.div
-              key={index}
-              className="flex-1 flex items-center relative"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <motion.div
-                className={`w-12 h-12 rounded-full flex items-center justify-center font-minimal font-semibold text-sm transition-all duration-300 flex-shrink-0 ${
-                  currentStep >= index + 1
-                    ? 'bg-luxury-900 text-white shadow-luxury-md'
-                    : 'bg-luxury-100 text-luxury-600'
-                }`}
-                whileHover={{ scale: 1.05 }}
-              >
-                {icons[index]}
-              </motion.div>
-
-              <div className="ml-3 min-w-0">
-                <p className={`text-xs font-medium transition-colors duration-300 ${currentStep >= index + 1 ? 'text-luxury-900' : 'text-luxury-500'}`}>
-                  {title}
-                </p>
-              </div>
-
-              {index < steps.length - 1 && (
-                <motion.div
-                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-0.5 -z-10 transition-colors duration-300 ${currentStep > index + 1 ? 'bg-luxury-900' : 'bg-luxury-200'}`}
-                  style={{ width: `calc(100% - 48px)`, transform: 'translateX(48px) translateY(-50%)' }}
-                  initial={{ width: 0 }}
-                  animate={{ width: currentStep > index + 1 ? `calc(100% - 48px)` : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              )}
-            </motion.div>
-          ))}
+        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-gray-900 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+          />
         </div>
       </div>
-    </div>
+
+      {/* Desktop: full step indicators */}
+      <div className="hidden md:flex items-center">
+        {STEPS.map((title, index) => {
+          const stepNum = index + 1;
+          const isCompleted = currentStep > stepNum;
+          const isCurrent = currentStep === stepNum;
+
+          return (
+            <div key={index} className="flex-1 flex items-center min-w-0">
+              <div className="flex items-center gap-1.5 flex-shrink-0">
+                <motion.div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300 ${
+                    isCompleted
+                      ? 'bg-gray-900 text-white'
+                      : isCurrent
+                      ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20'
+                      : 'bg-gray-100 text-gray-400'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >
+                  {isCompleted ? '✓' : ICONS[index]}
+                </motion.div>
+                <div className="hidden lg:block">
+                  <p className={`text-[11px] font-semibold transition-colors duration-300 whitespace-nowrap ${
+                    isCurrent ? 'text-gray-900' : isCompleted ? 'text-gray-500' : 'text-gray-400'
+                  }`}>
+                    {title}
+                  </p>
+                </div>
+              </div>
+
+              {index < STEPS.length - 1 && (
+                <div className="flex-1 mx-1.5 lg:mx-2 h-px bg-gray-200 relative overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-gray-900"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: currentStep > stepNum ? 1 : 0 }}
+                    style={{ transformOrigin: 'left' }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                  />
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }

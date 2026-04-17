@@ -1,82 +1,221 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useBrandStore } from '@/stores/brandStore';
-import { COLOR_PALETTES } from '@/constants/colors';
-import { TYPOGRAPHY_STYLES } from '@/constants/typography';
-import { useLanguage } from '@/context/LanguageContext';
+import { PALETTES } from '@/constants/palettes';
+import { FONTS } from '@/constants/fonts';
+import { INDUSTRY_CONTENT } from '@/constants/industries';
+import { THEME_NAV, THEME_COLORS } from '@/constants/themes';
+import { PLANS, PlanKey } from '@/constants/plans';
+
+const formatCOP = (n: number) =>
+  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n);
 
 export function LivePreview() {
-  const colorPalette = useBrandStore((state) => state.colorPalette);
-  const typography = useBrandStore((state) => state.typography);
-  const storeName = useBrandStore((state) => state.storeName);
-  const logoUrl = useBrandStore((state) => state.logoUrl);
-  const { t } = useLanguage();
+  const storeName = useBrandStore((s) => s.storeName);
+  const industry = useBrandStore((s) => s.industry);
+  const palette = useBrandStore((s) => s.palette);
+  const theme = useBrandStore((s) => s.theme);
+  const font = useBrandStore((s) => s.font);
+  const plan = useBrandStore((s) => s.plan);
+  const selectedApps = useBrandStore((s) => s.selectedApps);
 
-  const palette = COLOR_PALETTES[colorPalette];
-  const typographyStyle = TYPOGRAPHY_STYLES[typography];
+  // Resolve colors: theme base → palette override
+  const paletteData = PALETTES.find((p) => p.id === palette);
+  const themeColors = theme ? THEME_COLORS[theme] : null;
+
+  const colors = paletteData
+    ? { bg: paletteData.colors[0], fg: paletteData.colors[3], accent: paletteData.colors[2], navBg: paletteData.colors[1], cardBg: paletteData.colors[1], heroBg: paletteData.colors[1] }
+    : themeColors
+    ? { bg: themeColors.bg, fg: themeColors.text, accent: themeColors.accent, navBg: themeColors.navBg, cardBg: themeColors.cardBg, heroBg: themeColors.heroBg }
+    : { bg: '#0f0f0b', fg: '#f5f0e8', accent: '#d4af37', navBg: '#0f0f0b', cardBg: '#1a1a15', heroBg: '#0f0f0b' };
+
+  // Resolve font
+  const fontData = FONTS.find((f) => f.id === font);
+  const fontFamily = fontData?.family ?? "'Inter', sans-serif";
+
+  // Resolve industry content
+  const content = INDUSTRY_CONTENT[industry] ?? INDUSTRY_CONTENT['other'];
+
+  // Resolve theme nav
+  const nav = theme ? (THEME_NAV[theme] ?? THEME_NAV['minimal']) : THEME_NAV['minimal'];
+  const logoText = storeName ? storeName.toUpperCase().slice(0, 10) : nav.logo;
+
+  // Pricing
+  const currentPlan = plan ? PLANS[plan as PlanKey] : null;
+  const appsLimit = currentPlan?.appsLimit ?? 0;
+  const extraAppsCount = Math.max(0, selectedApps.length - appsLimit);
+  const extraAppPrice = currentPlan?.extraAppPrice ?? 200000;
+  const totalPrice = currentPlan ? currentPlan.price + extraAppsCount * extraAppPrice : 0;
 
   return (
-    <motion.div
-      className="sticky top-6 hidden lg:block"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-    >
-      <div className="w-80 mx-auto">
-        <div className="relative bg-black rounded-3xl p-2 shadow-luxury-xl">
-          <motion.div
-            className="relative w-full bg-white rounded-2xl overflow-hidden"
-            style={{ aspectRatio: '9 / 19.5', backgroundColor: palette.colors.light }}
-          >
-            <div className="h-8 flex items-center justify-between px-6 text-xs font-medium" style={{ color: palette.colors.primary }}>
-              <span>9:41</span>
-              <span>●●●●●</span>
-            </div>
-
-            <div className="px-6 py-8 text-center h-full overflow-y-auto scrollbar-hide flex flex-col justify-between">
-              {logoUrl ? (
-                <motion.div
-                  className="w-20 h-20 mx-auto mb-6 rounded-lg overflow-hidden shadow-luxury-sm"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <img src={logoUrl} alt="Store logo" className="w-full h-full object-cover" />
-                </motion.div>
-              ) : (
-                <div className="w-20 h-20 mx-auto mb-6 rounded-lg bg-opacity-10" style={{ backgroundColor: palette.colors.accent }} />
-              )}
-
-              <motion.div key={`${storeName}-${typography}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-                <h1 className={`${typographyStyle.fontClass} text-2xl font-bold mb-2`} style={{ color: palette.colors.primary }}>
-                  {storeName || 'Your Store'}
-                </h1>
-              </motion.div>
-
-              <p className="text-sm opacity-70 mb-8" style={{ color: palette.colors.primary }}>
-                {t.livePreview.tagline}
-              </p>
-
-              <motion.button
-                className="w-full py-3 rounded-lg font-medium text-sm transition-all"
-                style={{ backgroundColor: palette.colors.accent, color: palette.colors.light }}
-                whileHover={{ scale: 0.98 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {t.livePreview.cta}
-              </motion.button>
-            </div>
-          </motion.div>
-
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl" />
+    <div className="sticky top-6">
+      {/* Window chrome */}
+      <div className="bg-gray-100 rounded-t-2xl px-4 py-2.5 flex items-center gap-2 border border-gray-200 border-b-0">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-red-400" />
+          <div className="w-3 h-3 rounded-full bg-yellow-400" />
+          <div className="w-3 h-3 rounded-full bg-green-400" />
         </div>
-
-        <motion.div className="mt-6 text-center text-xs text-luxury-600 font-medium" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-          <p>{t.livePreview.label}</p>
-          <p className="mt-1 text-luxury-500">{palette.name} • {typographyStyle.label}</p>
-        </motion.div>
+        <div className="flex-1 text-center">
+          <span className="text-xs text-gray-400 font-medium">Vista Previa</span>
+        </div>
       </div>
-    </motion.div>
+
+      {/* iPhone mockup */}
+      <div className="relative bg-gray-900 rounded-b-3xl p-2 shadow-2xl shadow-gray-900/30 border border-gray-800 border-t-0">
+        {/* Notch */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-5 bg-gray-900 rounded-b-2xl z-10" />
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${palette}-${industry}-${theme}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="rounded-2xl overflow-hidden transition-colors duration-500"
+            style={{ backgroundColor: colors.bg, fontFamily }}
+          >
+            {/* Status bar */}
+            <div
+              className="flex items-center justify-between px-4 pt-6 pb-1 text-[9px] font-bold"
+              style={{ color: colors.fg, opacity: 0.5 }}
+            >
+              <span>9:41</span>
+              <span>●●●●</span>
+            </div>
+
+            {/* Simulated navbar */}
+            <div
+              className="flex items-center justify-between px-3 py-2 text-[9px] font-bold"
+              style={{ backgroundColor: colors.navBg, color: colors.fg }}
+            >
+              <span className="font-black tracking-widest" style={{ fontFamily }}>{logoText}</span>
+              <div className="flex gap-2 items-center opacity-60">
+                {nav.links.slice(0, 2).map((link) => (
+                  <span key={link}>{link}</span>
+                ))}
+                {nav.icons.map((icon, i) => (
+                  <span key={i}>{icon}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Hero image */}
+            <div className="relative mx-2 rounded-xl overflow-hidden" style={{ aspectRatio: '16/9' }}>
+              <img
+                src={content.hero}
+                alt="Hero"
+                className="w-full h-full object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: `linear-gradient(to top, ${colors.fg}99 0%, transparent 60%)` }}
+              />
+              <div className="absolute bottom-2 left-3 right-3">
+                <p
+                  className="text-[8px] font-bold tracking-widest uppercase opacity-80 mb-0.5"
+                  style={{ color: colors.accent }}
+                >
+                  {content.eyebrow}
+                </p>
+                <p
+                  className="text-sm font-bold leading-tight"
+                  style={{ color: '#ffffff', fontFamily }}
+                >
+                  {content.title}
+                </p>
+                <div
+                  className="mt-1.5 inline-block px-2 py-1 rounded text-[8px] font-bold"
+                  style={{ backgroundColor: colors.accent, color: colors.bg }}
+                >
+                  {content.cta}
+                </div>
+              </div>
+            </div>
+
+            {/* Product grid */}
+            <div className="px-2 pt-3 pb-1">
+              <p
+                className="text-[8px] font-bold tracking-widest uppercase mb-2 opacity-50"
+                style={{ color: colors.fg }}
+              >
+                Destacados
+              </p>
+              <div className="grid grid-cols-2 gap-1.5">
+                {content.products.slice(0, 4).map((prod, i) => (
+                  <div key={i} className="rounded-lg overflow-hidden" style={{ backgroundColor: colors.cardBg }}>
+                    <img
+                      src={prod.img}
+                      alt={prod.name}
+                      className="w-full object-cover"
+                      style={{ aspectRatio: '1/1' }}
+                    />
+                    <div className="px-1.5 py-1">
+                      <p
+                        className="text-[8px] font-semibold leading-tight"
+                        style={{ color: colors.fg }}
+                      >
+                        {prod.name}
+                      </p>
+                      <p
+                        className="text-[8px] font-bold"
+                        style={{ color: colors.accent }}
+                      >
+                        {prod.price}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom padding */}
+            <div className="h-4" />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Pricing summary */}
+      <div className="mt-4 p-4 rounded-2xl bg-gray-50 border border-gray-100 text-sm">
+        {currentPlan ? (
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-500 text-xs">Plan {currentPlan.name}</span>
+              <span className="font-semibold text-gray-900 text-xs">{formatCOP(currentPlan.price)}</span>
+            </div>
+            {selectedApps.length > 0 && (
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 text-xs">{selectedApps.length} apps</span>
+                <span className="text-xs text-gray-600">
+                  {extraAppsCount > 0
+                    ? <span className="text-amber-600 font-medium">+{formatCOP(extraAppsCount * extraAppPrice)}</span>
+                    : <span className="text-green-600 font-medium">Incluidas</span>
+                  }
+                </span>
+              </div>
+            )}
+            <div className="border-t border-gray-200 pt-2 flex justify-between items-center">
+              <span className="font-bold text-gray-900 text-sm">Total estimado</span>
+              <span className="font-bold text-gray-900">{formatCOP(totalPrice)}</span>
+            </div>
+          </div>
+        ) : (
+          <p className="text-xs text-gray-400 text-center">
+            Selecciona un plan para ver el precio
+          </p>
+        )}
+      </div>
+
+      {/* Palette + font label */}
+      {(palette || font) && (
+        <div className="mt-2 text-center text-xs text-gray-400">
+          {paletteData?.name && <span>{paletteData.name}</span>}
+          {paletteData?.name && fontData?.name && <span> · </span>}
+          {fontData?.name && <span>{fontData.name}</span>}
+        </div>
+      )}
+    </div>
   );
 }

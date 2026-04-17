@@ -1,64 +1,52 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useForm } from 'react-hook-form';
 import { useBrandStore } from '@/stores/brandStore';
-import { useToastStore } from '@/stores/toastStore';
-import { useLanguage } from '@/context/LanguageContext';
-import { Industry } from '@/types';
-import { useState, useEffect } from 'react';
-import { FormField } from '../FormField';
 
-interface Step1FormData {
-  storeName: string;
-  shopifyUrl: string;
-  industry: Industry;
-}
+const INDUSTRIES = [
+  { value: 'jewelry',     label: 'Joyería y Accesorios' },
+  { value: 'fashion',     label: 'Moda y Ropa' },
+  { value: 'electronics', label: 'Electrónica' },
+  { value: 'home',        label: 'Hogar y Jardín' },
+  { value: 'beauty',      label: 'Belleza' },
+  { value: 'food',        label: 'Alimentos' },
+  { value: 'sports',      label: 'Deportes' },
+  { value: 'other',       label: 'Otro' },
+];
 
 export function Step1Welcome() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { t } = useLanguage();
-  const tx = t.step1;
+  const {
+    storeName, shopifyUrl, industry, referenceUrl,
+    setStoreName, setShopifyUrl, setIndustry, setReferenceUrl,
+    nextStep,
+  } = useBrandStore();
 
-  const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm<Step1FormData>({
-    mode: 'onChange',
-    defaultValues: {
-      storeName: useBrandStore((state) => state.storeName),
-      shopifyUrl: useBrandStore((state) => state.shopifyUrl),
-      industry: useBrandStore((state) => state.industry),
-    },
-  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const setStoreName = useBrandStore((state) => state.setStoreName);
-  const setShopifyUrl = useBrandStore((state) => state.setShopifyUrl);
-  const setIndustry = useBrandStore((state) => state.setIndustry);
-  const nextStep = useBrandStore((state) => state.nextStep);
-  const addToast = useToastStore((state) => state.addToast);
-
-  const storeName = watch('storeName');
-  const shopifyUrl = watch('shopifyUrl');
-  const industry = watch('industry');
-
-  useEffect(() => {
-    setStoreName(storeName);
-    setShopifyUrl(shopifyUrl);
-    setIndustry(industry);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('brand-store', JSON.stringify({ storeName, shopifyUrl, industry }));
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!storeName.trim()) {
+      newErrors.storeName = 'El nombre de la tienda es requerido';
+    } else if (storeName.trim().length < 3) {
+      newErrors.storeName = 'El nombre debe tener al menos 3 caracteres';
     }
-  }, [storeName, shopifyUrl, industry, setStoreName, setShopifyUrl, setIndustry]);
-
-  const onSubmit = async () => {
-    setIsSubmitting(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 600));
-      addToast(tx.toast(storeName), 'success');
-      nextStep();
-    } catch {
-      addToast(tx.toastError, 'error');
-    } finally {
-      setIsSubmitting(false);
+    if (!shopifyUrl.trim()) {
+      newErrors.shopifyUrl = 'La URL de Shopify es requerida';
     }
+    if (!industry) {
+      newErrors.industry = 'Selecciona una industria';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const clearFieldError = (field: string) => {
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
   };
 
   return (
@@ -66,103 +54,126 @@ export function Step1Welcome() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4 }}
-      className="space-y-8"
+      transition={{ duration: 0.35 }}
+      className="w-full max-w-xl"
     >
-      <motion.div className="text-center space-y-4 mb-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1, duration: 0.5 }}>
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-luxury-900 rounded-2xl mb-4">
-          <span className="text-2xl">🚀</span>
-        </div>
-        <h1 className="font-minimal text-4xl font-bold text-luxury-900">{tx.title}</h1>
-        <p className="text-lg text-luxury-600 max-w-xl mx-auto">{tx.subtitle}</p>
-      </motion.div>
+      {/* Header */}
+      <div className="mb-8 sm:mb-10">
+        <span className="inline-block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">
+          Paso 1 · Bienvenida
+        </span>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
+          Cuéntanos sobre<br />tu tienda
+        </h1>
+        <p className="mt-3 text-gray-500 text-sm sm:text-base leading-relaxed">
+          Vamos a configurar tu tienda Shopify desde cero. Empezamos con lo básico.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl">
-        <FormField label={tx.storeName} error={errors.storeName} delay={0.2} helpText={tx.storeNameHelp}>
+      <div className="space-y-5 sm:space-y-6">
+        {/* Store Name */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Nombre de la tienda <span className="text-red-400">*</span>
+          </label>
           <input
-            {...register('storeName', {
-              required: tx.storeNameRequired,
-              minLength: { value: 3, message: tx.storeNameMin },
-              maxLength: { value: 50, message: tx.storeNameMax },
-            })}
             type="text"
-            placeholder={tx.storeNamePlaceholder}
-            className="w-full px-4 py-3 border border-luxury-200 rounded-xl font-minimal text-base text-luxury-900 placeholder-luxury-400 focus:outline-none focus:border-luxury-900 focus:ring-2 focus:ring-luxury-900 focus:ring-opacity-5 transition-all"
+            value={storeName}
+            onChange={(e) => { setStoreName(e.target.value); clearFieldError('storeName'); }}
+            placeholder="Ej: Luna Joyería, Bold Studio..."
+            className={`w-full px-4 py-3 rounded-xl border text-gray-900 placeholder-gray-400 text-sm font-medium focus:outline-none focus:ring-2 transition-all ${
+              errors.storeName
+                ? 'border-red-300 focus:ring-red-100'
+                : 'border-gray-200 focus:border-gray-400 focus:ring-gray-100'
+            }`}
           />
-        </FormField>
+          {errors.storeName && (
+            <p className="mt-1.5 text-xs text-red-500">{errors.storeName}</p>
+          )}
+        </div>
 
-        <FormField label={tx.shopifyUrl} error={errors.shopifyUrl} delay={0.3} helpText={tx.shopifyUrlHelp}>
-          <div className="flex items-center gap-2">
-            <span className="text-luxury-600 font-minimal text-sm whitespace-nowrap">https://</span>
+        {/* Shopify URL */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            URL de tu tienda Shopify <span className="text-red-400">*</span>
+          </label>
+          <div className={`flex items-center rounded-xl border overflow-hidden transition-all focus-within:ring-2 ${
+            errors.shopifyUrl
+              ? 'border-red-300 focus-within:ring-red-100'
+              : 'border-gray-200 focus-within:border-gray-400 focus-within:ring-gray-100'
+          }`}>
+            <span className="px-3 py-3 bg-gray-50 text-gray-400 text-sm font-medium border-r border-gray-200 select-none whitespace-nowrap">
+              https://
+            </span>
             <input
-              {...register('shopifyUrl', {
-                required: tx.shopifyUrlRequired,
-                pattern: { value: /^[a-zA-Z0-9-]+\.myshopify\.com$/, message: tx.shopifyUrlFormat },
-              })}
               type="text"
-              placeholder={tx.shopifyUrlPlaceholder}
-              className="flex-1 px-4 py-3 border border-luxury-200 rounded-xl font-minimal text-base text-luxury-900 placeholder-luxury-400 focus:outline-none focus:border-luxury-900 focus:ring-2 focus:ring-luxury-900 focus:ring-opacity-5 transition-all"
+              value={shopifyUrl}
+              onChange={(e) => { setShopifyUrl(e.target.value.replace(/^https?:\/\//, '')); clearFieldError('shopifyUrl'); }}
+              placeholder="mitienda.myshopify.com"
+              className="flex-1 px-3 py-3 text-gray-900 placeholder-gray-400 text-sm font-medium focus:outline-none bg-white min-w-0"
             />
           </div>
-        </FormField>
+          {errors.shopifyUrl ? (
+            <p className="mt-1.5 text-xs text-red-500">{errors.shopifyUrl}</p>
+          ) : (
+            <p className="mt-1.5 text-xs text-gray-400">Si aún no tienes tienda, escribe el nombre que quieres usar.</p>
+          )}
+        </div>
 
-        <FormField label={tx.industry} error={errors.industry} delay={0.4} helpText={tx.industryHelp}>
+        {/* Industry */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Industria / Categoría <span className="text-red-400">*</span>
+          </label>
           <select
-            {...register('industry')}
-            className="w-full px-4 py-3 border border-luxury-200 rounded-xl font-minimal text-base text-luxury-900 focus:outline-none focus:border-luxury-900 focus:ring-2 focus:ring-luxury-900 focus:ring-opacity-5 transition-all appearance-none bg-white cursor-pointer"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231a1a15' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'right 12px center',
-              paddingRight: '36px',
-            }}
+            value={industry}
+            onChange={(e) => { setIndustry(e.target.value); clearFieldError('industry'); }}
+            className={`w-full px-4 py-3 rounded-xl border text-gray-900 text-sm font-medium focus:outline-none focus:ring-2 transition-all bg-white cursor-pointer ${
+              errors.industry
+                ? 'border-red-300 focus:ring-red-100'
+                : 'border-gray-200 focus:border-gray-400 focus:ring-gray-100'
+            }`}
           >
-            {(Object.entries(tx.industries) as [Industry, string][]).map(([value, label]) => (
-              <option key={value} value={value}>{label}</option>
+            <option value="">Selecciona tu industria...</option>
+            {INDUSTRIES.map((ind) => (
+              <option key={ind.value} value={ind.value}>
+                {ind.label}
+              </option>
             ))}
           </select>
-        </FormField>
+          {errors.industry && (
+            <p className="mt-1.5 text-xs text-red-500">{errors.industry}</p>
+          )}
+        </div>
 
-        <motion.div className="flex gap-3 pt-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-          <motion.button
-            type="submit"
-            disabled={!isValid || isSubmitting}
-            className={`flex-1 py-3 px-6 rounded-xl font-medium font-minimal focus:outline-none focus:ring-2 focus:ring-luxury-900 focus:ring-offset-2 transition-all flex items-center justify-center gap-2 ${
-              !isValid || isSubmitting ? 'bg-luxury-300 text-luxury-700 cursor-not-allowed' : 'bg-luxury-900 text-white hover:bg-luxury-800'
-            }`}
-            whileHover={isValid && !isSubmitting ? { scale: 1.02 } : {}}
-            whileTap={isValid && !isSubmitting ? { scale: 0.98 } : {}}
-          >
-            {isSubmitting ? (
-              <>
-                <motion.span animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}>⟳</motion.span>
-                {tx.processing}
-              </>
-            ) : tx.cta}
-          </motion.button>
-        </motion.div>
+        {/* Reference URL */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Tienda de referencia{' '}
+            <span className="font-normal text-gray-400">(opcional)</span>
+          </label>
+          <input
+            type="url"
+            value={referenceUrl}
+            onChange={(e) => setReferenceUrl(e.target.value)}
+            placeholder="https://tiendaquemegusta.com"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm font-medium focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 transition-all"
+          />
+          <p className="mt-1.5 text-xs text-gray-400">
+            ¿Hay alguna tienda que te guste como referencia visual?
+          </p>
+        </div>
 
-        <motion.div className="flex gap-1 justify-center pt-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
-          {[1, 2, 3, 4, 5].map((dot) => (
-            <div key={dot} className={`h-2 rounded-full transition-all ${dot === 1 ? 'w-6 bg-luxury-900' : 'w-2 bg-luxury-200'}`} />
-          ))}
-        </motion.div>
-      </form>
-
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-luxury-200"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7 }}
-      >
-        {tx.features.map((feature, idx) => (
-          <motion.div key={idx} className="text-center" whileHover={{ y: -4 }}>
-            <span className="text-3xl">{feature.icon}</span>
-            <h3 className="font-minimal font-semibold text-luxury-900 mt-2">{feature.title}</h3>
-            <p className="text-sm text-luxury-600 mt-1">{feature.desc}</p>
-          </motion.div>
-        ))}
-      </motion.div>
+        {/* CTA */}
+        <motion.button
+          onClick={() => { if (validate()) nextStep(); }}
+          className="w-full py-4 bg-gray-900 text-white rounded-xl font-semibold text-sm tracking-wide hover:bg-gray-800 active:bg-gray-950 transition-colors mt-2"
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          Continuar a Identidad →
+        </motion.button>
+      </div>
     </motion.div>
   );
 }
