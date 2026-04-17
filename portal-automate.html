@@ -261,181 +261,172 @@
       font-size: 13px; font-weight: 600; color: var(--primary);
       margin-bottom: 12px; display: block;
     }
+    /* ── Theme Grid — Shopify Theme Store style ── */
     .theme-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 8px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 12px;
     }
-    @media (max-width: 680px) { .theme-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .theme-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .theme-grid { grid-template-columns: 1fr; } }
 
-    /* ── The card wrapper ── */
+    /* Card wrapper */
     .theme-card {
-      border: 2.5px solid var(--border);
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.22s;
       position: relative;
       background: #fff;
+      border: 2px solid transparent;
     }
-    .theme-card:hover { border-color: #bbb; transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
-    .theme-card.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(15,15,11,0.09); }
+    .theme-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+    .theme-card.selected { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,15,11,0.12); }
 
-    /* Selected checkmark */
-    .theme-card .tc-check {
-      position: absolute; top: 10px; right: 10px; z-index: 5;
-      width: 26px; height: 26px;
+    /* Checkmark badge */
+    .tc-check {
+      position: absolute; top: 10px; right: 10px; z-index: 10;
+      width: 28px; height: 28px;
       background: var(--primary);
       border-radius: 50%;
       display: none; align-items: center; justify-content: center;
-      color: #fff; font-size: 13px; font-weight: 700;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      color: #fff; font-size: 14px; font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     }
     .theme-card.selected .tc-check { display: flex; }
 
-    /* Browser chrome bar */
-    .tc-browser {
-      height: 22px;
-      display: flex; align-items: center; gap: 5px;
-      padding: 0 10px;
-    }
-    .tc-browser-dot { width: 7px; height: 7px; border-radius: 50%; }
-    .tc-browser-bar {
-      flex: 1; height: 8px; border-radius: 4px;
-      margin-left: 6px; opacity: 0.15;
-    }
-
-    /* ── The store preview area (Shopify-style) ── */
-    .tc-screen {
+    /* The full preview area — tall like Shopify */
+    .tc-preview {
       width: 100%;
-      height: 300px;
+      height: 420px;
       overflow: hidden;
       position: relative;
       display: flex;
       flex-direction: column;
     }
 
+    /* Thin top bar */
+    .tc-topbar {
+      height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7px; font-weight: 600;
+      letter-spacing: 1px;
+      flex-shrink: 0;
+      z-index: 2;
+      opacity: 0.9;
+    }
+
     /* Navbar */
     .tc-nav {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 7px 12px;
-      font-size: 8px; font-weight: 700;
+      padding: 8px 14px;
+      font-size: 9px; font-weight: 700;
       letter-spacing: 0.8px;
       flex-shrink: 0;
       z-index: 2;
     }
-    .tc-nav-links { display: flex; gap: 10px; font-size: 7px; font-weight: 500; opacity: 0.65; }
-    .tc-nav-icons { display: flex; gap: 6px; font-size: 9px; opacity: 0.7; }
+    .tc-nav-links { display: flex; gap: 12px; font-size: 8px; font-weight: 500; opacity: 0.7; }
+    .tc-nav-icons { display: flex; gap: 8px; font-size: 11px; opacity: 0.75; }
 
-    /* Full-bleed hero — simulates lifestyle photo */
+    /* Hero — big lifestyle photo */
     .tc-hero {
-      flex: 1;
       position: relative;
+      height: 220px;
+      flex-shrink: 0;
+      overflow: hidden;
       display: flex;
       align-items: flex-end;
-      padding: 16px 14px;
-      min-height: 170px;
-      overflow: hidden;
+      padding: 20px 18px;
     }
     .tc-hero-img {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: 0;
+      object-fit: cover; z-index: 0;
     }
     .tc-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      opacity: 0.62;
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      opacity: 0.55;
     }
-    .tc-hero-content {
-      position: relative;
-      z-index: 2;
-    }
+    .tc-hero-content { position: relative; z-index: 2; }
     .tc-hero-eyebrow {
-      font-size: 7px; font-weight: 700;
+      font-size: 8px; font-weight: 700;
       letter-spacing: 2.5px; text-transform: uppercase;
-      margin-bottom: 5px; opacity: 0.85;
+      margin-bottom: 6px; opacity: 0.9;
     }
     .tc-hero-title {
-      font-size: 18px; font-weight: 800;
-      line-height: 1.1; margin-bottom: 10px;
+      font-size: 22px; font-weight: 800;
+      line-height: 1.1; margin-bottom: 12px;
     }
     .tc-hero-cta {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 5px 13px;
-      font-size: 7.5px; font-weight: 700;
-      letter-spacing: 0.5px;
-      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 16px;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.5px; cursor: pointer;
     }
 
-    /* Featured products section */
+    /* Products strip */
     .tc-featured {
-      flex-shrink: 0;
-      padding: 7px 10px 8px;
+      flex: 1;
+      padding: 10px 12px;
+      overflow: hidden;
     }
     .tc-featured-header {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
-    .tc-featured-label { font-size: 7.5px; font-weight: 700; letter-spacing: 0.3px; }
-    .tc-featured-viewall { font-size: 6.5px; font-weight: 500; opacity: 0.5; text-decoration: underline; }
+    .tc-featured-label { font-size: 9px; font-weight: 700; letter-spacing: 0.3px; }
+    .tc-featured-viewall { font-size: 8px; font-weight: 500; opacity: 0.45; text-decoration: underline; }
     .tc-products {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 5px;
+      gap: 6px;
     }
-    .tc-product { border-radius: 5px; overflow: hidden; }
+    .tc-product { border-radius: 6px; overflow: hidden; }
     .tc-product-img {
-      height: 56px;
+      height: 70px; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      overflow: hidden;
     }
     .tc-product-img img {
       width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
+      object-fit: cover; display: block;
     }
-    .tc-product-info { padding: 4px 5px 5px; }
-    .tc-product-name { font-size: 6px; font-weight: 600; line-height: 1.3; }
-    .tc-product-price { font-size: 6.5px; font-weight: 700; margin-top: 2px; }
+    .tc-product-info { padding: 5px 6px 6px; }
+    .tc-product-name { font-size: 7px; font-weight: 600; line-height: 1.3; }
+    .tc-product-price { font-size: 7.5px; font-weight: 700; margin-top: 2px; }
 
-    /* Card footer */
+    /* Card footer — clean like Shopify */
     .tc-meta {
-      padding: 12px 16px 14px;
-      border-top: 1px solid var(--border);
+      padding: 14px 16px 16px;
       background: #fff;
     }
     .tc-meta-top {
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
-      margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
-    .tc-meta-left h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 2px; }
-    .tc-meta-left p { font-size: 11px; color: #888; }
+    .tc-meta-left h4 { font-size: 15px; font-weight: 700; color: var(--primary); }
+    .tc-meta-left .tc-meta-sub {
+      display: flex; align-items: center; gap: 6px; margin-top: 4px;
+    }
     .tc-meta-btn {
       flex-shrink: 0;
-      background: var(--primary);
-      color: #fff;
-      font-size: 11px; font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 8px;
-      border: none; cursor: pointer;
+      background: #fff;
+      color: var(--primary);
+      font-size: 12px; font-weight: 600;
+      padding: 7px 18px;
+      border-radius: 20px;
+      border: 1.5px solid var(--primary);
+      cursor: pointer;
       white-space: nowrap;
-      transition: opacity 0.2s;
+      transition: all 0.18s;
     }
-    .theme-card.selected .tc-meta-btn { background: #10b981; }
-    .theme-card:not(.selected) .tc-meta-btn { background: var(--primary); opacity: 0.85; }
-    .tc-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tc-meta-btn:hover { background: var(--primary); color: #fff; }
+    .theme-card.selected .tc-meta-btn {
+      background: #10b981; color: #fff; border-color: #10b981;
+    }
+    .tc-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
     .tc-tag {
       font-size: 9px; font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 20px;
-      background: #f0f0ee;
-      color: #666;
+      padding: 2px 9px; border-radius: 20px;
+      background: #f0f0ee; color: #666;
     }
     .tc-tag.popular { background: #fef3c7; color: #92400e; }
     .tc-tag.new { background: #ecfdf5; color: #065f46; }
@@ -443,10 +434,8 @@
     /* ── Individual theme colors ── */
 
     /* 1. Elegance */
-    .tc-elegance .tc-browser { background: #0f0f0b; }
-    .tc-elegance .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-elegance .tc-browser-dot:nth-child(2){background:#febc2e}.tc-elegance .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-elegance .tc-browser-bar { background: #d4af37; }
-    .tc-elegance .tc-screen { background: #0f0f0b; }
+    .tc-elegance .tc-preview { background: #0f0f0b; }
+    .tc-elegance .tc-topbar { background: #1a1a10; color: #d4af37; }
     .tc-elegance .tc-nav { background: #0f0f0b; color: #d4af37; border-bottom: 1px solid rgba(212,175,55,0.15); font-family: 'Playfair Display', serif; }
     .tc-elegance .tc-hero { background: linear-gradient(160deg, #2a2410 0%, #1a1a10 40%, #0f0f0b 100%); }
     .tc-elegance .tc-hero::before { background: radial-gradient(ellipse 120% 80% at 80% 20%, rgba(212,175,55,0.25) 0%, transparent 60%); opacity:1; }
@@ -461,10 +450,8 @@
     .tc-elegance .tc-product-price { color: #d4af37; }
 
     /* 2. Minimal Pro */
-    .tc-minimal .tc-browser { background: #f8f9fa; border-bottom: 1px solid #e9ecef; }
-    .tc-minimal .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-minimal .tc-browser-dot:nth-child(2){background:#febc2e}.tc-minimal .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-minimal .tc-browser-bar { background: #dee2e6; }
-    .tc-minimal .tc-screen { background: #fff; }
+    .tc-minimal .tc-preview { background: #fff; }
+    .tc-minimal .tc-topbar { background: #f0f4ff; color: #0066ff; }
     .tc-minimal .tc-nav { background: #fff; color: #111; border-bottom: 1px solid #f0f0f0; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 8px; letter-spacing: 0.3px; }
     .tc-minimal .tc-hero { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
     .tc-minimal .tc-hero::before { background: radial-gradient(circle at 75% 30%, rgba(0,102,255,0.08) 0%, transparent 60%); opacity:1; }
@@ -479,10 +466,8 @@
     .tc-minimal .tc-product-price { color: #0066ff; }
 
     /* 3. Bold Shop */
-    .tc-bold .tc-browser { background: #111; }
-    .tc-bold .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-bold .tc-browser-dot:nth-child(2){background:#febc2e}.tc-bold .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-bold .tc-browser-bar { background: #f59e0b; }
-    .tc-bold .tc-screen { background: #18181b; }
+    .tc-bold .tc-preview { background: #18181b; }
+    .tc-bold .tc-topbar { background: #111; color: #f59e0b; }
     .tc-bold .tc-nav { background: #111; color: #fff; border-bottom: 2px solid #f59e0b; font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: 1.5px; }
     .tc-bold .tc-hero { background: linear-gradient(150deg, #3f3c1a 0%, #2a2710 30%, #18181b 100%); }
     .tc-bold .tc-hero::before { background: radial-gradient(ellipse 100% 60% at 90% 10%, rgba(245,158,11,0.3) 0%, transparent 55%); opacity:1; }
@@ -497,10 +482,8 @@
     .tc-bold .tc-product-price { color: #f59e0b; }
 
     /* 4. Nordic */
-    .tc-nordic .tc-browser { background: #f5ede4; border-bottom: 1px solid #e8ddd5; }
-    .tc-nordic .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-nordic .tc-browser-dot:nth-child(2){background:#febc2e}.tc-nordic .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-nordic .tc-browser-bar { background: #c9a688; }
-    .tc-nordic .tc-screen { background: #fdf8f3; }
+    .tc-nordic .tc-preview { background: #fdf8f3; }
+    .tc-nordic .tc-topbar { background: #f0e8de; color: #9a7855; }
     .tc-nordic .tc-nav { background: #fdf8f3; color: #3d3530; border-bottom: 1px solid #ede4db; font-family: 'DM Sans', sans-serif; letter-spacing: 2px; font-weight: 300; font-size: 7px; }
     .tc-nordic .tc-hero { background: linear-gradient(170deg, #ede4db 0%, #e0d5c8 50%, #f5ede4 100%); }
     .tc-nordic .tc-hero::before { background: radial-gradient(ellipse 80% 80% at 85% 15%, rgba(201,166,136,0.3) 0%, transparent 60%); opacity:1; }
@@ -515,10 +498,8 @@
     .tc-nordic .tc-product-price { color: #c9a688; }
 
     /* 5. Jewel Box */
-    .tc-jewel .tc-browser { background: #0f0a1e; }
-    .tc-jewel .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-jewel .tc-browser-dot:nth-child(2){background:#febc2e}.tc-jewel .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-jewel .tc-browser-bar { background: #9f5ef5; }
-    .tc-jewel .tc-screen { background: #0f0a1e; }
+    .tc-jewel .tc-preview { background: #0f0a1e; }
+    .tc-jewel .tc-topbar { background: #1a1035; color: #9f5ef5; }
     .tc-jewel .tc-nav { background: #0f0a1e; color: #c4a8f5; border-bottom: 1px solid rgba(159,94,245,0.2); font-family: 'Cormorant Garamond', serif; font-size: 9px; letter-spacing: 1.5px; }
     .tc-jewel .tc-hero { background: linear-gradient(160deg, #2a1a50 0%, #1a0f35 50%, #0f0a1e 100%); }
     .tc-jewel .tc-hero::before { background: radial-gradient(ellipse 100% 70% at 80% 10%, rgba(159,94,245,0.4) 0%, transparent 55%); opacity:1; }
@@ -533,10 +514,8 @@
     .tc-jewel .tc-product-price { color: #9f5ef5; }
 
     /* 6. Fresh & Clean */
-    .tc-fresh .tc-browser { background: #f0fdf4; border-bottom: 1px solid #dcfce7; }
-    .tc-fresh .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-fresh .tc-browser-dot:nth-child(2){background:#febc2e}.tc-fresh .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-fresh .tc-browser-bar { background: #16a34a; }
-    .tc-fresh .tc-screen { background: #fff; }
+    .tc-fresh .tc-preview { background: #fff; }
+    .tc-fresh .tc-topbar { background: #166534; color: #86efac; }
     .tc-fresh .tc-nav { background: #fff; color: #14532d; border-bottom: 1px solid #dcfce7; font-family: 'DM Sans', sans-serif; font-weight: 600; }
     .tc-fresh .tc-hero { background: linear-gradient(145deg, #14532d 0%, #166534 50%, #1a7a40 100%); }
     .tc-fresh .tc-hero::before { background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,255,255,0.12) 0%, transparent 55%); opacity:1; }
@@ -551,10 +530,8 @@
     .tc-fresh .tc-product-price { color: #16a34a; }
 
     /* 7. Rose Gold */
-    .tc-rose .tc-browser { background: #1a0808; }
-    .tc-rose .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-rose .tc-browser-dot:nth-child(2){background:#febc2e}.tc-rose .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-rose .tc-browser-bar { background: #e8a0a0; }
-    .tc-rose .tc-screen { background: #130808; }
+    .tc-rose .tc-preview { background: #130808; }
+    .tc-rose .tc-topbar { background: #1f0a0a; color: #e8a0a0; }
     .tc-rose .tc-nav { background: #130808; color: #f5c6c6; border-bottom: 1px solid rgba(232,160,160,0.15); font-family: 'Raleway', sans-serif; font-weight: 600; letter-spacing: 2px; font-size: 7px; }
     .tc-rose .tc-hero { background: linear-gradient(160deg, #4a1525 0%, #2d1020 50%, #130808 100%); }
     .tc-rose .tc-hero::before { background: radial-gradient(ellipse 90% 60% at 85% 15%, rgba(232,160,160,0.35) 0%, transparent 55%); opacity:1; }
@@ -569,10 +546,8 @@
     .tc-rose .tc-product-price { color: #e8a0a0; }
 
     /* 8. Urban Street */
-    .tc-urban .tc-browser { background: #0a0a0a; }
-    .tc-urban .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-urban .tc-browser-dot:nth-child(2){background:#febc2e}.tc-urban .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-urban .tc-browser-bar { background: #ff3d00; }
-    .tc-urban .tc-screen { background: #0d0d0d; }
+    .tc-urban .tc-preview { background: #0d0d0d; }
+    .tc-urban .tc-topbar { background: #ff3d00; color: #fff; }
     .tc-urban .tc-nav { background: #0d0d0d; color: #fff; border-bottom: 2px solid #ff3d00; font-family: 'Josefin Sans', sans-serif; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; font-size: 7px; }
     .tc-urban .tc-hero { background: linear-gradient(160deg, #2a0800 0%, #1a0500 60%, #0d0d0d 100%); }
     .tc-urban .tc-hero::before { background: radial-gradient(ellipse 80% 50% at 80% 20%, rgba(255,61,0,0.35) 0%, transparent 60%); opacity:1; }
@@ -587,10 +562,8 @@
     .tc-urban .tc-product-price { color: #ff3d00; }
 
     /* 9. Sakura */
-    .tc-sakura .tc-browser { background: #fff0f5; border-bottom: 1px solid #fce4ec; }
-    .tc-sakura .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-sakura .tc-browser-dot:nth-child(2){background:#febc2e}.tc-sakura .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-sakura .tc-browser-bar { background: #e91e8c; }
-    .tc-sakura .tc-screen { background: #fff9fb; }
+    .tc-sakura .tc-preview { background: #fff9fb; }
+    .tc-sakura .tc-topbar { background: #fce4ec; color: #c2185b; }
     .tc-sakura .tc-nav { background: #fff9fb; color: #4a1040; border-bottom: 1px solid #fce4ec; font-family: 'Raleway', sans-serif; font-weight: 600; letter-spacing: 1px; }
     .tc-sakura .tc-hero { background: linear-gradient(160deg, #fce4ec 0%, #f8bbd0 40%, #fff0f5 100%); }
     .tc-sakura .tc-hero::before { background: radial-gradient(circle at 75% 25%, rgba(233,30,140,0.12) 0%, transparent 60%); opacity:1; }
@@ -605,10 +578,8 @@
     .tc-sakura .tc-product-price { color: #e91e8c; }
 
     /* 10. Obsidian */
-    .tc-obsidian .tc-browser { background: #000; }
-    .tc-obsidian .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-obsidian .tc-browser-dot:nth-child(2){background:#febc2e}.tc-obsidian .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-obsidian .tc-browser-bar { background: #444; }
-    .tc-obsidian .tc-screen { background: #000; }
+    .tc-obsidian .tc-preview { background: #000; }
+    .tc-obsidian .tc-topbar { background: #0a0a0a; color: #555; }
     .tc-obsidian .tc-nav { background: #000; color: #fff; border-bottom: 1px solid #1a1a1a; font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; font-size: 7px; }
     .tc-obsidian .tc-hero { background: #000; }
     .tc-obsidian .tc-hero::before { background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,255,255,0.04) 0%, transparent 70%); opacity:1; }
@@ -623,10 +594,8 @@
     .tc-obsidian .tc-product-price { color: #fff; }
 
     /* 11. Tropical */
-    .tc-tropical .tc-browser { background: #053535; }
-    .tc-tropical .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-tropical .tc-browser-dot:nth-child(2){background:#febc2e}.tc-tropical .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-tropical .tc-browser-bar { background: #00e5ba; }
-    .tc-tropical .tc-screen { background: #f0fffe; }
+    .tc-tropical .tc-preview { background: #f0fffe; }
+    .tc-tropical .tc-topbar { background: #053535; color: #00e5ba; }
     .tc-tropical .tc-nav { background: #f0fffe; color: #0a4a4a; border-bottom: 1px solid #b2f5ea; font-family: 'DM Sans', sans-serif; font-weight: 700; }
     .tc-tropical .tc-hero { background: linear-gradient(160deg, #065050 0%, #084040 50%, #0a4a4a 100%); }
     .tc-tropical .tc-hero::before { background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0,229,186,0.25) 0%, transparent 55%); opacity:1; }
@@ -641,10 +610,8 @@
     .tc-tropical .tc-product-price { color: #009e7e; }
 
     /* 12. Sunset */
-    .tc-sunset .tc-browser { background: #100500; }
-    .tc-sunset .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-sunset .tc-browser-dot:nth-child(2){background:#febc2e}.tc-sunset .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-sunset .tc-browser-bar { background: #ff6b35; }
-    .tc-sunset .tc-screen { background: #100500; }
+    .tc-sunset .tc-preview { background: #100500; }
+    .tc-sunset .tc-topbar { background: #1a0800; color: #ff6b35; }
     .tc-sunset .tc-nav { background: #100500; color: #ffd480; border-bottom: 1px solid rgba(255,107,53,0.2); font-family: 'Cormorant Garamond', serif; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; }
     .tc-sunset .tc-hero { background: linear-gradient(160deg, #5a2500 0%, #3d1500 40%, #1a0800 100%); }
     .tc-sunset .tc-hero::before { background: radial-gradient(ellipse 100% 70% at 85% 0%, rgba(255,200,80,0.35) 0%, rgba(255,107,53,0.2) 40%, transparent 65%); opacity:1; }
@@ -659,10 +626,8 @@
     .tc-sunset .tc-product-price { color: #ff6b35; }
 
     /* 13. Sonic — Inspirado en Clean Tech (B&O / Apple style) */
-    .tc-sonic .tc-browser { background: #f8f9fa; border-bottom: 1px solid #e9ecef; }
-    .tc-sonic .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-sonic .tc-browser-dot:nth-child(2){background:#febc2e}.tc-sonic .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-sonic .tc-browser-bar { background: #dee2e6; }
-    .tc-sonic .tc-screen { background: #fff; }
+    .tc-sonic .tc-preview { background: #fff; }
+    .tc-sonic .tc-topbar { background: #0a0a0a; color: #aaa; }
     .tc-sonic .tc-nav { background: #fff; color: #111; border-bottom: 1px solid #efefef; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 8px; letter-spacing: 0.2px; }
     .tc-sonic .tc-hero { background: linear-gradient(180deg, #f5f6f8 0%, #eceef1 100%); }
     .tc-sonic .tc-hero::before { background: radial-gradient(ellipse 60% 80% at 85% 10%, rgba(30,30,30,0.04) 0%, transparent 65%); opacity:1; }
@@ -677,10 +642,8 @@
     .tc-sonic .tc-product-price { color: #555; }
 
     /* 14. Ritual — Inspirado en July (Skincare / Luxury Beauty) */
-    .tc-ritual .tc-browser { background: #f7f0e8; border-bottom: 1px solid #ede4d8; }
-    .tc-ritual .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-ritual .tc-browser-dot:nth-child(2){background:#febc2e}.tc-ritual .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-ritual .tc-browser-bar { background: #c9a040; }
-    .tc-ritual .tc-screen { background: #fffdf9; }
+    .tc-ritual .tc-preview { background: #fffdf9; }
+    .tc-ritual .tc-topbar { background: #f5ead8; color: #9a7030; }
     .tc-ritual .tc-nav { background: #fffdf9; color: #2a1f0a; border-bottom: 1px solid #ede4d8; font-family: 'Cormorant Garamond', serif; font-size: 9px; letter-spacing: 1.5px; font-weight: 600; }
     .tc-ritual .tc-hero { background: linear-gradient(170deg, #f5ead8 0%, #f0e0c8 50%, #faf4ea 100%); }
     .tc-ritual .tc-hero::before { background: radial-gradient(ellipse 90% 70% at 80% 10%, rgba(201,160,64,0.2) 0%, transparent 60%); opacity:1; }
@@ -695,10 +658,8 @@
     .tc-ritual .tc-product-price { color: #9a7030; }
 
     /* 15. Vogue — Inspirado en ModeMosaic (Fashion / Activewear) */
-    .tc-vogue .tc-browser { background: #f8f8f8; border-bottom: 1px solid #eee; }
-    .tc-vogue .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-vogue .tc-browser-dot:nth-child(2){background:#febc2e}.tc-vogue .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-vogue .tc-browser-bar { background: #ccc; }
-    .tc-vogue .tc-screen { background: #fff; }
+    .tc-vogue .tc-preview { background: #fff; }
+    .tc-vogue .tc-topbar { background: #f0f0f0; color: #4a2030; }
     .tc-vogue .tc-nav { background: #fff; color: #1a1a1a; border-bottom: 1px solid #f0f0f0; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 8px; letter-spacing: 0.3px; }
     .tc-vogue .tc-hero { background: linear-gradient(175deg, #f7f7f7 0%, #efefef 100%); }
     .tc-vogue .tc-hero::before { background: radial-gradient(ellipse 70% 50% at 20% 80%, rgba(74,32,48,0.05) 0%, transparent 60%); opacity:1; }
@@ -713,10 +674,8 @@
     .tc-vogue .tc-product-price { color: #4a2030; font-weight: 700; }
 
     /* 16. Pulse — Inspirado en Athora (Activewear / Sport premium) */
-    .tc-pulse .tc-browser { background: #3d1a28; }
-    .tc-pulse .tc-browser-dot:nth-child(1){background:#ff5f57}.tc-pulse .tc-browser-dot:nth-child(2){background:#febc2e}.tc-pulse .tc-browser-dot:nth-child(3){background:#28c840}
-    .tc-pulse .tc-browser-bar { background: #c87090; }
-    .tc-pulse .tc-screen { background: #faf9f7; }
+    .tc-pulse .tc-preview { background: #faf9f7; }
+    .tc-pulse .tc-topbar { background: #3d1a28; color: #f0c0d0; }
     .tc-pulse .tc-nav { background: #fff; color: #1a1a1a; border: 1px solid #e8e8e8; border-radius: 20px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 8px; margin: 4px; }
     .tc-pulse .tc-hero { background: linear-gradient(160deg, #4a2030 0%, #3d1a28 50%, #2a1020 100%); }
     .tc-pulse .tc-hero::before { background: radial-gradient(ellipse 80% 60% at 70% 20%, rgba(255,255,255,0.08) 0%, transparent 55%); opacity:1; }
@@ -2528,11 +2487,8 @@ function renderThemeGrid() {
     html += `
     <div class="theme-card tc-${t.id}${isSelected ? ' selected' : ''}" data-theme="${t.id}" onclick="selectTheme('${t.id}',this)">
       <div class="tc-check">✓</div>
-      <div class="tc-browser">
-        <div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div>
-        <div class="tc-browser-bar"></div>
-      </div>
-      <div class="tc-screen">
+      <div class="tc-preview">
+        <div class="tc-topbar">FREE SHIPPING OVER $200</div>
         <div class="tc-nav">
           ${nav.logo}
           <div class="tc-nav-links"><span>${nav.links[0]}</span><span>${nav.links[1]}</span><span>${nav.links[2]}</span></div>
