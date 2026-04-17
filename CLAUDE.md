@@ -1,175 +1,73 @@
-# CLAUDE.md - Automate Onboarding Portal
+# Automate Onboarding Portal
 
-## Project Overview
+Portal de onboarding para clientes de Automate. Permite configurar una tienda Shopify en 6 pasos con preview en vivo.
 
-Premium self-service onboarding portal for Automate eCommerce agency. Clients configure their Shopify store in 5 guided steps with real-time brand preview and luxury design.
+## Stack
 
-## Tech Stack
+- Next.js 15 (App Router) + TypeScript
+- Tailwind CSS + Framer Motion
+- Zustand (estado global)
 
-- **Framework**: Next.js 15 (App Router)
-- **Styling**: Tailwind CSS 3
-- **Animations**: Framer Motion 11
-- **State**: Zustand 4
-- **Forms**: react-hook-form 7
-- **Language**: TypeScript
+## Arrancar el proyecto
 
-## Architecture Principles
+```bash
+npm install
+npm run dev   # http://localhost:3000
+```
 
-1. **Modular Components**: Each step is a separate component in `src/components/steps/`
-2. **Zustand for State**: Global state in `stores/brandStore.ts`
-3. **Type Safety**: Full TypeScript in `src/types/index.ts`
-4. **Constants Over Magic Strings**: Colors in `constants/colors.ts`, typography in `constants/typography.ts`
-5. **Framer Motion for UX**: All transitions smooth with Framer Motion
+No necesitas variables de entorno para trabajar en el frontend. Solo son necesarias para el botón de Google Drive en Step 5.
 
-## File Structure
+## Estructura clave
 
 ```
 src/
-├── app/               # Next.js App Router
-├── components/        # React components
-│   ├── Stepper.tsx
-│   ├── LivePreview.tsx
-│   ├── OnboardingLayout.tsx
-│   └── steps/         # Step-specific forms
-├── stores/            # Zustand store
-├── hooks/             # Custom React hooks
-├── types/             # TypeScript definitions
-├── constants/         # Static data (colors, typography)
-└── styles/            # Global CSS
+├── app/
+│   ├── page.tsx                    # Entry point
+│   └── api/catalog/setup/route.ts  # API Google Drive (no tocar)
+├── components/
+│   ├── OnboardingLayout.tsx        # Layout principal con header + grid
+│   ├── Stepper.tsx                 # Barra de progreso (mobile + desktop)
+│   ├── LivePreview.tsx             # Preview iPhone sticky (solo desktop)
+│   └── steps/
+│       ├── Step1Welcome.tsx        # Nombre tienda, URL Shopify, industria
+│       ├── Step2Brand.tsx          # Temas, paletas, tipografía
+│       ├── Step3Plan.tsx           # Planes Starter / Growth / Scale
+│       ├── Step4Apps.tsx           # Marketplace de apps
+│       ├── Step5Content.tsx        # Tono de voz + catálogo Drive
+│       └── Step6Access.tsx         # Email, WhatsApp, resumen y envío
+├── stores/
+│   └── brandStore.ts              # Estado global con Zustand (todos los pasos)
+└── constants/
+    ├── themes.ts      # 16 temas visuales con colores
+    ├── palettes.ts    # 20 paletas de colores
+    ├── fonts.ts       # 8 tipografías
+    ├── plans.ts       # 3 planes con precios COP
+    ├── apps.ts        # 10 apps del marketplace
+    └── industries.ts  # Contenido por industria (imágenes, productos)
 ```
 
-## Key Components
+## Flujo de navegación
 
-### Stepper
-- Shows progress (1-5)
-- Visual feedback on current step
-- Desktop and mobile versions
-- Animated connecting lines
-
-### LivePreview
-- iPhone mockup showing real-time preview
-- Updates when color palette or typography changes
-- Shows store name and logo
-- Sticky positioning on desktop
-
-### Step Components
-- One per step (Step1Welcome, Step2Brand, etc.)
-- Use react-hook-form for validation
-- Update Zustand store on change
-- Animated entrance/exit with Framer Motion
-
-### OnboardingLayout
-- Main container integrating Stepper + Steps + LivePreview
-- Renders current step via renderStep()
-- Three-column layout (hidden LivePreview on mobile)
-
-## State Management Pattern
-
-```tsx
-// Access store
-const { config, setStoreName, nextStep } = useBrandStore();
-
-// Or use wrapper hook
-const { config, setStoreName } = useBrand();
-
-// Subscribe to specific values
-const storeName = useBrandStore((s) => s.storeName);
+```
+Step1 → Step2 → Step3 → Step4 → Step5 → Step6 → Success
 ```
 
-## Development Workflow
+La navegación está en `brandStore.ts` con `nextStep()` / `previousStep()`.
 
-1. **Add new Step**: Create file in `src/components/steps/StepXName.tsx`
-2. **Register Step**: Add case to `renderStep()` in `OnboardingLayout.tsx`
-3. **Update Types**: Add to `src/types/index.ts` if needed
-4. **Test**: Check state updates and LivePreview reflection
+## Cómo agregar o modificar algo
 
-## Styling Guidelines
+- **Cambiar un paso**: editar el archivo en `src/components/steps/`
+- **Nuevo campo en el formulario**: agregarlo en `brandStore.ts` (estado + acción) y usarlo en el step correspondiente
+- **Cambiar precios o planes**: editar `src/constants/plans.ts`
+- **Agregar apps**: editar `src/constants/apps.ts`
+- **Cambiar temas**: editar `src/constants/themes.ts`
 
-- Use Tailwind utilities; avoid inline styles
-- Luxury aesthetic: soft shadows, rounded corners, elegant spacing
-- Typography: minimal (Inter), elegant (Playfair), modern (Montserrat)
-- Color palettes: defined in `constants/colors.ts`
-- Shadows: use `shadow-luxury-sm|md|lg|xl`
-- Animations: Framer Motion preferred over CSS animations
+## Tarea pendiente principal
 
-## Form Validation
+`Step6Access.tsx` tiene el submit del formulario con `console.log`. Hay que conectarlo a un backend real (email de confirmación, base de datos, CRM, etc.).
 
-Use react-hook-form:
-```tsx
-const { register, errors, watch, handleSubmit } = useForm({
-  defaultValues: { /* initial values */ }
-});
+## Lo que NO tocar
 
-<input {...register('fieldName', { required: '...' })} />
-{errors.fieldName && <span>{errors.fieldName.message}</span>}
-```
-
-## Color Palettes
-
-- **Midnight Gold**: Dark luxury (primary: #0f0f0b, accent: #d4af37)
-- **Clean Tech**: Bright minimal (primary: #fff, accent: #0066ff)
-- **Nordic Rose**: Dark modern (primary: #1a1a2e, accent: #e94b6d)
-- **Cyber Silver**: Tech forward (primary: #0a0e27, accent: #a0aec0)
-
-Add new palettes in `src/constants/colors.ts`.
-
-## Animation Patterns
-
-```tsx
-// Fade in on load
-<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
-
-// Slide in from bottom
-<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} />
-
-// Button hover/tap
-<motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} />
-```
-
-## Performance Notes
-
-- LivePreview is hidden on mobile (`hidden lg:block`)
-- Image files should be optimized before upload
-- Use Next.js Image component for static assets
-- Avoid re-renders with proper selector usage in Zustand
-
-## Deployment
-
-Build command: `npm run build`
-Start command: `npm start`
-
-Environment variables in `.env.local`:
-- `NEXT_PUBLIC_API_URL`: API endpoint for form submission
-
-## Future Enhancements
-
-- [ ] Step 2: Color and typography picker implementation
-- [ ] Step 3: Enhanced preview with custom theme
-- [ ] Step 4: File upload with validation
-- [ ] Step 5: API key and collaborator management
-- [ ] Form persistence (localStorage or database)
-- [ ] Email verification
-- [ ] Multi-language support
-- [ ] Dark mode toggle
-- [ ] Analytics integration
-
-## Rules
-
-1. Always use `'use client'` at top of client components
-2. Keep components under 300 lines; split if larger
-3. All async operations should have loading/error states
-4. Use proper TypeScript types; avoid `any`
-5. Zustand selectors should be stable (defined outside render)
-6. Framer Motion: prefer `initial`/`animate` over CSS
-7. Test on mobile (375px) and desktop (1280px)
-8. Use semantic HTML where possible
-9. All strings in `constants/` unless user-generated
-10. No hardcoded colors; use `constants/colors.ts`
-
-## Notes
-
-- Portal must feel premium and modern
-- Every interaction should have smooth animation
-- Mobile-first approach but optimize for desktop
-- User data should be validated before submission
-- Error messages should be helpful and specific
+- `src/app/api/catalog/setup/route.ts` — integración Google Drive, ya funciona
+- `src/components/LivePreview.tsx` — preview del iPhone, ya funciona
+- `templates/plantilla-productos-automate.xlsx` — plantilla del cliente
