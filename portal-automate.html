@@ -338,21 +338,23 @@
       min-height: 170px;
       overflow: hidden;
     }
-    /* Decorative shapes to simulate photo content */
+    .tc-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
     .tc-hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      opacity: 0.18;
-    }
-    .tc-hero-shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.12;
+      z-index: 1;
+      opacity: 0.62;
     }
     .tc-hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
     .tc-hero-eyebrow {
       font-size: 7px; font-weight: 700;
@@ -388,9 +390,15 @@
     }
     .tc-product { border-radius: 5px; overflow: hidden; }
     .tc-product-img {
-      height: 44px;
+      height: 56px;
       display: flex; align-items: center; justify-content: center;
       font-size: 18px;
+      overflow: hidden;
+    }
+    .tc-product-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .tc-product-info { padding: 4px 5px 5px; }
     .tc-product-name { font-size: 6px; font-weight: 600; line-height: 1.3; }
@@ -1675,359 +1683,8 @@
         <!-- ── THEMES ── -->
         <div class="form-group">
           <span class="themes-section-label">Tema Visual <span style="font-weight:400;color:#888;font-size:12px;">— elige el estilo que representa tu marca</span></span>
-          <div class="theme-grid">
-
-            <!-- 1. Elegance -->
-            <div class="theme-card tc-elegance" data-theme="elegance" onclick="selectTheme('elegance',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">ÉLITE STORE <div class="tc-nav-links"><span>Colección</span><span>Nosotros</span><span>Contacto</span></div><div class="tc-nav-icons"><span>♡</span><span>👤</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">NUEVA COLECCIÓN</div><div class="tc-hero-title">Lujo que<br>te define.</div><div class="tc-hero-cta">Explorar ahora →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Productos destacados</span><span class="tc-featured-viewall">Ver todo</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">💍</div><div class="tc-product-info"><div class="tc-product-name">Collar Oro 18k</div><div class="tc-product-price">$189.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">⌚</div><div class="tc-product-info"><div class="tc-product-name">Reloj Elite</div><div class="tc-product-price">$450.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">💎</div><div class="tc-product-info"><div class="tc-product-name">Pulsera Gold</div><div class="tc-product-price">$95.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">📿</div><div class="tc-product-info"><div class="tc-product-name">Set Gargantilla</div><div class="tc-product-price">$220.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Elegance</h4><p>Oscuro · Lujo · Gold</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag popular">⭐ Popular</span><span class="tc-tag">Joyería</span><span class="tc-tag">Moda</span></div></div>
-            </div>
-
-            <!-- 2. Minimal Pro -->
-            <div class="theme-card tc-minimal" data-theme="minimal" onclick="selectTheme('minimal',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">MINIMAL STORE <div class="tc-nav-links"><span>Shop</span><span>About</span><span>Blog</span></div><div class="tc-nav-icons"><span>🔍</span><span>👤</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">NEW ARRIVALS</div><div class="tc-hero-title">Clean.<br>Modern. You.</div><div class="tc-hero-cta">Shop now →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Featured products</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">👟</div><div class="tc-product-info"><div class="tc-product-name">Sneaker Classic</div><div class="tc-product-price">$220.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👜</div><div class="tc-product-info"><div class="tc-product-name">Tote Bag</div><div class="tc-product-price">$185.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🧢</div><div class="tc-product-info"><div class="tc-product-name">Cap Essential</div><div class="tc-product-price">$65.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🧣</div><div class="tc-product-info"><div class="tc-product-name">Scarf Wool</div><div class="tc-product-price">$95.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Minimal Pro</h4><p>Blanco · Limpio · Moderno</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Recomendado</span><span class="tc-tag">Moda</span><span class="tc-tag">Tech</span></div></div>
-            </div>
-
-            <!-- 3. Bold Shop -->
-            <div class="theme-card tc-bold" data-theme="bold" onclick="selectTheme('bold',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">BOLD STORE <div class="tc-nav-links"><span>SHOP</span><span>SALE</span><span>NEW IN</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">HOT DROPS</div><div class="tc-hero-title">BOLD.<br>FEARLESS.</div><div class="tc-hero-cta">GET IT NOW</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Trending now</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🎮</div><div class="tc-product-info"><div class="tc-product-name">Controller Pro</div><div class="tc-product-price">$320.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🎧</div><div class="tc-product-info"><div class="tc-product-name">Headset RGB</div><div class="tc-product-price">$280.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">📱</div><div class="tc-product-info"><div class="tc-product-name">Phone Case</div><div class="tc-product-price">$45.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">⌨️</div><div class="tc-product-info"><div class="tc-product-name">Keyboard</div><div class="tc-product-price">$450.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Bold Shop</h4><p>Oscuro · Vibrante · Energético</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag">Gaming</span><span class="tc-tag">Electrónica</span></div></div>
-            </div>
-
-            <!-- 4. Nordic -->
-            <div class="theme-card tc-nordic" data-theme="nordic" onclick="selectTheme('nordic',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">NORDIC <div class="tc-nav-links"><span>Shop</span><span>Story</span><span>Journal</span></div><div class="tc-nav-icons"><span>♡</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">ARTISAN GOODS</div><div class="tc-hero-title">Simple.<br>Beautiful.</div><div class="tc-hero-cta">Discover →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Featured products</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🕯️</div><div class="tc-product-info"><div class="tc-product-name">Candle Set</div><div class="tc-product-price">$58.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🪴</div><div class="tc-product-info"><div class="tc-product-name">Maceta</div><div class="tc-product-price">$72.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🧺</div><div class="tc-product-info"><div class="tc-product-name">Canasta</div><div class="tc-product-price">$90.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🫖</div><div class="tc-product-info"><div class="tc-product-name">Tea Set</div><div class="tc-product-price">$125.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Nordic</h4><p>Crema · Suave · Artesanal</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag">Hogar</span><span class="tc-tag">Bienestar</span></div></div>
-            </div>
-
-            <!-- 5. Jewel Box -->
-            <div class="theme-card tc-jewel" data-theme="jewel" onclick="selectTheme('jewel',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">JEWEL BOX <div class="tc-nav-links"><span>Colección</span><span>Ediciones</span><span>Gift</span></div><div class="tc-nav-icons"><span>♡</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">HAUTE COUTURE</div><div class="tc-hero-title">Piezas únicas<br>para ti.</div><div class="tc-hero-cta">Ver Colección</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Piezas destacadas</span><span class="tc-featured-viewall">Ver todo</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">💜</div><div class="tc-product-info"><div class="tc-product-name">Amatista</div><div class="tc-product-price">$340.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">💍</div><div class="tc-product-info"><div class="tc-product-name">Anillo Gold</div><div class="tc-product-price">$215.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">📿</div><div class="tc-product-info"><div class="tc-product-name">Collar</div><div class="tc-product-price">$175.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👑</div><div class="tc-product-info"><div class="tc-product-name">Crown Set</div><div class="tc-product-price">$480.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Jewel Box</h4><p>Púrpura · Exclusivo · Misterioso</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Nuevo</span><span class="tc-tag">Joyería</span></div></div>
-            </div>
-
-            <!-- 6. Fresh & Clean -->
-            <div class="theme-card tc-fresh" data-theme="fresh" onclick="selectTheme('fresh',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">FRESH CO. <div class="tc-nav-links"><span>Tienda</span><span>Blog</span><span>Contacto</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">100% NATURAL</div><div class="tc-hero-title">Fresco.<br>Natural. Tú.</div><div class="tc-hero-cta">Comprar ahora</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Más vendidos</span><span class="tc-featured-viewall">Ver todo</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🌿</div><div class="tc-product-info"><div class="tc-product-name">Skincare Kit</div><div class="tc-product-price">$85.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🍃</div><div class="tc-product-info"><div class="tc-product-name">Serum Vit C</div><div class="tc-product-price">$120.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🧴</div><div class="tc-product-info"><div class="tc-product-name">Tónico</div><div class="tc-product-price">$68.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🫧</div><div class="tc-product-info"><div class="tc-product-name">Cleanser</div><div class="tc-product-price">$55.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Fresh &amp; Clean</h4><p>Verde · Natural · Orgánico</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag">Belleza</span><span class="tc-tag">Salud</span></div></div>
-            </div>
-
-            <!-- 7. Rose Gold -->
-            <div class="theme-card tc-rose" data-theme="rose" onclick="selectTheme('rose',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">ROSE STUDIO <div class="tc-nav-links"><span>Looks</span><span>Nosotros</span><span>Tienda</span></div><div class="tc-nav-icons"><span>♡</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">NUEVA TEMPORADA</div><div class="tc-hero-title">Femenino.<br>Poderoso.</div><div class="tc-hero-cta">Ver Looks →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Trending pieces</span><span class="tc-featured-viewall">Ver todo</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">👒</div><div class="tc-product-info"><div class="tc-product-name">Sombrero</div><div class="tc-product-price">$95.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">💄</div><div class="tc-product-info"><div class="tc-product-name">Labial Rose</div><div class="tc-product-price">$48.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🌸</div><div class="tc-product-info"><div class="tc-product-name">Perfume</div><div class="tc-product-price">$145.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">💅</div><div class="tc-product-info"><div class="tc-product-name">Nail Set</div><div class="tc-product-price">$38.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Rose Gold</h4><p>Rosa oscuro · Femenino · Elegante</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag popular">⭐ Popular</span><span class="tc-tag">Moda</span></div></div>
-            </div>
-
-            <!-- 8. Urban Street -->
-            <div class="theme-card tc-urban" data-theme="urban" onclick="selectTheme('urban',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">URBAN DROP <div class="tc-nav-links"><span>NEW</span><span>SALE</span><span>DROPS</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">LIMITED DROP</div><div class="tc-hero-title">STREET.<br>CULTURE.</div><div class="tc-hero-cta">SHOP THE DROP</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">LATEST DROPS</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🧥</div><div class="tc-product-info"><div class="tc-product-name">Drop Hoodie</div><div class="tc-product-price">$180.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👕</div><div class="tc-product-info"><div class="tc-product-name">Graphic Tee</div><div class="tc-product-price">$85.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👟</div><div class="tc-product-info"><div class="tc-product-name">Kicks</div><div class="tc-product-price">$320.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🧤</div><div class="tc-product-info"><div class="tc-product-name">Gloves</div><div class="tc-product-price">$55.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Urban Street</h4><p>Negro · Rojo · Streetwear</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag">Streetwear</span><span class="tc-tag">Drops</span></div></div>
-            </div>
-
-            <!-- 9. Sakura -->
-            <div class="theme-card tc-sakura" data-theme="sakura" onclick="selectTheme('sakura',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">さくら STORE <div class="tc-nav-links"><span>Colección</span><span>Gift</span><span>Blog</span></div><div class="tc-nav-icons"><span>♡</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">SPRING 2025</div><div class="tc-hero-title">Delicado.<br>Especial.</div><div class="tc-hero-cta">Ver colección →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Más amados</span><span class="tc-featured-viewall">Ver todo</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🌸</div><div class="tc-product-info"><div class="tc-product-name">Sakura Parfum</div><div class="tc-product-price">$145.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🎀</div><div class="tc-product-info"><div class="tc-product-name">Gift Set</div><div class="tc-product-price">$210.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🍡</div><div class="tc-product-info"><div class="tc-product-name">Sweet Box</div><div class="tc-product-price">$42.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🫶</div><div class="tc-product-info"><div class="tc-product-name">Love Kit</div><div class="tc-product-price">$88.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Sakura</h4><p>Rosa pastel · Kawaii · Gift</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Nuevo</span><span class="tc-tag">K-Beauty</span><span class="tc-tag">Gift</span></div></div>
-            </div>
-
-            <!-- 10. Obsidian -->
-            <div class="theme-card tc-obsidian" data-theme="obsidian" onclick="selectTheme('obsidian',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">OBSIDIAN <div class="tc-nav-links"><span>SHOP</span><span>ABOUT</span><span>PRESS</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">EXCLUSIVE</div><div class="tc-hero-title">PURE.<br>NOTHING ELSE.</div><div class="tc-hero-cta">ENTER STORE</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">SELECTED</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">⌚</div><div class="tc-product-info"><div class="tc-product-name">Watch No.1</div><div class="tc-product-price">$890.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">💼</div><div class="tc-product-info"><div class="tc-product-name">Brief Bag</div><div class="tc-product-price">$650.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👔</div><div class="tc-product-info"><div class="tc-product-name">Silk Tie</div><div class="tc-product-price">$185.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🖤</div><div class="tc-product-info"><div class="tc-product-name">Case</div><div class="tc-product-price">$120.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Obsidian</h4><p>Negro puro · Ultra minimalista</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag popular">⭐ Premium</span><span class="tc-tag">Lujo</span></div></div>
-            </div>
-
-            <!-- 11. Tropical -->
-            <div class="theme-card tc-tropical" data-theme="tropical" onclick="selectTheme('tropical',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">TROPICAL CO. <div class="tc-nav-links"><span>Tienda</span><span>Lookbook</span><span>Blog</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">SUMMER VIBES</div><div class="tc-hero-title">Vive el<br>verano.</div><div class="tc-hero-cta">Explorar →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Más vendidos</span><span class="tc-featured-viewall">Ver todo</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🏖️</div><div class="tc-product-info"><div class="tc-product-name">Beach Set</div><div class="tc-product-price">$180.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🌊</div><div class="tc-product-info"><div class="tc-product-name">Surf Board</div><div class="tc-product-price">$320.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🥥</div><div class="tc-product-info"><div class="tc-product-name">Natural Oil</div><div class="tc-product-price">$65.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🩴</div><div class="tc-product-info"><div class="tc-product-name">Sandals</div><div class="tc-product-price">$125.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Tropical</h4><p>Verde agua · Verano · Fresco</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Nuevo</span><span class="tc-tag">Playa</span><span class="tc-tag">Sport</span></div></div>
-            </div>
-
-            <!-- 12. Sunset -->
-            <div class="theme-card tc-sunset" data-theme="sunset" onclick="selectTheme('sunset',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">SUNSET <div class="tc-nav-links"><span>Colección</span><span>Story</span><span>Gift</span></div><div class="tc-nav-icons"><span>♡</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">EDICIÓN LIMITADA</div><div class="tc-hero-title">Cálido.<br>Atemporal.</div><div class="tc-hero-cta">Ver ahora →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Colección destacada</span><span class="tc-featured-viewall">Ver todo</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🌅</div><div class="tc-product-info"><div class="tc-product-name">Art Print</div><div class="tc-product-price">$78.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🕯️</div><div class="tc-product-info"><div class="tc-product-name">Vela Ámbar</div><div class="tc-product-price">$92.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🧡</div><div class="tc-product-info"><div class="tc-product-name">Gift Box</div><div class="tc-product-price">$165.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🫙</div><div class="tc-product-info"><div class="tc-product-name">Honey Jar</div><div class="tc-product-price">$48.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Sunset</h4><p>Naranja · Dorado · Cálido</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag">Lifestyle</span><span class="tc-tag">Hogar</span></div></div>
-            </div>
-
-            <!-- 13. Sonic -->
-            <div class="theme-card tc-sonic" data-theme="sonic" onclick="selectTheme('sonic',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">SONIC <div class="tc-nav-links"><span>Shop</span><span>Collections</span><span>Compare</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">NEW COLLECTION</div><div class="tc-hero-title">Precision.<br>Reimagined.</div><div class="tc-hero-cta">Shop now →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Best Sellers</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🎧</div><div class="tc-product-info"><div class="tc-product-name">Pro Max</div><div class="tc-product-price">$499.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🔈</div><div class="tc-product-info"><div class="tc-product-name">Speaker X</div><div class="tc-product-price">$320.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">⌚</div><div class="tc-product-info"><div class="tc-product-name">Watch S</div><div class="tc-product-price">$680.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">📱</div><div class="tc-product-info"><div class="tc-product-name">Case Pro</div><div class="tc-product-price">$89.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Sonic</h4><p>Blanco puro · Tech · Apple style</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Nuevo</span><span class="tc-tag">Tech</span><span class="tc-tag">Gadgets</span></div></div>
-            </div>
-
-            <!-- 14. Ritual -->
-            <div class="theme-card tc-ritual" data-theme="ritual" onclick="selectTheme('ritual',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">RITUAL <div class="tc-nav-links"><span>Shop</span><span>Rituals</span><span>About</span></div><div class="tc-nav-icons"><span>♡</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">SKIN ESSENTIALS</div><div class="tc-hero-title">Luxury<br>redefined.</div><div class="tc-hero-cta">Discover →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">The Ritual Edit</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🧴</div><div class="tc-product-info"><div class="tc-product-name">Daily Serum</div><div class="tc-product-price">$128.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🫙</div><div class="tc-product-info"><div class="tc-product-name">Gold Cream</div><div class="tc-product-price">$165.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">💛</div><div class="tc-product-info"><div class="tc-product-name">Glow Oil</div><div class="tc-product-price">$98.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🌿</div><div class="tc-product-info"><div class="tc-product-name">Ritual Kit</div><div class="tc-product-price">$310.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Ritual</h4><p>Crema · Dorado · Skincare luxury</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Nuevo</span><span class="tc-tag">Beauty</span><span class="tc-tag">Skincare</span></div></div>
-            </div>
-
-            <!-- 15. Vogue -->
-            <div class="theme-card tc-vogue" data-theme="vogue" onclick="selectTheme('vogue',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">VOGUE <div class="tc-nav-links"><span>Shop</span><span>New In</span><span>Sale</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">SS 2025</div><div class="tc-hero-title">Wear your<br>story.</div><div class="tc-hero-cta">Shop now →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">New Arrivals</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">👗</div><div class="tc-product-info"><div class="tc-product-name">Midi Dress</div><div class="tc-product-price">$180.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👚</div><div class="tc-product-info"><div class="tc-product-name">Flow Top</div><div class="tc-product-price">$120.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👖</div><div class="tc-product-info"><div class="tc-product-name">Wide Leg</div><div class="tc-product-price">$145.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">👜</div><div class="tc-product-info"><div class="tc-product-name">Mini Bag</div><div class="tc-product-price">$210.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Vogue</h4><p>Blanco · Vino · Fashion forward</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Nuevo</span><span class="tc-tag">Moda</span><span class="tc-tag">Activewear</span></div></div>
-            </div>
-
-            <!-- 16. Pulse -->
-            <div class="theme-card tc-pulse" data-theme="pulse" onclick="selectTheme('pulse',this)">
-              <div class="tc-check">✓</div>
-              <div class="tc-browser"><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-bar"></div></div>
-              <div class="tc-screen">
-                <div class="tc-nav">PULSE <div class="tc-nav-links"><span>Shop</span><span>Collections</span><span>Blog</span></div><div class="tc-nav-icons"><span>🔍</span><span>🛒</span></div></div>
-                <div class="tc-hero">
-                  <div class="tc-hero-content"><div class="tc-hero-eyebrow">PERFORMANCE</div><div class="tc-hero-title">Move with<br>purpose.</div><div class="tc-hero-cta">Shop collection →</div></div>
-                </div>
-                <div class="tc-featured">
-                  <div class="tc-featured-header"><span class="tc-featured-label">Top Picks</span><span class="tc-featured-viewall">View all</span></div>
-                  <div class="tc-products">
-                    <div class="tc-product"><div class="tc-product-img">🏃</div><div class="tc-product-info"><div class="tc-product-name">Run Pro</div><div class="tc-product-price">$195.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🧘</div><div class="tc-product-info"><div class="tc-product-name">Yoga Set</div><div class="tc-product-price">$165.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">💪</div><div class="tc-product-info"><div class="tc-product-name">Fit Tank</div><div class="tc-product-price">$89.000</div></div></div>
-                    <div class="tc-product"><div class="tc-product-img">🩳</div><div class="tc-product-info"><div class="tc-product-name">Swift Short</div><div class="tc-product-price">$112.000</div></div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="tc-meta"><div class="tc-meta-top"><div class="tc-meta-left"><h4>Pulse</h4><p>Vino · Crema · Sport premium</p></div><button class="tc-meta-btn">Elegir</button></div><div class="tc-tags"><span class="tc-tag new">✦ Nuevo</span><span class="tc-tag">Sport</span><span class="tc-tag">Athleisure</span></div></div>
-            </div>
+          <div class="theme-grid" id="theme-grid">
+            <!-- Rendered dynamically by renderThemeGrid() -->
 
           </div>
         </div>
@@ -2592,6 +2249,7 @@ function goToStep(targetStep) {
     renderProgressDots(targetStep);
 
     // Refresh dynamic content
+    if (targetStep === 2) renderThemeGrid();
     if (targetStep === 4) renderAppsGrid();
     if (targetStep === 6) renderOrderSummaryInline();
 
@@ -2720,6 +2378,192 @@ function selectTheme(themeKey, el) {
   updatePreview();
   saveToLocalStorage();
   showToast(`Tema "${THEMES[themeKey].name}" seleccionado ✓`, 'success');
+}
+
+/* ═══════════════════════════════════════════
+   INDUSTRY IMAGES — Unsplash curated sets
+═══════════════════════════════════════════ */
+const INDUSTRY_CONTENT = {
+  jewelry: {
+    hero: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=200&q=80', name: 'Gold Ring', price: '$189.000' },
+      { img: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=200&q=80', name: 'Pearl Necklace', price: '$245.000' },
+      { img: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=200&q=80', name: 'Earrings', price: '$98.000' },
+      { img: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=200&q=80', name: 'Bracelet', price: '$135.000' },
+    ],
+    eyebrow: 'NUEVA COLECCIÓN', title: 'Joyas que\nhablan.', cta: 'Ver colección →'
+  },
+  fashion: {
+    hero: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80', name: 'Classic Tee', price: '$89.000' },
+      { img: 'https://images.unsplash.com/photo-1588099768531-a72d4a198538?w=200&q=80', name: 'Denim Jacket', price: '$210.000' },
+      { img: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=200&q=80', name: 'Hoodie', price: '$145.000' },
+      { img: 'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=200&q=80', name: 'Cap', price: '$65.000' },
+    ],
+    eyebrow: 'SS 2025', title: 'Viste tu\nestilo.', cta: 'Explorar →'
+  },
+  electronics: {
+    hero: 'https://images.unsplash.com/photo-1491933382434-500287f9b54b?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80', name: 'Headphones', price: '$320.000' },
+      { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80', name: 'Smart Watch', price: '$480.000' },
+      { img: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=200&q=80', name: 'Speaker', price: '$195.000' },
+      { img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=200&q=80', name: 'Sunglasses', price: '$120.000' },
+    ],
+    eyebrow: 'TECH DROP', title: 'Sound.\nRedefined.', cta: 'Shop now →'
+  },
+  home: {
+    hero: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=200&q=80', name: 'Candle Set', price: '$75.000' },
+      { img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=80', name: 'Sofa Cushion', price: '$110.000' },
+      { img: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=200&q=80', name: 'Wall Art', price: '$145.000' },
+      { img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80', name: 'Vase', price: '$88.000' },
+    ],
+    eyebrow: 'HOGAR', title: 'Tu espacio,\ntu estilo.', cta: 'Ver colección →'
+  },
+  beauty: {
+    hero: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
+      { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Face Serum', price: '$128.000' },
+      { img: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=200&q=80', name: 'Moisturizer', price: '$95.000' },
+      { img: 'https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=200&q=80', name: 'Palette', price: '$175.000' },
+    ],
+    eyebrow: 'BEAUTY EDIT', title: 'Brilla.\nSiempre.', cta: 'Discover →'
+  },
+  food: {
+    hero: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=200&q=80', name: 'Gift Basket', price: '$145.000' },
+      { img: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=200&q=80', name: 'Artisan Bread', price: '$28.000' },
+      { img: 'https://images.unsplash.com/photo-1548365328-8c6db3220e4c?w=200&q=80', name: 'Honey Jar', price: '$48.000' },
+      { img: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=200&q=80', name: 'Spice Set', price: '$65.000' },
+    ],
+    eyebrow: 'ARTISAN', title: 'Sabor con\npropósito.', cta: 'Ver productos →'
+  },
+  sports: {
+    hero: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1562183241-b937e95585b6?w=200&q=80', name: 'Sports Bra', price: '$95.000' },
+      { img: 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=200&q=80', name: 'Leggings', price: '$125.000' },
+      { img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80', name: 'Running Shoe', price: '$280.000' },
+      { img: 'https://images.unsplash.com/photo-1518459031867-a89b944bffe4?w=200&q=80', name: 'Gym Bag', price: '$115.000' },
+    ],
+    eyebrow: 'PERFORMANCE', title: 'Move with\npurpose.', cta: 'Shop now →'
+  },
+  other: {
+    hero: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=600&q=80',
+    products: [
+      { img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=200&q=80', name: 'Product 1', price: '$89.000' },
+      { img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=200&q=80', name: 'Product 2', price: '$120.000' },
+      { img: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=200&q=80', name: 'Product 3', price: '$75.000' },
+      { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80', name: 'Product 4', price: '$95.000' },
+    ],
+    eyebrow: 'NUEVA LLEGADA', title: 'Tu tienda,\ntu mundo.', cta: 'Explorar →'
+  }
+};
+
+const THEME_DEFS = [
+  { id:'elegance', name:'Elegance',    desc:'Dark gold · Serif · Lujo',        tags:['Popular','Joyería','Lujo'],   badge:'popular' },
+  { id:'minimal',  name:'Minimal Pro', desc:'Blanco · Azul · Minimalista',      tags:['Tech','SaaS','Clean'],        badge:'' },
+  { id:'bold',     name:'Bold Shop',   desc:'Dark · Ámbar · Fuerte',           tags:['Streetwear','Bold'],          badge:'' },
+  { id:'nordic',   name:'Nordic',      desc:'Crema · Arena · Natural',          tags:['Hogar','Lifestyle'],          badge:'' },
+  { id:'jewel',    name:'Jewel Box',   desc:'Púrpura · Coral · Premium',       tags:['Moda','Premium'],             badge:'' },
+  { id:'fresh',    name:'Fresh & Clean',desc:'Verde · Blanco · Orgánico',       tags:['Eco','Salud'],                badge:'' },
+  { id:'rose',     name:'Rose Gold',   desc:'Rosa · Dorado · Femenino',        tags:['Beauty','Femenino'],          badge:'' },
+  { id:'urban',    name:'Urban Street',desc:'Negro · Rojo · Urban',            tags:['Streetwear','Urban'],         badge:'' },
+  { id:'sakura',   name:'Sakura',      desc:'Rosa pastel · Kawaii · Gift',      tags:['nuevo','K-Beauty','Gift'],    badge:'new' },
+  { id:'obsidian', name:'Obsidian',    desc:'Negro puro · Ultra minimalista',   tags:['popular','Lujo'],             badge:'popular' },
+  { id:'tropical', name:'Tropical',    desc:'Verde agua · Verano · Fresco',     tags:['nuevo','Playa','Sport'],      badge:'new' },
+  { id:'sunset',   name:'Sunset',      desc:'Naranja · Dorado · Cálido',       tags:['Lifestyle','Hogar'],          badge:'' },
+  { id:'sonic',    name:'Sonic',       desc:'Blanco puro · Tech · Apple style', tags:['nuevo','Tech','Gadgets'],     badge:'new' },
+  { id:'ritual',   name:'Ritual',      desc:'Crema · Dorado · Skincare luxury', tags:['nuevo','Beauty','Skincare'],  badge:'new' },
+  { id:'vogue',    name:'Vogue',       desc:'Blanco · Vino · Fashion forward',  tags:['nuevo','Moda','Activewear'],  badge:'new' },
+  { id:'pulse',    name:'Pulse',       desc:'Vino · Crema · Sport premium',     tags:['nuevo','Sport','Athleisure'], badge:'new' },
+];
+
+const THEME_NAV = {
+  elegance: { logo:'ELEGANCE', links:['Colección','Editorial','About'],  icons:['♡','🛒'] },
+  minimal:  { logo:'MINIMAL',  links:['Shop','Collections','Blog'],      icons:['🔍','🛒'] },
+  bold:     { logo:'BOLD',     links:['SHOP','DROP','COLLAB'],           icons:['🔍','🛒'] },
+  nordic:   { logo:'NORDIC',   links:['Tienda','Lookbook','Story'],      icons:['♡','🛒'] },
+  jewel:    { logo:'JEWEL BOX',links:['Collection','About','Press'],     icons:['♡','🛒'] },
+  fresh:    { logo:'FRESH CO', links:['Shop','Story','Blog'],            icons:['🔍','🛒'] },
+  rose:     { logo:'ROSÉ',     links:['Shop','Beauty','Gift'],           icons:['♡','🛒'] },
+  urban:    { logo:'URBAN',    links:['SHOP','DROPS','COLLAB'],          icons:['🔍','🛒'] },
+  sakura:   { logo:'SAKURA',   links:['Shop','Gift','Blog'],             icons:['♡','🛒'] },
+  obsidian: { logo:'OBSIDIAN', links:['SHOP','ABOUT','PRESS'],           icons:['🔍','🛒'] },
+  tropical: { logo:'TROPICAL', links:['Tienda','Lookbook','Blog'],       icons:['🔍','🛒'] },
+  sunset:   { logo:'SUNSET',   links:['Colección','Story','Gift'],       icons:['♡','🛒'] },
+  sonic:    { logo:'SONIC',    links:['Shop','Collections','Compare'],   icons:['🔍','🛒'] },
+  ritual:   { logo:'RITUAL',   links:['Shop','Rituals','About'],         icons:['♡','🛒'] },
+  vogue:    { logo:'VOGUE',    links:['Shop','New In','Sale'],            icons:['🔍','🛒'] },
+  pulse:    { logo:'PULSE',    links:['Shop','Collections','Blog'],      icons:['🔍','🛒'] },
+};
+
+function renderThemeGrid() {
+  const grid = document.getElementById('theme-grid');
+  if (!grid) return;
+  const industry = state.industry || 'other';
+  const content = INDUSTRY_CONTENT[industry] || INDUSTRY_CONTENT['other'];
+  let html = '';
+  THEME_DEFS.forEach(t => {
+    const nav = THEME_NAV[t.id];
+    const isSelected = state.theme === t.id;
+    const badgeHtml = t.badge === 'new' ? '<span class="tc-tag new">✦ Nuevo</span>' :
+                      t.badge === 'popular' ? '<span class="tc-tag popular">⭐ Popular</span>' : '';
+    const tagsHtml = t.tags.filter(tg => tg !== 'nuevo' && tg !== 'popular')
+                       .map(tg => `<span class="tc-tag">${tg}</span>`).join('');
+    const productsHtml = content.products.map(p => `
+      <div class="tc-product">
+        <div class="tc-product-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentNode.innerHTML='🛍️'"></div>
+        <div class="tc-product-info">
+          <div class="tc-product-name">${p.name}</div>
+          <div class="tc-product-price">${p.price}</div>
+        </div>
+      </div>`).join('');
+    html += `
+    <div class="theme-card tc-${t.id}${isSelected ? ' selected' : ''}" data-theme="${t.id}" onclick="selectTheme('${t.id}',this)">
+      <div class="tc-check">✓</div>
+      <div class="tc-browser">
+        <div class="tc-browser-dot"></div><div class="tc-browser-dot"></div><div class="tc-browser-dot"></div>
+        <div class="tc-browser-bar"></div>
+      </div>
+      <div class="tc-screen">
+        <div class="tc-nav">
+          ${nav.logo}
+          <div class="tc-nav-links"><span>${nav.links[0]}</span><span>${nav.links[1]}</span><span>${nav.links[2]}</span></div>
+          <div class="tc-nav-icons"><span>${nav.icons[0]}</span><span>${nav.icons[1]}</span></div>
+        </div>
+        <div class="tc-hero">
+          <img class="tc-hero-img" src="${content.hero}" alt="hero" loading="lazy" onerror="this.style.display='none'">
+          <div class="tc-hero-content">
+            <div class="tc-hero-eyebrow">${content.eyebrow}</div>
+            <div class="tc-hero-title">${content.title.replace('\n','<br>')}</div>
+            <div class="tc-hero-cta">${content.cta}</div>
+          </div>
+        </div>
+        <div class="tc-featured">
+          <div class="tc-featured-header">
+            <span class="tc-featured-label">Más vendidos</span>
+            <span class="tc-featured-viewall">Ver todo</span>
+          </div>
+          <div class="tc-products">${productsHtml}</div>
+        </div>
+      </div>
+      <div class="tc-meta">
+        <div class="tc-meta-top">
+          <div class="tc-meta-left"><h4>${t.name}</h4><p>${t.desc}</p></div>
+          <button class="tc-meta-btn" onclick="event.stopPropagation();selectTheme('${t.id}',this.closest('.theme-card'))">${isSelected ? '✓ Elegido' : 'Elegir'}</button>
+        </div>
+        <div class="tc-tags">${badgeHtml}${tagsHtml}</div>
+      </div>
+    </div>`;
+  });
+  grid.innerHTML = html;
 }
 
 /* ═══════════════════════════════════════════
@@ -3350,10 +3194,21 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProgressDots(1);
   renderPalettes();
   renderFonts();
+  renderThemeGrid();
   loadFromLocalStorage();
   bindLiveInputs();
   updatePreview();
   updatePriceSummary();
+
+  // Re-render themes when industry changes in step 1
+  const industryEl = document.getElementById('industry');
+  if (industryEl) {
+    industryEl.addEventListener('change', () => {
+      state.industry = industryEl.value;
+      renderThemeGrid();
+    });
+  }
+
   // Restore to saved step if exists
   if (state.currentStep > 1) {
     const target = state.currentStep;
