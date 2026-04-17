@@ -1,226 +1,185 @@
-# 🚀 Automate Onboarding Portal
+# Automate Agency — Onboarding Portal
 
-Premium onboarding experience for eCommerce store setup with AI-powered automation.
+Portal de onboarding premium para clientes de Automate Agency. Guía a los dueños de tiendas Shopify a través de 6 pasos para configurar su identidad de marca, tema visual, plan, apps, contenido y acceso — en menos de 5 minutos.
 
-## ✨ Features
+---
 
-- **5-Step Stepper**: Guided setup process (Welcome → Brand → Preview → Inventory → Access)
-- **Live Mobile Preview**: Real-time preview of your store on a simulated iPhone
-- **Typography Picker**: 3 font styles (Minimal, Elegant, Modern)
-- **Color Palettes**: 4 luxury color schemes (Midnight Gold, Clean Tech, Nordic Rose, Cyber Silver)
-- **Luxury Tech Aesthetic**: Premium, minimalist design with smooth animations
-- **Responsive Design**: Fully responsive from mobile to desktop
-- **Form Validation**: Built-in validation with react-hook-form
+## Inicio Rapido (HTML Standalone)
 
-## 🛠️ Tech Stack
-
-- **Frontend Framework**: Next.js 15 (App Router)
-- **Styling**: Tailwind CSS 3
-- **Animations**: Framer Motion 11
-- **State Management**: Zustand 4
-- **Form Handling**: react-hook-form 7
-- **TypeScript**: Full type safety
-
-## 📦 Installation
-
-### Prerequisites
-
-- Node.js 18+ (recommended 20+)
-- npm or yarn
-
-### Setup
-
-1. **Install dependencies**
+Sin instalacion. Abre directo en el navegador:
 
 ```bash
-npm install
-# or
-yarn install
+# Opcion 1: Abrir directo
+open portal-automate.html
+
+# Opcion 2: Servidor local
+python -m http.server 3001
+# Luego abrir: http://localhost:3001/portal-automate.html
 ```
 
-2. **Run the development server**
+---
 
-```bash
-npm run dev
-# or
-yarn dev
+## Lo que Incluye
+
+### `portal-automate.html` — Portal Principal (Standalone)
+Un solo archivo HTML con todo incluido. Sin dependencias, sin build.
+
+**Funcionalidades:**
+- Flujo de onboarding de 6 pasos
+- 16 temas visuales con preview estilo Shopify completo
+- 20 paletas de colores + 8 opciones tipograficas
+- Panel de preview en tiempo real
+- Selector de planes con precios en COP (Starter / Growth / Scale)
+- Marketplace de apps con 20+ integraciones
+- Configuracion de estrategia de contenido
+- Plantilla de importacion de productos (.xlsx) generada con SheetJS
+- Zona de carga de archivos drag & drop
+- Validacion de formularios + persistencia en localStorage
+- Notificaciones toast + animaciones suaves
+
+---
+
+## 16 Temas Visuales
+
+| # | Tema | Estilo | Ideal Para |
+|---|------|--------|------------|
+| 1 | Elegance | Dark gold, Playfair Display | Joyeria, lujo |
+| 2 | Minimal Pro | Blanco/azul, Inter | Tech, SaaS |
+| 3 | Bold Shop | Dark amber, Montserrat | Marcas fuertes |
+| 4 | Nordic | Crema/arena, Lora | Hogar, lifestyle |
+| 5 | Jewel Box | Purpura profundo, Cormorant | Moda premium |
+| 6 | Fresh & Clean | Verde, DM Sans | Organico, eco |
+| 7 | Rose Gold | Rosa oscuro, Raleway | Belleza, femenino |
+| 8 | Urban Street | Negro/rojo, Josefin Sans | Streetwear |
+| 9 | Sakura | Rosa pastel, Raleway | K-beauty, regalos |
+| 10 | Obsidian | Negro puro, Montserrat | Ultra lujo |
+| 11 | Tropical | Aqua, DM Sans | Playa, verano |
+| 12 | Sunset | Naranja oscuro, Cormorant | Lifestyle calido |
+| 13 | Sonic | Blanco/gris, Inter | Electronica, tech |
+| 14 | Ritual | Crema/dorado, Cormorant | Skincare, belleza |
+| 15 | Vogue | Blanco/vino, Montserrat | Moda, activewear |
+| 16 | Pulse | Vino/crema, Montserrat | Sport, athleisure |
+
+---
+
+## Flujo de 6 Pasos
+
+```
+Paso 1 — Bienvenida
+  Nombre de tienda, URL Shopify, industria, sitio de referencia
+
+Paso 2 — Identidad de Marca
+  Tema (16 opciones), paleta de colores (20), tipografia (8)
+
+Paso 3 — Plan
+  Starter ($999.000 COP) / Growth ($1.799.000 COP) / Scale ($2.999.000 COP)
+
+Paso 4 — Apps
+  Seleccion de integraciones (limite segun plan)
+  Starter: 3 apps | Growth: 6 apps | Scale: 10 apps
+
+Paso 5 — Contenido
+  Descripcion de marca, tono de voz, productos principales
+  Descargar plantilla de importacion de productos (.xlsx)
+  Subir plantilla completada
+
+Paso 6 — Acceso
+  Nombre, email, WhatsApp, acceso colaborador Shopify
+  Resumen completo del pedido antes del envio final
 ```
 
-3. **Open in browser**
+---
 
-Navigate to `http://localhost:3000` to see the portal.
+## Planes y Precios (COP)
 
-## 📁 Project Structure
+| Plan | Precio | Apps | Incluye |
+|------|--------|------|---------|
+| Starter | $999.000 | 3 | Setup basico, apps esenciales |
+| Growth | $1.799.000 | 6 | Todo Starter + herramientas avanzadas |
+| Scale | $2.999.000 | 10 | Setup agencia completa, soporte prioritario |
+| App Extra | +$200.000 | +1 | Agregar mas alla del limite del plan |
+
+---
+
+## Plantilla de Importacion de Productos
+
+El portal genera un `.xlsx` para importacion de productos Shopify con:
+- 20 columnas compatibles con Shopify
+- Etiquetas en espanol + nombres tecnicos de columnas
+- Instrucciones por columna
+- 3 filas de ejemplo
+- Hoja "Instrucciones" con guia paso a paso
+
+Se descarga desde el **Paso 5** dentro del portal.
+
+---
+
+## Apps Disponibles (Paso 4)
+
+Categorias: Marketing, Ventas, Operaciones, Analytics
+
+Ejemplos: Klaviyo, ReConvert, Gorgias, Yotpo, TrustPilot, Judge.me, Loox, Smile.io, Privy, SMSBump, Tidio, Hotjar, Zipify, Bold Subscriptions, y mas.
+
+---
+
+## Estructura del Proyecto
 
 ```
 onboarding-portal/
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Home page
+├── portal-automate.html       # Portal principal standalone (USAR ESTO)
+├── src/                       # App Next.js (en desarrollo)
+│   ├── app/                   # Next.js App Router
 │   ├── components/
-│   │   ├── Stepper.tsx        # Step navigation
-│   │   ├── LivePreview.tsx    # Mobile preview mockup
-│   │   ├── OnboardingLayout.tsx # Main layout
-│   │   └── steps/
-│   │       └── Step1Welcome.tsx  # Step 1 form
-│   ├── stores/
-│   │   └── brandStore.ts      # Zustand store
-│   ├── hooks/
-│   │   └── useBrand.ts        # Custom brand hook
-│   ├── types/
-│   │   └── index.ts           # TypeScript types
-│   ├── constants/
-│   │   ├── colors.ts          # Color palettes
-│   │   └── typography.ts      # Typography styles
-│   └── styles/
-│       └── globals.css        # Global styles
+│   │   ├── steps/             # Step1Welcome.tsx (completo)
+│   │   ├── OnboardingLayout.tsx
+│   │   ├── Stepper.tsx
+│   │   ├── LivePreview.tsx
+│   │   └── ...
+│   ├── stores/                # Zustand state management
+│   ├── constants/             # Colores, tipografia
+│   └── types/                 # Definiciones TypeScript
 ├── public/
-│   └── assets/                # Images, icons, etc.
-├── tailwind.config.js         # Tailwind configuration
-├── next.config.js             # Next.js configuration
-├── tsconfig.json              # TypeScript configuration
-└── package.json               # Dependencies
+├── CLAUDE.md                  # Contexto para IA
+├── DEVELOPMENT.md             # Notas de desarrollo
+└── README.md
 ```
 
-## 🎨 Color Palettes
+---
 
-### Midnight Gold
-```
-Primary: #0f0f0b
-Secondary: #1a1a15
-Accent: #d4af37 (Gold)
-Light: #f5f5f3
-```
+## Version Next.js (En Desarrollo)
 
-### Clean Tech
-```
-Primary: #ffffff
-Secondary: #f5f5f5
-Accent: #0066ff (Blue)
-Light: #fafafa
-```
-
-### Nordic Rose
-```
-Primary: #1a1a2e
-Secondary: #16213e
-Accent: #e94b6d (Rose)
-Light: #f5f0f0
-```
-
-### Cyber Silver
-```
-Primary: #0a0e27
-Secondary: #1a1f3a
-Accent: #a0aec0 (Silver)
-Light: #f7fafc
-```
-
-## 🔤 Typography Styles
-
-- **Minimal**: Inter (Clean, modern sans-serif)
-- **Elegant**: Playfair Display (Sophisticated serif)
-- **Modern**: Montserrat (Bold geometric sans-serif)
-
-## 📝 Development Guide
-
-### Adding a New Step
-
-1. Create a new file in `src/components/steps/StepXName.tsx`
-2. Use `useBrandStore` for state management
-3. Add the component to `OnboardingLayout.tsx`'s `renderStep()` function
-
-### Modifying Tailwind Configuration
-
-Edit `tailwind.config.js` to:
-- Add new color variables
-- Adjust spacing, borders, shadows
-- Customize animations
-
-### Using Framer Motion
-
-All components use Framer Motion for smooth animations:
-
-```tsx
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.4 }}
->
-  Content
-</motion.div>
-```
-
-## 🚀 Build & Deploy
-
-### Build for production
+Implementacion React/Next.js para despliegue en produccion.
 
 ```bash
+npm install
+npm run dev
+# Abre: http://localhost:3000
+```
+
+**Stack:** Next.js 15, Tailwind CSS 3, Framer Motion 11, Zustand 4, react-hook-form 7, TypeScript
+
+**Estado:** Paso 1 (Bienvenida) completo. Pasos 2-6 en desarrollo.
+
+---
+
+## Despliegue
+
+```bash
+# HTML Standalone — funciona en cualquier servidor
+# Netlify, Vercel, GitHub Pages, servidor propio
+
+# Build Next.js para produccion
 npm run build
 npm start
 ```
 
-### Environment Variables
+---
 
-Create a `.env.local` file if needed:
+## Automate Agency
 
-```
-NEXT_PUBLIC_API_URL=your_api_url
-```
+Agencia especializada en lanzamiento y automatizacion de tiendas Shopify con IA.
 
-## 📊 State Management
-
-The app uses Zustand for global state. Access via `useBrandStore`:
-
-```tsx
-const { config, setStoreName, currentStep, nextStep } = useBrandStore();
-```
-
-Or use the custom hook:
-
-```tsx
-const { config, setStoreName, currentStep } = useBrand();
-```
-
-## 🎯 Next Steps
-
-- [ ] Implement Step 2 (Brand Identity) with typography and color pickers
-- [ ] Implement Step 3 (Preview) with enhanced mockup
-- [ ] Implement Step 4 (Inventory) with file uploads
-- [ ] Implement Step 5 (Access) with API keys and collaborators
-- [ ] Add form persistence (localStorage/API)
-- [ ] Add email validation
-- [ ] Create API routes for form submission
-- [ ] Add analytics tracking
-- [ ] Implement multi-language support
-
-## 📖 Documentation
-
-Full component documentation coming soon. For now, check the JSDoc comments in source files.
-
-## 🐛 Troubleshooting
-
-### Port 3000 already in use?
-
-```bash
-npm run dev -- -p 3001
-```
-
-### Styles not applying?
-
-Make sure Tailwind CSS is properly configured in `globals.css` with all three directives:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-## 📄 License
-
-Automate Agency 2026
-
-## 🤝 Support
-
-For issues or questions, contact Santiago (Automate Agency)
+- Mercados: Colombia (COP) y USA
+- Marcas gestionadas: Luxxo Jewellery, Crowned Jewellery USA, American Clothing
+- Stack: n8n, Midjourney, ElevenLabs, Klaviyo, Microsoft Clarity
+- Contacto: Santiago C.
