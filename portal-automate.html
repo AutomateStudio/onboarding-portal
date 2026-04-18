@@ -2566,6 +2566,61 @@ const INDUSTRY_TEMPLATES = {
         { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Eye Cream', price: '$95.000' },
       ]
     },
+  ],
+  moda: [
+    {
+      id: 'aura',
+      name: 'Aura',
+      desc: 'Deportivo · Activewear · Performance',
+      tags: ['Popular', 'Activewear', 'Sport'],
+      badge: 'popular',
+      hero: 'https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?w=600&q=80',
+      heroMobile: 'https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?w=300&q=80',
+      nav: { logo: 'AURA', links: ['Tienda', 'Colecciones', 'Sobre Nosotros'], icons: ['♡', '🛒'] },
+      eyebrow: 'COLECCIÓN DEPORTIVA', title: 'Ropa para\ntu mejor versión.', cta: 'Explorar →',
+      detail: 'Diseño deportivo de alto desempeño. Optimizado para mobile con filtros intuitivos y experiencia de compra fluida en todos los dispositivos.',
+      products: [
+        { img: 'https://images.unsplash.com/photo-1506629082632-7a52f73dc01c?w=200&q=80', name: 'Top Deportivo', price: '$89.000' },
+        { img: 'https://images.unsplash.com/photo-1506259412781-8a60a8d29db4?w=200&q=80', name: 'Mallas Ajustadas', price: '$128.000' },
+        { img: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=200&q=80', name: 'Zapatillas Running', price: '$245.000' },
+        { img: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=200&q=80', name: 'Chaqueta Deportiva', price: '$189.000' },
+      ]
+    },
+    {
+      id: 'elegancia',
+      name: 'Elegancia',
+      desc: 'Premium · Moda refinada · Lujo accesible',
+      tags: ['nuevo', 'Premium', 'Elegante'],
+      badge: 'new',
+      hero: 'https://images.unsplash.com/photo-1539533057440-7bf6fbc0c36f?w=600&q=80',
+      heroMobile: 'https://images.unsplash.com/photo-1539533057440-7bf6fbc0c36f?w=300&q=80',
+      nav: { logo: 'ELEGANCIA', links: ['Colección', 'Editorial', 'Contacto'], icons: ['♡', '🛒'] },
+      eyebrow: 'LÍNEA PREMIUM', title: 'Sofisticación\nsin esfuerzo.', cta: 'Descubrir →',
+      detail: 'Diseño elegante y moderno para la moda premium. Interfaz sofisticada con layouts flexibles que se adaptan a cualquier nicho, desde lujo hasta lifestyle.',
+      products: [
+        { img: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=200&q=80', name: 'Blusa Premium', price: '$156.000' },
+        { img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=200&q=80', name: 'Pantalón Elegante', price: '$198.000' },
+        { img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=200&q=80', name: 'Accesorios Lujo', price: '$125.000' },
+      ]
+    },
+    {
+      id: 'simetria',
+      name: 'Simetría',
+      desc: 'Casual · Versátil · Bestseller',
+      tags: ['nuevo', 'Casual', 'Lifestyle'],
+      badge: 'new',
+      hero: 'https://images.unsplash.com/photo-1551986782-d244d7d3f3f5?w=600&q=80',
+      heroMobile: 'https://images.unsplash.com/photo-1551986782-d244d7d3f3f5?w=300&q=80',
+      nav: { logo: 'SIMETRÍA', links: ['Tienda', 'Lookbook', 'Blog'], icons: ['🔍', '🛒'] },
+      eyebrow: 'COLECCIÓN CASUAL', title: 'Crece tu\nnegocio online.', cta: 'Ver más →',
+      detail: 'Tema versátil y customizable para cualquier tipo de tienda. Con secciones drag-and-drop potentes, filtros avanzados y diseño responsive que convierte.',
+      products: [
+        { img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80', name: 'Camiseta Casual', price: '$68.000' },
+        { img: 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=200&q=80', name: 'Jeans Clásicos', price: '$135.000' },
+        { img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=200&q=80', name: 'Accesorios', price: '$78.000' },
+        { img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=200&q=80', name: 'Shorts Deportivos', price: '$95.000' },
+      ]
+    },
   ]
 };
 
@@ -2641,9 +2696,9 @@ function renderIndustryTemplates(grid, templates) {
     const isSelected = state.theme === t.id;
     const { badgeHtml, tagsHtml } = buildBadgeAndTags(t);
     html += `
-    <div class="theme-card tpl-${t.id}${isSelected ? ' selected' : ''}" data-theme="${t.id}" onclick="selectTheme('${t.id}',this)">
+    <div class="theme-card tpl-${t.id}${isSelected ? ' selected' : ''}" data-theme="${t.id}" data-template-id="${t.id}">
       <div class="tc-check">✓</div>
-      <div class="tc-dual">
+      <div class="tc-dual" onclick="selectTheme('${t.id}',this.closest('.theme-card'))">
         <div class="tc-laptop">
           <div class="tc-browser-bar">
             <div class="tc-browser-dots"><span></span><span></span><span></span></div>
@@ -2651,35 +2706,56 @@ function renderIndustryTemplates(grid, templates) {
           </div>
           <div class="tc-laptop-content">${buildDesktopHtml(t)}</div>
         </div>
-        <div class="tc-phone-col" style="background:${t.id==='onyx'?'#1a1512':t.id==='bloom'?'#f5f5f5':'#f5f0ea'}">
-          <div class="tc-phone-big" style="${t.id==='onyx'?'border-color:#3a3028':''}">
+        <div class="tc-phone-col" style="background:${t.id==='onyx'?'#1a1512':t.id==='bloom'?'#f5f5f5':t.id==='elegancia'?'#f5ede6':t.id==='aura'?'#f8f9fa':'#f5f0ea'}">
+          <div class="tc-phone-big" style="${t.id==='onyx'?'border-color:#3a3028':t.id==='elegancia'?'border-color:#ccc':''}">
             <div class="tc-phone-content">${buildMobileHtml(t)}</div>
           </div>
-          <span class="tc-device-label" style="color:${t.id==='onyx'?'#6a5a48':'#bbb'}">Mobile</span>
+          <span class="tc-device-label" style="color:${t.id==='onyx'?'#6a5a48':t.id==='elegancia'?'#8b6f47':'#bbb'}">Mobile</span>
         </div>
       </div>
       <div class="tc-meta">
         <div class="tc-meta-top">
-          <div class="tc-meta-left"><h4>${t.name}</h4><p>${t.desc}</p></div>
+          <div class="tc-meta-left">
+            <h4>${t.name}</h4>
+            <p>${t.desc}</p>
+            ${t.detail ? `<div class="tc-detail-toggle" onclick="event.stopPropagation();toggleDetail('${t.id}')" style="margin-top:8px;font-size:12px;color:#888;cursor:pointer;text-decoration:underline;">+ Ver detalles</div>` : ''}
+          </div>
           <button class="tc-meta-btn" onclick="event.stopPropagation();selectTheme('${t.id}',this.closest('.theme-card'))">${isSelected ? '✓ Elegido' : 'Elegir'}</button>
         </div>
         <div class="tc-tags">${badgeHtml}${tagsHtml}</div>
+        ${t.detail ? `<div class="tc-detail-content" id="detail-${t.id}" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #e8e8e6;font-size:13px;color:#666;line-height:1.5;">${t.detail}</div>` : ''}
       </div>
     </div>`;
   });
   grid.innerHTML = html;
 }
 
+function toggleDetail(id) {
+  const detailEl = document.getElementById('detail-' + id);
+  const toggleEl = document.querySelector(`[data-template-id="${id}"] .tc-detail-toggle`);
+  if (detailEl && toggleEl) {
+    const isHidden = detailEl.style.display === 'none';
+    detailEl.style.display = isHidden ? 'block' : 'none';
+    toggleEl.textContent = isHidden ? '- Ocultar detalles' : '+ Ver detalles';
+  }
+}
+
 function buildDesktopHtml(t) {
   if (t.id === 'aurora') return buildAuroraDesktop(t);
   if (t.id === 'onyx')   return buildOnyxDesktop(t);
   if (t.id === 'bloom')  return buildBloomDesktop(t);
+  if (t.id === 'aura')   return buildAuraDesktop(t);
+  if (t.id === 'elegancia') return buildEleganciaDesktop(t);
+  if (t.id === 'simetria')  return buildSimetriaDesktop(t);
   return buildAuroraDesktop(t);
 }
 function buildMobileHtml(t) {
   if (t.id === 'aurora') return buildAuroraMobile(t);
   if (t.id === 'onyx')   return buildOnyxMobile(t);
   if (t.id === 'bloom')  return buildBloomMobile(t);
+  if (t.id === 'aura')   return buildAuraMobile(t);
+  if (t.id === 'elegancia') return buildElegancia Mobile(t);
+  if (t.id === 'simetria')  return buildSimetriaMobile(t);
   return buildAuroraMobile(t);
 }
 
@@ -2869,6 +2945,198 @@ function buildBloomMobile(t) {
       <div style="position:relative;z-index:2;text-align:center;">
         <div style="font-size:28px;font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1;">belleza</div>
         <div style="margin-top:6px;display:inline-block;padding:3px 11px;background:#fff;color:#1a1a1a;font-size:6px;font-weight:700;border-radius:100px;">Comprar</div>
+      </div>
+    </div>
+    <div style="padding:7px 7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
+  </div>`;
+}
+
+/* ── AURA: sporty activewear, hero left, 4-col product grid ── */
+function buildAuraDesktop(t) {
+  const prods = t.products.map(p=>`
+    <div>
+      <div style="height:78px;background:#f0f2f5;border-radius:6px;overflow:hidden;margin-bottom:6px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.parentNode.style.background='#e0e3e8'">
+      </div>
+      <div style="font-size:9px;color:#2c3e50;font-weight:500;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:9px;color:#3498db;font-weight:700;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#f8f9fa;height:100%;overflow:hidden;font-family:'Montserrat',sans-serif;">
+    <div style="background:#e3f2fd;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#1565c0;font-weight:600;letter-spacing:1.5px;">ENVÍO GRATIS · ACTIVEWEAR DE ALTO DESEMPEÑO</div>
+    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid #e8eaed;">
+      <span style="font-size:12px;font-weight:700;letter-spacing:3px;color:#1565c0;">AURA</span>
+      <div style="display:flex;gap:26px;"><span style="font-size:10px;color:#666;">Tienda</span><span style="font-size:10px;color:#666;">Colecciones</span><span style="font-size:10px;color:#666;">Sobre Nosotros</span></div>
+      <div style="display:flex;gap:14px;font-size:14px;color:#666;">♡ 🛒</div>
+    </div>
+    <div style="height:214px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(21,101,192,0.6) 0%,rgba(21,101,192,0.0) 70%);"></div>
+      <div style="position:absolute;bottom:28px;left:28px;">
+        <div style="font-size:9px;color:#87ceeb;font-weight:700;letter-spacing:3px;margin-bottom:10px;text-transform:uppercase;">Colección Deportiva</div>
+        <div style="font-size:30px;font-weight:800;color:#fff;line-height:1.1;">Ropa para tu<br>mejor versión.</div>
+        <div style="margin-top:14px;display:inline-block;padding:8px 22px;background:#3498db;color:#fff;font-size:10px;font-weight:700;border-radius:100px;">Explorar productos</div>
+      </div>
+    </div>
+    <div style="background:#fff;padding:16px 28px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div style="display:flex;gap:18px;align-items:center;">
+          <span style="font-size:10.5px;font-weight:700;color:#1565c0;border-bottom:2px solid #3498db;padding-bottom:3px;">● mejor rendimiento</span>
+          <span style="font-size:10.5px;color:#bbb;">colecciones</span>
+        </div>
+        <span style="font-size:9.5px;color:#bbb;text-decoration:underline;">Ver todo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
+    </div>
+  </div>`;
+}
+function buildAuraMobile(t) {
+  const prods = t.products.slice(0,2).map(p=>`
+    <div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f2f5;">
+      <div style="width:30px;height:30px;background:#f0f2f5;border-radius:5px;overflow:hidden;flex-shrink:0;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+      </div>
+      <div>
+        <div style="font-size:6.5px;color:#2c3e50;font-weight:600;">${p.name}</div>
+        <div style="font-size:6.5px;color:#3498db;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#f8f9fa;height:100%;display:flex;flex-direction:column;">
+    <div style="background:#e3f2fd;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#1565c0;letter-spacing:1px;font-weight:600;">ENVÍO GRATIS</div>
+    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #e8eaed;flex-shrink:0;">
+      <span style="font-size:6.5px;font-weight:700;letter-spacing:2.5px;color:#1565c0;">AURA</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#666;">♡ 🛒</div>
+    </div>
+    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(21,101,192,0.6) 0%,transparent 70%);"></div>
+      <div style="position:absolute;bottom:10px;left:10px;">
+        <div style="font-size:13px;font-weight:800;color:#fff;line-height:1.1;">Ropa para tu<br>mejor versión.</div>
+        <div style="margin-top:6px;display:inline-block;padding:3px 10px;background:#3498db;color:#fff;font-size:6px;font-weight:700;border-radius:100px;">Explorar</div>
+      </div>
+    </div>
+    <div style="background:#fff;padding:7px 9px;flex:1;">${prods}</div>
+  </div>`;
+}
+
+/* ── ELEGANCIA: sophisticated premium fashion, centered nav, hero right ── */
+function buildEleganciaDesktop(t) {
+  const prods = t.products.map(p=>`
+    <div style="flex:1;display:flex;gap:12px;align-items:center;background:#f5ede6;padding:10px 12px;border-radius:7px;">
+      <div style="width:46px;height:46px;background:#eae0d8;border-radius:5px;overflow:hidden;flex-shrink:0;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:9px;color:#5a4a40;font-family:'Cormorant Garamond',serif;margin-bottom:3px;">${p.name}</div>
+        <div style="font-size:9px;color:#8b6f47;font-weight:700;">${p.price}</div>
+      </div>
+      <div style="font-size:12px;color:#8b6f47;opacity:0.6;">→</div>
+    </div>`).join('');
+  return `<div style="background:#f5ede6;height:100%;overflow:hidden;font-family:'Cormorant Garamond',serif;">
+    <div style="background:#e0d5ca;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#6b5344;font-weight:600;letter-spacing:3px;">COLECCIÓN PREMIUM · ENVÍO INCLUIDO</div>
+    <div style="background:#f5ede6;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(107,83,68,0.15);">
+      <div style="display:flex;gap:22px;"><span style="font-size:9.5px;color:#6b5344;letter-spacing:1.5px;">Colección</span><span style="font-size:9.5px;color:#6b5344;letter-spacing:1.5px;">Editorial</span></div>
+      <span style="font-size:16px;font-weight:600;letter-spacing:3px;color:#3a3530;">ELEGANCIA</span>
+      <div style="display:flex;gap:22px;align-items:center;"><span style="font-size:9.5px;color:#6b5344;letter-spacing:1.5px;">Contacto</span><span style="font-size:15px;color:#8b6f47;">♡</span></div>
+    </div>
+    <div style="height:214px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(245,237,230,0.9) 0%,rgba(245,237,230,0.0) 60%);"></div>
+      <div style="position:absolute;left:32px;top:50%;transform:translateY(-50%);">
+        <div style="font-size:9.5px;color:#8b6f47;letter-spacing:2.5px;margin-bottom:14px;text-transform:uppercase;">Línea Premium</div>
+        <div style="font-size:28px;color:#2a2420;font-style:italic;font-weight:600;line-height:1.25;">Sofisticación<br>sin esfuerzo.</div>
+        <div style="margin-top:18px;display:inline-block;padding:9px 22px;border:1.5px solid #8b6f47;color:#2a2420;font-size:9.5px;letter-spacing:2px;">Descubrir →</div>
+      </div>
+    </div>
+    <div style="background:#f5ede6;padding:16px 28px;">
+      <div style="font-size:11px;color:#8b6f47;font-style:italic;letter-spacing:1px;margin-bottom:14px;">Piezas Selectas</div>
+      <div style="display:flex;gap:10px;">${prods}</div>
+    </div>
+  </div>`;
+}
+function buildElegancia Mobile(t) {
+  const prods = t.products.slice(0,2).map(p=>`
+    <div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(107,83,68,0.1);">
+      <div style="width:30px;height:30px;background:#eae0d8;border-radius:4px;overflow:hidden;flex-shrink:0;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+      </div>
+      <div>
+        <div style="font-size:6.5px;color:#5a4a40;font-family:'Cormorant Garamond',serif;">${p.name}</div>
+        <div style="font-size:6.5px;color:#8b6f47;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#f5ede6;height:100%;display:flex;flex-direction:column;">
+    <div style="background:#e0d5ca;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#6b5344;letter-spacing:2px;font-weight:600;">PREMIUM</div>
+    <div style="background:#f5ede6;height:22px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(107,83,68,0.12);flex-shrink:0;">
+      <span style="font-size:9px;font-weight:600;letter-spacing:2px;color:#3a3530;">ELEGANCIA</span>
+    </div>
+    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(245,237,230,0.9) 0%,transparent 60%);"></div>
+      <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%);">
+        <div style="font-size:11px;color:#2a2420;font-style:italic;font-weight:600;line-height:1.2;font-family:'Cormorant Garamond',serif;">Sofisticación<br>sin esfuerzo.</div>
+        <div style="margin-top:5px;display:inline-block;padding:2px 8px;border:1px solid #8b6f47;color:#2a2420;font-size:5.5px;letter-spacing:1px;">Descubrir</div>
+      </div>
+    </div>
+    <div style="background:#f5ede6;padding:7px 9px;flex:1;">${prods}</div>
+  </div>`;
+}
+
+/* ── SIMETRÍA: versatile casual lifestyle, colorful, 3-col image gallery ── */
+function buildSimetriaDesktop(t) {
+  const colors = ['#fef3e6','#e8f4f8','#f0ede8'];
+  const prods = t.products.slice(0,3).map((p,i)=>`
+    <div style="background:${colors[i]};border-radius:8px;overflow:hidden;cursor:pointer;position:relative;group;">
+      <div style="height:100px;border-radius:6px;overflow:hidden;margin-bottom:8px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" loading="lazy" onerror="this.parentNode.style.background='${colors[i]}'">
+      </div>
+      <div style="padding:0 10px 10px;font-size:9.5px;color:#1a1a1a;font-weight:600;margin-bottom:2px;">${p.name}</div>
+      <div style="padding:0 10px;font-size:9.5px;color:#555;font-weight:600;margin-bottom:8px;">${p.price}</div>
+      <div style="padding:0 10px 10px;"><button style="width:100%;padding:5px 0;border:1.5px solid #1a1a1a;background:#fff;border-radius:4px;font-size:8px;font-weight:700;cursor:pointer;transition:all 0.2s;">VER</button></div>
+    </div>`).join('');
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
+    <div style="background:#f5f5f5;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#333;font-weight:600;letter-spacing:1px;">TÚ DEFINES TU ESTILO · ENVÍO GRATIS EN TODAS PARTES</div>
+    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid #f0f0f0;">
+      <span style="font-size:12px;font-weight:800;letter-spacing:2px;color:#1a1a1a;">SIMETRÍA</span>
+      <div style="display:flex;gap:24px;"><span style="font-size:10px;color:#666;font-weight:500;">Tienda</span><span style="font-size:10px;color:#666;font-weight:500;">Lookbook</span><span style="font-size:10px;color:#666;font-weight:500;">Blog</span></div>
+      <div style="display:flex;gap:12px;font-size:14px;color:#1a1a1a;">🔍 🛒</div>
+    </div>
+    <div style="height:188px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
+      <div style="position:absolute;inset:0;background:rgba(200,200,200,0.25);"></div>
+      <div style="position:relative;z-index:2;text-align:center;">
+        <div style="font-size:8.5px;color:#333;letter-spacing:3px;font-weight:700;margin-bottom:8px;text-transform:uppercase;">Colección Casual</div>
+        <div style="font-size:48px;font-weight:900;color:#1a1a1a;line-height:1;letter-spacing:-2px;">Crece tu<br>negocio.</div>
+        <div style="margin-top:14px;display:inline-block;padding:8px 24px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:700;border-radius:4px;letter-spacing:0.5px;">Ver colecciones →</div>
+      </div>
+    </div>
+    <div style="padding:14px 22px 10px;background:#fff;">
+      <div style="font-size:9.5px;font-weight:700;color:#1a1a1a;margin-bottom:12px;text-align:center;letter-spacing:1px;text-transform:uppercase;">Lo mejor en moda casual</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">${prods}</div>
+    </div>
+  </div>`;
+}
+function buildSimetriaMobile(t) {
+  const colors = ['#fef3e6','#e8f4f8'];
+  const prods = t.products.slice(0,2).map((p,i)=>`
+    <div style="background:${colors[i]};border-radius:6px;padding:5px;">
+      <div style="height:40px;border-radius:4px;overflow:hidden;margin-bottom:4px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+      </div>
+      <div style="font-size:6px;color:#1a1a1a;font-weight:700;">${p.name}</div>
+      <div style="font-size:6px;color:#555;font-weight:600;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
+    <div style="background:#f5f5f5;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#333;letter-spacing:0.5px;font-weight:600;">ENVÍO GRATIS</div>
+    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
+      <span style="font-size:7.5px;font-weight:800;letter-spacing:1.5px;color:#1a1a1a;">SIMETRÍA</span>
+      <div style="display:flex;gap:6px;font-size:10px;color:#1a1a1a;">🔍 🛒</div>
+    </div>
+    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
+      <div style="position:absolute;inset:0;background:rgba(200,200,200,0.25);"></div>
+      <div style="position:relative;z-index:2;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:#1a1a1a;letter-spacing:-1px;line-height:1;">Crece tu<br>negocio.</div>
+        <div style="margin-top:6px;display:inline-block;padding:3px 10px;background:#1a1a1a;color:#fff;font-size:6px;font-weight:700;border-radius:3px;">Ver más</div>
       </div>
     </div>
     <div style="padding:7px 7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
