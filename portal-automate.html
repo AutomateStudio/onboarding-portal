@@ -2754,7 +2754,7 @@ function buildMobileHtml(t) {
   if (t.id === 'onyx')   return buildOnyxMobile(t);
   if (t.id === 'bloom')  return buildBloomMobile(t);
   if (t.id === 'aura')   return buildAuraMobile(t);
-  if (t.id === 'elegancia') return buildElegancia Mobile(t);
+  if (t.id === 'elegancia') return buildElegancia_Mobile(t);
   if (t.id === 'simetria')  return buildSimetriaMobile(t);
   return buildAuroraMobile(t);
 }
@@ -3053,7 +3053,7 @@ function buildEleganciaDesktop(t) {
     </div>
   </div>`;
 }
-function buildElegancia Mobile(t) {
+function buildElegancia_Mobile(t) {
   const prods = t.products.slice(0,2).map(p=>`
     <div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(107,83,68,0.1);">
       <div style="width:30px;height:30px;background:#eae0d8;border-radius:4px;overflow:hidden;flex-shrink:0;">
