@@ -7,28 +7,11 @@ import { FONTS } from '@/constants/fonts';
 import { INDUSTRY_CONTENT } from '@/constants/industries';
 import { THEME_NAV, THEME_COLORS } from '@/constants/themes';
 import { PLANS, PlanKey } from '@/constants/plans';
-import { INDUSTRY_TEMPLATE_IDS, getTemplateById } from '@/constants/industryTemplates';
-import { TemplatePhonePreview } from '@/components/TemplatePhonePreview';
+import { INDUSTRY_TEMPLATE_IDS, getTemplateById, buildMobileHtml } from '@/constants/industryTemplates';
 
 const formatCOP = (n: number) =>
   new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n);
 
-const TEMPLATE_STATUS_BG: Record<string, string> = {
-  aurora:    '#faf7f2',
-  onyx:      '#1a1512',
-  bloom:     '#ffffff',
-  aura:      '#f8f9fa',
-  elegancia: '#f7f3ed',
-  simetria:  '#ffffff',
-};
-const TEMPLATE_STATUS_TEXT: Record<string, string> = {
-  aurora:    '#8a7060',
-  onyx:      '#b89870',
-  bloom:     '#1a1a1a',
-  aura:      '#1a2a3a',
-  elegancia: '#5a4a3a',
-  simetria:  '#1a1a1a',
-};
 
 export function LivePreview() {
   const storeName = useBrandStore((s) => s.storeName);
@@ -72,7 +55,9 @@ export function LivePreview() {
   const totalPrice = currentPlan ? currentPlan.price + extraAppsCount * extraAppPrice : 0;
 
   return (
-    <div className="sticky top-6">
+    <div className="sticky top-6 flex flex-col items-center">
+      {/* Phone wrapper — constrained width for realistic phone proportions */}
+      <div className="w-full" style={{ maxWidth: 320 }}>
       {/* Window chrome */}
       <div className="bg-gray-100 rounded-t-2xl px-4 py-2.5 flex items-center gap-2 border border-gray-200 border-b-0">
         <div className="flex gap-1.5">
@@ -101,30 +86,16 @@ export function LivePreview() {
             style={{
               backgroundColor: industryTemplate ? undefined : colors.bg,
               fontFamily,
-              height: 420,
+              height: 620,
               display: 'flex',
               flexDirection: 'column',
             }}
           >
             {industryTemplate ? (
-              <>
-                {/* Status bar con padding para el notch */}
-                <div style={{
-                  background: TEMPLATE_STATUS_BG[industryTemplate.id] ?? '#fff',
-                  color: TEMPLATE_STATUS_TEXT[industryTemplate.id] ?? '#555',
-                  paddingTop: 22, paddingBottom: 4,
-                  paddingLeft: 12, paddingRight: 12,
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  fontSize: 9, fontWeight: 700, opacity: 0.7, flexShrink: 0,
-                }}>
-                  <span>9:41</span>
-                  <span>●●●●</span>
-                </div>
-                {/* Contenido del template llenando el resto */}
-                <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
-                  <TemplatePhonePreview template={industryTemplate} storeName={storeName} />
-                </div>
-              </>
+              <div
+                style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}
+                dangerouslySetInnerHTML={{ __html: buildMobileHtml(industryTemplate) }}
+              />
             ) : (
               <>
                 {/* Status bar */}
@@ -229,6 +200,7 @@ export function LivePreview() {
           </motion.div>
         </AnimatePresence>
       </div>
+      </div>{/* end phone wrapper */}
 
       {/* Pricing summary */}
       <div className="mt-4 p-4 rounded-2xl bg-gray-50 border border-gray-100 text-sm">
