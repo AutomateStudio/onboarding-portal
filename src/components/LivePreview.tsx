@@ -81,7 +81,7 @@ export function LivePreview() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="rounded-2xl overflow-hidden"
-            style={{ backgroundColor: industryTemplate ? undefined : colors.bg, fontFamily, minHeight: 320 }}
+            style={{ backgroundColor: industryTemplate ? undefined : colors.bg, fontFamily, height: 420 }}
           >
             {industryTemplate ? (
               <TemplatePhonePreview template={industryTemplate} storeName={storeName} />
