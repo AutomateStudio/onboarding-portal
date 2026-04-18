@@ -13,6 +13,23 @@ import { TemplatePhonePreview } from '@/components/TemplatePhonePreview';
 const formatCOP = (n: number) =>
   new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n);
 
+const TEMPLATE_STATUS_BG: Record<string, string> = {
+  aurora:    '#faf7f2',
+  onyx:      '#1a1512',
+  bloom:     '#ffffff',
+  aura:      '#f8f9fa',
+  elegancia: '#f7f3ed',
+  simetria:  '#ffffff',
+};
+const TEMPLATE_STATUS_TEXT: Record<string, string> = {
+  aurora:    '#8a7060',
+  onyx:      '#b89870',
+  bloom:     '#1a1a1a',
+  aura:      '#1a2a3a',
+  elegancia: '#5a4a3a',
+  simetria:  '#1a1a1a',
+};
+
 export function LivePreview() {
   const storeName = useBrandStore((s) => s.storeName);
   const industry = useBrandStore((s) => s.industry);
@@ -81,16 +98,39 @@ export function LivePreview() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="rounded-2xl overflow-hidden"
-            style={{ backgroundColor: industryTemplate ? undefined : colors.bg, fontFamily, height: 420 }}
+            style={{
+              backgroundColor: industryTemplate ? undefined : colors.bg,
+              fontFamily,
+              height: 420,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
           >
             {industryTemplate ? (
-              <TemplatePhonePreview template={industryTemplate} storeName={storeName} />
+              <>
+                {/* Status bar con padding para el notch */}
+                <div style={{
+                  background: TEMPLATE_STATUS_BG[industryTemplate.id] ?? '#fff',
+                  color: TEMPLATE_STATUS_TEXT[industryTemplate.id] ?? '#555',
+                  paddingTop: 22, paddingBottom: 4,
+                  paddingLeft: 12, paddingRight: 12,
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  fontSize: 9, fontWeight: 700, opacity: 0.7, flexShrink: 0,
+                }}>
+                  <span>9:41</span>
+                  <span>●●●●</span>
+                </div>
+                {/* Contenido del template llenando el resto */}
+                <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
+                  <TemplatePhonePreview template={industryTemplate} storeName={storeName} />
+                </div>
+              </>
             ) : (
               <>
                 {/* Status bar */}
                 <div
                   className="flex items-center justify-between px-4 pt-6 pb-1 text-[9px] font-bold"
-                  style={{ color: colors.fg, opacity: 0.5 }}
+                  style={{ color: colors.fg, opacity: 0.5, flexShrink: 0 }}
                 >
                   <span>9:41</span>
                   <span>●●●●</span>
