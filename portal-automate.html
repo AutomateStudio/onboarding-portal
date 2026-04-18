@@ -2955,191 +2955,191 @@ function buildBloomMobile(t) {
 function buildAuraDesktop(t) {
   const prods = t.products.map(p=>`
     <div>
-      <div style="height:78px;background:#f0f2f5;border-radius:6px;overflow:hidden;margin-bottom:6px;">
+      <div style="height:88px;background:#f0f2f5;border-radius:8px;overflow:hidden;margin-bottom:8px;border:1px solid #e8ecf1;">
         <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.parentNode.style.background='#e0e3e8'">
       </div>
-      <div style="font-size:9px;color:#2c3e50;font-weight:500;margin-bottom:2px;">${p.name}</div>
-      <div style="font-size:9px;color:#3498db;font-weight:700;">${p.price}</div>
+      <div style="font-size:9px;color:#1a2a3a;font-weight:600;margin-bottom:3px;letter-spacing:0.2px;">${p.name}</div>
+      <div style="font-size:10px;color:#2980b9;font-weight:700;">${p.price}</div>
     </div>`).join('');
   return `<div style="background:#f8f9fa;height:100%;overflow:hidden;font-family:'Montserrat',sans-serif;">
-    <div style="background:#e3f2fd;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#1565c0;font-weight:600;letter-spacing:1.5px;">ENVÍO GRATIS · ACTIVEWEAR DE ALTO DESEMPEÑO</div>
-    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid #e8eaed;">
-      <span style="font-size:12px;font-weight:700;letter-spacing:3px;color:#1565c0;">AURA</span>
-      <div style="display:flex;gap:26px;"><span style="font-size:10px;color:#666;">Tienda</span><span style="font-size:10px;color:#666;">Colecciones</span><span style="font-size:10px;color:#666;">Sobre Nosotros</span></div>
-      <div style="display:flex;gap:14px;font-size:14px;color:#666;">♡ 🛒</div>
+    <div style="background:#e3f2fd;height:24px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#0d47a1;font-weight:700;letter-spacing:2px;">ENVÍO GRATIS · ACTIVEWEAR DE ALTO DESEMPEÑO</div>
+    <div style="background:#fff;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:2px solid #f0f2f5;">
+      <span style="font-size:13px;font-weight:900;letter-spacing:4px;color:#0d47a1;text-transform:uppercase;">Aura</span>
+      <div style="display:flex;gap:32px;"><span style="font-size:10px;color:#333;font-weight:600;letter-spacing:1px;">Tienda</span><span style="font-size:10px;color:#333;font-weight:600;letter-spacing:1px;">Colecciones</span><span style="font-size:10px;color:#333;font-weight:600;letter-spacing:1px;">Sobre Nosotros</span></div>
+      <div style="display:flex;gap:16px;font-size:16px;color:#333;">♡ 🛒</div>
     </div>
-    <div style="height:214px;position:relative;overflow:hidden;">
+    <div style="height:224px;position:relative;overflow:hidden;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(21,101,192,0.6) 0%,rgba(21,101,192,0.0) 70%);"></div>
-      <div style="position:absolute;bottom:28px;left:28px;">
-        <div style="font-size:9px;color:#87ceeb;font-weight:700;letter-spacing:3px;margin-bottom:10px;text-transform:uppercase;">Colección Deportiva</div>
-        <div style="font-size:30px;font-weight:800;color:#fff;line-height:1.1;">Ropa para tu<br>mejor versión.</div>
-        <div style="margin-top:14px;display:inline-block;padding:8px 22px;background:#3498db;color:#fff;font-size:10px;font-weight:700;border-radius:100px;">Explorar productos</div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(13,71,161,0.65) 0%,rgba(13,71,161,0.0) 75%);"></div>
+      <div style="position:absolute;bottom:32px;left:32px;">
+        <div style="font-size:10px;color:#64b5f6;font-weight:800;letter-spacing:4px;margin-bottom:12px;text-transform:uppercase;">Colección Deportiva</div>
+        <div style="font-size:32px;font-weight:900;color:#fff;line-height:1.15;letter-spacing:-1px;">Ropa para tu<br>mejor versión.</div>
+        <div style="margin-top:18px;display:inline-block;padding:10px 26px;background:#2196f3;color:#fff;font-size:11px;font-weight:800;border-radius:6px;letter-spacing:1px;text-transform:uppercase;box-shadow:0 4px 12px rgba(33,150,243,0.3);">Explorar</div>
       </div>
     </div>
-    <div style="background:#fff;padding:16px 28px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="display:flex;gap:18px;align-items:center;">
-          <span style="font-size:10.5px;font-weight:700;color:#1565c0;border-bottom:2px solid #3498db;padding-bottom:3px;">● mejor rendimiento</span>
-          <span style="font-size:10.5px;color:#bbb;">colecciones</span>
+    <div style="background:#fff;padding:20px 32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <div style="display:flex;gap:22px;align-items:center;">
+          <span style="font-size:11px;font-weight:800;color:#0d47a1;border-bottom:3px solid #2196f3;padding-bottom:4px;letter-spacing:1px;text-transform:uppercase;">● Mejor Rendimiento</span>
+          <span style="font-size:11px;color:#999;letter-spacing:0.5px;">Colecciones</span>
         </div>
-        <span style="font-size:9.5px;color:#bbb;text-decoration:underline;">Ver todo</span>
+        <span style="font-size:10px;color:#666;text-decoration:underline;letter-spacing:0.5px;">Ver todo</span>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">${prods}</div>
     </div>
   </div>`;
 }
 function buildAuraMobile(t) {
   const prods = t.products.slice(0,2).map(p=>`
-    <div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f2f5;">
-      <div style="width:30px;height:30px;background:#f0f2f5;border-radius:5px;overflow:hidden;flex-shrink:0;">
+    <div style="display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f2f5;">
+      <div style="width:36px;height:36px;background:#f0f2f5;border-radius:6px;overflow:hidden;flex-shrink:0;border:1px solid #e8ecf1;">
         <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
       </div>
-      <div>
-        <div style="font-size:6.5px;color:#2c3e50;font-weight:600;">${p.name}</div>
-        <div style="font-size:6.5px;color:#3498db;font-weight:700;">${p.price}</div>
+      <div style="flex:1;">
+        <div style="font-size:7px;color:#1a2a3a;font-weight:700;letter-spacing:0.3px;">${p.name}</div>
+        <div style="font-size:7px;color:#2980b9;font-weight:800;margin-top:1px;">${p.price}</div>
       </div>
     </div>`).join('');
   return `<div style="background:#f8f9fa;height:100%;display:flex;flex-direction:column;">
-    <div style="background:#e3f2fd;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#1565c0;letter-spacing:1px;font-weight:600;">ENVÍO GRATIS</div>
-    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #e8eaed;flex-shrink:0;">
-      <span style="font-size:6.5px;font-weight:700;letter-spacing:2.5px;color:#1565c0;">AURA</span>
-      <div style="display:flex;gap:7px;font-size:10px;color:#666;">♡ 🛒</div>
+    <div style="background:#e3f2fd;height:13px;display:flex;align-items:center;justify-content:center;font-size:6px;color:#0d47a1;letter-spacing:1.5px;font-weight:800;text-transform:uppercase;">Envío Gratis</div>
+    <div style="background:#fff;height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 11px;border-bottom:2px solid #f0f2f5;flex-shrink:0;">
+      <span style="font-size:7.5px;font-weight:900;letter-spacing:3px;color:#0d47a1;text-transform:uppercase;">Aura</span>
+      <div style="display:flex;gap:9px;font-size:11px;color:#333;">♡ 🛒</div>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:120px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(21,101,192,0.6) 0%,transparent 70%);"></div>
-      <div style="position:absolute;bottom:10px;left:10px;">
-        <div style="font-size:13px;font-weight:800;color:#fff;line-height:1.1;">Ropa para tu<br>mejor versión.</div>
-        <div style="margin-top:6px;display:inline-block;padding:3px 10px;background:#3498db;color:#fff;font-size:6px;font-weight:700;border-radius:100px;">Explorar</div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(13,71,161,0.65) 0%,transparent 75%);"></div>
+      <div style="position:absolute;bottom:12px;left:12px;">
+        <div style="font-size:14px;font-weight:900;color:#fff;line-height:1.1;letter-spacing:-0.5px;">Ropa para tu<br>mejor versión.</div>
+        <div style="margin-top:7px;display:inline-block;padding:4px 12px;background:#2196f3;color:#fff;font-size:6.5px;font-weight:800;border-radius:5px;letter-spacing:0.5px;text-transform:uppercase;">Explorar</div>
       </div>
     </div>
-    <div style="background:#fff;padding:7px 9px;flex:1;">${prods}</div>
+    <div style="background:#fff;padding:10px 11px;flex:1;">${prods}</div>
   </div>`;
 }
 
 /* ── ELEGANCIA: sophisticated premium fashion, centered nav, hero right ── */
 function buildEleganciaDesktop(t) {
   const prods = t.products.map(p=>`
-    <div style="flex:1;display:flex;gap:12px;align-items:center;background:#f5ede6;padding:10px 12px;border-radius:7px;">
-      <div style="width:46px;height:46px;background:#eae0d8;border-radius:5px;overflow:hidden;flex-shrink:0;">
+    <div style="flex:1;display:flex;gap:14px;align-items:center;background:#f8f5f0;padding:14px 15px;border-radius:8px;border:1px solid #ede8e1;">
+      <div style="width:52px;height:52px;background:#ede8e1;border-radius:6px;overflow:hidden;flex-shrink:0;border:1px solid #e0d9ce;">
         <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
       </div>
       <div style="flex:1;">
-        <div style="font-size:9px;color:#5a4a40;font-family:'Cormorant Garamond',serif;margin-bottom:3px;">${p.name}</div>
-        <div style="font-size:9px;color:#8b6f47;font-weight:700;">${p.price}</div>
+        <div style="font-size:9.5px;color:#4a3a30;font-family:'Cormorant Garamond',serif;margin-bottom:4px;letter-spacing:0.5px;font-weight:600;">${p.name}</div>
+        <div style="font-size:10px;color:#9b7c5f;font-weight:800;letter-spacing:0.3px;">${p.price}</div>
       </div>
-      <div style="font-size:12px;color:#8b6f47;opacity:0.6;">→</div>
+      <div style="font-size:14px;color:#9b7c5f;opacity:0.7;margin-right:2px;">→</div>
     </div>`).join('');
-  return `<div style="background:#f5ede6;height:100%;overflow:hidden;font-family:'Cormorant Garamond',serif;">
-    <div style="background:#e0d5ca;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#6b5344;font-weight:600;letter-spacing:3px;">COLECCIÓN PREMIUM · ENVÍO INCLUIDO</div>
-    <div style="background:#f5ede6;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(107,83,68,0.15);">
-      <div style="display:flex;gap:22px;"><span style="font-size:9.5px;color:#6b5344;letter-spacing:1.5px;">Colección</span><span style="font-size:9.5px;color:#6b5344;letter-spacing:1.5px;">Editorial</span></div>
-      <span style="font-size:16px;font-weight:600;letter-spacing:3px;color:#3a3530;">ELEGANCIA</span>
-      <div style="display:flex;gap:22px;align-items:center;"><span style="font-size:9.5px;color:#6b5344;letter-spacing:1.5px;">Contacto</span><span style="font-size:15px;color:#8b6f47;">♡</span></div>
+  return `<div style="background:#f7f3ed;height:100%;overflow:hidden;font-family:'Cormorant Garamond',serif;">
+    <div style="background:#e5d8ca;height:24px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#5a4a3a;font-weight:700;letter-spacing:4px;text-transform:uppercase;">Colección Premium · Envío Incluido</div>
+    <div style="background:#f7f3ed;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:2px solid #f0e8db;">
+      <div style="display:flex;gap:28px;"><span style="font-size:10.5px;color:#5a4a3a;letter-spacing:2px;font-weight:600;">Colección</span><span style="font-size:10.5px;color:#5a4a3a;letter-spacing:2px;font-weight:600;">Editorial</span></div>
+      <span style="font-size:18px;font-weight:700;letter-spacing:4px;color:#3a2f25;text-transform:uppercase;">Elegancia</span>
+      <div style="display:flex;gap:28px;align-items:center;"><span style="font-size:10.5px;color:#5a4a3a;letter-spacing:2px;font-weight:600;">Contacto</span><span style="font-size:16px;color:#9b7c5f;">♡</span></div>
     </div>
-    <div style="height:214px;position:relative;overflow:hidden;">
+    <div style="height:224px;position:relative;overflow:hidden;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(245,237,230,0.9) 0%,rgba(245,237,230,0.0) 60%);"></div>
-      <div style="position:absolute;left:32px;top:50%;transform:translateY(-50%);">
-        <div style="font-size:9.5px;color:#8b6f47;letter-spacing:2.5px;margin-bottom:14px;text-transform:uppercase;">Línea Premium</div>
-        <div style="font-size:28px;color:#2a2420;font-style:italic;font-weight:600;line-height:1.25;">Sofisticación<br>sin esfuerzo.</div>
-        <div style="margin-top:18px;display:inline-block;padding:9px 22px;border:1.5px solid #8b6f47;color:#2a2420;font-size:9.5px;letter-spacing:2px;">Descubrir →</div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(247,243,237,0.92) 0%,rgba(247,243,237,0.0) 65%);"></div>
+      <div style="position:absolute;left:36px;top:50%;transform:translateY(-50%);">
+        <div style="font-size:11px;color:#9b7c5f;letter-spacing:3.5px;margin-bottom:16px;text-transform:uppercase;font-weight:700;">Línea Premium</div>
+        <div style="font-size:31px;color:#2a1f15;font-style:italic;font-weight:600;line-height:1.3;letter-spacing:-1px;">Sofisticación<br>sin esfuerzo.</div>
+        <div style="margin-top:20px;display:inline-block;padding:11px 26px;border:2px solid #9b7c5f;color:#2a1f15;font-size:10.5px;letter-spacing:2.5px;font-weight:700;text-transform:uppercase;">Descubrir →</div>
       </div>
     </div>
-    <div style="background:#f5ede6;padding:16px 28px;">
-      <div style="font-size:11px;color:#8b6f47;font-style:italic;letter-spacing:1px;margin-bottom:14px;">Piezas Selectas</div>
-      <div style="display:flex;gap:10px;">${prods}</div>
+    <div style="background:#f7f3ed;padding:20px 32px;">
+      <div style="font-size:12px;color:#9b7c5f;font-style:italic;letter-spacing:1.5px;margin-bottom:16px;font-weight:600;text-transform:uppercase;">Piezas Selectas</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">${prods}</div>
     </div>
   </div>`;
 }
 function buildElegancia_Mobile(t) {
   const prods = t.products.slice(0,2).map(p=>`
-    <div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(107,83,68,0.1);">
-      <div style="width:30px;height:30px;background:#eae0d8;border-radius:4px;overflow:hidden;flex-shrink:0;">
+    <div style="display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(107,83,68,0.12);">
+      <div style="width:36px;height:36px;background:#ede8e1;border-radius:5px;overflow:hidden;flex-shrink:0;border:1px solid #e0d9ce;">
         <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
       </div>
-      <div>
-        <div style="font-size:6.5px;color:#5a4a40;font-family:'Cormorant Garamond',serif;">${p.name}</div>
-        <div style="font-size:6.5px;color:#8b6f47;font-weight:700;">${p.price}</div>
+      <div style="flex:1;">
+        <div style="font-size:7px;color:#4a3a30;font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:0.3px;">${p.name}</div>
+        <div style="font-size:7px;color:#9b7c5f;font-weight:800;margin-top:1px;letter-spacing:0.2px;">${p.price}</div>
       </div>
     </div>`).join('');
-  return `<div style="background:#f5ede6;height:100%;display:flex;flex-direction:column;">
-    <div style="background:#e0d5ca;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#6b5344;letter-spacing:2px;font-weight:600;">PREMIUM</div>
-    <div style="background:#f5ede6;height:22px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(107,83,68,0.12);flex-shrink:0;">
-      <span style="font-size:9px;font-weight:600;letter-spacing:2px;color:#3a3530;">ELEGANCIA</span>
+  return `<div style="background:#f7f3ed;height:100%;display:flex;flex-direction:column;">
+    <div style="background:#e5d8ca;height:13px;display:flex;align-items:center;justify-content:center;font-size:6px;color:#5a4a3a;letter-spacing:2px;font-weight:800;text-transform:uppercase;">Premium</div>
+    <div style="background:#f7f3ed;height:26px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #f0e8db;flex-shrink:0;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:3px;color:#3a2f25;text-transform:uppercase;">Elegancia</span>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:120px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(245,237,230,0.9) 0%,transparent 60%);"></div>
-      <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%);">
-        <div style="font-size:11px;color:#2a2420;font-style:italic;font-weight:600;line-height:1.2;font-family:'Cormorant Garamond',serif;">Sofisticación<br>sin esfuerzo.</div>
-        <div style="margin-top:5px;display:inline-block;padding:2px 8px;border:1px solid #8b6f47;color:#2a2420;font-size:5.5px;letter-spacing:1px;">Descubrir</div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(247,243,237,0.92) 0%,transparent 65%);"></div>
+      <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);">
+        <div style="font-size:12px;color:#2a1f15;font-style:italic;font-weight:600;line-height:1.25;font-family:'Cormorant Garamond',serif;letter-spacing:-0.5px;">Sofisticación<br>sin esfuerzo.</div>
+        <div style="margin-top:6px;display:inline-block;padding:3px 10px;border:1.5px solid #9b7c5f;color:#2a1f15;font-size:6px;letter-spacing:1.2px;font-weight:700;text-transform:uppercase;">Descubrir</div>
       </div>
     </div>
-    <div style="background:#f5ede6;padding:7px 9px;flex:1;">${prods}</div>
+    <div style="background:#f7f3ed;padding:10px 11px;flex:1;">${prods}</div>
   </div>`;
 }
 
 /* ── SIMETRÍA: versatile casual lifestyle, colorful, 3-col image gallery ── */
 function buildSimetriaDesktop(t) {
-  const colors = ['#fef3e6','#e8f4f8','#f0ede8'];
+  const colors = ['#fef4e9','#e9f5fb','#f1eeea'];
   const prods = t.products.slice(0,3).map((p,i)=>`
-    <div style="background:${colors[i]};border-radius:8px;overflow:hidden;cursor:pointer;position:relative;group;">
-      <div style="height:100px;border-radius:6px;overflow:hidden;margin-bottom:8px;">
+    <div style="background:${colors[i]};border-radius:10px;overflow:hidden;cursor:pointer;position:relative;padding:12px;transition:transform 0.3s;">
+      <div style="height:110px;border-radius:7px;overflow:hidden;margin-bottom:10px;">
         <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" loading="lazy" onerror="this.parentNode.style.background='${colors[i]}'">
       </div>
-      <div style="padding:0 10px 10px;font-size:9.5px;color:#1a1a1a;font-weight:600;margin-bottom:2px;">${p.name}</div>
-      <div style="padding:0 10px;font-size:9.5px;color:#555;font-weight:600;margin-bottom:8px;">${p.price}</div>
-      <div style="padding:0 10px 10px;"><button style="width:100%;padding:5px 0;border:1.5px solid #1a1a1a;background:#fff;border-radius:4px;font-size:8px;font-weight:700;cursor:pointer;transition:all 0.2s;">VER</button></div>
+      <div style="padding:0 2px;font-size:10px;color:#1a1a1a;font-weight:700;margin-bottom:3px;letter-spacing:0.3px;">${p.name}</div>
+      <div style="padding:0 2px;font-size:10px;color:#333;font-weight:700;margin-bottom:10px;letter-spacing:0.2px;">${p.price}</div>
+      <div><button style="width:100%;padding:7px 0;border:2px solid #1a1a1a;background:#fff;border-radius:6px;font-size:9px;font-weight:800;cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;">Ver</button></div>
     </div>`).join('');
   return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
-    <div style="background:#f5f5f5;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#333;font-weight:600;letter-spacing:1px;">TÚ DEFINES TU ESTILO · ENVÍO GRATIS EN TODAS PARTES</div>
-    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid #f0f0f0;">
-      <span style="font-size:12px;font-weight:800;letter-spacing:2px;color:#1a1a1a;">SIMETRÍA</span>
-      <div style="display:flex;gap:24px;"><span style="font-size:10px;color:#666;font-weight:500;">Tienda</span><span style="font-size:10px;color:#666;font-weight:500;">Lookbook</span><span style="font-size:10px;color:#666;font-weight:500;">Blog</span></div>
-      <div style="display:flex;gap:12px;font-size:14px;color:#1a1a1a;">🔍 🛒</div>
+    <div style="background:#f6f6f6;height:24px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#1a1a1a;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Tú Defines Tu Estilo · Envío Gratis</div>
+    <div style="background:#fff;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:2px solid #f6f6f6;">
+      <span style="font-size:13px;font-weight:900;letter-spacing:3px;color:#1a1a1a;text-transform:uppercase;">Simetría</span>
+      <div style="display:flex;gap:32px;"><span style="font-size:10px;color:#333;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Tienda</span><span style="font-size:10px;color:#333;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Lookbook</span><span style="font-size:10px;color:#333;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Blog</span></div>
+      <div style="display:flex;gap:14px;font-size:16px;color:#1a1a1a;">🔍 🛒</div>
     </div>
-    <div style="height:188px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+    <div style="height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
-      <div style="position:absolute;inset:0;background:rgba(200,200,200,0.25);"></div>
+      <div style="position:absolute;inset:0;background:rgba(220,220,220,0.2);"></div>
       <div style="position:relative;z-index:2;text-align:center;">
-        <div style="font-size:8.5px;color:#333;letter-spacing:3px;font-weight:700;margin-bottom:8px;text-transform:uppercase;">Colección Casual</div>
-        <div style="font-size:48px;font-weight:900;color:#1a1a1a;line-height:1;letter-spacing:-2px;">Crece tu<br>negocio.</div>
-        <div style="margin-top:14px;display:inline-block;padding:8px 24px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:700;border-radius:4px;letter-spacing:0.5px;">Ver colecciones →</div>
+        <div style="font-size:10px;color:#1a1a1a;letter-spacing:4px;font-weight:900;margin-bottom:10px;text-transform:uppercase;">Colección Casual</div>
+        <div style="font-size:50px;font-weight:900;color:#1a1a1a;line-height:1;letter-spacing:-2px;">Crece tu<br>negocio.</div>
+        <div style="margin-top:16px;display:inline-block;padding:10px 28px;background:#1a1a1a;color:#fff;font-size:11px;font-weight:800;border-radius:6px;letter-spacing:1.5px;text-transform:uppercase;">Ver Colecciones</div>
       </div>
     </div>
-    <div style="padding:14px 22px 10px;background:#fff;">
-      <div style="font-size:9.5px;font-weight:700;color:#1a1a1a;margin-bottom:12px;text-align:center;letter-spacing:1px;text-transform:uppercase;">Lo mejor en moda casual</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">${prods}</div>
+    <div style="padding:18px 28px;background:#fff;">
+      <div style="font-size:10px;font-weight:900;color:#1a1a1a;margin-bottom:16px;text-align:center;letter-spacing:2px;text-transform:uppercase;">Lo Mejor En Moda Casual</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">${prods}</div>
     </div>
   </div>`;
 }
 function buildSimetriaMobile(t) {
-  const colors = ['#fef3e6','#e8f4f8'];
+  const colors = ['#fef4e9','#e9f5fb'];
   const prods = t.products.slice(0,2).map((p,i)=>`
-    <div style="background:${colors[i]};border-radius:6px;padding:5px;">
-      <div style="height:40px;border-radius:4px;overflow:hidden;margin-bottom:4px;">
+    <div style="background:${colors[i]};border-radius:7px;padding:7px;">
+      <div style="height:48px;border-radius:5px;overflow:hidden;margin-bottom:6px;">
         <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
       </div>
-      <div style="font-size:6px;color:#1a1a1a;font-weight:700;">${p.name}</div>
-      <div style="font-size:6px;color:#555;font-weight:600;">${p.price}</div>
+      <div style="font-size:6.5px;color:#1a1a1a;font-weight:800;letter-spacing:0.2px;">${p.name}</div>
+      <div style="font-size:6.5px;color:#333;font-weight:700;margin-top:1px;letter-spacing:0.2px;">${p.price}</div>
     </div>`).join('');
   return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
-    <div style="background:#f5f5f5;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#333;letter-spacing:0.5px;font-weight:600;">ENVÍO GRATIS</div>
-    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
-      <span style="font-size:7.5px;font-weight:800;letter-spacing:1.5px;color:#1a1a1a;">SIMETRÍA</span>
-      <div style="display:flex;gap:6px;font-size:10px;color:#1a1a1a;">🔍 🛒</div>
+    <div style="background:#f6f6f6;height:13px;display:flex;align-items:center;justify-content:center;font-size:6px;color:#1a1a1a;letter-spacing:1px;font-weight:800;text-transform:uppercase;">Envío Gratis</div>
+    <div style="background:#fff;height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 11px;border-bottom:2px solid #f6f6f6;flex-shrink:0;">
+      <span style="font-size:8.5px;font-weight:900;letter-spacing:2px;color:#1a1a1a;text-transform:uppercase;">Simetría</span>
+      <div style="display:flex;gap:8px;font-size:11px;color:#1a1a1a;">🔍 🛒</div>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+    <div style="height:128px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
-      <div style="position:absolute;inset:0;background:rgba(200,200,200,0.25);"></div>
+      <div style="position:absolute;inset:0;background:rgba(220,220,220,0.2);"></div>
       <div style="position:relative;z-index:2;text-align:center;">
-        <div style="font-size:24px;font-weight:900;color:#1a1a1a;letter-spacing:-1px;line-height:1;">Crece tu<br>negocio.</div>
-        <div style="margin-top:6px;display:inline-block;padding:3px 10px;background:#1a1a1a;color:#fff;font-size:6px;font-weight:700;border-radius:3px;">Ver más</div>
+        <div style="font-size:26px;font-weight:900;color:#1a1a1a;letter-spacing:-1px;line-height:1;">Crece tu<br>negocio.</div>
+        <div style="margin-top:8px;display:inline-block;padding:4px 12px;background:#1a1a1a;color:#fff;font-size:6.5px;font-weight:800;border-radius:4px;letter-spacing:0.5px;text-transform:uppercase;">Ver Más</div>
       </div>
     </div>
-    <div style="padding:7px 7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
+    <div style="padding:9px 9px;display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;background:#fff;">${prods}</div>
   </div>`;
 }
 
