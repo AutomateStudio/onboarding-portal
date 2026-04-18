@@ -431,6 +431,204 @@
     .tc-tag.popular { background: #fef3c7; color: #92400e; }
     .tc-tag.new { background: #ecfdf5; color: #065f46; }
 
+    /* ─── Dual-view card (desktop + mobile) ─────────── */
+    .tc-dual {
+      display: flex;
+      height: 360px;
+      overflow: hidden;
+    }
+    .tc-desktop {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-right: 1px solid rgba(0,0,0,0.07);
+    }
+    .tc-mobile-wrap {
+      width: 108px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 8px;
+      flex-shrink: 0;
+    }
+    .tc-phone {
+      width: 76px;
+      height: 158px;
+      border-radius: 14px;
+      border: 2.5px solid #2a2a2a;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+    .tc-phone::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 22px; height: 5px;
+      background: #2a2a2a;
+      border-radius: 0 0 5px 5px;
+      z-index: 10;
+    }
+    .tc-mobile-content {
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .tc-mobile-nav {
+      height: 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6px;
+      font-size: 5.5px; font-weight: 700;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+    .tc-mobile-hero {
+      height: 88px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .tc-mobile-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .tc-mobile-hero-text {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: flex-end;
+      padding: 6px 7px;
+    }
+    .tc-mobile-hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      opacity: 0.45;
+    }
+    .tc-mobile-title { font-size: 9px; font-weight: 800; line-height: 1.1; }
+    .tc-mobile-cta {
+      margin-top: 4px;
+      font-size: 5.5px; font-weight: 700;
+      padding: 2px 7px;
+      display: inline-block;
+    }
+    .tc-mobile-products {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 5px 5px 4px;
+      overflow: hidden;
+    }
+    .tc-mobile-product {
+      display: flex; gap: 4px; align-items: center;
+    }
+    .tc-mobile-product-img {
+      width: 22px; height: 22px;
+      border-radius: 3px; overflow: hidden; flex-shrink: 0;
+    }
+    .tc-mobile-product-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .tc-mobile-product-name { font-size: 5px; font-weight: 600; line-height: 1.2; }
+    .tc-mobile-product-price { font-size: 5px; font-weight: 700; margin-top: 1px; }
+    .tc-device-label {
+      font-size: 8px; font-weight: 600;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+
+    /* ── Aurora (Stretch-inspired: clean warm minimal) ── */
+    .tpl-aurora .tc-desktop { background: #faf7f2; }
+    .tpl-aurora .tc-topbar { background: #f0ebe3; color: #8a7060; }
+    .tpl-aurora .tc-nav { background: #faf7f2; color: #1a1410; border-bottom: 1px solid #ede8e0; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 8px; letter-spacing: 0.2px; }
+    .tpl-aurora .tc-hero { background: #e8e0d5; height: 190px; align-items: flex-end; }
+    .tpl-aurora .tc-hero::before { background: linear-gradient(to top, rgba(20,15,10,0.55) 0%, rgba(20,15,10,0.05) 60%); opacity: 1; }
+    .tpl-aurora .tc-hero-eyebrow { color: #c8a882; }
+    .tpl-aurora .tc-hero-title { color: #fff; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 20px; }
+    .tpl-aurora .tc-hero-cta { background: #fff; color: #1a1410; border-radius: 100px; font-size: 8px; }
+    .tpl-aurora .tc-featured { background: #fff; border-top: 1px solid #ede8e0; }
+    .tpl-aurora .tc-featured-label { color: #1a1410; font-weight: 700; }
+    .tpl-aurora .tc-product-img { background: #f5f0ea; }
+    .tpl-aurora .tc-product-info { background: #fff; }
+    .tpl-aurora .tc-product-name { color: #3d3530; }
+    .tpl-aurora .tc-product-price { color: #8a7060; }
+    /* Aurora mobile */
+    .tpl-aurora .tc-mobile-wrap { background: #faf7f2; border-left: 1px solid #ede8e0; }
+    .tpl-aurora .tc-mobile-nav { background: #faf7f2; color: #1a1410; border-bottom: 1px solid #ede8e0; }
+    .tpl-aurora .tc-mobile-hero::before { background: linear-gradient(to top, rgba(20,15,10,0.55) 0%, transparent 60%); }
+    .tpl-aurora .tc-mobile-title { color: #fff; font-family: 'Inter', sans-serif; }
+    .tpl-aurora .tc-mobile-cta { background: #fff; color: #1a1410; border-radius: 100px; }
+    .tpl-aurora .tc-mobile-products { background: #fff; }
+    .tpl-aurora .tc-mobile-product-img { background: #f5f0ea; }
+    .tpl-aurora .tc-mobile-product-name { color: #3d3530; }
+    .tpl-aurora .tc-mobile-product-price { color: #8a7060; }
+
+    /* ── Onyx (Be Yours-inspired: dark editorial serif) ── */
+    .tpl-onyx .tc-desktop { background: #1a1512; }
+    .tpl-onyx .tc-topbar { background: #110e0a; color: #b89870; }
+    .tpl-onyx .tc-nav { background: #1a1512; color: #e8d8c0; border-bottom: 1px solid rgba(184,152,112,0.15); font-family: 'Cormorant Garamond', serif; font-size: 9.5px; font-weight: 600; letter-spacing: 1.2px; }
+    .tpl-onyx .tc-hero { background: #2a2018; height: 190px; align-items: flex-end; padding: 16px; }
+    .tpl-onyx .tc-hero::before { background: linear-gradient(160deg, rgba(26,21,18,0.1) 0%, rgba(26,21,18,0.7) 100%); opacity: 1; }
+    .tpl-onyx .tc-hero-eyebrow { color: #b89870; }
+    .tpl-onyx .tc-hero-title { color: #f5ede0; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 19px; font-style: italic; }
+    .tpl-onyx .tc-hero-cta { background: transparent; color: #f5ede0; border: 1px solid rgba(245,237,224,0.5); border-radius: 2px; font-size: 8px; }
+    .tpl-onyx .tc-featured { background: #1a1512; border-top: 1px solid rgba(184,152,112,0.15); }
+    .tpl-onyx .tc-featured-label { color: #b89870; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 10px; }
+    .tpl-onyx .tc-product-img { background: #2a2018; }
+    .tpl-onyx .tc-product-info { background: #1f1a14; }
+    .tpl-onyx .tc-product-name { color: #c8b898; }
+    .tpl-onyx .tc-product-price { color: #b89870; }
+    /* Onyx mobile */
+    .tpl-onyx .tc-mobile-wrap { background: #1a1512; border-left: 1px solid rgba(184,152,112,0.12); }
+    .tpl-onyx .tc-mobile-nav { background: #1a1512; color: #e8d8c0; border-bottom: 1px solid rgba(184,152,112,0.15); }
+    .tpl-onyx .tc-mobile-hero::before { background: linear-gradient(160deg, rgba(26,21,18,0.1) 0%, rgba(26,21,18,0.75) 100%); }
+    .tpl-onyx .tc-mobile-title { color: #f5ede0; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+    .tpl-onyx .tc-mobile-cta { background: transparent; color: #f5ede0; border: 1px solid rgba(245,237,224,0.5); }
+    .tpl-onyx .tc-mobile-products { background: #1a1512; }
+    .tpl-onyx .tc-mobile-product-img { background: #2a2018; }
+    .tpl-onyx .tc-mobile-product-name { color: #c8b898; }
+    .tpl-onyx .tc-mobile-product-price { color: #b89870; }
+    .tpl-onyx .tc-phone { border-color: #3a3028; }
+    .tpl-onyx .tc-phone::before { background: #3a3028; }
+
+    /* ── Bloom (Wonder-inspired: bright bold fresh) ── */
+    .tpl-bloom .tc-desktop { background: #fff; }
+    .tpl-bloom .tc-topbar { background: #fdf4e8; color: #c07830; }
+    .tpl-bloom .tc-nav { background: #fff; color: #1a1a1a; border-bottom: 1px solid #f0f0f0; font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 8px; letter-spacing: 0.5px; }
+    .tpl-bloom .tc-hero { background: #f5eef8; height: 190px; align-items: center; justify-content: center; padding: 0; }
+    .tpl-bloom .tc-hero::before { background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(10,5,20,0.38) 100%); opacity: 1; }
+    .tpl-bloom .tc-hero-content { text-align: center; }
+    .tpl-bloom .tc-hero-eyebrow { color: #f0c0d8; text-align: center; }
+    .tpl-bloom .tc-hero-title { color: #fff; font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 28px; letter-spacing: -0.5px; text-align: center; }
+    .tpl-bloom .tc-hero-cta { background: #fff; color: #1a1a1a; border-radius: 100px; font-size: 8px; }
+    .tpl-bloom .tc-featured { background: #fff; border-top: 1px solid #f0f0f0; }
+    .tpl-bloom .tc-featured-label { color: #1a1a1a; font-weight: 700; }
+    .tpl-bloom .tc-products { grid-template-columns: repeat(3,1fr); }
+    .tpl-bloom .tc-product { border-radius: 8px; overflow: hidden; }
+    .tpl-bloom .tc-product:nth-child(1) .tc-product-img { background: #fef4c8; }
+    .tpl-bloom .tc-product:nth-child(2) .tc-product-img { background: #f0e8ff; }
+    .tpl-bloom .tc-product:nth-child(3) .tc-product-img { background: #e8f8f0; }
+    .tpl-bloom .tc-product-img { height: 75px; }
+    .tpl-bloom .tc-product-info { background: #fff; }
+    .tpl-bloom .tc-product-name { color: #1a1a1a; }
+    .tpl-bloom .tc-product-price { color: #c07830; }
+    /* Bloom mobile */
+    .tpl-bloom .tc-mobile-wrap { background: #fff; border-left: 1px solid #f0f0f0; }
+    .tpl-bloom .tc-mobile-nav { background: #fff; color: #1a1a1a; border-bottom: 1px solid #f0f0f0; }
+    .tpl-bloom .tc-mobile-hero::before { background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(10,5,20,0.42) 100%); }
+    .tpl-bloom .tc-mobile-title { color: #fff; font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 11px; text-align: center; width: 100%; }
+    .tpl-bloom .tc-mobile-hero-text { align-items: center; justify-content: center; }
+    .tpl-bloom .tc-mobile-cta { background: #fff; color: #1a1a1a; border-radius: 100px; }
+    .tpl-bloom .tc-mobile-products { background: #fff; }
+    .tpl-bloom .tc-mobile-product-img { background: #fef4c8; }
+    .tpl-bloom .tc-mobile-product-name { color: #1a1a1a; }
+    .tpl-bloom .tc-mobile-product-price { color: #c07830; }
+
     /* ── Individual theme colors ── */
 
     /* 1. Elegance */
@@ -2384,14 +2582,14 @@ const INDUSTRY_CONTENT = {
     eyebrow: 'HOGAR', title: 'Tu espacio,\ntu estilo.', cta: 'Ver colección →'
   },
   beauty: {
-    hero: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
+    hero: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
     products: [
-      { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
       { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Face Serum', price: '$128.000' },
-      { img: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=200&q=80', name: 'Moisturizer', price: '$95.000' },
-      { img: 'https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=200&q=80', name: 'Palette', price: '$175.000' },
+      { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Facial Oil', price: '$95.000' },
+      { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80', name: 'Night Cream', price: '$112.000' },
+      { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
     ],
-    eyebrow: 'BEAUTY EDIT', title: 'Brilla.\nSiempre.', cta: 'Discover →'
+    eyebrow: 'SKINCARE EDIT', title: 'Glow\nfrom within.', cta: 'Discover →'
   },
   food: {
     hero: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80',
@@ -2423,6 +2621,66 @@ const INDUSTRY_CONTENT = {
     ],
     eyebrow: 'NUEVA LLEGADA', title: 'Tu tienda,\ntu mundo.', cta: 'Explorar →'
   }
+};
+
+/* ═══════════════════════════════════════════
+   INDUSTRY-SPECIFIC TEMPLATES
+   Templates curated per industry — shown instead
+   of generic themes when industry has templates defined.
+═══════════════════════════════════════════ */
+const INDUSTRY_TEMPLATES = {
+  beauty: [
+    {
+      id: 'aurora',
+      name: 'Aurora',
+      desc: 'Minimal cálido · Clean · Skincare',
+      tags: ['Popular', 'Skincare', 'Clean'],
+      badge: 'popular',
+      hero: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
+      heroMobile: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=300&q=80',
+      nav: { logo: 'AURORA', links: ['Shop', 'Rituals', 'About'], icons: ['♡', '🛒'] },
+      eyebrow: 'SKINCARE EDIT', title: 'Glow\nfrom within.', cta: 'Discover →',
+      products: [
+        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Glow Serum', price: '$128.000' },
+        { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80', name: 'Night Cream', price: '$112.000' },
+        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Facial Oil', price: '$95.000' },
+        { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
+      ]
+    },
+    {
+      id: 'onyx',
+      name: 'Onyx',
+      desc: 'Dark editorial · Serif · Luxury beauty',
+      tags: ['nuevo', 'Editorial', 'Luxury'],
+      badge: 'new',
+      hero: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
+      heroMobile: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300&q=80',
+      nav: { logo: 'ONYX', links: ['Collection', 'Rituals', 'Press'], icons: ['♡', '🛒'] },
+      eyebrow: 'BEAUTY RITUAL', title: 'Face your\nskin with us.', cta: 'Explore →',
+      products: [
+        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Glow Serum', price: '$128.000' },
+        { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80', name: 'Night Cream', price: '$112.000' },
+        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Facial Oil', price: '$95.000' },
+        { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
+      ]
+    },
+    {
+      id: 'bloom',
+      name: 'Bloom',
+      desc: 'Bright bold · Fresh · Beauty lifestyle',
+      tags: ['nuevo', 'Colorful', 'Lifestyle'],
+      badge: 'new',
+      hero: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&q=80',
+      heroMobile: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&q=80',
+      nav: { logo: 'BLOOM', links: ['Shop', 'New In', 'Beauty'], icons: ['🔍', '🛒'] },
+      eyebrow: 'EMPOWER YOUR SKIN', title: 'beauty', cta: 'Shop now →',
+      products: [
+        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Orchid Serum', price: '$128.000' },
+        { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80', name: 'Bakuchiol', price: '$112.000' },
+        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Eye Cream', price: '$95.000' },
+      ]
+    },
+  ]
 };
 
 const THEME_DEFS = [
@@ -2467,15 +2725,118 @@ function renderThemeGrid() {
   const grid = document.getElementById('theme-grid');
   if (!grid) return;
   const industry = state.industry || 'other';
+
+  // If this industry has curated templates, render dual-view cards
+  if (INDUSTRY_TEMPLATES[industry]) {
+    renderIndustryTemplates(grid, INDUSTRY_TEMPLATES[industry]);
+  } else {
+    renderGenericThemes(grid, industry);
+  }
+}
+
+function buildBadgeAndTags(t) {
+  const badgeHtml = t.badge === 'new' ? '<span class="tc-tag new">✦ Nuevo</span>' :
+                    t.badge === 'popular' ? '<span class="tc-tag popular">⭐ Popular</span>' : '';
+  const tagsHtml = t.tags.filter(tg => tg !== 'nuevo' && tg !== 'popular')
+                     .map(tg => `<span class="tc-tag">${tg}</span>`).join('');
+  return { badgeHtml, tagsHtml };
+}
+
+/* Industry-specific templates — dual desktop+mobile layout */
+function renderIndustryTemplates(grid, templates) {
+  let html = '';
+  templates.forEach(t => {
+    const isSelected = state.theme === t.id;
+    const { badgeHtml, tagsHtml } = buildBadgeAndTags(t);
+    const nav = t.nav;
+
+    const desktopProductsHtml = t.products.map(p => `
+      <div class="tc-product">
+        <div class="tc-product-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentNode.innerHTML='🛍️'"></div>
+        <div class="tc-product-info">
+          <div class="tc-product-name">${p.name}</div>
+          <div class="tc-product-price">${p.price}</div>
+        </div>
+      </div>`).join('');
+
+    const mobileProductsHtml = t.products.slice(0, 3).map(p => `
+      <div class="tc-mobile-product">
+        <div class="tc-mobile-product-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentNode.innerHTML='🛍️'"></div>
+        <div>
+          <div class="tc-mobile-product-name">${p.name}</div>
+          <div class="tc-mobile-product-price">${p.price}</div>
+        </div>
+      </div>`).join('');
+
+    html += `
+    <div class="theme-card tpl-${t.id}${isSelected ? ' selected' : ''}" data-theme="${t.id}" onclick="selectTheme('${t.id}',this)">
+      <div class="tc-check">✓</div>
+      <div class="tc-dual">
+        <!-- Desktop preview -->
+        <div class="tc-desktop">
+          <div class="tc-topbar">FREE SHIPPING OVER $200</div>
+          <div class="tc-nav">
+            ${nav.logo}
+            <div class="tc-nav-links"><span>${nav.links[0]}</span><span>${nav.links[1]}</span><span>${nav.links[2]}</span></div>
+            <div class="tc-nav-icons"><span>${nav.icons[0]}</span><span>${nav.icons[1]}</span></div>
+          </div>
+          <div class="tc-hero">
+            <img class="tc-hero-img" src="${t.hero}" alt="hero" loading="lazy" onerror="this.style.display='none'">
+            <div class="tc-hero-content">
+              <div class="tc-hero-eyebrow">${t.eyebrow}</div>
+              <div class="tc-hero-title">${t.title.replace('\n','<br>')}</div>
+              <div class="tc-hero-cta">${t.cta}</div>
+            </div>
+          </div>
+          <div class="tc-featured">
+            <div class="tc-featured-header">
+              <span class="tc-featured-label">Best sellers</span>
+              <span class="tc-featured-viewall">View all</span>
+            </div>
+            <div class="tc-products">${desktopProductsHtml}</div>
+          </div>
+        </div>
+        <!-- Mobile preview -->
+        <div class="tc-mobile-wrap">
+          <div class="tc-phone">
+            <div class="tc-mobile-content">
+              <div class="tc-mobile-nav">
+                <span>${nav.logo}</span>
+                <span>${nav.icons[1]}</span>
+              </div>
+              <div class="tc-mobile-hero">
+                <img src="${t.heroMobile}" alt="hero mobile" loading="lazy" onerror="this.style.display='none'">
+                <div class="tc-mobile-hero-text">
+                  <div class="tc-mobile-title">${t.title.replace('\n',' ')}</div>
+                  <div class="tc-mobile-cta">${t.cta}</div>
+                </div>
+              </div>
+              <div class="tc-mobile-products">${mobileProductsHtml}</div>
+            </div>
+          </div>
+          <div class="tc-device-label">Mobile</div>
+        </div>
+      </div>
+      <div class="tc-meta">
+        <div class="tc-meta-top">
+          <div class="tc-meta-left"><h4>${t.name}</h4><p>${t.desc}</p></div>
+          <button class="tc-meta-btn" onclick="event.stopPropagation();selectTheme('${t.id}',this.closest('.theme-card'))">${isSelected ? '✓ Elegido' : 'Elegir'}</button>
+        </div>
+        <div class="tc-tags">${badgeHtml}${tagsHtml}</div>
+      </div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+/* Generic themes — single-view layout (for industries without curated templates) */
+function renderGenericThemes(grid, industry) {
   const content = INDUSTRY_CONTENT[industry] || INDUSTRY_CONTENT['other'];
   let html = '';
   THEME_DEFS.forEach(t => {
     const nav = THEME_NAV[t.id];
     const isSelected = state.theme === t.id;
-    const badgeHtml = t.badge === 'new' ? '<span class="tc-tag new">✦ Nuevo</span>' :
-                      t.badge === 'popular' ? '<span class="tc-tag popular">⭐ Popular</span>' : '';
-    const tagsHtml = t.tags.filter(tg => tg !== 'nuevo' && tg !== 'popular')
-                       .map(tg => `<span class="tc-tag">${tg}</span>`).join('');
+    const { badgeHtml, tagsHtml } = buildBadgeAndTags(t);
     const productsHtml = content.products.map(p => `
       <div class="tc-product">
         <div class="tc-product-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentNode.innerHTML='🛍️'"></div>
