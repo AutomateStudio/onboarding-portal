@@ -2726,11 +2726,16 @@ function renderThemeGrid() {
   if (!grid) return;
   const industry = state.industry || 'other';
 
-  // If this industry has curated templates, render dual-view cards
-  if (INDUSTRY_TEMPLATES[industry]) {
-    renderIndustryTemplates(grid, INDUSTRY_TEMPLATES[industry]);
+  const templates = INDUSTRY_TEMPLATES[industry];
+  if (templates) {
+    renderIndustryTemplates(grid, templates);
   } else {
-    renderGenericThemes(grid, industry);
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:48px 24px;color:#aaa;">
+        <div style="font-size:36px;margin-bottom:12px;">🎨</div>
+        <p style="font-size:14px;font-weight:600;color:#555;margin-bottom:6px;">Templates en preparación</p>
+        <p style="font-size:13px;">Estamos diseñando los templates para esta industria.<br>Comparte tus referencias con el equipo de Automate.</p>
+      </div>`;
   }
 }
 
