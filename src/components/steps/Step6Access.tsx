@@ -21,6 +21,7 @@ export function Step6Access() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const currentPlan = plan ? PLANS[plan as PlanKey] : null;
   const appsLimit = currentPlan?.appsLimit ?? 0;
@@ -42,6 +43,7 @@ export function Step6Access() {
   const handleSubmit = async () => {
     if (!validate()) return;
     setIsSubmitting(true);
+    setSubmitError(null);
 
     const payload = {
       storeName, shopifyUrl, industry,
@@ -54,11 +56,25 @@ export function Step6Access() {
       submittedAt: new Date().toISOString(),
     };
 
-    console.log('🚀 Configuración enviada:', payload);
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-    await new Promise((r) => setTimeout(r, 1000));
-    setIsSubmitting(false);
-    setSubmitted(true);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? `Error ${res.status}`);
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Error al enviar. Intenta de nuevo.';
+      setSubmitError(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -229,6 +245,13 @@ export function Step6Access() {
               El pago se coordina directamente con el equipo de automate.
             </p>
           </motion.div>
+        )}
+
+        {/* Submit error */}
+        {submitError && (
+          <div className="rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-600">
+            {submitError}
+          </div>
         )}
 
         {/* Submit */}
