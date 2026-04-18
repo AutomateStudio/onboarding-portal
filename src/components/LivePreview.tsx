@@ -7,6 +7,8 @@ import { FONTS } from '@/constants/fonts';
 import { INDUSTRY_CONTENT } from '@/constants/industries';
 import { THEME_NAV, THEME_COLORS } from '@/constants/themes';
 import { PLANS, PlanKey } from '@/constants/plans';
+import { INDUSTRY_TEMPLATE_IDS, getTemplateById } from '@/constants/industryTemplates';
+import { TemplatePhonePreview } from '@/components/TemplatePhonePreview';
 
 const formatCOP = (n: number) =>
   new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n);
@@ -20,9 +22,13 @@ export function LivePreview() {
   const plan = useBrandStore((s) => s.plan);
   const selectedApps = useBrandStore((s) => s.selectedApps);
 
-  // Resolve colors: theme base → palette override
+  // Check if selected theme is an industry-specific template
+  const isIndustryTemplate = theme ? INDUSTRY_TEMPLATE_IDS.has(theme) : false;
+  const industryTemplate = isIndustryTemplate && theme ? getTemplateById(theme) : null;
+
+  // Resolve colors: theme base → palette override (only for generic themes)
   const paletteData = PALETTES.find((p) => p.id === palette);
-  const themeColors = theme ? THEME_COLORS[theme] : null;
+  const themeColors = !isIndustryTemplate && theme ? THEME_COLORS[theme] : null;
 
   const colors = paletteData
     ? { bg: paletteData.colors[0], fg: paletteData.colors[3], accent: paletteData.colors[2], navBg: paletteData.colors[1], cardBg: paletteData.colors[1], heroBg: paletteData.colors[1] }
@@ -74,105 +80,112 @@ export function LivePreview() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="rounded-2xl overflow-hidden transition-colors duration-500"
-            style={{ backgroundColor: colors.bg, fontFamily }}
+            className="rounded-2xl overflow-hidden"
+            style={{ backgroundColor: industryTemplate ? undefined : colors.bg, fontFamily, minHeight: 320 }}
           >
-            {/* Status bar */}
-            <div
-              className="flex items-center justify-between px-4 pt-6 pb-1 text-[9px] font-bold"
-              style={{ color: colors.fg, opacity: 0.5 }}
-            >
-              <span>9:41</span>
-              <span>●●●●</span>
-            </div>
-
-            {/* Simulated navbar */}
-            <div
-              className="flex items-center justify-between px-3 py-2 text-[9px] font-bold"
-              style={{ backgroundColor: colors.navBg, color: colors.fg }}
-            >
-              <span className="font-black tracking-widest" style={{ fontFamily }}>{logoText}</span>
-              <div className="flex gap-2 items-center opacity-60">
-                {nav.links.slice(0, 2).map((link) => (
-                  <span key={link}>{link}</span>
-                ))}
-                {nav.icons.map((icon, i) => (
-                  <span key={i}>{icon}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Hero image */}
-            <div className="relative mx-2 rounded-xl overflow-hidden" style={{ aspectRatio: '16/9' }}>
-              <img
-                src={content.hero}
-                alt="Hero"
-                className="w-full h-full object-cover"
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: `linear-gradient(to top, ${colors.fg}99 0%, transparent 60%)` }}
-              />
-              <div className="absolute bottom-2 left-3 right-3">
-                <p
-                  className="text-[8px] font-bold tracking-widest uppercase opacity-80 mb-0.5"
-                  style={{ color: colors.accent }}
-                >
-                  {content.eyebrow}
-                </p>
-                <p
-                  className="text-sm font-bold leading-tight"
-                  style={{ color: '#ffffff', fontFamily }}
-                >
-                  {content.title}
-                </p>
+            {industryTemplate ? (
+              <TemplatePhonePreview template={industryTemplate} storeName={storeName} />
+            ) : (
+              <>
+                {/* Status bar */}
                 <div
-                  className="mt-1.5 inline-block px-2 py-1 rounded text-[8px] font-bold"
-                  style={{ backgroundColor: colors.accent, color: colors.bg }}
+                  className="flex items-center justify-between px-4 pt-6 pb-1 text-[9px] font-bold"
+                  style={{ color: colors.fg, opacity: 0.5 }}
                 >
-                  {content.cta}
+                  <span>9:41</span>
+                  <span>●●●●</span>
                 </div>
-              </div>
-            </div>
 
-            {/* Product grid */}
-            <div className="px-2 pt-3 pb-1">
-              <p
-                className="text-[8px] font-bold tracking-widest uppercase mb-2 opacity-50"
-                style={{ color: colors.fg }}
-              >
-                Destacados
-              </p>
-              <div className="grid grid-cols-2 gap-1.5">
-                {content.products.slice(0, 4).map((prod, i) => (
-                  <div key={i} className="rounded-lg overflow-hidden" style={{ backgroundColor: colors.cardBg }}>
-                    <img
-                      src={prod.img}
-                      alt={prod.name}
-                      className="w-full object-cover"
-                      style={{ aspectRatio: '1/1' }}
-                    />
-                    <div className="px-1.5 py-1">
-                      <p
-                        className="text-[8px] font-semibold leading-tight"
-                        style={{ color: colors.fg }}
-                      >
-                        {prod.name}
-                      </p>
-                      <p
-                        className="text-[8px] font-bold"
-                        style={{ color: colors.accent }}
-                      >
-                        {prod.price}
-                      </p>
+                {/* Simulated navbar */}
+                <div
+                  className="flex items-center justify-between px-3 py-2 text-[9px] font-bold"
+                  style={{ backgroundColor: colors.navBg, color: colors.fg }}
+                >
+                  <span className="font-black tracking-widest" style={{ fontFamily }}>{logoText}</span>
+                  <div className="flex gap-2 items-center opacity-60">
+                    {nav.links.slice(0, 2).map((link) => (
+                      <span key={link}>{link}</span>
+                    ))}
+                    {nav.icons.map((icon, i) => (
+                      <span key={i}>{icon}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Hero image */}
+                <div className="relative mx-2 rounded-xl overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                  <img
+                    src={content.hero}
+                    alt="Hero"
+                    className="w-full h-full object-cover"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: `linear-gradient(to top, ${colors.fg}99 0%, transparent 60%)` }}
+                  />
+                  <div className="absolute bottom-2 left-3 right-3">
+                    <p
+                      className="text-[8px] font-bold tracking-widest uppercase opacity-80 mb-0.5"
+                      style={{ color: colors.accent }}
+                    >
+                      {content.eyebrow}
+                    </p>
+                    <p
+                      className="text-sm font-bold leading-tight"
+                      style={{ color: '#ffffff', fontFamily }}
+                    >
+                      {content.title}
+                    </p>
+                    <div
+                      className="mt-1.5 inline-block px-2 py-1 rounded text-[8px] font-bold"
+                      style={{ backgroundColor: colors.accent, color: colors.bg }}
+                    >
+                      {content.cta}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Bottom padding */}
-            <div className="h-4" />
+                </div>
+              </>
+            )}
+            {!industryTemplate && (
+              <>
+                {/* Product grid */}
+                <div className="px-2 pt-3 pb-1">
+                  <p
+                    className="text-[8px] font-bold tracking-widest uppercase mb-2 opacity-50"
+                    style={{ color: colors.fg }}
+                  >
+                    Destacados
+                  </p>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {content.products.slice(0, 4).map((prod, i) => (
+                      <div key={i} className="rounded-lg overflow-hidden" style={{ backgroundColor: colors.cardBg }}>
+                        <img
+                          src={prod.img}
+                          alt={prod.name}
+                          className="w-full object-cover"
+                          style={{ aspectRatio: '1/1' }}
+                        />
+                        <div className="px-1.5 py-1">
+                          <p
+                            className="text-[8px] font-semibold leading-tight"
+                            style={{ color: colors.fg }}
+                          >
+                            {prod.name}
+                          </p>
+                          <p
+                            className="text-[8px] font-bold"
+                            style={{ color: colors.accent }}
+                          >
+                            {prod.price}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="h-4" />
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
