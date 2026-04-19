@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAVEN — Hogar Contemporáneo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf8f5;--bg2:#f3ede4;--bg3:#e8ddd0;
+  --dark:#1c1410;--dark2:#3d2b1f;
+  --terra:#c06840;--terra2:#a0522d;
+  --sage:#7a9a7a;--sage2:#5a7a5a;
+  --text:#1c1410;--muted:#8a7060;--border:#d8cec4;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(28,20,16,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .4s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--bg);max-width:440px;width:100%;overflow:hidden;position:relative}
+.popup-top{background:var(--dark);padding:28px 32px;position:relative}
+.popup-img-overlay{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=70');background-size:cover;background-position:center;opacity:.2}
+.popup-close{position:absolute;top:12px;right:12px;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;z-index:1}
+.popup-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--terra);margin-bottom:8px;position:relative;z-index:1}
+.popup-title{font-family:'Playfair Display',serif;font-size:28px;color:#fff;font-style:italic;position:relative;z-index:1;line-height:1.2}
+.popup-body{padding:28px 32px}
+.popup-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.popup-perks{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.popup-perk{font-size:12px;color:var(--text);display:flex;align-items:center;gap:8px}
+.popup-perk::before{content:'✓';color:var(--terra);font-weight:700;font-size:13px}
+.popup-form{display:flex;flex-direction:column;gap:10px}
+.popup-input{background:#fff;border:1px solid var(--border);padding:11px 16px;font-size:13px;font-family:'Jost',sans-serif;color:var(--text);outline:none}
+.popup-input:focus{border-color:var(--terra)}
+.popup-btn{background:var(--terra);color:#fff;border:none;padding:13px;font-size:13px;font-weight:600;letter-spacing:1px;cursor:pointer;font-family:'Jost',sans-serif}
+.popup-btn:hover{background:var(--terra2)}
+.popup-skip{text-align:center;margin-top:10px;font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;text-decoration:underline}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:68px;background:rgba(250,248,245,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--dark);text-decoration:none;letter-spacing:3px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);font-size:13px;text-decoration:none;font-weight:400;transition:color .2s}
+.nav-links a:hover{color:var(--dark)}
+.nav-right{display:flex;gap:16px;align-items:center}
+.nav-icon{background:none;border:none;color:var(--dark);cursor:pointer;font-size:16px;text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--dark)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:26px;color:var(--dark);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--dark);font-size:22px;cursor:pointer}
+
+/* HERO */
+.hero{margin-top:68px;position:relative;height:calc(100vh - 68px);min-height:560px;overflow:hidden;display:flex;align-items:flex-end;padding:60px}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=90');background-size:cover;background-position:center;animation:heroZoom 14s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.04)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,20,16,0.82) 0%,rgba(28,20,16,0.3) 55%,rgba(28,20,16,0.1) 100%)}
+.hero-content{position:relative;z-index:1;max-width:560px}
+.hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--terra);margin-bottom:14px;font-weight:500}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(44px,5.5vw,82px);font-weight:400;color:#fff;line-height:1.05;margin-bottom:18px;font-style:italic}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:36px;max-width:400px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn-terra{display:inline-block;background:var(--terra);color:#fff;padding:14px 32px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none}
+.btn-terra:hover{background:var(--terra2)}
+.btn-ghost{display:inline-block;border:1px solid rgba(255,255,255,.4);color:#fff;padding:13px 31px;font-size:12px;font-weight:400;text-decoration:none;transition:.2s}
+.btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.7)}
+.hero-scroll{position:absolute;bottom:36px;right:60px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.hero-scroll::after{content:'';width:1px;height:48px;background:rgba(255,255,255,.3)}
+
+/* TRUST */
+.trust-bar{background:var(--dark);padding:14px 48px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.trust-item{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px}
+.trust-icon{color:var(--terra);font-size:13px}
+
+/* SECTION */
+.section{padding:100px 48px;max-width:1200px;margin:0 auto}
+.section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--terra);margin-bottom:10px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,52px);line-height:1.1;margin-bottom:48px}
+.section-title em{font-style:italic;color:var(--terra)}
+
+/* CATEGORIES */
+.categories-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}
+.cat-card{position:relative;overflow:hidden;cursor:pointer}
+.cat-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .6s}
+.cat-card:hover img{transform:scale(1.04)}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,20,16,.75) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.cat-name{font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:4px}
+.cat-count{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.cat-link{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--terra);font-weight:600;text-decoration:none}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.product-card{cursor:pointer}
+.product-img-wrap{position:relative;overflow:hidden;margin-bottom:16px;background:var(--bg2)}
+.product-img-wrap img{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:transform .5s}
+.product-card:hover .product-img-wrap img{transform:scale(1.04)}
+.product-tag{position:absolute;top:12px;left:12px;background:var(--terra);color:#fff;font-size:9px;letter-spacing:1px;padding:4px 8px;font-weight:600}
+.product-wishlist{position:absolute;top:10px;right:10px;background:rgba(250,248,245,.85);border:1px solid var(--border);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;opacity:0;transition:.2s;cursor:pointer;border:none}
+.product-card:hover .product-wishlist{opacity:1}
+.product-name{font-family:'Playfair Display',serif;font-size:16px;margin-bottom:4px}
+.product-mat{font-size:11px;color:var(--muted);letter-spacing:.5px;margin-bottom:8px}
+.product-price-row{display:flex;gap:8px;align-items:baseline}
+.product-price{font-size:14px;font-weight:600;color:var(--dark)}
+.product-old{font-size:11px;text-decoration:line-through;color:var(--muted)}
+
+/* ANATOMY */
+.anatomy-section{background:var(--bg2);padding:100px 48px}
+.anatomy-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.anatomy-img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.anatomy-content .section-label{margin-bottom:16px}
+.anatomy-title{font-family:'Playfair Display',serif;font-size:38px;line-height:1.2;color:var(--dark);margin-bottom:32px}
+.anatomy-title em{font-style:italic;color:var(--terra)}
+.anatomy-points{display:flex;flex-direction:column;gap:0}
+.anatomy-point{padding:20px 0;border-bottom:1px solid var(--border);display:flex;gap:20px}
+.anatomy-point:last-child{border-bottom:none}
+.ap-icon{width:40px;height:40px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ap-title{font-size:13px;font-weight:600;letter-spacing:.5px;margin-bottom:4px;text-transform:uppercase;font-size:11px}
+.ap-desc{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* VIDEO */
+.video-section{position:relative;height:480px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.video-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1400&q=80');background-size:cover;background-position:center;filter:brightness(.45)}
+.video-content{position:relative;z-index:1;text-align:center;padding:20px}
+.video-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--terra);margin-bottom:12px}
+.video-title{font-family:'Playfair Display',serif;font-size:40px;color:#fff;font-style:italic;margin-bottom:28px;line-height:1.2}
+.video-play{width:70px;height:70px;border:1.5px solid rgba(255,255,255,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;cursor:pointer;font-size:22px;color:#fff;transition:background .2s}
+.video-play:hover{background:rgba(255,255,255,.1)}
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.video-modal.open{display:flex}
+.video-modal iframe{width:100%;max-width:900px;aspect-ratio:16/9;border:none}
+.vm-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* URGENCY */
+.urgency-strip{background:var(--terra);padding:14px 48px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-strip p{font-size:13px;color:#fff;font-weight:500}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-unit{background:rgba(0,0,0,.2);padding:5px 10px;font-size:15px;font-weight:700;color:#fff;min-width:34px;text-align:center;font-family:'Playfair Display',serif}
+.cd-sep{font-size:15px;font-weight:700;color:#fff}
+
+/* REVIEWS */
+.reviews-section{padding:100px 48px;background:var(--bg2)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.review-card{background:var(--bg);border:1px solid var(--border);padding:24px}
+.review-stars{color:var(--terra);font-size:12px;letter-spacing:2px;margin-bottom:10px}
+.review-text{font-size:13px;font-style:italic;line-height:1.6;color:var(--text);font-family:'Playfair Display',serif;margin-bottom:14px}
+.review-author{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.review-product{font-size:10px;color:var(--terra);margin-top:2px}
+
+/* STATS */
+.stats-section{padding:80px 48px;border-top:1px solid var(--border)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:52px;color:var(--dark)}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.nl-section{padding:100px 48px;background:var(--dark);text-align:center}
+.nl-inner{max-width:480px;margin:0 auto}
+.nl-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--terra);margin-bottom:12px}
+.nl-title{font-family:'Playfair Display',serif;font-size:42px;font-style:italic;color:#fff;margin-bottom:12px}
+.nl-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px;line-height:1.5}
+.nl-form{display:flex}
+.nl-input{flex:1;background:transparent;border:1px solid rgba(255,255,255,.2);border-right:none;color:#fff;padding:12px 18px;font-size:13px;font-family:'Jost',sans-serif;outline:none}
+.nl-input:focus{border-color:var(--terra)}
+.nl-input::placeholder{color:rgba(255,255,255,.35)}
+.nl-btn{background:var(--terra);color:#fff;border:none;padding:12px 24px;font-size:12px;font-weight:600;letter-spacing:1px;cursor:pointer;font-family:'Jost',sans-serif}
+.nl-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:12px}
+
+/* FOOTER */
+footer{background:var(--dark2);padding:60px 48px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-family:'Playfair Display',serif;font-size:20px;color:#fff;text-decoration:none;display:block;margin-bottom:12px;letter-spacing:2px}
+.f-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.7}
+.f-col h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--terra);margin-bottom:16px}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:#fff}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:rgba(255,255,255,.25)}
+.f-social{display:flex;gap:10px}
+.f-social a{width:32px;height:32px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--terra);color:var(--terra)}
+
+@media(max-width:768px){
+  nav{padding:0 20px;height:60px}
+  .nav-links,.nav-right{display:none}
+  .hamburger{display:flex}
+  .hero{padding:24px 20px 48px;align-items:flex-end}
+  .hero-title{font-size:38px}
+  .hero-scroll{display:none}
+  .trust-bar{gap:16px;padding:12px 20px}
+  .section{padding:60px 20px}
+  .categories-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .products-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .anatomy-section{padding:60px 20px}
+  .anatomy-inner{grid-template-columns:1fr;gap:32px}
+  .anatomy-img{aspect-ratio:4/3}
+  .video-section{height:360px}
+  .video-title{font-size:28px}
+  .urgency-strip{padding:12px 16px;flex-direction:column;gap:10px;text-align:center}
+  .reviews-section{padding:60px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:12px}
+  .stats-section{padding:60px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:60px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(255,255,255,.2)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-top">
+      <div class="popup-img-overlay"></div>
+      <button class="popup-close" onclick="closePopup()">✕</button>
+      <p class="popup-tag">Bienvenida a Haven</p>
+      <h2 class="popup-title">Tu hogar,<br>tu historia.</h2>
+    </div>
+    <div class="popup-body">
+      <p class="popup-sub">Suscríbete y obtén 10% de descuento en tu primera compra. Más: inspiración de hogar cada semana.</p>
+      <div class="popup-perks">
+        <span class="popup-perk">Envío gratis en pedidos +$200k</span>
+        <span class="popup-perk">Acceso anticipado a nuevas colecciones</span>
+        <span class="popup-perk">Tips de decoración exclusivos</span>
+      </div>
+      <div class="popup-form">
+        <input type="email" class="popup-input" placeholder="tu@correo.com">
+        <button class="popup-btn" onclick="closePopup()">Obtener 10% OFF</button>
+      </div>
+      <button class="popup-skip" onclick="closePopup()">No, gracias</button>
+    </div>
+  </div>
+</div>
+
+<div class="video-modal" id="videoModal">
+  <button class="vm-close" onclick="closeVideo()">✕</button>
+  <iframe id="videoFrame" src="" allowfullscreen title="Video Haven"></iframe>
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">HAVEN</a>
+  <ul class="nav-links">
+    <li><a href="#">Sala</a></li>
+    <li><a href="#">Dormitorio</a></li>
+    <li><a href="#">Cocina</a></li>
+    <li><a href="#">Textiles</a></li>
+    <li><a href="#">Iluminación</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-icon">♡</a>
+    <a href="#" class="nav-icon">🛍</a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Sala</a>
+  <a href="#" onclick="toggleMenu()">Dormitorio</a>
+  <a href="#" onclick="toggleMenu()">Cocina</a>
+  <a href="#" onclick="toggleMenu()">Textiles</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Colección Verano 2025</p>
+    <h1 class="hero-title">Tu hogar<br>merece<br>lo mejor.</h1>
+    <p class="hero-sub">Muebles y decoración cuidadosamente seleccionados para crear el espacio en que siempre soñaste.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-terra">Explorar tienda</a>
+      <a href="#" class="btn-ghost">Ver lookbook</a>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✦</span> Entrega a domicilio</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Armado incluido</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Garantía 2 años</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Devolución 30 días</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Materiales sostenibles</div>
+</div>
+
+<div class="section">
+  <p class="section-label">Espacios</p>
+  <h2 class="section-title">Decora por<br><em>ambiente</em></h2>
+  <div class="categories-grid">
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Sala">
+      <div class="cat-overlay">
+        <p class="cat-name">Sala de Estar</p>
+        <p class="cat-count">84 productos</p>
+        <a href="#" class="cat-link">Ver todo →</a>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80" alt="Dormitorio">
+      <div class="cat-overlay">
+        <p class="cat-name">Dormitorio</p>
+        <p class="cat-count">62 productos</p>
+        <a href="#" class="cat-link">Ver todo →</a>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Cocina">
+      <div class="cat-overlay">
+        <p class="cat-name">Cocina</p>
+        <p class="cat-count">48 productos</p>
+        <a href="#" class="cat-link">Ver todo →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0">
+  <p class="section-label">Más Populares</p>
+  <h2 class="section-title">Piezas que<br><em>enamoran</em></h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Sofá">
+        <span class="product-tag">Nuevo</span>
+        <button class="product-wishlist">♡</button>
+      </div>
+      <p class="product-name">Sofá Arco</p>
+      <p class="product-mat">Bouclé · 3 colores · 3 plazas</p>
+      <div class="product-price-row"><span class="product-price">$3.200.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=400&q=80" alt="Lámpara">
+        <button class="product-wishlist">♡</button>
+      </div>
+      <p class="product-name">Lámpara Arc</p>
+      <p class="product-mat">Mármol · Metal dorado</p>
+      <div class="product-price-row"><span class="product-price">$640.000</span><span class="product-old">$820.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" alt="Mesa">
+        <span class="product-tag">Hot</span>
+        <button class="product-wishlist">♡</button>
+      </div>
+      <p class="product-name">Mesa Trineos</p>
+      <p class="product-mat">Madera maciza · Natural/Nogal</p>
+      <div class="product-price-row"><span class="product-price">$1.850.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1563298723-dcfebaa392e3?w=400&q=80" alt="Cojines">
+        <button class="product-wishlist">♡</button>
+      </div>
+      <p class="product-name">Set Textiles Haven</p>
+      <p class="product-mat">Lino belga · Pack x4</p>
+      <div class="product-price-row"><span class="product-price">$280.000</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="anatomy-section">
+  <div class="anatomy-inner">
+    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80" alt="Sofá Haven" class="anatomy-img">
+    <div class="anatomy-content">
+      <p class="section-label">Calidad Haven</p>
+      <h2 class="anatomy-title">Construido<br>para <em>durar</em></h2>
+      <div class="anatomy-points">
+        <div class="anatomy-point">
+          <div class="ap-icon">🌿</div>
+          <div><p class="ap-title">Madera Sostenible</p><p class="ap-desc">Armazón de eucalipto certificado FSC. Sin barnices tóxicos.</p></div>
+        </div>
+        <div class="anatomy-point">
+          <div class="ap-icon">🪑</div>
+          <div><p class="ap-title">Espuma de Alta Densidad</p><p class="ap-desc">35kg/m³ para máximo confort. Mantiene su forma por 10+ años.</p></div>
+        </div>
+        <div class="anatomy-point">
+          <div class="ap-icon">🧵</div>
+          <div><p class="ap-title">Telas Premium</p><p class="ap-desc">Bouclé, lino y terciopelo tratados. Resistentes a manchas y UV.</p></div>
+        </div>
+        <div class="anatomy-point">
+          <div class="ap-icon">🔧</div>
+          <div><p class="ap-title">Armado Profesional</p><p class="ap-desc">Incluimos servicio de armado en Bogotá, Medellín y Cali.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="video-section">
+  <div class="video-bg"></div>
+  <div class="video-content">
+    <p class="video-label">Inspírate</p>
+    <h2 class="video-title">Tu hogar<br>transformado</h2>
+    <div class="video-play" onclick="openVideo('dQw4w9WgXcQ')">▶</div>
+  </div>
+</section>
+
+<div class="urgency-strip">
+  <p>🏠 Liquidación de temporada: 25% OFF en sofás. Solo 8 unidades restantes. Termina en:</p>
+  <div class="cd-row">
+    <div class="cd-unit" id="cd-h">06</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-m">22</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-s">15</div>
+  </div>
+</div>
+
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-label">Clientes Haven</p>
+    <h2 class="section-title">Hogares que<br><em>inspiran</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El sofá Arco es exactamente lo que estaba buscando. La tela bouclé es hermosa, el armado incluido fue un plus y la calidad es impresionante."</p>
+        <p class="review-author">— Alejandra V.</p>
+        <p class="review-product">Sofá Arco · Crema</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Compré la mesa y las sillas. La madera maciza es preciosa, el acabado es perfecto. En 3 semanas mi comedor se transformó por completo."</p>
+        <p class="review-author">— Marcela P.</p>
+        <p class="review-product">Mesa Trineos · Nogal</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El servicio de Haven es diferente. Me ayudaron a elegir texturas y colores que funcionaran juntos. Mi sala quedó como de revista."</p>
+        <p class="review-author">— Daniela F.</p>
+        <p class="review-product">Set Textiles + Cojines</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stats-inner">
+    <div><p class="stat-num">18k+</p><p class="stat-label">Hogares transformados</p></div>
+    <div><p class="stat-num">4.8</p><p class="stat-label">Calificación media</p></div>
+    <div><p class="stat-num">8</p><p class="stat-label">Años de experiencia</p></div>
+    <div><p class="stat-num">200+</p><p class="stat-label">Piezas en catálogo</p></div>
+  </div>
+</section>
+
+<section class="nl-section">
+  <div class="nl-inner">
+    <p class="nl-label">Inspiración semanal</p>
+    <h2 class="nl-title">Tu hogar,<br>tu canvas.</h2>
+    <p class="nl-sub">Recibe ideas de decoración, nuevas colecciones y ofertas exclusivas cada semana.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">Suscribirme</button>
+    </form>
+    <p class="nl-note">Sin spam · Cancelar en cualquier momento</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="f-logo">HAVEN</a>
+      <p class="f-desc">Muebles y decoración contemporánea. Piezas cuidadosamente seleccionadas para crear hogares con alma.</p>
+    </div>
+    <div class="f-col"><h5>Tienda</h5><ul><li><a href="#">Sala</a></li><li><a href="#">Dormitorio</a></li><li><a href="#">Cocina</a></li><li><a href="#">Textiles</a></li></ul></div>
+    <div class="f-col"><h5>Servicio</h5><ul><li><a href="#">Envíos</a></li><li><a href="#">Armado</a></li><li><a href="#">Garantía</a></li><li><a href="#">Contacto</a></li></ul></div>
+    <div class="f-col"><h5>Haven</h5><ul><li><a href="#">Sobre nosotros</a></li><li><a href="#">Lookbook</a></li><li><a href="#">Blog</a></li><li><a href="#">Prensa</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 HAVEN Hogar. Todos los derechos reservados.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="Pinterest"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83l1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.89 1.54 1.89 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.34-4.23-2.96 0-4.69 2.22-4.69 4.51 0 .89.34 1.85.77 2.37.08.1.09.19.07.29l-.28 1.18c-.04.19-.14.23-.32.14-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.44-2.17 6.21-5.18 6.21-1.01 0-1.96-.53-2.29-1.14l-.62 2.33c-.22.86-.83 1.94-1.24 2.6.93.29 1.92.44 2.94.44 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg></a>
+      <a href="#" title="Facebook"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),1800);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function openVideo(id){
+  document.getElementById('videoFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('videoModal').classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').classList.remove('open');
+}
+(function(){
+  let h=6,m=22,s=15;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=23;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+})();
+</script>
+</body>
+</html>

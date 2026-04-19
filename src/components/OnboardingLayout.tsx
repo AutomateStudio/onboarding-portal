@@ -42,7 +42,7 @@ export function OnboardingLayout() {
 
       {/* Main */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] xl:grid-cols-[1fr_320px] gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_360px] gap-8 lg:gap-12">
           {/* Left: form */}
           <div className="min-w-0">
             <AnimatePresence mode="wait">

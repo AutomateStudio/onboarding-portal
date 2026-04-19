@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSECHA — Tienda de Alimentos Artesanales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #faf6f0;
+    --brown: #2a1f14;
+    --amber: #c8860a;
+    --amber-light: #f5e6c0;
+    --card-bg: #f2ece2;
+    --muted: #7a6a58;
+    --border: #e4ddd0;
+    --green: #4a6741;
+    --font-head: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--brown); font-family: var(--font-body); overflow-x: hidden; }
+
+  /* ANNOUNCEMENT BAR */
+  .ann-bar {
+    background: var(--brown);
+    color: #e8d9c0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    padding: 9px 20px;
+    text-transform: uppercase;
+  }
+  .ann-bar span { color: var(--amber); font-weight: 600; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(42,31,20,0.08); }
+  .nav-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; letter-spacing: 3px; color: var(--brown); text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--brown); }
+  .nav-actions { display: flex; gap: 20px; align-items: center; }
+  .nav-actions a { text-decoration: none; color: var(--brown); font-size: 18px; transition: color 0.2s; }
+  .nav-actions a:hover { color: var(--amber); }
+  .cart-btn {
+    background: var(--brown); color: var(--cream);
+    border: none; border-radius: 100px;
+    padding: 9px 22px; font-size: 13px; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.1s;
+    font-family: var(--font-body);
+  }
+  .cart-btn:hover { background: var(--amber); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 92vh; min-height: 600px;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    transform-origin: center; animation: heroZoom 12s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.04); } }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(20,12,5,0.82) 0%, rgba(20,12,5,0.3) 45%, transparent 75%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 80px 80px;
+    max-width: 680px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 4px;
+    color: var(--amber); text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: var(--font-head);
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 700; line-height: 1.1; color: #fff;
+    margin-bottom: 20px;
+  }
+  .hero-title em { font-style: italic; color: var(--amber-light); }
+  .hero-sub {
+    font-size: 16px; color: rgba(255,255,255,0.75);
+    line-height: 1.7; max-width: 420px; margin-bottom: 36px;
+  }
+  .hero-ctas { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--amber); color: var(--brown);
+    padding: 14px 34px; border-radius: 100px;
+    font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s; display: inline-block; font-family: var(--font-body);
+  }
+  .btn-primary:hover { background: #e09a18; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,134,10,0.35); }
+  .btn-ghost {
+    color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: #fff; }
+  .hero-scroll {
+    position: absolute; bottom: 32px; right: 80px; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .scroll-line { width: 1px; height: 50px; background: rgba(255,255,255,0.3); animation: scrollPulse 2s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(0.6)} }
+
+  /* TRUST BADGES */
+  .trust-row {
+    background: var(--brown);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 22px 32px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .trust-item:last-child { border-right: none; }
+  .trust-icon { font-size: 24px; flex-shrink: 0; }
+  .trust-label { font-size: 13px; font-weight: 600; color: #e8d9c0; line-height: 1.4; }
+  .trust-sub { font-size: 11px; color: rgba(232,217,192,0.5); margin-top: 2px; }
+
+  /* SECTION COMMON */
+  section { padding: 90px 80px; }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 4px;
+    color: var(--amber); text-transform: uppercase; margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 700; line-height: 1.15; color: var(--brown);
+  }
+  .section-title em { font-style: italic; color: var(--muted); }
+
+  /* CATEGORIES */
+  .categories { background: var(--cream); }
+  .categories-header { text-align: center; margin-bottom: 52px; }
+  .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .cat-card {
+    position: relative; border-radius: 16px; overflow: hidden;
+    aspect-ratio: 3/4; cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(42,31,20,0.18); }
+  .cat-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .cat-card:hover img { transform: scale(1.06); }
+  .cat-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(20,12,5,0.72) 0%, transparent 55%);
+  }
+  .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 20px; }
+  .cat-name { font-family: var(--font-head); font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+  .cat-count { font-size: 12px; color: rgba(255,255,255,0.6); letter-spacing: 1px; }
+  .cat-arrow {
+    position: absolute; top: 18px; right: 18px;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px;
+    transform: translateY(6px); opacity: 0; transition: all 0.3s;
+  }
+  .cat-card:hover .cat-arrow { transform: translateY(0); opacity: 1; }
+
+  /* FEATURED PRODUCTS */
+  .products { background: var(--card-bg); }
+  .products-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
+  .view-all { font-size: 13px; font-weight: 600; color: var(--amber); text-decoration: none; letter-spacing: 0.5px; border-bottom: 1px solid var(--amber); padding-bottom: 2px; }
+  .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .product-card {
+    background: var(--cream); border-radius: 16px; overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .product-card:hover { box-shadow: 0 16px 40px rgba(42,31,20,0.12); transform: translateY(-4px); }
+  .product-img-wrap {
+    position: relative; aspect-ratio: 1/1; overflow: hidden;
+    background: #ede8df;
+  }
+  .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+  .product-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--amber); color: var(--brown);
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 4px 10px; border-radius: 100px; text-transform: uppercase;
+  }
+  .quick-buy {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: var(--brown); color: var(--cream);
+    text-align: center; padding: 12px; font-size: 12px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    transform: translateY(100%); transition: transform 0.25s;
+    cursor: pointer; border: none; width: 100%; font-family: var(--font-body);
+  }
+  .product-card:hover .quick-buy { transform: translateY(0); }
+  .product-info { padding: 18px 18px 20px; }
+  .product-name { font-family: var(--font-head); font-size: 16px; font-weight: 600; color: var(--brown); margin-bottom: 6px; }
+  .product-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { font-size: 17px; font-weight: 700; color: var(--brown); }
+  .product-price .old { font-size: 13px; color: var(--muted); text-decoration: line-through; margin-right: 6px; font-weight: 400; }
+  .stars { display: flex; gap: 2px; align-items: center; font-size: 11px; color: var(--amber); }
+  .stars span { color: var(--muted); font-size: 11px; margin-left: 4px; }
+
+  /* BRAND STORY */
+  .story {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    padding: 100px 80px;
+  }
+  .story-img-wrap { position: relative; }
+  .story-img-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 20px; }
+  .story-img-badge {
+    position: absolute; bottom: -24px; right: -24px;
+    width: 140px; height: 140px;
+    background: var(--amber); border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: var(--font-head); text-align: center;
+    box-shadow: 0 12px 40px rgba(200,134,10,0.4);
+  }
+  .story-img-badge .num { font-size: 36px; font-weight: 800; color: var(--brown); line-height: 1; }
+  .story-img-badge .lab { font-size: 10px; font-weight: 600; color: var(--brown); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  .story-text { padding-right: 20px; }
+  .story-quote {
+    font-family: var(--font-head); font-size: 28px; font-style: italic;
+    color: var(--brown); line-height: 1.5; margin: 28px 0;
+    border-left: 3px solid var(--amber); padding-left: 24px;
+  }
+  .story-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; }
+  .story-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 36px; }
+  .stat-item { text-align: center; padding: 20px; background: var(--card-bg); border-radius: 12px; }
+  .stat-num { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: var(--amber); margin-bottom: 4px; }
+  .stat-lab { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* INGREDIENTS / DARK SECTION */
+  .ingredients {
+    background: var(--brown);
+    padding: 100px 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .ingredients .section-title { color: var(--cream); }
+  .ingredients .section-eyebrow { }
+  .ing-body { font-size: 15px; color: rgba(232,217,192,0.7); line-height: 1.8; margin: 24px 0 40px; }
+  .ing-list { display: flex; flex-direction: column; gap: 16px; }
+  .ing-item { display: flex; gap: 16px; align-items: center; padding: 16px 20px; background: rgba(255,255,255,0.06); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
+  .ing-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(200,134,10,0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .ing-text { }
+  .ing-name { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+  .ing-desc { font-size: 12px; color: rgba(232,217,192,0.5); line-height: 1.4; }
+  .ingredients-visual { position: relative; }
+  .ing-main-img { width: 100%; border-radius: 20px; aspect-ratio: 4/5; object-fit: cover; }
+  .ing-tag {
+    position: absolute; background: var(--cream); border-radius: 12px;
+    padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    font-size: 12px; font-weight: 600; color: var(--brown);
+  }
+  .ing-tag.t1 { top: 20%; left: -20px; }
+  .ing-tag.t2 { top: 55%; right: -20px; }
+  .ing-tag.t3 { bottom: 20%; left: -20px; }
+  .ing-tag .emoji { font-size: 18px; margin-bottom: 4px; display: block; }
+
+  /* PRESS */
+  .press { background: var(--card-bg); text-align: center; padding: 60px 80px; }
+  .press-title { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 40px; }
+  .press-logos { display: flex; gap: 60px; align-items: center; justify-content: center; flex-wrap: wrap; }
+  .press-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--muted); opacity: 0.4; letter-spacing: 2px; font-style: italic; transition: opacity 0.2s; cursor: default; }
+  .press-logo:hover { opacity: 0.7; }
+
+  /* REVIEWS */
+  .reviews { background: var(--cream); padding: 90px 80px; }
+  .reviews-header { text-align: center; margin-bottom: 52px; }
+  .reviews-rating { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; }
+  .reviews-stars { font-size: 20px; color: var(--amber); }
+  .reviews-count { font-size: 14px; color: var(--muted); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .review-card { background: var(--card-bg); border-radius: 16px; padding: 28px; }
+  .review-stars { font-size: 14px; color: var(--amber); margin-bottom: 14px; }
+  .review-text { font-family: var(--font-head); font-style: italic; font-size: 16px; color: var(--brown); line-height: 1.6; margin-bottom: 20px; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .review-name { font-size: 13px; font-weight: 600; color: var(--brown); }
+  .review-date { font-size: 11px; color: var(--muted); }
+  .review-verified { font-size: 10px; color: var(--green); font-weight: 600; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* NEWSLETTER */
+  .newsletter {
+    position: relative; overflow: hidden;
+    padding: 100px 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    background: var(--brown);
+  }
+  .newsletter-content { }
+  .newsletter-title { font-family: var(--font-head); font-size: 44px; font-weight: 700; color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
+  .newsletter-title em { font-style: italic; color: var(--amber); }
+  .newsletter-sub { font-size: 15px; color: rgba(232,217,192,0.65); line-height: 1.7; margin-bottom: 32px; }
+  .newsletter-perks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+  .perk { display: flex; gap: 10px; align-items: center; font-size: 13px; color: rgba(232,217,192,0.8); }
+  .perk::before { content: '✓'; color: var(--amber); font-weight: 700; flex-shrink: 0; }
+  .newsletter-form { display: flex; gap: 0; max-width: 460px; }
+  .newsletter-input {
+    flex: 1; padding: 14px 20px; border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08); color: var(--cream);
+    font-size: 14px; border-radius: 100px 0 0 100px; outline: none;
+    font-family: var(--font-body);
+    transition: border-color 0.2s;
+  }
+  .newsletter-input::placeholder { color: rgba(232,217,192,0.4); }
+  .newsletter-input:focus { border-color: var(--amber); }
+  .newsletter-submit {
+    padding: 14px 28px; background: var(--amber); color: var(--brown);
+    border: none; border-radius: 0 100px 100px 0; cursor: pointer;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+    font-family: var(--font-body); transition: background 0.2s;
+  }
+  .newsletter-submit:hover { background: #e09a18; }
+  .newsletter-privacy { font-size: 11px; color: rgba(232,217,192,0.35); margin-top: 12px; }
+  .newsletter-visual { position: relative; }
+  .newsletter-img { width: 100%; border-radius: 20px; aspect-ratio: 4/5; object-fit: cover; opacity: 0.85; }
+  .newsletter-discount {
+    position: absolute; top: 30px; right: -20px;
+    background: var(--amber); border-radius: 16px;
+    padding: 18px 22px; text-align: center;
+    box-shadow: 0 12px 40px rgba(200,134,10,0.5);
+  }
+  .discount-num { font-family: var(--font-head); font-size: 36px; font-weight: 800; color: var(--brown); line-height: 1; }
+  .discount-label { font-size: 11px; font-weight: 700; color: var(--brown); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+  /* INSTAGRAM */
+  .instagram { background: var(--cream); padding: 80px; }
+  .instagram-header { text-align: center; margin-bottom: 40px; }
+  .instagram-handle { font-size: 18px; color: var(--muted); margin-top: 8px; }
+  .instagram-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .insta-item { aspect-ratio: 1/1; overflow: hidden; cursor: pointer; position: relative; }
+  .insta-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .insta-item:hover img { transform: scale(1.08); }
+  .insta-overlay { position: absolute; inset: 0; background: rgba(42,31,20,0.4); opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; }
+  .insta-item:hover .insta-overlay { opacity: 1; }
+
+  /* FOOTER */
+  footer { background: var(--brown); color: rgba(232,217,192,0.7); padding: 72px 80px 40px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+  .footer-brand .logo { font-family: var(--font-head); font-size: 24px; font-weight: 700; letter-spacing: 3px; color: var(--cream); margin-bottom: 16px; display: block; }
+  .footer-brand p { font-size: 13px; line-height: 1.8; max-width: 280px; margin-bottom: 24px; }
+  .footer-social { display: flex; gap: 12px; }
+  .social-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 15px; transition: background 0.2s; cursor: pointer; }
+  .social-icon:hover { background: var(--amber); }
+  .footer-col h5 { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { font-size: 13px; text-decoration: none; color: rgba(232,217,192,0.6); transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--amber); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+  .payment-icons { display: flex; gap: 10px; font-size: 24px; opacity: 0.5; }
+
+  /* FADE-IN ANIMATION */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ────────────────────────────────────────────── */
+  .nav-hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 24px; color: var(--brown); padding: 4px; line-height: 1; }
+
+  @media (max-width: 768px) {
+    /* NAV */
+    nav { padding: 0 20px; height: 58px; }
+    .nav-links { display: none; }
+    .nav-actions a[title] { display: none; }
+    .nav-hamburger { display: block; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: fixed; top: 58px; left: 0; right: 0; bottom: 0;
+      background: var(--cream); padding: 28px 24px; gap: 20px;
+      z-index: 200; overflow-y: auto;
+    }
+    .nav-links.open a { font-size: 18px; color: var(--brown); font-weight: 600; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .cart-btn { padding: 7px 16px; font-size: 12px; }
+
+    /* HERO */
+    .hero { height: 88vh; min-height: 520px; }
+    .hero-content { padding: 0 20px 44px; max-width: 100%; }
+    .hero-eyebrow { font-size: 10px; margin-bottom: 10px; }
+    .hero-title { font-size: 36px; margin-bottom: 14px; }
+    .hero-sub { font-size: 14px; margin-bottom: 24px; max-width: 100%; }
+    .hero-ctas { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .btn-primary { width: 100%; text-align: center; padding: 13px 24px; }
+    .hero-scroll { display: none; }
+
+    /* TRUST */
+    .trust-row { grid-template-columns: 1fr 1fr; }
+    .trust-item { padding: 14px 16px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .trust-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
+    .trust-item:nth-last-child(-n+2) { border-bottom: none; }
+    .trust-icon { font-size: 20px; }
+    .trust-label { font-size: 12px; }
+
+    /* SECTIONS */
+    section { padding: 48px 20px; }
+    .section-title { font-size: 28px; }
+
+    /* CATEGORIES */
+    .categories-header { margin-bottom: 28px; }
+    .categories-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cat-name { font-size: 16px; }
+
+    /* PRODUCTS */
+    .products-header { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 28px; }
+    .products-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .product-info { padding: 12px 12px 14px; }
+    .product-name { font-size: 14px; }
+    .product-desc { display: none; }
+    .product-footer { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .product-price { font-size: 15px; }
+    .quick-buy { transform: translateY(0); font-size: 11px; padding: 10px; }
+
+    /* STORY */
+    .story { grid-template-columns: 1fr; padding: 48px 20px; gap: 0; }
+    .story-img-wrap { margin-bottom: 48px; }
+    .story-img-main { aspect-ratio: 16/9; }
+    .story-img-badge { right: 12px; bottom: -20px; width: 90px; height: 90px; }
+    .story-img-badge .num { font-size: 22px; }
+    .story-img-badge .lab { font-size: 8px; }
+    .story-text { padding-right: 0; }
+    .story-quote { font-size: 20px; }
+    .story-stats { grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .stat-num { font-size: 22px; }
+
+    /* INGREDIENTS */
+    .ingredients { grid-template-columns: 1fr; padding: 48px 20px; gap: 40px; }
+    .ing-tag { display: none; }
+    .ingredients-visual { display: none; }
+    .ing-main-img { display: block; border-radius: 16px; margin-bottom: 32px; aspect-ratio: 16/9; width: 100%; }
+
+    /* PRESS */
+    .press { padding: 32px 20px; }
+    .press-logos { gap: 20px; }
+    .press-logo { font-size: 16px; }
+
+    /* REVIEWS */
+    .reviews { padding: 48px 20px; }
+    .reviews-grid { grid-template-columns: 1fr; gap: 14px; }
+    .review-text { font-size: 14px; }
+
+    /* NEWSLETTER */
+    .newsletter { grid-template-columns: 1fr; padding: 48px 20px; gap: 32px; }
+    .newsletter-visual { display: none; }
+    .newsletter-title { font-size: 30px; }
+    .newsletter-sub { font-size: 14px; margin-bottom: 20px; }
+    .newsletter-form { flex-direction: column; gap: 10px; }
+    .newsletter-input { border-radius: 10px; padding: 13px 16px; }
+    .newsletter-submit { border-radius: 10px; padding: 13px 20px; }
+    .newsletter-discount { display: none; }
+
+    /* INSTAGRAM */
+    .instagram { padding: 40px 20px; }
+    .instagram-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+
+    /* FOOTER */
+    footer { padding: 44px 20px 24px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 32px; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-brand p { max-width: 100%; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    .payment-icons { justify-content: center; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: 30px; }
+    .trust-row { grid-template-columns: 1fr; }
+    .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .trust-item:last-child { border-bottom: none; }
+    .story-stats { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">
+  🌿 Envío gratis en pedidos mayores a $150.000 &nbsp;·&nbsp; <span>Cosecha propia — 100% Colombia</span> &nbsp;·&nbsp; Descuento del 10% en tu primera compra
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">COSECHA</a>
+  <div class="nav-links" id="nav-links">
+    <a href="#">Tienda</a>
+    <a href="#">Categorías</a>
+    <a href="#">Nuestra Historia</a>
+    <a href="#">Recetas</a>
+    <a href="#">Blog</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">☰</button>
+    <a href="#" title="Buscar">🔍</a>
+    <a href="#" title="Favoritos">♡</a>
+    <button class="cart-btn">🛒 Carrito (0)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1800&q=80" alt="Cosecha hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Nueva cosecha 2025 disponible</p>
+    <h1 class="hero-title">Sabor que cuenta<br><em>una historia.</em></h1>
+    <p class="hero-sub">Productos artesanales elaborados con ingredientes 100% naturales, directamente de productores colombianos a tu mesa.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Descubrir Productos</a>
+      <a href="#" class="btn-ghost">Ver nuestra historia →</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TRUST BADGES -->
+<div class="trust-row">
+  <div class="trust-item">
+    <div class="trust-icon">🌿</div>
+    <div>
+      <div class="trust-label">100% Natural</div>
+      <div class="trust-sub">Sin conservantes artificiales</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🚚</div>
+    <div>
+      <div class="trust-label">Envío Gratis</div>
+      <div class="trust-sub">En pedidos +$150.000</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🏡</div>
+    <div>
+      <div class="trust-label">Cosecha Propia</div>
+      <div class="trust-sub">Fincas certificadas Colombia</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">👨‍👩‍👧</div>
+    <div>
+      <div class="trust-label">+4.800 Familias</div>
+      <div class="trust-sub">Confían en Cosecha</div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="categories-header fade-in">
+    <p class="section-eyebrow">Lo que ofrecemos</p>
+    <h2 class="section-title">Explora nuestras<br><em>categorías</em></h2>
+  </div>
+  <div class="categories-grid fade-in">
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&q=80" alt="Aceites">
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow">→</div>
+      <div class="cat-info">
+        <div class="cat-name">Aceites y Vinagretas</div>
+        <div class="cat-count">24 productos</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500&q=80" alt="Mermeladas">
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow">→</div>
+      <div class="cat-info">
+        <div class="cat-name">Mermeladas & Conservas</div>
+        <div class="cat-count">18 productos</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=500&q=80" alt="Granola">
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow">→</div>
+      <div class="cat-info">
+        <div class="cat-name">Granolas & Snacks</div>
+        <div class="cat-count">31 productos</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500&q=80" alt="Mieles">
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow">→</div>
+      <div class="cat-info">
+        <div class="cat-name">Mieles & Endulzantes</div>
+        <div class="cat-count">12 productos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="products">
+  <div class="products-header fade-in">
+    <div>
+      <p class="section-eyebrow">Más vendidos</p>
+      <h2 class="section-title">Favoritos de<br><em>la temporada</em></h2>
+    </div>
+    <a href="#" class="view-all">Ver todo el catálogo →</a>
+  </div>
+  <div class="products-grid fade-in">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80" alt="Aceite de Oliva">
+        <span class="product-badge">Más vendido</span>
+        <button class="quick-buy">+ AÑADIR AL CARRITO</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Aceite de Oliva Extra Virgen</div>
+        <div class="product-desc">Prensado en frío, cosecha tardía. 500ml</div>
+        <div class="product-footer">
+          <div class="product-price"><span class="old">$82.000</span>$68.000</div>
+          <div class="stars">★★★★★ <span>(124)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80" alt="Miel">
+        <button class="quick-buy">+ AÑADIR AL CARRITO</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Miel de Abeja Pura</div>
+        <div class="product-desc">Apicultura sostenible, sin procesar. 380g</div>
+        <div class="product-footer">
+          <div class="product-price">$52.000</div>
+          <div class="stars">★★★★★ <span>(98)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80" alt="Mermelada">
+        <span class="product-badge">Nuevo</span>
+        <button class="quick-buy">+ AÑADIR AL CARRITO</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Mermelada de Frutos del Bosque</div>
+        <div class="product-desc">Sin azúcar añadida, fruta entera. 250g</div>
+        <div class="product-footer">
+          <div class="product-price">$38.000</div>
+          <div class="stars">★★★★☆ <span>(67)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=400&q=80" alt="Granola">
+        <button class="quick-buy">+ AÑADIR AL CARRITO</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Granola Artesanal con Cacao</div>
+        <div class="product-desc">Avena integral, cacao 70%, semillas. 400g</div>
+        <div class="product-footer">
+          <div class="product-price">$45.000</div>
+          <div class="stars">★★★★★ <span>(203)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STORY -->
+<div class="story fade-in">
+  <div class="story-img-wrap">
+    <img class="story-img-main" src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=700&q=80" alt="Nuestra historia">
+    <div class="story-img-badge">
+      <div class="num">12</div>
+      <div class="lab">Años de<br>cosecha</div>
+    </div>
+  </div>
+  <div class="story-text">
+    <p class="section-eyebrow">Nuestra historia</p>
+    <h2 class="section-title">De la tierra<br>a tu <em>mesa</em></h2>
+    <blockquote class="story-quote">"Creemos que comer bien es un acto de amor hacia uno mismo y el planeta."</blockquote>
+    <p class="story-body">En 2013 comenzamos con una pequeña finca en el Eje Cafetero. Hoy trabajamos con más de 40 productores certificados en todo Colombia, manteniendo siempre el mismo compromiso: ingredientes honestos, procesos artesanales y sabor auténtico.</p>
+    <div class="story-stats">
+      <div class="stat-item"><div class="stat-num">40+</div><div class="stat-lab">Productores</div></div>
+      <div class="stat-item"><div class="stat-num">98%</div><div class="stat-lab">Natural</div></div>
+      <div class="stat-item"><div class="stat-num">85+</div><div class="stat-lab">Productos</div></div>
+    </div>
+    <a href="#" class="btn-primary" style="background:var(--brown);color:var(--cream);">Conocer la historia →</a>
+  </div>
+</div>
+
+<!-- INGREDIENTS SECTION -->
+<div class="ingredients fade-in">
+  <div>
+    <p class="section-eyebrow">Transparencia total</p>
+    <h2 class="section-title" style="color:var(--cream);">Sabemos lo que<br>hay <em style="color:var(--amber);">adentro.</em></h2>
+    <p class="ing-body">Cada producto lleva su origen, proceso y certificación. Nada que esconder, todo que contar.</p>
+    <div class="ing-list">
+      <div class="ing-item">
+        <div class="ing-icon">🫒</div>
+        <div class="ing-text">
+          <div class="ing-name">Sin aditivos ni conservantes</div>
+          <div class="ing-desc">Ingredientes reales, sin químicos innecesarios</div>
+        </div>
+      </div>
+      <div class="ing-item">
+        <div class="ing-icon">✅</div>
+        <div class="ing-text">
+          <div class="ing-name">Certificado Orgánico ICA</div>
+          <div class="ing-desc">Auditados anualmente por entidades colombianas</div>
+        </div>
+      </div>
+      <div class="ing-item">
+        <div class="ing-icon">🌡️</div>
+        <div class="ing-text">
+          <div class="ing-name">Procesos en frío</div>
+          <div class="ing-desc">Preservamos nutrientes y sabor naturalmente</div>
+        </div>
+      </div>
+      <div class="ing-item">
+        <div class="ing-icon">♻️</div>
+        <div class="ing-text">
+          <div class="ing-name">Empaque eco-friendly</div>
+          <div class="ing-desc">Vidrio y kraft reciclable en cada envío</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ingredients-visual">
+    <img class="ing-main-img" src="https://images.unsplash.com/photo-1543353071-087092ec393a?w=700&q=80" alt="Ingredientes">
+    <div class="ing-tag t1"><span class="emoji">🌿</span>Origen verificado</div>
+    <div class="ing-tag t2"><span class="emoji">🏅</span>Calidad premium</div>
+    <div class="ing-tag t3"><span class="emoji">🇨🇴</span>100% Colombia</div>
+  </div>
+</div>
+
+<!-- PRESS -->
+<div class="press fade-in">
+  <p class="press-title">Nos han mencionado en</p>
+  <div class="press-logos">
+    <div class="press-logo">El Tiempo</div>
+    <div class="press-logo">Semana</div>
+    <div class="press-logo">Vogue CO</div>
+    <div class="press-logo">Forbes CO</div>
+    <div class="press-logo">La República</div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews fade-in">
+  <div class="reviews-header">
+    <p class="section-eyebrow">Lo que dicen nuestros clientes</p>
+    <h2 class="section-title">+4.800 familias<br><em>felices</em></h2>
+    <div class="reviews-rating">
+      <div class="reviews-stars">★★★★★</div>
+      <div class="reviews-count">4.9 de 5 · Basado en 1.247 reseñas</div>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"El aceite de oliva es increíble. Se nota la diferencia con cualquier otro del supermercado. Ya es parte fija de mi cocina."</p>
+      <div class="review-author">
+        <img class="review-avatar" src="https://images.unsplash.com/photo-1494790108755-2616b7b4a6cd?w=80&q=80" alt="Reviewer">
+        <div>
+          <div class="review-name">María C.</div>
+          <div class="review-date">Hace 3 días</div>
+          <div class="review-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Pedí el kit de inicio y quedé enamorada. La mermelada de frutos del bosque es lo mejor que he probado en años. Recomiendo 100%."</p>
+      <div class="review-author">
+        <img class="review-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="Reviewer">
+        <div>
+          <div class="review-name">Valentina R.</div>
+          <div class="review-date">Hace 1 semana</div>
+          <div class="review-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Llevo 6 meses comprando y la calidad siempre es consistente. El empaque es hermoso para regalar. El servicio al cliente es excelente."</p>
+      <div class="review-author">
+        <img class="images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Reviewer" class="review-avatar">
+        <div>
+          <div class="review-name">Andrés M.</div>
+          <div class="review-date">Hace 2 semanas</div>
+          <div class="review-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter fade-in">
+  <div class="newsletter-content">
+    <p class="section-eyebrow">Únete a la comunidad</p>
+    <h2 class="newsletter-title">Recibe <em>10% OFF</em><br>en tu primer pedido</h2>
+    <p class="newsletter-sub">Suscríbete y recibe recetas exclusivas, lanzamientos anticipados y descuentos especiales para miembros.</p>
+    <div class="newsletter-perks">
+      <div class="perk">Recetas de chef cada semana</div>
+      <div class="perk">Acceso anticipado a nuevos productos</div>
+      <div class="perk">Descuentos exclusivos para suscriptores</div>
+    </div>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input class="newsletter-input" type="email" placeholder="Tu correo electrónico">
+      <button class="newsletter-submit">Suscribirme</button>
+    </form>
+    <p class="newsletter-privacy">Sin spam. Cancela cuando quieras. Tratamos tus datos con respeto.</p>
+  </div>
+  <div class="newsletter-visual">
+    <img class="newsletter-img" src="https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=700&q=80" alt="Newsletter visual">
+    <div class="newsletter-discount">
+      <div class="discount-num">10%</div>
+      <div class="discount-label">de descuento<br>al suscribirte</div>
+    </div>
+  </div>
+</div>
+
+<!-- INSTAGRAM GRID -->
+<section class="instagram fade-in">
+  <div class="instagram-header">
+    <p class="section-eyebrow">Síguenos en Instagram</p>
+    <h2 class="section-title" style="font-size:32px;">@cosecha.co</h2>
+    <p class="instagram-handle">Comparte tus recetas con #CosechaEnCasa</p>
+  </div>
+  <div class="instagram-grid">
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&q=80" alt=""><div class="insta-overlay">♡ 842</div></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=80" alt=""><div class="insta-overlay">♡ 1.2k</div></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&q=80" alt=""><div class="insta-overlay">♡ 654</div></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1543353071-087092ec393a?w=300&q=80" alt=""><div class="insta-overlay">♡ 978</div></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=300&q=80" alt=""><div class="insta-overlay">♡ 2.1k</div></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&q=80" alt=""><div class="insta-overlay">♡ 445</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo">COSECHA</span>
+      <p>Alimentos artesanales elaborados con ingredientes 100% naturales. De fincas colombianas certificadas directo a tu mesa.</p>
+      <div class="footer-social">
+        <div class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+        <div class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+        <div class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-6.34 6.29 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.73a4.85 4.85 0 0 1-1-4z"/></svg></div>
+        <div class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Tienda</h5>
+      <ul>
+        <li><a href="#">Todos los productos</a></li>
+        <li><a href="#">Novedades</a></li>
+        <li><a href="#">Más vendidos</a></li>
+        <li><a href="#">Kits regalo</a></li>
+        <li><a href="#">Suscripciones</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Información</h5>
+      <ul>
+        <li><a href="#">Nuestra historia</a></li>
+        <li><a href="#">Productores</a></li>
+        <li><a href="#">Certificaciones</a></li>
+        <li><a href="#">Blog & Recetas</a></li>
+        <li><a href="#">Prensa</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Ayuda</h5>
+      <ul>
+        <li><a href="#">Envíos y devoluciones</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Programa de afiliados</a></li>
+        <li><a href="#">Puntos de venta</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 COSECHA · Hecho con ♥ en Colombia</span>
+    <div class="payment-icons">💳 💰 📱</div>
+    <span>Política de privacidad · Términos</span>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    hamburger.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

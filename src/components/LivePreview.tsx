@@ -92,10 +92,21 @@ export function LivePreview() {
             }}
           >
             {industryTemplate ? (
-              <div
-                style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}
-                dangerouslySetInnerHTML={{ __html: buildMobileHtml(industryTemplate) }}
-              />
+              industryTemplate.previewUrl ? (
+                <iframe
+                  src={industryTemplate.previewUrl}
+                  style={{ width: '100%', height: 620, border: 'none', display: 'block' }}
+                  title={industryTemplate.name}
+                  scrolling="no"
+                />
+              ) : (
+                <div style={{ flex: 1, overflow: 'hidden', minHeight: 0, position: 'relative' }}>
+                  <div
+                    style={{ width: 108, height: 215, transform: 'scale(2.815)', transformOrigin: 'top left', overflow: 'hidden' }}
+                    dangerouslySetInnerHTML={{ __html: buildMobileHtml(industryTemplate) }}
+                  />
+                </div>
+              )
             ) : (
               <>
                 {/* Status bar */}

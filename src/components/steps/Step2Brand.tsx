@@ -8,13 +8,14 @@ import { FONTS } from '@/constants/fonts';
 import { INDUSTRY_TEMPLATES, buildDesktopHtml, buildMobileHtml } from '@/constants/industryTemplates';
 
 const PHONE_BG: Record<string, string> = {
-  onyx: '#1a1512', bloom: '#f5f5f5', elegancia: '#f5ede6', aura: '#f8f9fa', default: '#f5f0ea',
+  onyx: '#1a1512', bloom: '#f5f5f5', elegancia: '#f5ede6', aura: '#f8f9fa',
+  cosecha: '#faf6f0', levain: '#fdf8f0', mercado: '#0d0d0d', default: '#f5f0ea',
 };
 const PHONE_BORDER: Record<string, string> = {
-  onyx: '#3a3028', elegancia: '#ccc', default: '#1a1a1a',
+  onyx: '#3a3028', elegancia: '#ccc', mercado: '#333', default: '#1a1a1a',
 };
 const DEVICE_LABEL_COLOR: Record<string, string> = {
-  onyx: '#6a5a48', elegancia: '#8b6f47', default: '#bbb',
+  onyx: '#6a5a48', elegancia: '#8b6f47', mercado: '#555', default: '#bbb',
 };
 
 export function Step2Brand() {
@@ -145,10 +146,27 @@ export function Step2Brand() {
                           background: phoneBorder,
                           borderRadius: '0 0 6px 6px', zIndex: 10,
                         }} />
-                        <div
-                          style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
-                          dangerouslySetInnerHTML={{ __html: buildMobileHtml(t) }}
-                        />
+                        {t.previewUrl ? (
+                          <iframe
+                            src={t.previewUrl}
+                            style={{
+                              width: 390,
+                              height: 800,
+                              border: 'none',
+                              display: 'block',
+                              transform: 'scale(0.261)',
+                              transformOrigin: 'top left',
+                              pointerEvents: 'none',
+                            }}
+                            title={t.name}
+                            scrolling="no"
+                          />
+                        ) : (
+                          <div
+                            style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+                            dangerouslySetInnerHTML={{ __html: buildMobileHtml(t) }}
+                          />
+                        )}
                       </div>
                       <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: 0.5, textTransform: 'uppercase', color: labelColor }}>
                         Mobile
@@ -163,22 +181,43 @@ export function Step2Brand() {
                         <h4 style={{ fontSize: 15, fontWeight: 700, color: '#0f0f0b', margin: '0 0 3px' }}>{t.name}</h4>
                         <p style={{ fontSize: 12, color: '#888', margin: 0, lineHeight: 1.5 }}>{t.desc}</p>
                       </div>
-                      <button
-                        type="button"
-                        onClick={(e) => { e.stopPropagation(); setTheme(t.id); }}
-                        style={{
-                          flexShrink: 0,
-                          background: isSelected ? '#10b981' : '#fff',
-                          color: isSelected ? '#fff' : '#0f0f0b',
-                          fontSize: 12, fontWeight: 600,
-                          padding: '7px 18px', borderRadius: 20,
-                          border: `1.5px solid ${isSelected ? '#10b981' : '#0f0f0b'}`,
-                          cursor: 'pointer', whiteSpace: 'nowrap',
-                          transition: 'all 0.18s',
-                        }}
-                      >
-                        {isSelected ? '✓ Elegido' : 'Elegir'}
-                      </button>
+                      <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+                        {t.previewUrl && (
+                          <a
+                            href={t.previewUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              background: '#fff',
+                              color: '#0f0f0b',
+                              fontSize: 12, fontWeight: 600,
+                              padding: '7px 14px', borderRadius: 20,
+                              border: '1.5px solid #ddd',
+                              cursor: 'pointer', whiteSpace: 'nowrap',
+                              textDecoration: 'none',
+                              transition: 'all 0.18s',
+                            }}
+                          >
+                            Ver demo →
+                          </a>
+                        )}
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); setTheme(t.id); }}
+                          style={{
+                            background: isSelected ? '#10b981' : '#fff',
+                            color: isSelected ? '#fff' : '#0f0f0b',
+                            fontSize: 12, fontWeight: 600,
+                            padding: '7px 18px', borderRadius: 20,
+                            border: `1.5px solid ${isSelected ? '#10b981' : '#0f0f0b'}`,
+                            cursor: 'pointer', whiteSpace: 'nowrap',
+                            transition: 'all 0.18s',
+                          }}
+                        >
+                          {isSelected ? '✓ Elegido' : 'Elegir'}
+                        </button>
+                      </div>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 8 }}>
                       {t.badge === 'popular' && (

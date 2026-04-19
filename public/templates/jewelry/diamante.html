@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIAMANTE — Joyería Contemporánea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#f9f9f9;--bg3:#f2f2f0;
+  --text:#1a1a1a;--muted:#888;--border:#e0e0e0;
+  --gold:#c0a882;--gold-dark:#8a7250;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .4s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:#fff;max-width:480px;width:100%;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.15)}
+.popup-img-side{background-image:url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80');background-size:cover;background-position:center;min-height:300px}
+.popup-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text);font-size:18px;cursor:pointer;line-height:1}
+.popup-body{padding:32px 28px}
+.popup-badge{display:inline-block;background:var(--bg3);font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;color:var(--muted);margin-bottom:16px}
+.popup-title{font-family:'Bodoni Moda',serif;font-size:26px;line-height:1.2;margin-bottom:8px}
+.popup-sub{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.popup-input{width:100%;border:1px solid var(--border);padding:10px 14px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:10px}
+.popup-input:focus{border-color:var(--gold)}
+.popup-btn{width:100%;background:var(--text);color:#fff;border:none;padding:12px;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.popup-btn:hover{background:var(--gold-dark)}
+.popup-skip{display:block;text-align:center;margin-top:10px;font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;width:100%;text-decoration:underline}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:68px;background:#fff;border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bodoni Moda',serif;font-size:20px;font-weight:400;letter-spacing:6px;color:var(--text);text-decoration:none;text-transform:uppercase}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:var(--muted);font-size:12px;letter-spacing:1px;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-icons{display:flex;gap:16px;align-items:center}
+.nav-icon{background:none;border:none;color:var(--text);cursor:pointer;font-size:16px;text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1px;background:var(--text);transition:.3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bodoni Moda',serif;font-size:28px;color:var(--text);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+
+/* HERO */
+.hero{margin-top:68px;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 68px)}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 60px;background:var(--bg2)}
+.hero-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:16px}
+.hero-title{font-family:'Bodoni Moda',serif;font-size:clamp(40px,4.5vw,72px);line-height:1.05;margin-bottom:20px}
+.hero-title em{font-style:italic;color:var(--gold-dark)}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:340px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-dark{display:inline-block;background:var(--text);color:#fff;padding:13px 32px;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.btn-dark:hover{background:var(--gold-dark)}
+.btn-ghost{display:inline-block;color:var(--text);font-size:12px;text-decoration:none;border-bottom:1px solid var(--text);padding-bottom:2px;transition:color .2s,border .2s}
+.btn-ghost:hover{color:var(--gold-dark);border-color:var(--gold-dark)}
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{width:100%;height:100%;object-fit:cover;display:block;animation:heroZoom 14s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.05)}}
+.hero-badge{position:absolute;bottom:32px;left:32px;background:#fff;padding:16px 20px;box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.hero-badge-num{font-family:'Bodoni Moda',serif;font-size:28px;font-weight:700;color:var(--text)}
+.hero-badge-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+/* TRUST */
+.trust-bar{background:var(--text);padding:14px 48px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.trust-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* SECTION */
+.section{padding:100px 48px;max-width:1200px;margin:0 auto}
+.section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px}
+.section-title{font-family:'Bodoni Moda',serif;font-size:clamp(30px,3.5vw,52px);line-height:1.1;margin-bottom:48px}
+
+/* FEATURED */
+.featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.featured-big{position:relative;overflow:hidden;grid-row:span 2}
+.featured-big img,.featured-sm img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.featured-big{min-height:500px}
+.featured-sm{min-height:245px;overflow:hidden}
+.featured-big:hover img,.featured-sm:hover img{transform:scale(1.04)}
+.featured-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 50%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.featured-overlay h3{font-family:'Bodoni Moda',serif;font-size:22px;color:#fff;margin-bottom:4px}
+.featured-overlay span{font-size:11px;color:rgba(255,255,255,.7);letter-spacing:1px}
+
+/* ANATOMY */
+.anatomy-wrap{background:var(--bg2);padding:100px 48px}
+.anatomy-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.anatomy-img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.anatomy-items{display:flex;flex-direction:column;gap:0}
+.anatomy-item{padding:24px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start}
+.anatomy-item:last-child{border-bottom:none}
+.anatomy-icon{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.anatomy-text h4{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.anatomy-text p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* VIDEO */
+.video-section{position:relative;height:480px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.video-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=1400&q=80');background-size:cover;background-position:center;filter:brightness(.55)}
+.video-content{position:relative;z-index:1;text-align:center}
+.video-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.video-title{font-family:'Bodoni Moda',serif;font-size:42px;color:#fff;font-style:italic;margin-bottom:28px;line-height:1.2}
+.video-play{width:68px;height:68px;border:1.5px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;cursor:pointer;font-size:20px;color:#fff;transition:background .2s}
+.video-play:hover{background:rgba(255,255,255,.15)}
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.video-modal.open{display:flex}
+.video-modal iframe{width:100%;max-width:900px;aspect-ratio:16/9;border:none}
+.video-modal-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.product-img{position:relative;overflow:hidden;background:var(--bg2);margin-bottom:16px}
+.product-img img{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:transform .5s}
+.product-img:hover img{transform:scale(1.05)}
+.quick-add{position:absolute;bottom:0;left:0;right:0;background:rgba(26,26,26,.85);color:#fff;text-align:center;padding:10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:0;transition:.3s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;width:100%}
+.product-img:hover .quick-add{opacity:1}
+.product-name{font-family:'Bodoni Moda',serif;font-size:17px;margin-bottom:4px}
+.product-mat{font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:8px}
+.product-price{font-size:14px;font-weight:500;color:var(--text)}
+.product-old{font-size:12px;text-decoration:line-through;color:var(--muted);margin-left:8px;font-weight:400}
+
+/* URGENCY */
+.urgency-strip{background:var(--bg2);border-top:2px solid var(--text);border-bottom:2px solid var(--text);padding:14px 48px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-strip p{font-size:12px;font-weight:500;letter-spacing:1px;color:var(--text)}
+.countdown-wrap{display:flex;gap:4px;align-items:center}
+.cd-unit{background:var(--text);color:#fff;padding:5px 10px;font-size:14px;font-family:'Bodoni Moda',serif;min-width:32px;text-align:center}
+.cd-sep{font-size:14px;font-weight:700;color:var(--muted)}
+
+/* REVIEWS */
+.reviews-wrap{padding:100px 48px;background:var(--bg2)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px}
+.rating-big{font-family:'Bodoni Moda',serif;font-size:64px;font-weight:700;line-height:1}
+.rating-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.review-card{background:#fff;padding:28px;border:1px solid var(--border)}
+.review-stars{color:#c9a96e;font-size:12px;margin-bottom:12px;letter-spacing:2px}
+.review-text{font-size:14px;line-height:1.7;color:var(--text);margin-bottom:16px;font-style:italic}
+.review-author{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+
+/* STATS */
+.stats-section{padding:80px 48px;display:flex;justify-content:center;gap:80px;flex-wrap:wrap;border-top:1px solid var(--border)}
+.stat-item{text-align:center}
+.stat-num{font-family:'Bodoni Moda',serif;font-size:48px;font-weight:700;color:var(--text);line-height:1}
+.stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.nl-section{padding:100px 48px;background:var(--text);text-align:center}
+.nl-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.nl-title{font-family:'Bodoni Moda',serif;font-size:42px;font-style:italic;color:#fff;margin-bottom:12px}
+.nl-sub{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:32px;line-height:1.6}
+.nl-form{display:flex;max-width:460px;margin:0 auto}
+.nl-input{flex:1;background:transparent;border:1px solid rgba(255,255,255,.2);border-right:none;color:#fff;padding:12px 18px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none}
+.nl-input::placeholder{color:rgba(255,255,255,.4)}
+.nl-input:focus{border-color:var(--gold)}
+.nl-btn{background:var(--gold);color:var(--text);border:none;padding:12px 24px;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif}
+.nl-btn:hover{background:#dac0a0}
+.nl-note{font-size:11px;color:rgba(255,255,255,.4);margin-top:12px}
+
+/* FOOTER */
+footer{background:#111;padding:60px 48px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-logo{font-family:'Bodoni Moda',serif;font-size:20px;letter-spacing:5px;color:#fff;text-decoration:none;display:block;margin-bottom:16px}
+.footer-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.7}
+.footer-col h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{font-size:12px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.3)}
+.footer-social{display:flex;gap:12px}
+.footer-social a{width:32px;height:32px;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;transition:.2s}
+.footer-social a:hover{border-color:var(--gold);color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px;height:58px}
+  .nav-links,.nav-icons{display:none}
+  .hamburger{display:flex}
+  .hero{grid-template-columns:1fr;margin-top:58px;min-height:auto}
+  .hero-left{padding:48px 20px;order:2}
+  .hero-right{height:60vw;order:1}
+  .hero-badge{bottom:16px;left:16px;padding:10px 14px}
+  .trust-bar{gap:16px;padding:12px 20px}
+  .section{padding:60px 20px}
+  .featured-grid{grid-template-columns:1fr}
+  .featured-big{grid-row:auto;min-height:280px}
+  .featured-sm{min-height:200px}
+  .anatomy-wrap{padding:60px 20px}
+  .anatomy-inner{grid-template-columns:1fr;gap:32px}
+  .anatomy-img{aspect-ratio:4/3}
+  .products-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .urgency-strip{padding:12px 16px;gap:12px}
+  .reviews-wrap{padding:60px 20px}
+  .reviews-header{flex-direction:column;align-items:flex-start}
+  .reviews-grid{grid-template-columns:1fr;gap:12px}
+  .stats-section{padding:60px 20px;gap:32px}
+  .nl-section{padding:60px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(255,255,255,.2)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .popup-box{grid-template-columns:1fr}
+  .popup-img-side{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-img-side"></div>
+    <div style="position:relative">
+      <button class="popup-close" onclick="closePopup()">✕</button>
+      <div class="popup-body">
+        <span class="popup-badge">Oferta de bienvenida</span>
+        <h2 class="popup-title">15% off<br>en tu primera joya</h2>
+        <p class="popup-sub">Suscríbete y recibe tu código de descuento al instante. Solo por tiempo limitado.</p>
+        <input type="email" class="popup-input" placeholder="Correo electrónico">
+        <button class="popup-btn" onclick="closePopup()">Obtener descuento</button>
+        <button class="popup-skip" onclick="closePopup()">No, gracias</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <iframe id="videoFrame" src="" allowfullscreen title="Video"></iframe>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">DIAMANTE</a>
+  <ul class="nav-links">
+    <li><a href="#">Anillos</a></li>
+    <li><a href="#">Collares</a></li>
+    <li><a href="#">Aretes</a></li>
+    <li><a href="#">Pulseras</a></li>
+    <li><a href="#">Boda</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#" class="nav-icon">♡</a>
+    <a href="#" class="nav-icon">🛍</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Anillos</a>
+  <a href="#" onclick="toggleMenu()">Collares</a>
+  <a href="#" onclick="toggleMenu()">Aretes</a>
+  <a href="#" onclick="toggleMenu()">Pulseras</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Nueva Colección 2025</p>
+    <h1 class="hero-title">Joyería que<br>habla por <em>ti.</em></h1>
+    <p class="hero-sub">Diseños contemporáneos en oro y diamantes. Cada pieza es una declaración de estilo y personalidad.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-dark">Ver Colección</a>
+      <a href="#" class="btn-ghost">Nuestro proceso</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?w=900&q=85" alt="Diamante Jewelry">
+    <div class="hero-badge">
+      <p class="hero-badge-num">500+</p>
+      <p class="hero-badge-label">Diseños únicos</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-dot"></span>Diamantes Certificados GIA</div>
+  <div class="trust-item"><span class="trust-dot"></span>Envío Gratis Asegurado</div>
+  <div class="trust-item"><span class="trust-dot"></span>Garantía de Por Vida</div>
+  <div class="trust-item"><span class="trust-dot"></span>Devolución 30 Días</div>
+</div>
+
+<!-- FEATURED COLLECTIONS -->
+<div class="section">
+  <p class="section-label">Colecciones</p>
+  <h2 class="section-title">Encuentra<br>tu pieza perfecta</h2>
+  <div class="featured-grid">
+    <div class="featured-big">
+      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=700&q=80" alt="Anillos">
+      <div class="featured-overlay">
+        <h3>Anillos de Compromiso</h3>
+        <span>42 diseños disponibles</span>
+      </div>
+    </div>
+    <div class="featured-sm">
+      <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=700&q=80" alt="Collares">
+      <div class="featured-overlay">
+        <h3>Collares y Colgantes</h3>
+        <span>68 diseños disponibles</span>
+      </div>
+    </div>
+    <div class="featured-sm">
+      <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=700&q=80" alt="Aretes">
+      <div class="featured-overlay">
+        <h3>Aretes de Lujo</h3>
+        <span>54 diseños disponibles</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANATOMY -->
+<div class="anatomy-wrap">
+  <div class="anatomy-inner">
+    <div>
+      <p class="section-label">Materiales Premium</p>
+      <h2 class="section-title">Solo lo<br>mejor para ti</h2>
+      <div class="anatomy-items">
+        <div class="anatomy-item">
+          <div class="anatomy-icon">💎</div>
+          <div class="anatomy-text">
+            <h4>Diamantes GIA</h4>
+            <p>Cada diamante viene con certificado GIA. Seleccionamos los de mayor claridad y corte perfecto.</p>
+          </div>
+        </div>
+        <div class="anatomy-item">
+          <div class="anatomy-icon">⚡</div>
+          <div class="anatomy-text">
+            <h4>Metales Certificados</h4>
+            <p>Oro 14k, 18k y platino de origen responsable. Aleaciones propias para máxima durabilidad.</p>
+          </div>
+        </div>
+        <div class="anatomy-item">
+          <div class="anatomy-icon">✦</div>
+          <div class="anatomy-text">
+            <h4>Engaste de Precisión</h4>
+            <p>Maestros joyeros con 15+ años de experiencia. Cada engaste es inspeccionado 3 veces antes de salir.</p>
+          </div>
+        </div>
+        <div class="anatomy-item">
+          <div class="anatomy-icon">🔬</div>
+          <div class="anatomy-text">
+            <h4>Control de Calidad</h4>
+            <p>Inspección con lupa 10x en cada etapa del proceso. Solo el 8% de diamantes evaluados son seleccionados.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <img src="https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600&q=80" alt="Detalle" class="anatomy-img">
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="video-bg"></div>
+  <div class="video-content">
+    <p class="video-label">El proceso Diamante</p>
+    <h2 class="video-title">Desde la mina<br>hasta tu mano</h2>
+    <div class="video-play" onclick="openVideo('dQw4w9WgXcQ')">▶</div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-strip">
+  <p>🔥 Colección Boda 2025 — Reserva con 20% off. Termina en:</p>
+  <div class="countdown-wrap">
+    <div class="cd-unit" id="cd-h">05</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-m">47</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-s">33</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section">
+  <p class="section-label">Más Populares</p>
+  <h2 class="section-title">Bestsellers</h2>
+  <div class="products-grid">
+    <div>
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1573408301185-9519f94816b5?w=400&q=80" alt="Solitaire">
+        <button class="quick-add">Agregar al carrito</button>
+      </div>
+      <p class="product-name">Anillo Solitaire</p>
+      <p class="product-mat">Diamante 1ct · Oro 18k</p>
+      <span class="product-price">$5.800.000</span>
+    </div>
+    <div>
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&q=80" alt="Tennis">
+        <button class="quick-add">Agregar al carrito</button>
+      </div>
+      <p class="product-name">Collar Tennis</p>
+      <p class="product-mat">Diamantes 3ct · Oro Blanco</p>
+      <span class="product-price">$9.200.000</span>
+      <span class="product-old">$11.500.000</span>
+    </div>
+    <div>
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1616697817763-1f88d2dab3b7?w=400&q=80" alt="Drop Earrings">
+        <button class="quick-add">Agregar al carrito</button>
+      </div>
+      <p class="product-name">Aretes Drop</p>
+      <p class="product-mat">Zafiro · Oro Amarillo</p>
+      <span class="product-price">$3.400.000</span>
+    </div>
+    <div>
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="Pulsera">
+        <button class="quick-add">Agregar al carrito</button>
+      </div>
+      <p class="product-name">Pulsera Eternity</p>
+      <p class="product-mat">Diamantes · Platino</p>
+      <span class="product-price">$7.600.000</span>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="reviews-wrap">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <div>
+        <p class="section-label">Reseñas</p>
+        <h2 class="section-title" style="margin-bottom:0">Lo que opinan<br>nuestros clientes</h2>
+      </div>
+      <div>
+        <p class="rating-big">4.9</p>
+        <p class="rating-sub">★★★★★ · 847 reseñas verificadas</p>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El anillo de compromiso superó todas mis expectativas. La calidad del diamante es impresionante y la atención personalizada fue increíble."</p>
+        <p class="review-author">— Andrés B., Bogotá · hace 2 semanas</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Compré el collar tennis para mi aniversario. Mi esposa no para de recibir cumplidos. Definitivamente volveré para los aretes."</p>
+        <p class="review-author">— Carlos M., Medellín · hace 1 mes</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Servicio excelente desde la consulta hasta la entrega. El empaque es lujoso y la pieza es exactamente como en las fotos. 100% recomendado."</p>
+        <p class="review-author">— Sofía R., Cali · hace 3 semanas</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stat-item">
+    <p class="stat-num">847</p>
+    <p class="stat-label">Reseñas 5 estrellas</p>
+  </div>
+  <div class="stat-item">
+    <p class="stat-num">15k+</p>
+    <p class="stat-label">Clientes felices</p>
+  </div>
+  <div class="stat-item">
+    <p class="stat-num">500+</p>
+    <p class="stat-label">Diseños únicos</p>
+  </div>
+  <div class="stat-item">
+    <p class="stat-num">18</p>
+    <p class="stat-label">Años de trayectoria</p>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="nl-section">
+  <p class="nl-eyebrow">Comunidad Diamante</p>
+  <h2 class="nl-title">Sé el primero<br>en descubrirlo</h2>
+  <p class="nl-sub">Nuevos diseños, eventos exclusivos y ofertas especiales directo a tu correo.</p>
+  <form class="nl-form" onsubmit="return false">
+    <input type="email" class="nl-input" placeholder="tu@correo.com">
+    <button class="nl-btn">Suscribirme</button>
+  </form>
+  <p class="nl-note">Sin spam. Puedes cancelar cuando quieras.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="footer-logo">DIAMANTE</a>
+      <p class="footer-desc">Joyería contemporánea de alta calidad. Diamantes certificados, diseño propio y artesanía colombiana.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Tienda</h5>
+      <ul>
+        <li><a href="#">Anillos</a></li>
+        <li><a href="#">Collares</a></li>
+        <li><a href="#">Aretes</a></li>
+        <li><a href="#">Pulseras</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Servicio</h5>
+      <ul>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Garantía</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Marca</h5>
+      <ul>
+        <li><a href="#">Historia</a></li>
+        <li><a href="#">Sostenibilidad</a></li>
+        <li><a href="#">Prensa</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 DIAMANTE. Todos los derechos reservados.</p>
+    <div class="footer-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="TikTok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+      <a href="#" title="Pinterest"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83l1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.89 1.54 1.89 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.34-4.23-2.96 0-4.69 2.22-4.69 4.51 0 .89.34 1.85.77 2.37.08.1.09.19.07.29l-.28 1.18c-.04.19-.14.23-.32.14-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.44-2.17 6.21-5.18 6.21-1.01 0-1.96-.53-2.29-1.14l-.62 2.33c-.22.86-.83 1.94-1.24 2.6.93.29 1.92.44 2.94.44 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),1800);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function openVideo(id){
+  document.getElementById('videoFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('videoModal').classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').classList.remove('open');
+}
+(function(){
+  let h=5,m=47,s=33;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=23;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+})();
+</script>
+</body>
+</html>
