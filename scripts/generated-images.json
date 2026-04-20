@@ -1,0 +1,205 @@
+{
+  "beauty": {
+    "july": {
+      "hero": "/images/templates/beauty/july/hero.jpg",
+      "products": [
+        "/images/templates/beauty/july/product-1.jpg",
+        "/images/templates/beauty/july/product-2.jpg",
+        "/images/templates/beauty/july/product-3.jpg",
+        "/images/templates/beauty/july/product-4.jpg"
+      ]
+    },
+    "sleek": {
+      "hero": "/images/templates/beauty/sleek/hero.jpg",
+      "products": [
+        "/images/templates/beauty/sleek/product-1.jpg",
+        "/images/templates/beauty/sleek/product-2.jpg",
+        "/images/templates/beauty/sleek/product-3.jpg",
+        "/images/templates/beauty/sleek/product-4.jpg"
+      ]
+    },
+    "glow": {
+      "hero": "/images/templates/beauty/glow/hero.jpg",
+      "products": [
+        "/images/templates/beauty/glow/product-1.jpg",
+        "/images/templates/beauty/glow/product-2.jpg",
+        "/images/templates/beauty/glow/product-3.jpg",
+        "/images/templates/beauty/glow/product-4.jpg"
+      ]
+    }
+  },
+  "electronics": {
+    "quantum": {
+      "hero": "/images/templates/electronics/quantum/hero.jpg",
+      "products": [
+        "/images/templates/electronics/quantum/product-1.jpg",
+        "/images/templates/electronics/quantum/product-2.jpg",
+        "/images/templates/electronics/quantum/product-3.jpg",
+        "/images/templates/electronics/quantum/product-4.jpg"
+      ]
+    },
+    "harmony": {
+      "hero": "/images/templates/electronics/harmony/hero.jpg",
+      "products": [
+        "/images/templates/electronics/harmony/product-1.jpg",
+        "/images/templates/electronics/harmony/product-2.jpg",
+        "/images/templates/electronics/harmony/product-3.jpg",
+        "/images/templates/electronics/harmony/product-4.jpg"
+      ]
+    },
+    "woodstock": {
+      "hero": "/images/templates/electronics/woodstock/hero.jpg",
+      "products": [
+        "/images/templates/electronics/woodstock/product-1.jpg",
+        "/images/templates/electronics/woodstock/product-2.jpg",
+        "/images/templates/electronics/woodstock/product-3.jpg",
+        "/images/templates/electronics/woodstock/product-4.jpg"
+      ]
+    }
+  },
+  "food": {
+    "cosecha": {
+      "hero": "/images/templates/food/cosecha/hero.jpg",
+      "products": [
+        "/images/templates/food/cosecha/product-1.jpg",
+        "/images/templates/food/cosecha/product-2.jpg",
+        "/images/templates/food/cosecha/product-3.jpg",
+        "/images/templates/food/cosecha/product-4.jpg"
+      ]
+    },
+    "levain": {
+      "hero": "/images/templates/food/levain/hero.jpg",
+      "products": [
+        "/images/templates/food/levain/product-1.jpg",
+        "/images/templates/food/levain/product-2.jpg",
+        "/images/templates/food/levain/product-3.jpg",
+        "/images/templates/food/levain/product-4.jpg"
+      ]
+    },
+    "mercado": {
+      "hero": "/images/templates/food/mercado/hero.jpg",
+      "products": [
+        "/images/templates/food/mercado/product-1.jpg",
+        "/images/templates/food/mercado/product-2.jpg",
+        "/images/templates/food/mercado/product-3.jpg",
+        "/images/templates/food/mercado/product-4.jpg"
+      ]
+    }
+  },
+  "jewelry": {
+    "lumiere": {
+      "hero": "/images/templates/jewelry/lumiere/hero.jpg",
+      "products": [
+        "/images/templates/jewelry/lumiere/product-1.jpg",
+        "/images/templates/jewelry/lumiere/product-2.jpg",
+        "/images/templates/jewelry/lumiere/product-3.jpg",
+        "/images/templates/jewelry/lumiere/product-4.jpg"
+      ]
+    },
+    "diamante": {
+      "hero": "/images/templates/jewelry/diamante/hero.jpg",
+      "products": [
+        "/images/templates/jewelry/diamante/product-1.jpg",
+        "/images/templates/jewelry/diamante/product-2.jpg",
+        "/images/templates/jewelry/diamante/product-3.jpg",
+        "/images/templates/jewelry/diamante/product-4.jpg"
+      ]
+    },
+    "heritage": {
+      "hero": "/images/templates/jewelry/heritage/hero.jpg",
+      "products": [
+        "/images/templates/jewelry/heritage/product-1.jpg",
+        "/images/templates/jewelry/heritage/product-2.jpg",
+        "/images/templates/jewelry/heritage/product-3.jpg",
+        "/images/templates/jewelry/heritage/product-4.jpg"
+      ]
+    }
+  },
+  "home": {
+    "haven": {
+      "hero": "/images/templates/home/haven/hero.jpg",
+      "products": [
+        "/images/templates/home/haven/product-1.jpg",
+        "/images/templates/home/haven/product-2.jpg",
+        "/images/templates/home/haven/product-3.jpg",
+        "/images/templates/home/haven/product-4.jpg"
+      ]
+    },
+    "nordia": {
+      "hero": "/images/templates/home/nordia/hero.jpg",
+      "products": [
+        "/images/templates/home/nordia/product-1.jpg",
+        "/images/templates/home/nordia/product-2.jpg",
+        "/images/templates/home/nordia/product-3.jpg",
+        "/images/templates/home/nordia/product-4.jpg"
+      ]
+    },
+    "loft": {
+      "hero": "/images/templates/home/loft/hero.jpg",
+      "products": [
+        "/images/templates/home/loft/product-1.jpg",
+        "/images/templates/home/loft/product-2.jpg",
+        "/images/templates/home/loft/product-3.jpg",
+        "/images/templates/home/loft/product-4.jpg"
+      ]
+    }
+  },
+  "sports": {
+    "apex": {
+      "hero": "/images/templates/sports/apex/hero.jpg",
+      "products": [
+        "/images/templates/sports/apex/product-1.jpg",
+        "/images/templates/sports/apex/product-2.jpg",
+        "/images/templates/sports/apex/product-3.jpg",
+        "/images/templates/sports/apex/product-4.jpg"
+      ]
+    },
+    "stride": {
+      "hero": "/images/templates/sports/stride/hero.jpg",
+      "products": [
+        "/images/templates/sports/stride/product-1.jpg",
+        "/images/templates/sports/stride/product-2.jpg",
+        "/images/templates/sports/stride/product-3.jpg",
+        "/images/templates/sports/stride/product-4.jpg"
+      ]
+    },
+    "arena": {
+      "hero": "/images/templates/sports/arena/hero.jpg",
+      "products": [
+        "/images/templates/sports/arena/product-1.jpg",
+        "/images/templates/sports/arena/product-2.jpg",
+        "/images/templates/sports/arena/product-3.jpg",
+        "/images/templates/sports/arena/product-4.jpg"
+      ]
+    }
+  },
+  "general": {
+    "bazaar": {
+      "hero": "/images/templates/general/bazaar/hero.jpg",
+      "products": [
+        "/images/templates/general/bazaar/product-1.jpg",
+        "/images/templates/general/bazaar/product-2.jpg",
+        "/images/templates/general/bazaar/product-3.jpg",
+        "/images/templates/general/bazaar/product-4.jpg"
+      ]
+    },
+    "urban": {
+      "hero": "/images/templates/general/urban/hero.jpg",
+      "products": [
+        "/images/templates/general/urban/product-1.jpg",
+        "/images/templates/general/urban/product-2.jpg",
+        "/images/templates/general/urban/product-3.jpg",
+        "/images/templates/general/urban/product-4.jpg"
+      ]
+    },
+    "vida": {
+      "hero": "/images/templates/general/vida/hero.jpg",
+      "products": [
+        "/images/templates/general/vida/product-1.jpg",
+        "/images/templates/general/vida/product-2.jpg",
+        "/images/templates/general/vida/product-3.jpg",
+        "/images/templates/general/vida/product-4.jpg"
+      ]
+    }
+  }
+}
