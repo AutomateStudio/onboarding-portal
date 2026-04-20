@@ -19,53 +19,53 @@ export const INDUSTRY_TEMPLATES: Record<string, IndustryTemplate[]> = {
   beauty: [
     {
       id: 'aurora',
-      name: 'Aurora',
-      desc: 'Minimal cálido · Limpio · Skincare',
+      name: 'July',
+      desc: 'Luxury · Skincare Editorial · Warm',
       tags: ['Popular', 'Skincare', 'Clean'],
       badge: 'popular',
-      hero: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
-      heroMobile: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=300&q=80',
-      nav: { logo: 'AURORA', links: ['Tienda', 'Rituales', 'Nosotros'], icons: ['♡', '🛒'] },
-      eyebrow: 'EDICIÓN SKINCARE', title: 'Brilla\ndesde adentro.', cta: 'Descubrir →',
+      hero: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=85',
+      heroMobile: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80',
+      nav: { logo: 'July', links: ['HOME', 'SHOP', 'ABOUT', 'BLOG', 'PRESETS'], icons: ['🔍', '👤', '🛒'] },
+      eyebrow: 'LUXURY SKINCARE', title: 'El Brillo de la Eternidad', cta: 'COMPRAR AHORA',
       products: [
-        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Glow Serum', price: '$128.000' },
-        { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80', name: 'Night Cream', price: '$112.000' },
-        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Facial Oil', price: '$95.000' },
-        { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
+        { img: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=300&q=80', name: 'Orchid Facial Oil', price: '$128.000' },
+        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80', name: 'Bakuchiol Serum', price: '$145.000' },
+        { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300&q=80', name: 'Eye Anti-Aging Cream', price: '$98.000' },
+        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&q=80', name: 'Hydra Night Cream', price: '$112.000' },
       ],
     },
     {
       id: 'onyx',
-      name: 'Onyx',
-      desc: 'Editorial oscuro · Serif · Lujo',
+      name: 'Sleek',
+      desc: 'Minimal · Clean · Professional skincare',
       tags: ['nuevo', 'Editorial', 'Lujo'],
       badge: 'new',
-      hero: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
-      heroMobile: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300&q=80',
-      nav: { logo: 'ONYX', links: ['Colección', 'Rituales', 'Prensa'], icons: ['♡', '🛒'] },
-      eyebrow: 'RITUAL DE BELLEZA', title: 'Cuida tu\npiel con nosotros.', cta: 'Explorar →',
+      hero: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=85',
+      heroMobile: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80',
+      nav: { logo: 'Sleek', links: ['Home', 'Presets', 'Shop', 'Collections', 'Contact'], icons: ['🔍', '👤', '🛒'] },
+      eyebrow: 'CLEAN BEAUTY', title: 'Get the skin you want to feel', cta: 'Shop Now',
       products: [
-        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Glow Serum', price: '$128.000' },
-        { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80', name: 'Night Cream', price: '$112.000' },
-        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Facial Oil', price: '$95.000' },
-        { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
+        { img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=300&q=80', name: 'Sunscreen Lotion', price: '$29.000' },
+        { img: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=300&q=80', name: 'Rejuvenating Night Oil', price: '$79.000' },
+        { img: 'https://images.unsplash.com/photo-1617897903246-719242758050?w=300&q=80', name: 'Dream Bio Retinol', price: '$39.000' },
+        { img: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=300&q=80', name: 'Protective Day Oil', price: '$99.000' },
       ],
     },
     {
       id: 'bloom',
-      name: 'Bloom',
-      desc: 'Vibrante · Fresco · Beauty lifestyle',
+      name: 'Glow',
+      desc: 'Bold · Inclusivo · Beauty lifestyle',
       tags: ['nuevo', 'Colorido', 'Lifestyle'],
       badge: 'new',
-      hero: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&q=80',
-      heroMobile: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&q=80',
-      nav: { logo: 'BLOOM', links: ['Tienda', 'Novedades', 'Belleza'], icons: ['🔍', '🛒'] },
-      eyebrow: 'POTENCIA TU PIEL', title: 'belleza', cta: 'Comprar ahora →',
+      hero: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=85',
+      heroMobile: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80',
+      nav: { logo: 'Glow', links: ['Shop', 'Bestseller', 'Sale'], icons: ['🔍', '👤', '🛒'] },
+      eyebrow: 'DONDE COMIENZA EL SKINCARE', title: 'belleza', cta: 'COMPRAR AHORA',
       products: [
-        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', name: 'Orchid Serum', price: '$128.000' },
-        { img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80', name: 'Bakuchiol', price: '$112.000' },
-        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80', name: 'Eye Cream', price: '$95.000' },
-        { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', name: 'Lip Gloss', price: '$58.000' },
+        { img: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=300&q=80', name: 'Orchid Serum', price: '$128.000' },
+        { img: 'https://images.unsplash.com/photo-1614859326069-d26c2dbc42d2?w=300&q=80', name: 'Bakuchiol Drops', price: '$112.000' },
+        { img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&q=80', name: 'Eye Corrector', price: '$95.000' },
+        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80', name: 'Glow Moisturizer', price: '$88.000' },
       ],
     },
   ],
@@ -512,198 +512,281 @@ export function buildMobileHtml(t: IndustryTemplate): string {
 // ── AURORA ─────────────────────────────────────────────────────────────────
 
 function buildAuroraDesktop(t: IndustryTemplate): string {
-  const prods = t.products.map(p => `
-    <div>
-      <div style="height:78px;background:#f5f0ea;border-radius:6px;overflow:hidden;margin-bottom:6px;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+  const cardBgs = ['#fef4e6','#ede8ff','#e2f5ee'];
+  const prods = t.products.slice(0,3).map((p,i) => `
+    <div style="background:${cardBgs[i]};border-radius:12px;overflow:hidden;padding:20px 16px;text-align:center;">
+      <div style="height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <img src="${p.img}" style="height:120px;object-fit:contain;" loading="lazy">
       </div>
-      <div style="font-size:9px;color:#3d3530;font-weight:500;margin-bottom:2px;">${p.name}</div>
-      <div style="font-size:9px;color:#8a7060;font-weight:700;">${p.price}</div>
+      <div style="font-size:14px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#1a1a1a;margin-bottom:5px;">${p.name}</div>
+      <div style="font-size:11px;color:#888;margin-bottom:14px;">${p.price}</div>
+      <div style="display:inline-block;padding:7px 22px;border-radius:100px;border:1.5px solid #1a1a1a;font-size:9px;font-weight:700;letter-spacing:1.5px;color:#1a1a1a;">SHOP NOW</div>
     </div>`).join('');
-  return `<div style="background:#faf7f2;height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;">
-    <div style="background:#f0ebe3;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#8a7060;font-weight:600;letter-spacing:1.5px;">ENVÍO GRATIS EN PEDIDOS MAYORES A $200.000 · COLOMBIA</div>
-    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid #ede8e0;">
-      <span style="font-size:12px;font-weight:700;letter-spacing:4px;color:#1a1410;">AURORA</span>
-      <div style="display:flex;gap:26px;"><span style="font-size:10px;color:#888;">Tienda</span><span style="font-size:10px;color:#888;">Rituales</span><span style="font-size:10px;color:#888;">Nosotros</span></div>
-      <div style="display:flex;gap:14px;font-size:14px;color:#777;">♡ 🛒</div>
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
+    <!-- Top utility bar -->
+    <div style="background:#fff;border-bottom:1px solid #eee;height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;">
+      <div style="display:flex;gap:12px;font-size:8.5px;color:#777;"><span>ENGLISH ▾</span><span>🇺🇸 USD ▾</span></div>
+      <span style="font-size:18px;font-weight:700;letter-spacing:2px;color:#111;font-family:'Cormorant Garamond',serif;font-style:italic;">July</span>
+      <div style="display:flex;gap:10px;font-size:13px;color:#111;">🔍 👤 🛒</div>
     </div>
-    <div style="height:214px;position:relative;overflow:hidden;">
-      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,15,10,0.68) 0%,rgba(20,15,10,0.0) 52%);"></div>
-      <div style="position:absolute;bottom:28px;left:28px;">
-        <div style="font-size:9px;color:#c8a882;font-weight:700;letter-spacing:3px;margin-bottom:10px;text-transform:uppercase;">Edición Skincare</div>
-        <div style="font-size:30px;font-weight:800;color:#fff;line-height:1.1;">Brilla desde<br>adentro.</div>
-        <div style="margin-top:14px;display:inline-block;padding:8px 22px;background:#fff;color:#1a1410;font-size:10px;font-weight:700;border-radius:100px;">Descubrir productos</div>
-      </div>
+    <!-- Main nav -->
+    <div style="background:#fff;height:36px;display:flex;align-items:center;justify-content:center;gap:22px;border-bottom:1px solid #eee;">
+      <span style="font-size:9px;color:#333;font-weight:500;letter-spacing:0.5px;">HOME</span>
+      <span style="font-size:9px;color:#333;font-weight:500;letter-spacing:0.5px;">SHOP ▾</span>
+      <div style="background:#b91c1c;color:#fff;font-size:8px;font-weight:700;padding:4px 10px;border-radius:2px;">+ SALE</div>
+      <span style="font-size:9px;color:#333;font-weight:500;letter-spacing:0.5px;">ABOUT ▾</span>
+      <span style="font-size:9px;color:#333;font-weight:500;letter-spacing:0.5px;">BLOG</span>
+      <span style="font-size:9px;color:#333;font-weight:500;letter-spacing:0.5px;">PRESETS ▾</span>
     </div>
-    <div style="background:#fff;padding:16px 28px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="display:flex;gap:18px;align-items:center;">
-          <span style="font-size:10.5px;font-weight:700;color:#1a1410;border-bottom:2px solid #c8a882;padding-bottom:3px;">● más vendidos</span>
-          <span style="font-size:10.5px;color:#bbb;">sets</span>
+    <!-- Hero -->
+    <div style="height:190px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center top;" loading="lazy">
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.18);"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 40px;">
+        <div style="font-size:34px;font-family:'Cormorant Garamond',serif;color:#fff;font-weight:600;line-height:1.1;text-shadow:0 2px 12px rgba(0,0,0,0.25);">El Brillo <em style="font-style:italic;color:#d4b896;">de</em> la Eternidad</div>
+        <p style="font-size:10px;color:rgba(255,255,255,0.88);margin-top:10px;line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,0.3);">Un diálogo entre la luz y la piel.</p>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <div style="background:#fff;color:#111;font-size:8.5px;font-weight:700;letter-spacing:1.5px;padding:8px 18px;border-radius:100px;">COMPRAR AHORA</div>
+          <div style="background:transparent;color:#fff;font-size:8.5px;font-weight:700;letter-spacing:1.5px;padding:8px 18px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.7);">LEER HISTORIA</div>
         </div>
-        <span style="font-size:9.5px;color:#bbb;text-decoration:underline;">Ver todo</span>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
+    </div>
+    <!-- Trust badges -->
+    <div style="background:#fff;padding:12px 28px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:center;gap:30px;">
+      <div style="text-align:center;"><div style="font-size:7px;color:#bbb;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;">CRAFT</div><div style="font-size:9px;color:#555;">Small Batch</div></div>
+      <div style="text-align:center;"><div style="font-size:7px;color:#bbb;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;">COMMITMENT</div><div style="font-size:9px;color:#555;">Libre de Crueldad</div></div>
+      <div style="text-align:center;"><div style="font-size:7px;color:#bbb;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;">SOSTENIBILIDAD</div><div style="font-size:9px;color:#555;">Carbono Neutro</div></div>
+      <div style="text-align:center;"><div style="font-size:7px;color:#bbb;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;">CIENCIA</div><div style="font-size:9px;color:#555;">Testado por Dermatólogos</div></div>
+    </div>
+    <!-- Products -->
+    <div style="background:#fff;padding:16px 24px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">${prods}</div>
     </div>
   </div>`;
 }
 
 function buildAuroraMobile(t: IndustryTemplate): string {
-  const prods = t.products.slice(0, 2).map(p => `
-    <div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid #f0ede8;">
-      <div style="width:30px;height:30px;background:#f5f0ea;border-radius:5px;overflow:hidden;flex-shrink:0;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+  const cardBgs = ['#fef4e6','#ede8ff'];
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:${cardBgs[i]};border-radius:8px;overflow:hidden;padding:8px;text-align:center;">
+      <div style="height:52px;display:flex;align-items:center;justify-content:center;margin-bottom:5px;">
+        <img src="${p.img}" style="height:48px;object-fit:contain;" loading="lazy">
       </div>
-      <div>
-        <div style="font-size:6.5px;color:#3d3530;font-weight:600;">${p.name}</div>
-        <div style="font-size:6.5px;color:#8a7060;font-weight:700;">${p.price}</div>
-      </div>
+      <div style="font-size:7px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#1a1a1a;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:6.5px;color:#888;margin-bottom:5px;">${p.price}</div>
+      <div style="padding:3px 0;border-radius:100px;border:1px solid #1a1a1a;font-size:5.5px;font-weight:700;letter-spacing:1px;color:#1a1a1a;">SHOP NOW</div>
     </div>`).join('');
-  return `<div style="background:#faf7f2;height:100%;display:flex;flex-direction:column;">
-    <div style="background:#f0ebe3;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#8a7060;letter-spacing:1px;font-weight:600;">ENVÍO GRATIS</div>
-    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #ede8e0;flex-shrink:0;">
-      <span style="font-size:6.5px;font-weight:700;letter-spacing:2.5px;color:#1a1410;">AURORA</span>
-      <div style="display:flex;gap:7px;font-size:10px;color:#777;">♡ 🛒</div>
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
+    <!-- Utility bar -->
+    <div style="background:#fff;border-bottom:1px solid #eee;height:16px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:2px;color:#111;font-family:'Cormorant Garamond',serif;font-style:italic;">July</span>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
-      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,15,10,0.68) 0%,transparent 52%);"></div>
-      <div style="position:absolute;bottom:10px;left:10px;">
-        <div style="font-size:13px;font-weight:800;color:#fff;line-height:1.1;">Brilla desde<br>adentro.</div>
-        <div style="margin-top:6px;display:inline-block;padding:3px 10px;background:#fff;color:#1a1410;font-size:6px;font-weight:700;border-radius:100px;">Descubrir</div>
+    <!-- Nav -->
+    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #eee;flex-shrink:0;">
+      <div style="display:flex;gap:8px;font-size:7px;color:#555;"><span>Shop</span><div style="background:#b91c1c;color:#fff;font-size:5.5px;font-weight:700;padding:2px 5px;border-radius:2px;">SALE</div></div>
+      <div style="display:flex;gap:5px;font-size:10px;">🔍🛒</div>
+    </div>
+    <!-- Hero -->
+    <div style="height:115px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;object-position:center top;" loading="lazy">
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.22);"></div>
+      <div style="position:relative;z-index:2;text-align:center;padding:0 12px;">
+        <div style="font-size:17px;font-family:'Cormorant Garamond',serif;color:#fff;font-weight:600;line-height:1.1;">El Brillo <em style="font-style:italic;color:#d4b896;">de</em><br>la Eternidad</div>
+        <div style="display:flex;gap:5px;justify-content:center;margin-top:8px;">
+          <div style="background:#fff;color:#111;font-size:6px;font-weight:700;padding:4px 10px;border-radius:100px;">Comprar</div>
+          <div style="border:1px solid rgba(255,255,255,0.7);color:#fff;font-size:6px;font-weight:700;padding:4px 10px;border-radius:100px;">Historia</div>
+        </div>
       </div>
     </div>
-    <div style="background:#fff;padding:7px 9px;flex:1;">${prods}</div>
+    <!-- Trust bar -->
+    <div style="background:#fff;padding:5px 9px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:center;gap:10px;">
+      <span style="font-size:5.5px;color:#888;">Small Batch</span>
+      <span style="font-size:5.5px;color:#888;">·</span>
+      <span style="font-size:5.5px;color:#888;">Sin Crueldad</span>
+      <span style="font-size:5.5px;color:#888;">·</span>
+      <span style="font-size:5.5px;color:#888;">Carbono Neutro</span>
+    </div>
+    <!-- Products -->
+    <div style="padding:7px 7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
   </div>`;
 }
 
 // ── ONYX ──────────────────────────────────────────────────────────────────
 
 function buildOnyxDesktop(t: IndustryTemplate): string {
-  const prods = t.products.map(p => `
-    <div style="flex:1;display:flex;gap:12px;align-items:center;background:#2a2018;padding:10px 12px;border-radius:7px;">
-      <div style="width:46px;height:46px;background:#3a3025;border-radius:5px;overflow:hidden;flex-shrink:0;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+  const badges: string[] = [
+    '<div style="background:#16a34a;color:#fff;font-size:7px;font-weight:700;padding:2px 7px;border-radius:100px;margin-bottom:6px;display:inline-block;">-25%</div>',
+    '<div style="background:#1a1a1a;color:#fff;font-size:7px;font-weight:700;padding:2px 7px;border-radius:100px;margin-bottom:6px;display:inline-block;">New</div>',
+    '<div style="background:#dc2626;color:#fff;font-size:7px;font-weight:700;padding:2px 7px;border-radius:100px;margin-bottom:6px;display:inline-block;">-30%</div>',
+    '',
+  ];
+  const cats = ['Crema','Aceite','Crema','Aceite'];
+  const origPrices = ['$39.000','','$56.000',''];
+  const prods = t.products.map((p,i) => `
+    <div style="background:#f6f6f6;border-radius:8px;overflow:hidden;padding:12px 10px 10px;position:relative;">
+      ${badges[i]}
+      <div style="height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+        <img src="${p.img}" style="height:80px;object-fit:contain;" loading="lazy">
       </div>
-      <div style="flex:1;">
-        <div style="font-size:9px;color:#c8b898;font-family:'Cormorant Garamond',serif;margin-bottom:3px;">${p.name}</div>
-        <div style="font-size:9px;color:#b89870;font-weight:700;">${p.price}</div>
-      </div>
-      <div style="font-size:12px;color:#b89870;opacity:0.6;">→</div>
+      <div style="font-size:8px;color:#999;margin-bottom:2px;">${cats[i]}</div>
+      <div style="font-size:9.5px;color:#1a1a1a;font-weight:600;margin-bottom:4px;">${p.name}</div>
+      <div style="font-size:9.5px;font-weight:700;color:${origPrices[i] ? '#dc2626' : '#1a1a1a'};">From ${p.price} ${origPrices[i] ? `<span style="text-decoration:line-through;color:#bbb;font-weight:400;font-size:8px;">${origPrices[i]}</span>` : ''}</div>
     </div>`).join('');
-  return `<div style="background:#1a1512;height:100%;overflow:hidden;font-family:'Cormorant Garamond',serif;">
-    <div style="background:#110e0a;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#b89870;font-weight:600;letter-spacing:3px;">ENVÍO INCLUIDO · SKINCARE DE LUJO</div>
-    <div style="background:#1a1512;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(184,152,112,0.15);">
-      <div style="display:flex;gap:22px;"><span style="font-size:9.5px;color:#b89870;letter-spacing:1.5px;">Colección</span><span style="font-size:9.5px;color:#b89870;letter-spacing:1.5px;">Rituales</span></div>
-      <span style="font-size:16px;font-weight:600;letter-spacing:5px;color:#f5ede0;">ONYX</span>
-      <div style="display:flex;gap:22px;align-items:center;"><span style="font-size:9.5px;color:#b89870;letter-spacing:1.5px;">Prensa</span><span style="font-size:15px;color:#b89870;">♡</span></div>
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
+    <!-- Nav -->
+    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #eee;">
+      <span style="font-size:16px;font-weight:800;letter-spacing:1px;color:#1a1a1a;">Sleek</span>
+      <div style="display:flex;gap:20px;font-size:9.5px;color:#444;font-weight:500;"><span>Home</span><span>Presets ▾</span><span>Shop ▾</span><span>Collections ▾</span><span>Contact</span></div>
+      <div style="display:flex;gap:12px;font-size:14px;color:#1a1a1a;">🔍 👤 🛒</div>
     </div>
-    <div style="height:214px;position:relative;overflow:hidden;">
-      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(26,21,18,0.92) 0%,rgba(26,21,18,0.08) 58%);"></div>
-      <div style="position:absolute;right:32px;top:50%;transform:translateY(-50%);text-align:right;">
-        <div style="font-size:9.5px;color:#b89870;letter-spacing:2.5px;margin-bottom:14px;text-transform:uppercase;">Ritual de Belleza</div>
-        <div style="font-size:28px;color:#f5ede0;font-style:italic;font-weight:600;line-height:1.25;">Cuida tu<br>piel con nosotros.</div>
-        <div style="margin-top:18px;display:inline-block;padding:9px 22px;border:1px solid rgba(245,237,224,0.4);color:#f5ede0;font-size:9.5px;letter-spacing:2px;">Explorar →</div>
+    <!-- Hero slider -->
+    <div style="height:200px;position:relative;overflow:hidden;display:flex;">
+      <!-- Left peek -->
+      <div style="width:14%;background:#f5d5c8;flex-shrink:0;overflow:hidden;">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg, #e8b4a0 0%, #f5d5c8 100%);opacity:0.9;"></div>
+      </div>
+      <!-- Center hero -->
+      <div style="flex:1;position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;">
+          <div style="font-size:10px;color:rgba(255,255,255,0.85);font-weight:500;letter-spacing:1px;margin-bottom:10px;">Blend Beauty In You</div>
+          <div style="font-size:26px;font-weight:800;color:#fff;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.2);">Get the skin you<br>want to feel</div>
+          <div style="margin-top:14px;display:inline-block;padding:9px 24px;background:#fff;color:#1a1a1a;font-size:9px;font-weight:700;border-radius:100px;letter-spacing:1px;">Shop Now</div>
+        </div>
+      </div>
+      <!-- Right peek -->
+      <div style="width:14%;background:#f8d4e0;flex-shrink:0;overflow:hidden;">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg, #f8d4e0 0%, #f0b8c8 100%);opacity:0.9;"></div>
       </div>
     </div>
-    <div style="background:#1a1512;padding:16px 28px;">
-      <div style="font-size:11px;color:#b89870;font-style:italic;letter-spacing:1px;margin-bottom:14px;">Nuestros Rituales</div>
-      <div style="display:flex;gap:10px;">${prods}</div>
+    <!-- Tabs -->
+    <div style="background:#fff;padding:10px 24px 8px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:20px;">
+      <span style="font-size:10.5px;font-weight:700;color:#1a1a1a;border-bottom:2px solid #1a1a1a;padding-bottom:4px;">Lo más vendido</span>
+      <span style="font-size:10.5px;color:#bbb;font-weight:500;">Bestsellers</span>
+      <span style="font-size:10.5px;color:#bbb;font-weight:500;">Ofertas</span>
+      <span style="margin-left:auto;font-size:9.5px;color:#555;font-weight:600;text-decoration:underline;">Ver todos los productos →</span>
+    </div>
+    <!-- Products -->
+    <div style="padding:14px 24px;background:#fff;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
     </div>
   </div>`;
 }
 
 function buildOnyxMobile(t: IndustryTemplate): string {
-  const prods = t.products.slice(0, 2).map(p => `
-    <div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(184,152,112,0.1);">
-      <div style="width:30px;height:30px;background:#3a3025;border-radius:4px;overflow:hidden;flex-shrink:0;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:#f6f6f6;border-radius:6px;overflow:hidden;padding:7px;">
+      <div style="height:44px;display:flex;align-items:center;justify-content:center;margin-bottom:5px;">
+        <img src="${p.img}" style="height:40px;object-fit:contain;" loading="lazy">
       </div>
-      <div>
-        <div style="font-size:6.5px;color:#c8b898;font-family:'Cormorant Garamond',serif;">${p.name}</div>
-        <div style="font-size:6.5px;color:#b89870;font-weight:700;">${p.price}</div>
-      </div>
+      <div style="font-size:6px;color:#999;margin-bottom:1px;">${i===0?'Crema':'Aceite'}</div>
+      <div style="font-size:7px;color:#1a1a1a;font-weight:600;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:6.5px;font-weight:700;color:${i===0?'#dc2626':'#1a1a1a'};">From ${p.price}${i===0?' <span style="text-decoration:line-through;color:#bbb;font-weight:400;font-size:6px;">$39.000</span>':''}</div>
     </div>`).join('');
-  return `<div style="background:#1a1512;height:100%;display:flex;flex-direction:column;">
-    <div style="background:#110e0a;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#b89870;letter-spacing:2px;font-weight:600;">SKINCARE DE LUJO</div>
-    <div style="background:#1a1512;height:22px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(184,152,112,0.12);flex-shrink:0;">
-      <span style="font-size:9px;font-weight:600;letter-spacing:4px;color:#f5ede0;">ONYX</span>
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
+    <div style="background:#fff;height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:1px solid #eee;flex-shrink:0;">
+      <span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#1a1a1a;">Sleek</span>
+      <div style="display:flex;gap:8px;font-size:7.5px;color:#555;"><span>Shop</span><span>Collections</span></div>
+      <div style="display:flex;gap:6px;font-size:11px;color:#1a1a1a;">🔍🛒</div>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
-      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(26,21,18,0.92) 0%,rgba(26,21,18,0.15) 58%);"></div>
-      <div style="position:absolute;right:8px;top:50%;transform:translateY(-50%);text-align:right;">
-        <div style="font-size:11px;color:#f5ede0;font-style:italic;font-weight:600;line-height:1.2;font-family:'Cormorant Garamond',serif;">Cuida tu<br>piel con nosotros.</div>
-        <div style="margin-top:5px;display:inline-block;padding:2px 8px;border:1px solid rgba(245,237,224,0.4);color:#f5ede0;font-size:5.5px;letter-spacing:1px;">Explorar</div>
+    <div style="height:116px;position:relative;overflow:hidden;flex-shrink:0;display:flex;">
+      <div style="width:12%;background:linear-gradient(135deg,#e8b4a0,#f5d5c8);flex-shrink:0;"></div>
+      <div style="flex:1;position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.15);"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 10px;">
+          <div style="font-size:7px;color:rgba(255,255,255,0.8);margin-bottom:5px;">Blend Beauty In You</div>
+          <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.1;">Get the skin<br>you want to feel</div>
+          <div style="margin-top:7px;padding:3px 12px;background:#fff;color:#1a1a1a;font-size:6px;font-weight:700;border-radius:100px;">Shop Now</div>
+        </div>
       </div>
+      <div style="width:12%;background:linear-gradient(135deg,#f8d4e0,#f0b8c8);flex-shrink:0;"></div>
     </div>
-    <div style="background:#1a1512;padding:7px 9px;flex:1;">${prods}</div>
+    <!-- Tabs -->
+    <div style="background:#fff;padding:5px 9px 4px;border-bottom:1px solid #eee;display:flex;gap:10px;align-items:center;">
+      <span style="font-size:7px;font-weight:700;color:#1a1a1a;border-bottom:2px solid #1a1a1a;padding-bottom:2px;">Lo más vendido</span>
+      <span style="font-size:7px;color:#bbb;">Bestsellers</span>
+      <span style="font-size:7px;color:#bbb;">Ofertas</span>
+    </div>
+    <div style="padding:7px 7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
   </div>`;
 }
 
 // ── BLOOM ─────────────────────────────────────────────────────────────────
 
 function buildBloomDesktop(t: IndustryTemplate): string {
-  const colors = ['#fef4c8', '#f0e8ff', '#ddf5ec'];
-  const prods = t.products.slice(0, 3).map((p, i) => `
-    <div style="background:${colors[i]};border-radius:14px;overflow:hidden;padding:14px 12px;">
-      <div style="height:82px;border-radius:8px;overflow:hidden;margin-bottom:10px;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+  const colors = ['#fef4e6','#f0e8ff','#ddf5ec'];
+  const prods = t.products.slice(0,3).map((p,i) => `
+    <div style="background:${colors[i]};border-radius:12px;overflow:hidden;padding:18px 14px;text-align:center;">
+      <div style="height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+        <img src="${p.img}" style="height:90px;object-fit:contain;" loading="lazy">
       </div>
-      <div style="font-size:9.5px;color:#1a1a1a;font-weight:700;margin-bottom:3px;">${p.name}</div>
-      <div style="font-size:9.5px;color:#c07830;font-weight:700;margin-bottom:10px;">${p.price}</div>
-      <div style="padding:5px 0;border:1.5px solid #1a1a1a;border-radius:100px;font-size:8px;font-weight:800;text-align:center;color:#1a1a1a;letter-spacing:0.8px;">COMPRAR</div>
+      <div style="font-size:13px;color:#1a1a1a;font-weight:700;margin-bottom:4px;">${p.name}</div>
+      <div style="font-size:11px;color:#666;margin-bottom:12px;">${p.price}</div>
+      <div style="display:inline-block;padding:7px 20px;border-radius:100px;border:1.5px solid #1a1a1a;font-size:8.5px;font-weight:700;letter-spacing:1px;color:#1a1a1a;">COMPRAR AHORA</div>
     </div>`).join('');
-  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Raleway',sans-serif;">
-    <div style="background:#fdf4e8;height:22px;display:flex;align-items:center;justify-content:center;font-size:8.5px;color:#c07830;font-weight:700;letter-spacing:1px;">✨ REGALO GRATIS EN PEDIDOS MAYORES A $150.000 ✨</div>
-    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid #f0f0f0;">
-      <span style="font-size:13px;font-weight:900;letter-spacing:3px;color:#1a1a1a;">BLOOM</span>
-      <div style="display:flex;gap:26px;"><span style="font-size:10px;color:#666;font-weight:600;">Tienda</span><span style="font-size:10px;color:#666;font-weight:600;">Novedades</span><span style="font-size:10px;color:#666;font-weight:600;">Belleza</span></div>
-      <div style="display:flex;gap:14px;font-size:14px;color:#1a1a1a;">🔍 🛒</div>
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
+    <!-- Scrolling announcement bar -->
+    <div style="background:#0a1a1a;height:22px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="white-space:nowrap;font-size:8.5px;color:#a0d4c8;font-weight:600;letter-spacing:1px;animation:none;">✨ Envío Gratis en Pedidos +$50.000 · Devoluciones Gratis · ✨ Envío Gratis en Pedidos +$50.000 · Devoluciones Gratis ✨</div>
     </div>
-    <div style="height:188px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
-      <div style="position:absolute;inset:0;background:rgba(10,5,20,0.45);"></div>
-      <div style="position:relative;z-index:2;text-align:center;">
-        <div style="font-size:8.5px;color:rgba(255,255,255,0.6);letter-spacing:5px;font-weight:700;margin-bottom:8px;text-transform:uppercase;">Potencia Tu Piel</div>
-        <div style="font-size:58px;font-weight:900;color:#fff;line-height:1;letter-spacing:-3px;">belleza</div>
-        <div style="margin-top:16px;display:inline-block;padding:8px 26px;background:#fff;color:#1a1a1a;font-size:10px;font-weight:700;border-radius:100px;letter-spacing:0.5px;">Comprar ahora →</div>
+    <!-- Nav transparent/dark -->
+    <div style="background:rgba(10,26,26,0.88);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:18px;color:#fff;">≡</span>
+        <span style="font-size:9.5px;color:rgba(255,255,255,0.85);font-weight:600;">Shop</span>
+        <span style="font-size:9.5px;color:rgba(255,255,255,0.85);font-weight:600;">Bestseller</span>
+        <span style="font-size:9.5px;color:rgba(255,255,255,0.85);font-weight:600;">Sale</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;font-size:9px;color:rgba(255,255,255,0.75);">
+        <span>🇺🇸 USD ▾</span>
+        <span style="font-size:14px;">🔍 👤 🛒</span>
       </div>
     </div>
-    <div style="padding:14px 22px 10px;background:#fff;">
-      <div style="font-size:9.5px;font-weight:700;color:#1a1a1a;margin-bottom:12px;text-align:center;letter-spacing:1.5px;text-transform:uppercase;">Donde cada momento de cuidado importa</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">${prods}</div>
+    <!-- Hero full-bleed -->
+    <div style="height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.42);"></div>
+      <div style="position:relative;z-index:2;text-align:center;">
+        <div style="font-size:62px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#fff;line-height:1;letter-spacing:-2px;">belleza</div>
+        <div style="font-size:9.5px;color:rgba(255,255,255,0.8);letter-spacing:4px;font-weight:600;margin-top:10px;border-top:1px solid rgba(255,255,255,0.4);padding-top:8px;display:inline-block;text-transform:uppercase;">Donde Comienza El Skincare</div>
+        <div style="font-size:16px;color:rgba(255,255,255,0.7);margin-top:4px;">∨</div>
+      </div>
+    </div>
+    <!-- Products -->
+    <div style="padding:16px 22px 12px;background:#fff;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">${prods}</div>
     </div>
   </div>`;
 }
 
 function buildBloomMobile(t: IndustryTemplate): string {
-  const colors = ['#fef4c8', '#f0e8ff'];
-  const prods = t.products.slice(0, 2).map((p, i) => `
-    <div style="background:${colors[i]};border-radius:8px;padding:6px;">
-      <div style="height:36px;border-radius:5px;overflow:hidden;margin-bottom:4px;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+  const colors = ['#fef4e6','#f0e8ff'];
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:${colors[i]};border-radius:8px;overflow:hidden;padding:7px;text-align:center;">
+      <div style="height:44px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;">
+        <img src="${p.img}" style="height:40px;object-fit:contain;" loading="lazy">
       </div>
-      <div style="font-size:6px;color:#1a1a1a;font-weight:700;">${p.name}</div>
-      <div style="font-size:6px;color:#c07830;font-weight:700;">${p.price}</div>
+      <div style="font-size:6.5px;color:#1a1a1a;font-weight:700;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:6px;color:#666;margin-bottom:5px;">${p.price}</div>
+      <div style="padding:3px 0;border-radius:100px;border:1px solid #1a1a1a;font-size:5.5px;font-weight:700;color:#1a1a1a;">COMPRAR</div>
     </div>`).join('');
-  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Raleway',sans-serif;">
-    <div style="background:#fdf4e8;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#c07830;font-weight:700;letter-spacing:0.5px;">✨ REGALO GRATIS ✨</div>
-    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
-      <span style="font-size:7.5px;font-weight:900;letter-spacing:2px;color:#1a1a1a;">BLOOM</span>
-      <div style="display:flex;gap:6px;font-size:10px;color:#1a1a1a;">🔍 🛒</div>
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
+    <div style="background:#0a1a1a;height:12px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#a0d4c8;font-weight:600;letter-spacing:0.5px;">✨ Envío Gratis +$50.000 ✨</div>
+    <div style="background:rgba(10,26,26,0.92);height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;flex-shrink:0;">
+      <div style="display:flex;gap:8px;font-size:7px;color:rgba(255,255,255,0.85);"><span>Shop</span><span>Bestseller</span><span>Sale</span></div>
+      <div style="display:flex;gap:5px;font-size:10px;color:#fff;">🔍🛒</div>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+    <div style="height:112px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
-      <div style="position:absolute;inset:0;background:rgba(10,5,20,0.48);"></div>
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);"></div>
       <div style="position:relative;z-index:2;text-align:center;">
-        <div style="font-size:28px;font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1;">belleza</div>
-        <div style="margin-top:6px;display:inline-block;padding:3px 11px;background:#fff;color:#1a1a1a;font-size:6px;font-weight:700;border-radius:100px;">Comprar</div>
+        <div style="font-size:32px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#fff;line-height:1;letter-spacing:-1px;">belleza</div>
+        <div style="font-size:6px;color:rgba(255,255,255,0.75);letter-spacing:2.5px;font-weight:600;margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:5px;text-transform:uppercase;">Donde Comienza El Skincare</div>
       </div>
     </div>
-    <div style="padding:7px 7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
+    <div style="padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
   </div>`;
 }
 
