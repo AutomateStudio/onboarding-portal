@@ -30,6 +30,8 @@ export function Step2Brand() {
   const previousStep = useBrandStore((s) => s.previousStep);
 
   const industryTemplates = INDUSTRY_TEMPLATES[industry] ?? null;
+  const isFashion = industry === 'fashion';
+  const activeFashionTheme = isFashion ? FASHION_TEMPLATE_DEFS.find(t => t.id === theme) : null;
 
   return (
     <motion.div
