@@ -184,56 +184,56 @@ export const INDUSTRY_TEMPLATES: Record<string, IndustryTemplate[]> = {
   electronics: [
     {
       id: 'volt',
-      name: 'Volt',
-      desc: 'Tech oscuro · Space Grotesk · Azul neón',
+      name: 'Quantum',
+      desc: 'Gadgets jóvenes · Split hero · Lifestyle',
       tags: ['Popular', 'Tech', 'Dark'],
       badge: 'popular',
       previewUrl: '/templates/electronics/volt.html',
-      hero: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80',
-      heroMobile: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&q=80',
-      nav: { logo: 'VOLT', links: ['Laptops', 'Gaming', 'Accesorios'], icons: ['🔍', '🛒'] },
-      eyebrow: 'TECH PREMIUM', title: 'Rendimiento\nsin límites.', cta: 'Ver specs →',
+      hero: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=85',
+      heroMobile: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&q=80',
+      nav: { logo: 'QUANTUM', links: ['Shop', 'Colecciones', 'Blog'], icons: ['🔍', '🛒'] },
+      eyebrow: 'TECH PREMIUM', title: 'Gadgets Premium\n& con Estilo', cta: 'Ver colección ↗',
       products: [
-        { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80', name: 'UltraBook Pro', price: '$4,299,000' },
-        { img: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=200&q=80', name: 'Mouse Volt X1', price: '$189,000' },
-        { img: 'https://images.unsplash.com/photo-1593640408182-31c228b63b8b?w=200&q=80', name: 'Monitor 4K', price: '$1,890,000' },
-        { img: 'https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=200&q=80', name: 'Teclado Mecánico', price: '$349,000' },
+        { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80', name: 'Headphones Pro X', price: '$289.000' },
+        { img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&q=80', name: 'Earbuds Air', price: '$189.000' },
+        { img: 'https://images.unsplash.com/photo-1612444530582-fc66183b16f7?w=300&q=80', name: 'Gaming Controller', price: '$245.000' },
+        { img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300&q=80', name: 'Speaker Cube', price: '$320.000' },
       ],
     },
     {
       id: 'nexus',
-      name: 'Nexus',
-      desc: 'Audio lifestyle · Outfit · Rojo coral',
+      name: 'Harmony',
+      desc: 'Audio premium · Lifestyle aspiracional · Dark',
       tags: ['nuevo', 'Audio', 'Lifestyle'],
       badge: 'new',
       previewUrl: '/templates/electronics/nexus.html',
-      hero: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
-      heroMobile: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80',
-      nav: { logo: 'NEXUS', links: ['Headphones', 'Speakers', 'Accesorios'], icons: ['♡', '🛒'] },
-      eyebrow: 'AUDIO PREMIUM', title: 'Escucha\ncon todo.', cta: 'Comprar →',
+      hero: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&q=85',
+      heroMobile: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&q=80',
+      nav: { logo: '◈◈', links: ['Shop', 'Collections', 'Explore'], icons: ['🔍', '🛒'] },
+      eyebrow: 'AUDIO PREMIUM', title: 'Escucha\ncon todo.', cta: 'Shop Earphones',
       products: [
-        { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80', name: 'Nexus Pro ANC', price: '$699,000' },
-        { img: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=200&q=80', name: 'Earbuds Studio', price: '$299,000' },
-        { img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=200&q=80', name: 'Speaker Boost', price: '$449,000' },
-        { img: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=200&q=80', name: 'Cable Premium', price: '$89,000' },
+        { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80', name: 'Pro Headphones', price: '$450.000' },
+        { img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&q=80', name: 'Wireless Earphones', price: '$280.000' },
+        { img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300&q=80', name: 'Studio Speaker', price: '$680.000' },
+        { img: 'https://images.unsplash.com/photo-1612444530582-fc66183b16f7?w=300&q=80', name: 'DAC Amplifier', price: '$890.000' },
       ],
     },
     {
       id: 'circuit',
-      name: 'Circuit',
-      desc: 'Gaming · Rajdhani · Verde neón',
+      name: 'Woodstock',
+      desc: 'Multi-categoría · Marketplace · Electronics',
       tags: ['nuevo', 'Gaming', 'PC'],
       badge: 'new',
       previewUrl: '/templates/electronics/circuit.html',
-      hero: 'https://images.unsplash.com/photo-1593640408182-31c228b63b8b?w=600&q=80',
-      heroMobile: 'https://images.unsplash.com/photo-1593640408182-31c228b63b8b?w=300&q=80',
-      nav: { logo: 'CIRCUIT', links: ['PCs', 'Componentes', 'Gaming'], icons: ['🔍', '🛒'] },
-      eyebrow: 'GAMING SETUP', title: 'Domina\nel juego.', cta: 'Ver builds →',
+      hero: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85',
+      heroMobile: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80',
+      nav: { logo: '◎◎', links: ['Relojes', 'Celulares', 'Accesorios'], icons: ['🔍', '🛒'] },
+      eyebrow: 'RELOJES', title: 'La Tecnología Se Encuentra\ncon el Estilo', cta: 'Ver productos',
       products: [
-        { img: 'https://images.unsplash.com/photo-1593640408182-31c228b63b8b?w=200&q=80', name: 'PC Gaming RGB', price: '$5,890,000' },
-        { img: 'https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=200&q=80', name: 'Teclado Mech', price: '$389,000' },
-        { img: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=200&q=80', name: 'Mouse Gaming', price: '$229,000' },
-        { img: 'https://images.unsplash.com/photo-1612160609504-334beb7ea6fc?w=200&q=80', name: 'Headset 7.1', price: '$499,000' },
+        { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80', name: 'Watch Version Pro', price: '$249.000' },
+        { img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=300&q=80', name: 'SmartWatch Series 9', price: '$299.000' },
+        { img: 'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=300&q=80', name: 'Laptop Ultra Slim', price: '$2.890.000' },
+        { img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&q=80', name: 'Cellphone X15', price: '$1.450.000' },
       ],
     },
   ],
@@ -493,6 +493,9 @@ export function buildDesktopHtml(t: IndustryTemplate): string {
   if (t.id === 'cosecha')   return buildCosechaDesktop(t);
   if (t.id === 'levain')    return buildLevainDesktop(t);
   if (t.id === 'mercado')   return buildMercadoDesktop(t);
+  if (t.id === 'volt')      return buildVoltDesktop(t);
+  if (t.id === 'nexus')     return buildNexusDesktop(t);
+  if (t.id === 'circuit')   return buildCircuitDesktop(t);
   return buildAuroraDesktop(t);
 }
 
@@ -506,6 +509,9 @@ export function buildMobileHtml(t: IndustryTemplate): string {
   if (t.id === 'cosecha')   return buildCosechaMobile(t);
   if (t.id === 'levain')    return buildLevainMobile(t);
   if (t.id === 'mercado')   return buildMercadoMobile(t);
+  if (t.id === 'volt')      return buildVoltMobile(t);
+  if (t.id === 'nexus')     return buildNexusMobile(t);
+  if (t.id === 'circuit')   return buildCircuitMobile(t);
   return buildAuroraMobile(t);
 }
 
@@ -1177,5 +1183,318 @@ function buildMercadoMobile(t: IndustryTemplate): string {
       </div>
     </div>
     <div style="padding:7px 7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#111;">${prods}</div>
+  </div>`;
+}
+
+// ── VOLT (Quantum) ─────────────────────────────────────────────────────────
+
+function buildVoltDesktop(t: IndustryTemplate): string {
+  const cats = [
+    { label: 'Headphones', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80' },
+    { label: 'Earbuds',    img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&q=80' },
+    { label: 'Gaming',     img: 'https://images.unsplash.com/photo-1612444530582-fc66183b16f7?w=300&q=80' },
+    { label: 'Speakers',   img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300&q=80' },
+  ];
+  const catCards = cats.map((c,i) => `
+    <div style="position:relative;overflow:hidden;cursor:pointer;border-radius:0;">
+      <div style="height:140px;overflow:hidden;">
+        <img src="${c.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 100%);padding:10px 12px;">
+        <div style="font-size:11px;font-weight:800;color:#fff;letter-spacing:0.3px;">${c.label}</div>
+      </div>
+      ${i===2 ? '<div style="position:absolute;top:10px;right:10px;background:#fff;border-radius:100px;padding:5px 12px;font-size:8px;font-weight:700;color:#111;">Shop now</div>' : ''}
+    </div>`).join('');
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
+    <!-- Top bar -->
+    <div style="background:#f8f8f8;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #eee;">
+      <div style="display:flex;gap:8px;font-size:11px;color:#555;">f  in  ▶  ♪  ✕</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:8px;color:#555;">Descubre nuevos productos</span>
+        <div style="background:#dc2626;color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:100px;">Ver ahora →</div>
+      </div>
+      <div style="font-size:8px;color:#555;">AUD ▾  EN ▾</div>
+    </div>
+    <!-- Nav -->
+    <div style="background:#fff;height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #eee;">
+      <div style="display:flex;gap:16px;font-size:9px;color:#444;font-weight:500;"><span>SHOP ▾</span><span>COLECCIONES ▾</span><span>BLOG</span></div>
+      <span style="font-size:14px;font-weight:900;letter-spacing:2px;color:#111;">QUANTUM</span>
+      <div style="display:flex;gap:10px;font-size:13px;color:#111;">🔍 👤 🛒</div>
+    </div>
+    <!-- Hero split -->
+    <div style="height:180px;display:flex;overflow:hidden;">
+      <!-- Left: text on light gray -->
+      <div style="flex:0 0 42%;background:#f2f2f2;display:flex;flex-direction:column;justify-content:center;padding:0 22px;">
+        <div style="font-size:19px;font-weight:900;color:#111;line-height:1.1;margin-bottom:8px;">Gadgets<br>Premium &<br>con Estilo</div>
+        <div style="font-size:8.5px;color:#666;margin-bottom:12px;line-height:1.4;">Mejora tu tech con accesorios de alta calidad</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:#111;color:#fff;font-size:8px;font-weight:700;padding:7px 14px;border-radius:100px;width:fit-content;">Ver colección <span style="font-size:10px;">↗</span></div>
+      </div>
+      <!-- Right: model on green-textured bg -->
+      <div style="flex:1;background:#4a7c59;position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;opacity:0.85;" loading="lazy">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(60,110,75,0.5) 0%,transparent 60%);"></div>
+      </div>
+    </div>
+    <!-- Decorative text strip -->
+    <div style="background:#f8f8f8;height:20px;overflow:hidden;display:flex;align-items:center;padding:0 16px;">
+      <span style="font-size:22px;font-weight:900;color:#e0e0e0;letter-spacing:-1px;white-space:nowrap;">QUANTUM · QUANTUM · QUANTUM ·</span>
+    </div>
+    <!-- Category grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#ddd;">
+      ${catCards}
+    </div>
+  </div>`;
+}
+
+function buildVoltMobile(t: IndustryTemplate): string {
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
+    <div style="background:#f8f8f8;height:11px;display:flex;align-items:center;justify-content:center;gap:8px;">
+      <span style="font-size:5.5px;color:#555;">Nuevos productos</span>
+      <div style="background:#dc2626;color:#fff;font-size:4.5px;font-weight:700;padding:1px 5px;border-radius:100px;">Ver →</div>
+    </div>
+    <div style="background:#fff;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #eee;flex-shrink:0;">
+      <div style="font-size:7.5px;color:#444;font-weight:500;">SHOP ▾</div>
+      <span style="font-size:9px;font-weight:900;letter-spacing:1.5px;color:#111;">QUANTUM</span>
+      <div style="display:flex;gap:5px;font-size:11px;color:#111;">🔍🛒</div>
+    </div>
+    <div style="height:105px;display:flex;overflow:hidden;flex-shrink:0;">
+      <div style="flex:0 0 45%;background:#f2f2f2;display:flex;flex-direction:column;justify-content:center;padding:0 8px;">
+        <div style="font-size:12px;font-weight:900;color:#111;line-height:1.1;margin-bottom:5px;">Gadgets<br>Premium</div>
+        <div style="display:inline-flex;background:#111;color:#fff;font-size:6px;font-weight:700;padding:4px 8px;border-radius:100px;width:fit-content;">Ver ↗</div>
+      </div>
+      <div style="flex:1;background:#4a7c59;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.85;" loading="lazy">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#ddd;flex:1;">
+      ${t.products.slice(0,4).map((p,i) => `
+        <div style="position:relative;overflow:hidden;background:#111;">
+          <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.75;" loading="lazy">
+          <div style="position:absolute;bottom:4px;left:5px;font-size:6.5px;font-weight:800;color:#fff;">${['Headphones','Earbuds','Gaming','Speakers'][i]}</div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ── NEXUS (Harmony) ────────────────────────────────────────────────────────
+
+function buildNexusDesktop(t: IndustryTemplate): string {
+  const cats = [
+    { label: 'All products', sup: '59', sub: 'Check out all our products', img: t.products[0].img },
+    { label: 'Headphones',   sup: '15', sub: 'Surround yourself in sound', img: t.products[0].img },
+    { label: 'Earphones',    sup: '8',  sub: 'Small design, great sound',  img: t.products[1].img },
+    { label: 'Speakers',     sup: '11', sub: "The world's most immersive", img: t.products[2].img },
+  ];
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
+    <!-- Top bar black -->
+    <div style="background:#000;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+      <div style="display:flex;gap:8px;font-size:10px;color:#555;">f  ✕  📷  ▶</div>
+      <div style="font-size:7.5px;color:#aaa;font-weight:600;letter-spacing:0.5px;">Ahorra hasta 60% · código BLACKFRIDAY →</div>
+      <div style="font-size:7.5px;color:#666;">English · Colombia (USD $)</div>
+    </div>
+    <!-- Nav -->
+    <div style="background:#fff;height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #eee;">
+      <div style="display:flex;gap:4px;">
+        <div style="width:18px;height:12px;background:linear-gradient(135deg,#333 0%,#666 50%,#333 100%);border-radius:2px;"></div>
+        <div style="width:18px;height:12px;background:linear-gradient(135deg,#555 0%,#888 50%,#555 100%);border-radius:2px;margin-left:-6px;"></div>
+      </div>
+      <div style="display:flex;gap:18px;font-size:9px;color:#333;font-weight:500;"><span>Shop</span><span>Collections</span><span>Explore</span><span>Compare</span><span>Contact</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:#111;">🔍 👤 🛒</div>
+    </div>
+    <!-- Hero full-bleed -->
+    <div style="height:185px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 60%);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 16px;">
+        <div style="font-size:36px;font-weight:900;color:rgba(255,255,255,0.08);letter-spacing:-2px;line-height:1;text-transform:uppercase;">EXPERIE</div>
+      </div>
+    </div>
+    <!-- Category grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#fff;border-top:1px solid #eee;">
+      ${cats.map(c => `
+        <div style="padding:14px 12px;border-right:1px solid #f0f0f0;cursor:pointer;background:#fff;">
+          <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;background:#f6f6f6;border-radius:6px;overflow:hidden;">
+            <img src="${c.img}" style="height:65px;object-fit:contain;" loading="lazy">
+          </div>
+          <div style="font-size:10px;font-weight:700;color:#1a1a1a;">${c.label}<sup style="font-size:7px;color:#999;">${c.sup}</sup></div>
+          <div style="font-size:8px;color:#888;margin-top:2px;">${c.sub}</div>
+          <div style="font-size:9px;color:#111;font-weight:700;margin-top:6px;">→</div>
+        </div>`).join('')}
+    </div>
+    <!-- Secondary dark hero strip -->
+    <div style="height:90px;position:relative;overflow:hidden;background:#0a0a0a;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(50,50,80,0.6) 0%,transparent 70%);"></div>
+      <div style="position:relative;z-index:2;text-align:center;">
+        <div style="font-size:16px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.1;text-transform:uppercase;">UNIQUELY CRAFTED<br>EARPHONES FOR YOUR STYLE</div>
+        <div style="margin-top:8px;display:inline-block;padding:5px 16px;border:1.5px solid rgba(255,255,255,0.6);color:#fff;font-size:8px;font-weight:700;border-radius:2px;">Shop Earphones</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildNexusMobile(t: IndustryTemplate): string {
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
+    <div style="background:#000;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#888;letter-spacing:0.5px;">Ahorra hasta 60% · código BLACKFRIDAY →</div>
+    <div style="background:#fff;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #eee;flex-shrink:0;">
+      <div style="display:flex;gap:2px;">
+        <div style="width:10px;height:7px;background:#333;border-radius:1px;"></div>
+        <div style="width:10px;height:7px;background:#555;border-radius:1px;margin-left:-3px;"></div>
+      </div>
+      <div style="display:flex;gap:10px;font-size:7px;color:#333;font-weight:500;"><span>Shop</span><span>Collections</span><span>Explore</span></div>
+      <div style="display:flex;gap:5px;font-size:11px;color:#111;">🔍🛒</div>
+    </div>
+    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);"></div>
+      <div style="position:absolute;bottom:5px;left:8px;">
+        <div style="font-size:20px;font-weight:900;color:rgba(255,255,255,0.08);text-transform:uppercase;">EXPERIE</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #eee;flex:1;">
+      ${t.products.slice(0,4).map((p,i) => `
+        <div style="padding:8px;border-right:${i%2===0?'1px solid #f0f0f0':'none'};border-bottom:1px solid #f0f0f0;background:#fff;">
+          <div style="height:40px;background:#f6f6f6;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:5px;">
+            <img src="${p.img}" style="height:36px;object-fit:contain;" loading="lazy">
+          </div>
+          <div style="font-size:6.5px;font-weight:700;color:#111;">${['Headphones¹⁵','Earphones⁸','Speakers¹¹','All products⁵⁹'][i]}</div>
+          <div style="font-size:5.5px;color:#888;margin-top:1px;">→</div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ── CIRCUIT (Woodstock) ────────────────────────────────────────────────────
+
+function buildCircuitDesktop(t: IndustryTemplate): string {
+  const collections = [
+    { name: 'Relojes Premium', count: '40 productos', img: t.products[0].img },
+    { name: 'Computadores & Tablets', count: '8 productos', img: t.products[2].img },
+    { name: 'Celulares', count: '5 productos', img: t.products[3].img },
+    { name: 'Accesorios', count: '16 productos', img: t.products[1].img },
+  ];
+  const stars = '★★★★☆';
+  const prods = t.products.map((p,i) => `
+    <div style="padding:10px;cursor:pointer;">
+      <div style="position:relative;margin-bottom:8px;">
+        ${i===0 ? '<div style="position:absolute;top:0;left:0;background:#dc2626;color:#fff;font-size:7px;font-weight:700;padding:2px 7px;border-radius:100px;z-index:2;">Save 34%</div>' : ''}
+        <div style="height:90px;display:flex;align-items:center;justify-content:center;background:#f8f8f8;border-radius:6px;overflow:hidden;">
+          <img src="${p.img}" style="height:80px;object-fit:contain;" loading="lazy">
+        </div>
+      </div>
+      <div style="display:flex;gap:3px;margin-bottom:4px;">
+        ${[0,1,2].map(j=>`<div style="width:8px;height:8px;border-radius:50%;background:${['#111','#c00','#4a7c59'][j]};border:1px solid #ddd;"></div>`).join('')}
+      </div>
+      <div style="font-size:7.5px;color:#999;margin-bottom:1px;">Woodstock Electronics</div>
+      <div style="font-size:9.5px;font-weight:700;color:#111;margin-bottom:3px;">${p.name}</div>
+      <div style="font-size:8.5px;color:#f59e0b;margin-bottom:3px;">${stars}</div>
+      ${i===0 ? `<div><span style="font-size:8.5px;color:#999;text-decoration:line-through;margin-right:4px;">$377.000</span><span style="font-size:9px;font-weight:700;color:#dc2626;">From ${p.price}</span></div>` : `<div style="font-size:9px;font-weight:600;color:#111;">From ${p.price}</div>`}
+    </div>`).join('');
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
+    <!-- Top bar -->
+    <div style="background:#f5f5f5;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #eee;">
+      <span style="font-size:8px;color:#555;font-weight:500;">🚚 Envío Gratis en Pedidos +$100.000</span>
+      <div style="display:flex;gap:10px;font-size:8px;color:#555;"><span>United States (USD $) ▾</span><span>English ▾</span><span style="font-size:12px;">✕ f 📷</span></div>
+    </div>
+    <!-- Nav with search -->
+    <div style="background:#fff;border-bottom:1px solid #eee;">
+      <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+        <div style="display:flex;gap:4px;align-items:center;">
+          <div style="width:14px;height:14px;border-radius:50%;border:2.5px solid #333;"></div>
+          <div style="width:14px;height:14px;border-radius:50%;border:2.5px solid #333;margin-left:-6px;"></div>
+        </div>
+        <div style="flex:1;max-width:200px;margin:0 16px;background:#f5f5f5;border-radius:4px;height:22px;display:flex;align-items:center;padding:0 8px;gap:4px;">
+          <span style="font-size:10px;color:#999;">🔍</span>
+          <span style="font-size:8px;color:#bbb;">Search</span>
+        </div>
+        <div style="font-size:8px;color:#666;">📞 1-800-123-45-67</div>
+        <div style="display:flex;gap:10px;font-size:13px;color:#111;">👤 ♡ 🛒</div>
+      </div>
+      <div style="height:30px;display:flex;align-items:center;padding:0 16px;gap:16px;border-top:1px solid #f0f0f0;">
+        <span style="font-size:8.5px;color:#555;font-weight:500;">Tiendas</span>
+        <span style="font-size:8.5px;color:#555;font-weight:500;">Relojes ▾</span>
+        <span style="font-size:8.5px;color:#555;font-weight:500;">Celulares ▾</span>
+        <div style="background:#2563eb;color:#fff;font-size:8px;font-weight:700;padding:3px 10px;border-radius:100px;">Accesorios</div>
+        <span style="font-size:8.5px;color:#555;font-weight:500;">Laptops</span>
+        <span style="font-size:8.5px;color:#555;font-weight:500;">Soporte</span>
+      </div>
+    </div>
+    <!-- Hero: smartwatch on gradient bg -->
+    <div style="height:130px;position:relative;overflow:hidden;background:linear-gradient(135deg,#b8c8d8 0%,#8aa0b8 50%,#6080a0 100%);display:flex;align-items:center;">
+      <div style="flex:1;"></div>
+      <div style="flex:0 0 200px;text-align:right;padding-right:20px;">
+        <div style="display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:7px;font-weight:700;padding:3px 10px;border-radius:2px;letter-spacing:2px;margin-bottom:8px;">RELOJES</div>
+        <div style="font-size:19px;font-weight:900;color:#fff;line-height:1.1;margin-bottom:6px;">La Tecnología<br>Se Encuentra<br>con el Estilo</div>
+        <div style="font-size:8px;color:rgba(255,255,255,0.8);">Navega tu día con nuestros<br>smartwatches innovadores</div>
+      </div>
+      <div style="position:absolute;left:30px;top:50%;transform:translateY(-50%);">
+        <img src="${t.hero}" style="height:115px;object-fit:contain;" loading="lazy">
+      </div>
+    </div>
+    <!-- Product grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid #eee;border-bottom:1px solid #eee;">
+      ${prods}
+    </div>
+    <!-- Collections -->
+    <div style="padding:8px 16px;">
+      <div style="font-size:10px;font-weight:800;color:#111;margin-bottom:6px;">Collections</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+        ${collections.map(c=>`
+          <div style="border-radius:8px;overflow:hidden;position:relative;cursor:pointer;">
+            <div style="height:50px;background:#f0f0f0;overflow:hidden;">
+              <img src="${c.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div>
+            <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);padding:4px 6px;">
+              <div style="font-size:7px;font-weight:700;color:#fff;">${c.name}</div>
+              <div style="font-size:6px;color:rgba(255,255,255,0.75);">${c.count}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildCircuitMobile(t: IndustryTemplate): string {
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
+    <div style="background:#f5f5f5;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#555;">🚚 Envío Gratis en Pedidos +$100.000</div>
+    <div style="background:#fff;border-bottom:1px solid #eee;">
+      <div style="height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;">
+        <div style="display:flex;gap:2px;align-items:center;">
+          <div style="width:10px;height:10px;border-radius:50%;border:2px solid #333;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;border:2px solid #333;margin-left:-4px;"></div>
+        </div>
+        <div style="flex:1;max-width:100px;margin:0 6px;background:#f5f5f5;border-radius:3px;height:14px;display:flex;align-items:center;padding:0 5px;">
+          <span style="font-size:7px;color:#bbb;">🔍 Search</span>
+        </div>
+        <div style="display:flex;gap:4px;font-size:10px;color:#111;">👤🛒</div>
+      </div>
+      <div style="height:18px;display:flex;align-items:center;padding:0 8px;gap:8px;border-top:1px solid #f0f0f0;overflow:hidden;">
+        <span style="font-size:6.5px;color:#555;white-space:nowrap;">Relojes</span>
+        <span style="font-size:6.5px;color:#555;white-space:nowrap;">Celulares</span>
+        <div style="background:#2563eb;color:#fff;font-size:5.5px;font-weight:700;padding:2px 7px;border-radius:100px;white-space:nowrap;">Accesorios</div>
+        <span style="font-size:6.5px;color:#555;white-space:nowrap;">Laptops</span>
+      </div>
+    </div>
+    <div style="height:90px;background:linear-gradient(135deg,#b8c8d8,#6080a0);position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;">
+      <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%);">
+        <img src="${t.hero}" style="height:80px;object-fit:contain;" loading="lazy">
+      </div>
+      <div style="margin-left:auto;padding-right:10px;text-align:right;">
+        <div style="font-size:12px;font-weight:900;color:#fff;line-height:1.1;">La Tecnología<br>Se Encuentra<br>con el Estilo</div>
+      </div>
+    </div>
+    <div style="padding:6px 8px;flex:1;overflow:hidden;">
+      <div style="font-size:7px;font-weight:800;color:#111;margin-bottom:5px;">Collections</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+        ${t.products.slice(0,4).map((p,i)=>`
+          <div style="border-radius:6px;overflow:hidden;position:relative;">
+            <div style="height:44px;background:#f0f0f0;overflow:hidden;">
+              <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div>
+            <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);padding:3px 5px;">
+              <div style="font-size:6px;font-weight:700;color:#fff;">${['Relojes Premium','Computadores','Celulares','Accesorios'][i]}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
   </div>`;
 }
