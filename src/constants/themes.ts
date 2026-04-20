@@ -9,6 +9,11 @@ export type ThemeColors = {
 };
 
 export const THEME_COLORS: Record<string, ThemeColors> = {
+  // ── Fashion-specific templates ──────────────────────────────────────────
+  aura:      { bg:'#111111', navBg:'#ffffff',  text:'#ffffff',  accent:'#ffffff', cardBg:'#1a1a1a', heroBg:'#111111',  btnText:'#111111' },
+  elegancia: { bg:'#0d1e30', navBg:'#0d1e30',  text:'#d4bfa0',  accent:'#b89060', cardBg:'#0a1828', heroBg:'#0d1e30',  btnText:'#ffffff' },
+  simetria:  { bg:'#ffffff', navBg:'#ffffff',  text:'#1a1a1a',  accent:'#1a1a1a', cardBg:'#f5f0e8', heroBg:'#ffffff',  btnText:'#1a1a1a' },
+  // ── Generic themes ──────────────────────────────────────────────────────
   elegance: { bg:'#0f0f0b', navBg:'#0f0f0b',  text:'#f5f0e8', accent:'#d4af37', cardBg:'#1a1a15', heroBg:'#0f0f0b',  btnText:'#0f0f0b' },
   minimal:  { bg:'#ffffff', navBg:'#ffffff',  text:'#111111', accent:'#0066ff', cardBg:'#f3f4f6', heroBg:'#f9fafb',  btnText:'#ffffff' },
   bold:     { bg:'#18181b', navBg:'#111111',  text:'#fafafa',  accent:'#f59e0b', cardBg:'#27272a', heroBg:'#27272a',  btnText:'#18181b' },
@@ -26,6 +31,13 @@ export const THEME_COLORS: Record<string, ThemeColors> = {
   vogue:    { bg:'#ffffff', navBg:'#ffffff',  text:'#1a1a1a', accent:'#4a2030', cardBg:'#f5f5f5', heroBg:'#f7f7f7',  btnText:'#ffffff' },
   pulse:    { bg:'#faf9f7', navBg:'#ffffff',  text:'#2a1020', accent:'#4a2030', cardBg:'#f0ece8', heroBg:'#4a2030',  btnText:'#3d1a28' },
 };
+
+// Fashion-specific template definitions (shown first for fashion industry)
+export const FASHION_TEMPLATE_DEFS = [
+  { id:'aura',      name:'Aura',      ref:'Athora',   desc:'Activewear · Dark · Sport',          tags:['Moda','Sport'],   accentColor:'#fff',    bgColor:'#111',    navColor:'#fff' },
+  { id:'elegancia', name:'Elegancia', ref:'Allure',   desc:'Luxury fashion · Navy · Serif',      tags:['Moda','Lujo'],    accentColor:'#b89060', bgColor:'#0d1e30', navColor:'#0d1e30' },
+  { id:'simetria',  name:'Simetría',  ref:'Symmetry', desc:'Casual lifestyle · Clean · White',   tags:['Moda','Casual'],  accentColor:'#1a1a1a', bgColor:'#fff',    navColor:'#fff' },
+];
 
 export const THEME_DEFS = [
   { id:'elegance', name:'Elegance',      desc:'Dark gold · Serif · Lujo',         tags:['Joyería','Lujo'],     badge:'popular' },
@@ -47,6 +59,9 @@ export const THEME_DEFS = [
 ];
 
 export const THEME_NAV: Record<string, { logo: string; links: string[]; icons: string[] }> = {
+  aura:      { logo:'A',        links:['Shop','Collections','About'],        icons:['🔍','🛒'] },
+  elegancia: { logo:'ALLURE',   links:['Collections','Editorial','About'],   icons:['♡','🛒'] },
+  simetria:  { logo:'SYMMETRY', links:['Shop','Collections','Sale'],         icons:['🔍','🛒'] },
   elegance: { logo:'ELEGANCE', links:['Colección','Editorial','About'],  icons:['♡','🛒'] },
   minimal:  { logo:'MINIMAL',  links:['Shop','Collections','Blog'],      icons:['🔍','🛒'] },
   bold:     { logo:'BOLD',     links:['SHOP','DROP','COLLAB'],           icons:['🔍','🛒'] },
@@ -67,6 +82,9 @@ export const THEME_NAV: Record<string, { logo: string; links: string[]; icons: s
 
 // CSS gradient previews for each theme
 export const THEME_PREVIEW_STYLES: Record<string, { bg: string; accent: string; text: string }> = {
+  aura:      { bg: '#111111',  accent: '#ffffff', text: '#ffffff' },
+  elegancia: { bg: '#0d1e30',  accent: '#b89060', text: '#d4bfa0' },
+  simetria:  { bg: '#f5f0e8',  accent: '#1a1a1a', text: '#1a1a1a' },
   elegance: { bg: '#1a1a10',  accent: '#d4af37', text: '#f5f0e8' },
   minimal:  { bg: '#f8f9fa',  accent: '#2196f3', text: '#111111' },
   bold:     { bg: '#1a1208',  accent: '#f59e0b', text: '#fff8f0' },
