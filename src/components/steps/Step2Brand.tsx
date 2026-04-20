@@ -5,6 +5,18 @@ import { useBrandStore } from '@/stores/brandStore';
 import { THEME_DEFS, THEME_PREVIEW_STYLES, FASHION_TEMPLATE_DEFS } from '@/constants/themes';
 import { PALETTES } from '@/constants/palettes';
 import { FONTS } from '@/constants/fonts';
+import { INDUSTRY_TEMPLATES, buildDesktopHtml, buildMobileHtml } from '@/constants/industryTemplates';
+
+const PHONE_BG: Record<string, string> = {
+  onyx: '#1a1512', bloom: '#f5f5f5', elegancia: '#f5ede6', aura: '#f8f9fa',
+  cosecha: '#faf6f0', levain: '#fdf8f0', mercado: '#0d0d0d', default: '#f5f0ea',
+};
+const PHONE_BORDER: Record<string, string> = {
+  onyx: '#3a3028', elegancia: '#ccc', mercado: '#333', default: '#1a1a1a',
+};
+const DEVICE_LABEL_COLOR: Record<string, string> = {
+  onyx: '#6a5a48', elegancia: '#8b6f47', mercado: '#555', default: '#bbb',
+};
 
 export function Step2Brand() {
   const theme = useBrandStore((s) => s.theme);
@@ -17,8 +29,7 @@ export function Step2Brand() {
   const nextStep = useBrandStore((s) => s.nextStep);
   const previousStep = useBrandStore((s) => s.previousStep);
 
-  const isFashion = industry === 'fashion';
-  const activeFashionTheme = FASHION_TEMPLATE_DEFS.find(t => t.id === theme);
+  const industryTemplates = INDUSTRY_TEMPLATES[industry] ?? null;
 
   return (
     <motion.div
@@ -132,69 +143,255 @@ export function Step2Brand() {
       <section>
         <h2 className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4 sm:mb-5">
           Tema visual
-          {theme && !activeFashionTheme && <span className="ml-2 text-gray-900 normal-case font-semibold">· {THEME_DEFS.find(t => t.id === theme)?.name}</span>}
+          {theme && (
+            <span className="ml-2 text-gray-900 normal-case font-semibold">
+              · {industryTemplates?.find(t => t.id === theme)?.name ?? THEME_DEFS.find(t => t.id === theme)?.name}
+            </span>
+          )}
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
-          {THEME_DEFS.map((t, idx) => {
-            const style = THEME_PREVIEW_STYLES[t.id] ?? { bg: '#f5f5f5', accent: '#333', text: '#111' };
-            const isSelected = theme === t.id;
-            return (
-              <motion.button
-                key={t.id}
-                type="button"
-                onClick={() => setTheme(t.id)}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.04 * idx }}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`relative rounded-2xl overflow-hidden border-2 transition-all text-left ${
-                  isSelected ? 'border-gray-900 shadow-lg shadow-gray-900/10' : 'border-transparent hover:border-gray-300'
-                }`}
-              >
-                {/* Theme preview */}
-                <div
-                  className="h-16 sm:h-20 w-full flex flex-col justify-between p-2"
-                  style={{ backgroundColor: style.bg }}
+
+        {/* Industry-specific templates — full-width stacked cards */}
+        {industryTemplates ? (
+          <div className="flex flex-col gap-6">
+            {industryTemplates.map((t, idx) => {
+              const isSelected = theme === t.id;
+              const phoneBg = PHONE_BG[t.id] ?? PHONE_BG.default;
+              const phoneBorder = PHONE_BORDER[t.id] ?? PHONE_BORDER.default;
+              const labelColor = DEVICE_LABEL_COLOR[t.id] ?? DEVICE_LABEL_COLOR.default;
+
+              return (
+                <motion.div
+                  key={t.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 * idx }}
+                  className={`relative rounded-2xl overflow-hidden border-2 transition-all cursor-pointer ${
+                    isSelected
+                      ? 'border-gray-900 shadow-xl shadow-gray-900/10'
+                      : 'border-gray-200 hover:border-gray-400'
+                  }`}
+                  onClick={() => setTheme(t.id)}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="h-1.5 rounded-full w-6 sm:w-8" style={{ backgroundColor: style.accent }} />
-                    <div className="flex gap-1">
-                      <div className="h-1 rounded-full w-2 sm:w-3" style={{ backgroundColor: style.text, opacity: 0.4 }} />
-                      <div className="h-1 rounded-full w-2 sm:w-3" style={{ backgroundColor: style.text, opacity: 0.4 }} />
+                  {/* Checkmark */}
+                  {isSelected && (
+                    <div className="absolute top-3 right-3 z-10 w-7 h-7 bg-gray-900 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-white text-xs font-bold">✓</span>
+                    </div>
+                  )}
+
+                  {/* Dual preview: laptop + phone */}
+                  <div style={{ display: 'flex', height: 340, overflow: 'hidden' }}>
+                    {/* Laptop mockup */}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                      {/* Browser bar */}
+                      <div style={{
+                        height: 26, background: '#e0e0e0',
+                        display: 'flex', alignItems: 'center',
+                        padding: '0 12px', gap: 10, flexShrink: 0,
+                      }}>
+                        <div style={{ display: 'flex', gap: 5 }}>
+                          <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#ff5f57', display: 'block' }} />
+                          <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#febc2e', display: 'block' }} />
+                          <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#28c840', display: 'block' }} />
+                        </div>
+                        <div style={{
+                          flex: 1, maxWidth: 200, height: 14, background: '#fff',
+                          borderRadius: 8, margin: '0 auto',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontSize: 8, color: '#999', fontFamily: 'Inter, sans-serif',
+                        }}>
+                          mitienda.myshopify.com
+                        </div>
+                      </div>
+                      {/* Desktop content */}
+                      <div
+                        style={{ flex: 1, overflow: 'hidden' }}
+                        dangerouslySetInnerHTML={{ __html: buildDesktopHtml(t) }}
+                      />
+                    </div>
+
+                    {/* Phone mockup column */}
+                    <div style={{
+                      width: 160,
+                      background: phoneBg,
+                      display: 'flex', flexDirection: 'column',
+                      alignItems: 'center', justifyContent: 'center',
+                      gap: 8, padding: '16px 10px', flexShrink: 0,
+                      borderLeft: '1px solid rgba(0,0,0,0.07)',
+                    }}>
+                      <div style={{
+                        width: 108, height: 215,
+                        borderRadius: 20,
+                        border: `3px solid ${phoneBorder}`,
+                        overflow: 'hidden', position: 'relative',
+                        boxShadow: '0 8px 28px rgba(0,0,0,0.22)',
+                        flexShrink: 0,
+                      }}>
+                        {/* Notch */}
+                        <div style={{
+                          position: 'absolute', top: 0, left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: 26, height: 6,
+                          background: phoneBorder,
+                          borderRadius: '0 0 6px 6px', zIndex: 10,
+                        }} />
+                        {t.previewUrl ? (
+                          <iframe
+                            src={t.previewUrl}
+                            style={{
+                              width: 390,
+                              height: 800,
+                              border: 'none',
+                              display: 'block',
+                              transform: 'scale(0.261)',
+                              transformOrigin: 'top left',
+                              pointerEvents: 'none',
+                            }}
+                            title={t.name}
+                            scrolling="no"
+                          />
+                        ) : (
+                          <div
+                            style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+                            dangerouslySetInnerHTML={{ __html: buildMobileHtml(t) }}
+                          />
+                        )}
+                      </div>
+                      <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: 0.5, textTransform: 'uppercase', color: labelColor }}>
+                        Mobile
+                      </span>
                     </div>
                   </div>
-                  <div>
-                    <div className="h-1.5 rounded-full w-10 sm:w-12 mb-1" style={{ backgroundColor: style.text, opacity: 0.6 }} />
-                    <div className="h-1 rounded-full w-6 sm:w-8" style={{ backgroundColor: style.text, opacity: 0.3 }} />
-                  </div>
-                  <div className="h-3 rounded w-8 sm:w-10" style={{ backgroundColor: style.accent, opacity: 0.9 }} />
-                </div>
 
-                {/* Info */}
-                <div className="p-2 sm:p-2.5 bg-white">
-                  <div className="flex items-center gap-1 flex-wrap mb-0.5">
-                    <p className="text-[11px] sm:text-xs font-bold text-gray-900 leading-none">{t.name}</p>
-                    {t.badge && (
-                      <span className={`text-[8px] sm:text-[9px] font-bold px-1 sm:px-1.5 py-0.5 rounded-full uppercase leading-none ${
-                        t.badge === 'popular' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-600'
-                      }`}>
-                        {t.badge}
-                      </span>
-                    )}
+                  {/* Meta footer */}
+                  <div style={{ padding: '14px 16px 16px', background: '#fff' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                      <div>
+                        <h4 style={{ fontSize: 15, fontWeight: 700, color: '#0f0f0b', margin: '0 0 3px' }}>{t.name}</h4>
+                        <p style={{ fontSize: 12, color: '#888', margin: 0, lineHeight: 1.5 }}>{t.desc}</p>
+                      </div>
+                      <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+                        {t.previewUrl && (
+                          <a
+                            href={t.previewUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              background: '#fff',
+                              color: '#0f0f0b',
+                              fontSize: 12, fontWeight: 600,
+                              padding: '7px 14px', borderRadius: 20,
+                              border: '1.5px solid #ddd',
+                              cursor: 'pointer', whiteSpace: 'nowrap',
+                              textDecoration: 'none',
+                              transition: 'all 0.18s',
+                            }}
+                          >
+                            Ver demo →
+                          </a>
+                        )}
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); setTheme(t.id); }}
+                          style={{
+                            background: isSelected ? '#10b981' : '#fff',
+                            color: isSelected ? '#fff' : '#0f0f0b',
+                            fontSize: 12, fontWeight: 600,
+                            padding: '7px 18px', borderRadius: 20,
+                            border: `1.5px solid ${isSelected ? '#10b981' : '#0f0f0b'}`,
+                            cursor: 'pointer', whiteSpace: 'nowrap',
+                            transition: 'all 0.18s',
+                          }}
+                        >
+                          {isSelected ? '✓ Elegido' : 'Elegir'}
+                        </button>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 8 }}>
+                      {t.badge === 'popular' && (
+                        <span style={{ fontSize: 9, fontWeight: 600, padding: '2px 9px', borderRadius: 20, background: '#fef3c7', color: '#92400e' }}>
+                          ⭐ Popular
+                        </span>
+                      )}
+                      {t.badge === 'new' && (
+                        <span style={{ fontSize: 9, fontWeight: 600, padding: '2px 9px', borderRadius: 20, background: '#ecfdf5', color: '#065f46' }}>
+                          ✦ Nuevo
+                        </span>
+                      )}
+                      {t.tags.filter(tg => tg !== 'nuevo' && tg !== 'popular').map(tg => (
+                        <span key={tg} style={{ fontSize: 9, fontWeight: 600, padding: '2px 9px', borderRadius: 20, background: '#f0f0ee', color: '#666' }}>
+                          {tg}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-[9px] sm:text-[10px] text-gray-400 leading-snug line-clamp-1">{t.desc}</p>
-                </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        ) : (
+          /* Generic 16 themes */
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
+            {THEME_DEFS.map((t, idx) => {
+              const style = THEME_PREVIEW_STYLES[t.id] ?? { bg: '#f5f5f5', accent: '#333', text: '#111' };
+              const isSelected = theme === t.id;
+              return (
+                <motion.button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setTheme(t.id)}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.04 * idx }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`relative rounded-2xl overflow-hidden border-2 transition-all text-left ${
+                    isSelected ? 'border-gray-900 shadow-lg shadow-gray-900/10' : 'border-transparent hover:border-gray-300'
+                  }`}
+                >
+                  <div
+                    className="h-16 sm:h-20 w-full flex flex-col justify-between p-2"
+                    style={{ backgroundColor: style.bg }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="h-1.5 rounded-full w-6 sm:w-8" style={{ backgroundColor: style.accent }} />
+                      <div className="flex gap-1">
+                        <div className="h-1 rounded-full w-2 sm:w-3" style={{ backgroundColor: style.text, opacity: 0.4 }} />
+                        <div className="h-1 rounded-full w-2 sm:w-3" style={{ backgroundColor: style.text, opacity: 0.4 }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="h-1.5 rounded-full w-10 sm:w-12 mb-1" style={{ backgroundColor: style.text, opacity: 0.6 }} />
+                      <div className="h-1 rounded-full w-6 sm:w-8" style={{ backgroundColor: style.text, opacity: 0.3 }} />
+                    </div>
+                    <div className="h-3 rounded w-8 sm:w-10" style={{ backgroundColor: style.accent, opacity: 0.9 }} />
+                  </div>
 
-                {isSelected && (
-                  <div className="absolute top-2 right-2 w-4 h-4 bg-gray-900 rounded-full flex items-center justify-center">
-                    <span className="text-white text-[8px]">✓</span>
+                  <div className="p-2 sm:p-2.5 bg-white">
+                    <div className="flex items-center gap-1 flex-wrap mb-0.5">
+                      <p className="text-[11px] sm:text-xs font-bold text-gray-900 leading-none">{t.name}</p>
+                      {t.badge && (
+                        <span className={`text-[8px] sm:text-[9px] font-bold px-1 sm:px-1.5 py-0.5 rounded-full uppercase leading-none ${
+                          t.badge === 'popular' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-600'
+                        }`}>
+                          {t.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[9px] sm:text-[10px] text-gray-400 leading-snug line-clamp-1">{t.desc}</p>
                   </div>
-                )}
-              </motion.button>
-            );
-          })}
-        </div>
+
+                  {isSelected && (
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-gray-900 rounded-full flex items-center justify-center">
+                      <span className="text-white text-[8px]">✓</span>
+                    </div>
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+        )}
       </section>
 
       {/* PALETTES */}

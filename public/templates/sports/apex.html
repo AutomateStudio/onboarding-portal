@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX — Ropa Deportiva Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;
+  --red:#e63030;--red2:#c02020;--red3:rgba(230,48,48,.1);
+  --text:#f5f5f5;--muted:#666;--border:#2a2a2a;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--bg2);width:100%;max-width:100%;padding:32px 48px;display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;position:relative;border-top:2px solid var(--red)}
+.popup-close{position:absolute;top:16px;right:24px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+.popup-title{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--text);letter-spacing:3px;line-height:1}
+.popup-title span{color:var(--red)}
+.popup-sub{font-size:13px;color:var(--muted);line-height:1.5;max-width:320px}
+.popup-form{display:flex;gap:0;min-width:300px}
+.popup-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-right:none;color:var(--text);padding:12px 16px;font-size:13px;font-family:'Barlow',sans-serif;outline:none}
+.popup-input:focus{border-color:var(--red)}
+.popup-btn{background:var(--red);color:#fff;border:none;padding:12px 20px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;white-space:nowrap}
+.popup-skip{font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Barlow',sans-serif;margin-top:8px;display:block;text-decoration:underline}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:60px;background:rgba(10,10,10,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text);text-decoration:none;letter-spacing:4px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);font-size:12px;text-decoration:none;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--red)}
+.nav-icons{display:flex;gap:14px;align-items:center}
+.nav-icon{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;text-decoration:none;transition:color .2s}
+.nav-icon:hover{color:var(--text)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:4px;color:var(--text);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+
+/* HERO */
+.hero{padding-top:60px;height:100vh;min-height:600px;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=90');background-size:cover;background-position:center top;animation:heroZoom 12s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.05)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.9) 40%,rgba(10,10,10,.3) 100%)}
+.hero-content{position:relative;z-index:1;padding:0 48px;max-width:700px}
+.hero-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:6px;color:var(--red);margin-bottom:12px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8vw,130px);line-height:.92;letter-spacing:2px;margin-bottom:20px}
+.hero-title .red{color:var(--red)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.6);line-height:1.6;max-width:420px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-red{display:inline-block;background:var(--red);color:#fff;padding:14px 36px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;text-decoration:none;transition:background .2s}
+.btn-red:hover{background:var(--red2)}
+.btn-outline{display:inline-block;border:1px solid rgba(255,255,255,.2);color:#fff;padding:13px 35px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;text-decoration:none;transition:.2s}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+.hero-stats{position:absolute;bottom:48px;right:48px;display:flex;gap:40px;z-index:1}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#fff;letter-spacing:2px;line-height:1}
+.hero-stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+
+/* STRIP */
+.strip{background:var(--red);padding:10px 48px;display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.strip-item{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:#fff;display:flex;align-items:center;gap:8px}
+.strip-dot{width:4px;height:4px;background:rgba(255,255,255,.5);border-radius:50%;flex-shrink:0}
+
+/* SECTION */
+.section{padding:100px 48px;max-width:1200px;margin:0 auto}
+.section-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:5px;color:var(--red);margin-bottom:8px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,80px);line-height:.95;letter-spacing:2px;margin-bottom:48px}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.product-card{position:relative;overflow:hidden;cursor:pointer}
+.product-img-wrap{position:relative;overflow:hidden;aspect-ratio:3/4}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.product-card:hover .product-img-wrap img{transform:scale(1.05)}
+.product-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:.3s;display:flex;align-items:flex-end;padding:16px}
+.product-card:hover .product-overlay{background:rgba(0,0,0,.4)}
+.quick-shop{background:var(--red);color:#fff;width:100%;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;text-align:center;cursor:pointer;border:none;opacity:0;transform:translateY(10px);transition:.3s}
+.product-card:hover .quick-shop{opacity:1;transform:translateY(0)}
+.product-pill{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;padding:4px 10px}
+.product-info{padding:14px 0}
+.product-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;margin-bottom:4px}
+.product-spec{font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.product-price-row{display:flex;gap:10px;align-items:baseline}
+.product-price{font-size:15px;font-weight:600;color:var(--text)}
+.product-old{font-size:11px;text-decoration:line-through;color:var(--muted)}
+
+/* ANATOMY */
+.anatomy-section{background:var(--bg2);padding:100px 48px;border-top:1px solid var(--border)}
+.anatomy-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.anatomy-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:contrast(1.05)}
+.anatomy-content .section-eyebrow{margin-bottom:12px}
+.anatomy-title{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.95;letter-spacing:2px;margin-bottom:32px}
+.anatomy-title span{color:var(--red)}
+.tech-list{display:flex;flex-direction:column;gap:0}
+.tech-item{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)}
+.tech-item:last-child{border-bottom:none}
+.tech-icon{width:40px;height:40px;background:var(--red3);border:1px solid rgba(230,48,48,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.tech-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;margin-bottom:4px}
+.tech-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* VIDEO */
+.video-section{position:relative;height:500px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.video-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&q=80');background-size:cover;background-position:center;filter:brightness(.3)}
+.video-content{position:relative;z-index:1;text-align:center}
+.video-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:5px;color:var(--red);margin-bottom:10px}
+.video-title{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:4px;color:#fff;margin-bottom:28px;line-height:.95}
+.video-title span{color:var(--red)}
+.video-play{width:72px;height:72px;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;cursor:pointer;font-size:22px;color:var(--red);transition:background .2s}
+.video-play:hover{background:rgba(230,48,48,.15)}
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.video-modal.open{display:flex}
+.video-modal iframe{width:100%;max-width:900px;aspect-ratio:16/9;border:none}
+.vm-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* URGENCY */
+.urgency-bar{background:var(--bg3);border-top:1px solid var(--red);border-bottom:1px solid var(--red);padding:16px 48px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-text{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff}
+.urgency-text span{color:var(--red)}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-unit{background:var(--bg4);border:1px solid var(--border);padding:6px 12px;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);min-width:38px;text-align:center}
+.cd-sep{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted)}
+
+/* REVIEWS */
+.reviews-section{padding:100px 48px;background:var(--bg)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.review-card{background:var(--bg2);border:1px solid var(--border);padding:24px}
+.review-stars{color:var(--red);font-size:12px;letter-spacing:2px;margin-bottom:10px}
+.review-text{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:14px}
+.review-footer{display:flex;justify-content:space-between;align-items:center}
+.review-author{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--muted)}
+.review-check{font-size:10px;color:var(--red);font-weight:600}
+
+/* STATS */
+.stats-section{padding:80px 48px;border-top:1px solid var(--border)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--text);letter-spacing:2px;line-height:1}
+.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.nl-section{padding:100px 48px;background:var(--red);text-align:center}
+.nl-inner{max-width:480px;margin:0 auto}
+.nl-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:5px;color:rgba(255,255,255,.6);margin-bottom:10px}
+.nl-title{font-family:'Bebas Neue',sans-serif;font-size:60px;color:#fff;letter-spacing:3px;line-height:.95;margin-bottom:12px}
+.nl-sub{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:28px}
+.nl-form{display:flex}
+.nl-input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);border-right:none;color:#fff;padding:12px 18px;font-size:13px;font-family:'Barlow',sans-serif;outline:none}
+.nl-input::placeholder{color:rgba(255,255,255,.5)}
+.nl-btn{background:#fff;color:var(--red);border:none;padding:12px 24px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer}
+.nl-note{font-size:11px;color:rgba(255,255,255,.5);margin-top:12px}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 48px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:4px;color:var(--text);text-decoration:none;display:block;margin-bottom:12px}
+.f-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.f-col h5{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;color:var(--red);margin-bottom:16px}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:var(--text)}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:var(--muted)}
+.f-social{display:flex;gap:10px}
+.f-social a{width:32px;height:32px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--red);color:var(--red)}
+
+@media(max-width:768px){
+  nav{padding:0 20px;height:56px}
+  .nav-links,.nav-icons{display:none}
+  .hamburger{display:flex}
+  .hero-content{padding:0 20px}
+  .hero-title{font-size:64px}
+  .hero-stats{display:none}
+  .strip{gap:16px;padding:8px 16px}
+  .section{padding:60px 20px}
+  .products-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .anatomy-section{padding:60px 20px}
+  .anatomy-inner{grid-template-columns:1fr;gap:32px}
+  .anatomy-img{aspect-ratio:1}
+  .anatomy-title{font-size:40px}
+  .video-section{height:360px}
+  .video-title{font-size:36px}
+  .urgency-bar{padding:12px 16px;flex-direction:column;gap:10px;text-align:center}
+  .reviews-section{padding:60px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:12px}
+  .stats-section{padding:60px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:60px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(255,255,255,.3)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .popup-box{grid-template-columns:1fr;padding:24px;gap:16px}
+  .popup-form{flex-direction:column}
+  .popup-input{border-right:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div>
+      <h2 class="popup-title">15% <span>OFF</span><br>HOY</h2>
+    </div>
+    <div>
+      <p class="popup-sub">Suscríbete y recibe tu descuento al instante. Más: drops exclusivos, tips de entrenamiento y acceso a ventas privadas.</p>
+    </div>
+    <div>
+      <div class="popup-form">
+        <input type="email" class="popup-input" placeholder="tu@correo.com">
+        <button class="popup-btn" onclick="closePopup()">ACTIVAR</button>
+      </div>
+      <button class="popup-skip" onclick="closePopup()">No, paso</button>
+    </div>
+  </div>
+</div>
+<div class="video-modal" id="videoModal">
+  <button class="vm-close" onclick="closeVideo()">✕</button>
+  <iframe id="videoFrame" src="" allowfullscreen title="Video APEX"></iframe>
+</div>
+<nav>
+  <a href="#" class="nav-logo">APEX</a>
+  <ul class="nav-links">
+    <li><a href="#">Hombre</a></li>
+    <li><a href="#">Mujer</a></li>
+    <li><a href="#">Training</a></li>
+    <li><a href="#">Running</a></li>
+    <li><a href="#">Sale</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#" class="nav-icon">♡</a>
+    <a href="#" class="nav-icon">🛍</a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">HOMBRE</a>
+  <a href="#" onclick="toggleMenu()">MUJER</a>
+  <a href="#" onclick="toggleMenu()">TRAINING</a>
+  <a href="#" onclick="toggleMenu()">RUNNING</a>
+</div>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Performance Collection 2025</p>
+    <h1 class="hero-title">ROMPE<br>TUS <span class="red">LÍMITES.</span></h1>
+    <p class="hero-sub">Ropa deportiva de alto rendimiento para atletas que no se conforman. Tecnología, estilo y durabilidad extrema.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-red">COMPRAR AHORA</a>
+      <a href="#" class="btn-outline">VER COLECCIÓN</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><p class="hero-stat-num">40k+</p><p class="hero-stat-label">Atletas</p></div>
+    <div class="hero-stat"><p class="hero-stat-num">4.9★</p><p class="hero-stat-label">Rating</p></div>
+    <div class="hero-stat"><p class="hero-stat-num">100%</p><p class="hero-stat-label">Pro-grade</p></div>
+  </div>
+</section>
+<div class="strip">
+  <div class="strip-item">Envío gratis +$120k</div>
+  <div class="strip-dot"></div>
+  <div class="strip-item">Telas DryTech Pro</div>
+  <div class="strip-dot"></div>
+  <div class="strip-item">Devolución 30 días</div>
+  <div class="strip-dot"></div>
+  <div class="strip-item">Garantía Anti-Desgarro</div>
+</div>
+<div class="section">
+  <p class="section-eyebrow">Best Sellers</p>
+  <h2 class="section-title">GEAR<br>QUE GANA</h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1556906781-9a412961a28b?w=400&q=80" alt="Leggings"><span class="product-pill">NUEVO</span><div class="product-overlay"><button class="quick-shop">QUICK SHOP</button></div></div>
+      <div class="product-info"><p class="product-name">Leggings Pro</p><p class="product-spec">DryTech · Squat-Proof · 4-Way</p><div class="product-price-row"><span class="product-price">$180.000</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Shoes"><div class="product-overlay"><button class="quick-shop">QUICK SHOP</button></div></div>
+      <div class="product-info"><p class="product-name">Apex Run X</p><p class="product-spec">Boost · Carbon Plate · 8mm</p><div class="product-price-row"><span class="product-price">$420.000</span><span class="product-old">$520.000</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Hoodie"><span class="product-pill">HOT</span><div class="product-overlay"><button class="quick-shop">QUICK SHOP</button></div></div>
+      <div class="product-info"><p class="product-name">Training Hoodie</p><p class="product-spec">Fleece · Slim Fit · Zipper</p><div class="product-price-row"><span class="product-price">$220.000</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=400&q=80" alt="Shorts"><div class="product-overlay"><button class="quick-shop">QUICK SHOP</button></div></div>
+      <div class="product-info"><p class="product-name">Shorts Performance</p><p class="product-spec">Compression · Pocket · 7"</p><div class="product-price-row"><span class="product-price">$120.000</span><span class="product-old">$150.000</span></div></div>
+    </div>
+  </div>
+</div>
+<section class="anatomy-section">
+  <div class="anatomy-inner">
+    <img src="https://images.unsplash.com/photo-1556906781-9a412961a28b?w=700&q=80" alt="Fabric detail" class="anatomy-img">
+    <div class="anatomy-content">
+      <p class="section-eyebrow">Tecnología APEX</p>
+      <h2 class="anatomy-title">TELA QUE<br><span>TRABAJA</span><br>CONTIGO</h2>
+      <div class="tech-list">
+        <div class="tech-item"><div class="tech-icon">💧</div><div><p class="tech-name">DryTech Pro</p><p class="tech-desc">Evacuación de humedad 3x más rápida. Mantiene la temperatura corporal estable.</p></div></div>
+        <div class="tech-item"><div class="tech-icon">↔</div><div><p class="tech-name">4-Way Stretch</p><p class="tech-desc">Movimiento 360° sin restricciones. Retiene su forma tras 500+ lavadas.</p></div></div>
+        <div class="tech-item"><div class="tech-icon">🛡</div><div><p class="tech-name">Anti-Desgarro</p><p class="tech-desc">Costuras reforzadas con hilo de nylon. 5 años de garantía estructural.</p></div></div>
+        <div class="tech-item"><div class="tech-icon">☀</div><div><p class="tech-name">Protección UV50+</p><p class="tech-desc">Bloquea el 98% de radiación UV. Ideal para training exterior.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="video-section">
+  <div class="video-bg"></div>
+  <div class="video-content">
+    <p class="video-eyebrow">Performance en acción</p>
+    <h2 class="video-title">PUSH<br><span>HARDER.</span></h2>
+    <div class="video-play" onclick="openVideo('dQw4w9WgXcQ')">▶</div>
+  </div>
+</section>
+<div class="urgency-bar">
+  <p class="urgency-text">🔥 FLASH SALE: <span>30% OFF</span> en Running. Solo 48h. Termina en:</p>
+  <div class="cd-row">
+    <div class="cd-unit" id="cd-h">47</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-m">58</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-s">12</div>
+  </div>
+</div>
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-eyebrow">La comunidad habla</p>
+    <h2 class="section-title">40K+ ATLETAS<br>NO MIENTEN</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Los leggings Pro son los mejores que he usado. Squat-proof real, no se bajan, no se ven. El DryTech funciona increíble incluso en sesiones intensas de 2h."</p>
+        <div class="review-footer"><p class="review-author">@crossfit_juli</p><p class="review-check">✓ Verificado</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Los shoes Apex Run X cambiaron mi ritmo de carrera. El plate de carbono se siente brutal en los últimos 10km de un maratón. No volvería a otra marca."</p>
+        <div class="review-footer"><p class="review-author">@runner_mco</p><p class="review-check">✓ Verificado</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Compré un set completo y fue la mejor inversión deportiva. La calidad compite con Nike y Adidas pero a mejor precio. El envío llegó perfecto en 20 horas."</p>
+        <div class="review-footer"><p class="review-author">@fitness_bogota</p><p class="review-check">✓ Verificado</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stats-section">
+  <div class="stats-inner">
+    <div><p class="stat-num">40k+</p><p class="stat-label">Atletas activos</p></div>
+    <div><p class="stat-num">4.9</p><p class="stat-label">Calificación</p></div>
+    <div><p class="stat-num">500+</p><p class="stat-label">Competencias</p></div>
+    <div><p class="stat-num">98%</p><p class="stat-label">Satisfacción</p></div>
+  </div>
+</section>
+<section class="nl-section">
+  <div class="nl-inner">
+    <p class="nl-eyebrow">ÚNETE AL EQUIPO</p>
+    <h2 class="nl-title">TRAIN<br>HARDER</h2>
+    <p class="nl-sub">Nuevas colecciones, descuentos exclusivos y contenido de training cada semana.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">UNIRME</button>
+    </form>
+    <p class="nl-note">Sin spam · Cancelar en cualquier momento</p>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div><a href="#" class="f-logo">APEX</a><p class="f-desc">Ropa deportiva de alto rendimiento para atletas colombianos. Tecnología pro a precio justo.</p></div>
+    <div class="f-col"><h5>Tienda</h5><ul><li><a href="#">Hombre</a></li><li><a href="#">Mujer</a></li><li><a href="#">Training</a></li><li><a href="#">Running</a></li></ul></div>
+    <div class="f-col"><h5>Ayuda</h5><ul><li><a href="#">Tallas</a></li><li><a href="#">Envíos</a></li><li><a href="#">Devoluciones</a></li><li><a href="#">Contacto</a></li></ul></div>
+    <div class="f-col"><h5>APEX</h5><ul><li><a href="#">Nosotros</a></li><li><a href="#">Tecnología</a></li><li><a href="#">Atletas</a></li><li><a href="#">Blog</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 APEX Sports. Todos los derechos reservados.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="TikTok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+      <a href="#" title="YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div>
+  </div>
+</footer>
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),1800);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function openVideo(id){document.getElementById('videoFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1`;document.getElementById('videoModal').classList.add('open')}
+function closeVideo(){document.getElementById('videoFrame').src='';document.getElementById('videoModal').classList.remove('open')}
+(function(){let h=47,m=58,s=12;setInterval(()=>{s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=47;document.getElementById('cd-h').textContent=String(h).padStart(2,'0');document.getElementById('cd-m').textContent=String(m).padStart(2,'0');document.getElementById('cd-s').textContent=String(s).padStart(2,'0')},1000)})();
+</script>
+</body>
+</html>

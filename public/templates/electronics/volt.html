@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOLT — Tecnología de Vanguardia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050508;--bg2:#0a0a0f;--bg3:#101018;--bg4:#181825;
+  --blue:#4f8ef7;--blue2:#2d6ee0;--cyan:#00d4ff;
+  --text:#f0f0ff;--muted:#6a6a8a;--border:#1e1e30;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(5,5,8,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(6px)}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--bg2);border:1px solid var(--border);max-width:440px;width:100%;position:relative;overflow:hidden}
+.popup-glow{position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:var(--blue);opacity:.1;border-radius:50%;filter:blur(40px);pointer-events:none}
+.popup-close{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;z-index:1}
+.popup-body{padding:36px 32px}
+.popup-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.3);color:var(--blue);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;margin-bottom:16px;font-family:'Space Mono',monospace}
+.popup-title{font-size:26px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.popup-title span{color:var(--blue)}
+.popup-sub{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:24px}
+.popup-form{display:flex;flex-direction:column;gap:10px}
+.popup-input{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:11px 14px;font-family:'Space Grotesk',sans-serif;font-size:13px;outline:none;transition:border .2s}
+.popup-input:focus{border-color:var(--blue)}
+.popup-btn{background:var(--blue);color:#fff;border:none;padding:12px;font-size:13px;font-weight:600;letter-spacing:1px;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:background .2s}
+.popup-btn:hover{background:var(--blue2)}
+.popup-skip{text-align:center;font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Space Grotesk',sans-serif;margin-top:8px;text-decoration:underline}
+.popup-benefits{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.popup-benefit{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.popup-benefit::before{content:'✓';color:var(--blue);font-weight:700}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;background:rgba(5,5,8,0.9);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
+.nav-logo{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:4px}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-cart{background:var(--blue);color:#fff;border:none;padding:8px 18px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:1px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;color:var(--text);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+
+/* HERO */
+.hero{padding-top:64px;min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.3}
+.hero-glow{position:absolute;top:20%;left:30%;width:500px;height:500px;background:var(--blue);opacity:.06;border-radius:50%;filter:blur(80px)}
+.hero-inner{max-width:1200px;margin:0 auto;padding:60px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);color:var(--blue);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;margin-bottom:20px;font-family:'Space Mono',monospace}
+.hero-title{font-size:clamp(42px,4.5vw,72px);font-weight:700;line-height:1.05;margin-bottom:20px}
+.hero-title .accent{color:var(--blue)}
+.hero-title .cyan{color:var(--cyan)}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:36px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-blue{display:inline-block;background:var(--blue);color:#fff;padding:14px 32px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:1px;transition:background .2s}
+.btn-blue:hover{background:var(--blue2)}
+.btn-outline-blue{display:inline-block;border:1px solid var(--border);color:var(--text);padding:13px 31px;font-size:13px;font-weight:500;text-decoration:none;transition:.2s}
+.btn-outline-blue:hover{border-color:var(--blue);color:var(--blue)}
+.hero-stats{display:flex;gap:32px;margin-top:40px;flex-wrap:wrap}
+.hero-stat .num{font-family:'Space Mono',monospace;font-size:24px;font-weight:700;color:var(--blue)}
+.hero-stat .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.hero-img-wrap{position:relative}
+.hero-img{width:100%;display:block;filter:drop-shadow(0 0 60px rgba(79,142,247,.25))}
+.hero-badge{position:absolute;top:24px;right:0;background:var(--bg2);border:1px solid var(--border);padding:12px 16px;font-family:'Space Mono',monospace}
+.hero-badge-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.hero-badge-val{font-size:20px;font-weight:700;color:var(--cyan);margin-top:2px}
+
+/* TRUST */
+.trust-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 40px;display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.trust-item{font-size:11px;letter-spacing:1px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.trust-item::before{content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;flex-shrink:0}
+
+/* SECTION */
+.section{padding:100px 40px;max-width:1200px;margin:0 auto}
+.section-mono{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--blue);margin-bottom:10px;text-transform:uppercase}
+.section-title{font-size:clamp(28px,3vw,48px);font-weight:700;line-height:1.1;margin-bottom:48px}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.product-card{background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:border .3s,transform .3s}
+.product-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.product-img-wrap{position:relative;overflow:hidden;background:var(--bg3);padding:24px;display:flex;align-items:center;justify-content:center}
+.product-img-wrap img{width:80%;aspect-ratio:1;object-fit:contain;display:block;transition:transform .4s;filter:drop-shadow(0 8px 24px rgba(79,142,247,.15))}
+.product-card:hover .product-img-wrap img{transform:scale(1.05)}
+.product-badge{position:absolute;top:10px;left:10px;background:var(--blue);color:#fff;font-size:9px;letter-spacing:1px;font-weight:600;padding:3px 8px;font-family:'Space Mono',monospace}
+.product-info{padding:16px}
+.product-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.product-spec{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:12px}
+.product-foot{display:flex;justify-content:space-between;align-items:center}
+.product-price{font-size:16px;font-weight:700;color:var(--blue)}
+.product-old{font-size:11px;text-decoration:line-through;color:var(--muted);display:block;margin-bottom:2px}
+.add-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:11px;padding:6px 12px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:500;transition:.2s}
+.add-btn:hover{background:var(--blue);border-color:var(--blue)}
+
+/* ANATOMY */
+.anatomy-section{background:var(--bg2);padding:100px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.anatomy-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.anatomy-visual{position:relative;background:var(--bg3);padding:40px;display:flex;align-items:center;justify-content:center;min-height:360px}
+.anatomy-visual img{width:70%;object-fit:contain;filter:drop-shadow(0 0 40px rgba(79,142,247,.3))}
+.anatomy-lines{position:absolute;inset:0;pointer-events:none;opacity:.6}
+.anatomy-specs{display:flex;flex-direction:column;gap:0}
+.spec-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border)}
+.spec-row:last-child{border-bottom:none}
+.spec-name{font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:1px}
+.spec-value{font-size:13px;font-weight:600;color:var(--text)}
+.spec-bar{width:100px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:4px}
+.spec-fill{height:100%;background:linear-gradient(to right,var(--blue),var(--cyan));border-radius:2px}
+
+/* VIDEO */
+.video-section{position:relative;height:500px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.video-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=80');background-size:cover;background-position:center;filter:brightness(.3)}
+.video-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(79,142,247,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(79,142,247,.1) 1px,transparent 1px);background-size:40px 40px}
+.video-content{position:relative;z-index:1;text-align:center}
+.video-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--blue);margin-bottom:12px;text-transform:uppercase}
+.video-title{font-size:40px;font-weight:700;margin-bottom:28px;line-height:1.1}
+.video-title span{color:var(--blue)}
+.video-play{width:72px;height:72px;border:1.5px solid var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;cursor:pointer;font-size:22px;color:var(--blue);transition:background .2s}
+.video-play:hover{background:rgba(79,142,247,.15)}
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.video-modal.open{display:flex}
+.video-modal iframe{width:100%;max-width:900px;aspect-ratio:16/9;border:none}
+.vm-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* URGENCY */
+.urgency-bar{background:linear-gradient(90deg,var(--blue2),var(--blue));padding:14px 40px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-bar p{font-size:12px;font-weight:600;color:#fff;letter-spacing:1px}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-unit{background:rgba(0,0,0,.25);padding:5px 10px;font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#fff;min-width:34px;text-align:center}
+.cd-sep{font-weight:700;color:#fff;font-size:15px}
+
+/* REVIEWS */
+.reviews-section{padding:100px 40px;background:var(--bg2)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.review-card{background:var(--bg3);border:1px solid var(--border);padding:24px}
+.review-stars{color:var(--blue);font-size:12px;letter-spacing:2px;margin-bottom:10px}
+.review-text{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
+.review-meta{display:flex;justify-content:space-between;align-items:center}
+.review-author{font-size:11px;font-weight:600;font-family:'Space Mono',monospace;color:var(--muted)}
+.review-verified{font-size:10px;color:var(--blue)}
+
+/* STATS */
+.stats-section{padding:80px 40px;border-top:1px solid var(--border)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-family:'Space Mono',monospace;font-size:42px;font-weight:700;color:var(--blue)}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.nl-section{padding:100px 40px;text-align:center;background:var(--bg3);border-top:1px solid var(--border)}
+.nl-inner{max-width:500px;margin:0 auto}
+.nl-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.nl-title{font-size:38px;font-weight:700;margin-bottom:10px}
+.nl-title span{color:var(--blue)}
+.nl-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.5}
+.nl-form{display:flex;gap:0}
+.nl-input{flex:1;background:var(--bg2);border:1px solid var(--border);border-right:none;color:var(--text);padding:12px 16px;font-size:13px;font-family:'Space Grotesk',sans-serif;outline:none}
+.nl-input:focus{border-color:var(--blue)}
+.nl-btn{background:var(--blue);color:#fff;border:none;padding:12px 20px;font-size:12px;font-weight:600;letter-spacing:1px;cursor:pointer;font-family:'Space Grotesk',sans-serif}
+.nl-note{font-size:11px;color:var(--muted);margin-top:10px}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 40px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--text);text-decoration:none;display:block;margin-bottom:12px;letter-spacing:3px}
+.f-logo span{color:var(--blue)}
+.f-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.f-col h5{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:var(--text)}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace}
+.f-social{display:flex;gap:10px}
+.f-social a{width:32px;height:32px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--blue);color:var(--blue)}
+
+@media(max-width:768px){
+  nav{padding:0 20px;height:56px}
+  .nav-links{display:none}
+  .nav-cart{display:none}
+  .hamburger{display:flex}
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding:40px 20px}
+  .hero-img-wrap{order:-1}
+  .hero-badge{top:12px;right:12px}
+  .trust-bar{gap:16px;padding:12px 20px}
+  .section{padding:60px 20px}
+  .products-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .anatomy-section{padding:60px 20px}
+  .anatomy-inner{grid-template-columns:1fr;gap:32px}
+  .video-section{height:360px}
+  .video-title{font-size:26px}
+  .urgency-bar{padding:12px 16px;flex-direction:column;gap:10px;text-align:center}
+  .reviews-section{padding:60px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:12px}
+  .stats-section{padding:60px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:60px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid var(--border)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-glow"></div>
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="popup-body">
+      <span class="popup-chip">⚡ Oferta Exclusiva</span>
+      <h2 class="popup-title">$50k OFF<br>en tu <span>primer pedido</span></h2>
+      <p class="popup-sub">Suscríbete y recibe el código al instante. Más: acceso anticipado a lanzamientos y drops especiales.</p>
+      <div class="popup-benefits">
+        <span class="popup-benefit">Envío gratis</span>
+        <span class="popup-benefit">Soporte 24/7</span>
+        <span class="popup-benefit">Garantía extendida</span>
+      </div>
+      <div class="popup-form">
+        <input type="email" class="popup-input" placeholder="tu@correo.com">
+        <button class="popup-btn" onclick="closePopup()">Obtener mi descuento</button>
+      </div>
+      <button class="popup-skip" onclick="closePopup()">No, gracias</button>
+    </div>
+  </div>
+</div>
+
+<div class="video-modal" id="videoModal">
+  <button class="vm-close" onclick="closeVideo()">✕</button>
+  <iframe id="videoFrame" src="" allowfullscreen title="Video VOLT"></iframe>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">VOLT<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Smartphones</a></li>
+    <li><a href="#">Audio</a></li>
+    <li><a href="#">Wearables</a></li>
+    <li><a href="#">Accesorios</a></li>
+    <li><a href="#">Offers</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-cart">Carrito (0)</button>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Smartphones</a>
+  <a href="#" onclick="toggleMenu()">Audio</a>
+  <a href="#" onclick="toggleMenu()">Wearables</a>
+  <a href="#" onclick="toggleMenu()">Accesorios</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div>
+      <span class="hero-chip">🆕 Nuevo Lanzamiento</span>
+      <h1 class="hero-title">El futuro<br>es <span class="accent">ahora.</span><br><span class="cyan">Tech</span> que lidera.</h1>
+      <p class="hero-sub">Dispositivos premium con la tecnología más avanzada. Performance sin compromisos, diseño que impacta.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-blue">Ver productos</a>
+        <a href="#" class="btn-outline-blue">Comparar modelos</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><p class="num">4.9★</p><p class="lbl">Calificación</p></div>
+        <div class="hero-stat"><p class="num">50k+</p><p class="lbl">Clientes</p></div>
+        <div class="hero-stat"><p class="num">24h</p><p class="lbl">Soporte</p></div>
+      </div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=85" alt="Smartphone" class="hero-img">
+      <div class="hero-badge">
+        <p class="hero-badge-label">Nuevo</p>
+        <p class="hero-badge-val">Pro Max</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust-bar">
+  <div class="trust-item">Garantía 2 años</div>
+  <div class="trust-item">Envío en 24h</div>
+  <div class="trust-item">Devolución 30 días</div>
+  <div class="trust-item">Soporte 24/7</div>
+  <div class="trust-item">Pago seguro SSL</div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section">
+  <p class="section-mono">// Productos destacados</p>
+  <h2 class="section-title">Tecnología<br>de vanguardia</h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80" alt="Phone">
+        <span class="product-badge">NUEVO</span>
+      </div>
+      <div class="product-info">
+        <p class="product-name">VOLT X Pro</p>
+        <p class="product-spec">6.7" · 256GB · 5G</p>
+        <div class="product-foot">
+          <div><span class="product-old">$2.800.000</span><span class="product-price">$2.350.000</span></div>
+          <button class="add-btn">+ Carrito</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80" alt="Headphones">
+      </div>
+      <div class="product-info">
+        <p class="product-name">SoundCore ANC</p>
+        <p class="product-spec">40h batería · ANC · BT 5.3</p>
+        <div class="product-foot">
+          <span class="product-price">$480.000</span>
+          <button class="add-btn">+ Carrito</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="Watch">
+        <span class="product-badge">HOT</span>
+      </div>
+      <div class="product-info">
+        <p class="product-name">VoltWatch 4</p>
+        <p class="product-spec">AMOLED · GPS · SpO2</p>
+        <div class="product-foot">
+          <span class="product-price">$680.000</span>
+          <button class="add-btn">+ Carrito</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=400&q=80" alt="Tablet">
+      </div>
+      <div class="product-info">
+        <p class="product-name">VoltPad Ultra</p>
+        <p class="product-spec">12" · 512GB · Stylus</p>
+        <div class="product-foot">
+          <div><span class="product-old">$2.100.000</span><span class="product-price">$1.750.000</span></div>
+          <button class="add-btn">+ Carrito</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANATOMY -->
+<section class="anatomy-section">
+  <div class="anatomy-inner">
+    <div>
+      <p class="section-mono">// Especificaciones</p>
+      <h2 class="section-title">Ingeniería<br>de precisión</h2>
+      <div class="anatomy-specs">
+        <div class="spec-row">
+          <div>
+            <p class="spec-name">Procesador</p>
+            <div class="spec-bar"><div class="spec-fill" style="width:98%"></div></div>
+          </div>
+          <p class="spec-value">Volt X1 — 4nm</p>
+        </div>
+        <div class="spec-row">
+          <div>
+            <p class="spec-name">Pantalla</p>
+            <div class="spec-bar"><div class="spec-fill" style="width:95%"></div></div>
+          </div>
+          <p class="spec-value">LTPO OLED 120Hz</p>
+        </div>
+        <div class="spec-row">
+          <div>
+            <p class="spec-name">Batería</p>
+            <div class="spec-bar"><div class="spec-fill" style="width:92%"></div></div>
+          </div>
+          <p class="spec-value">5200mAh · 65W</p>
+        </div>
+        <div class="spec-row">
+          <div>
+            <p class="spec-name">Cámara</p>
+            <div class="spec-bar"><div class="spec-fill" style="width:96%"></div></div>
+          </div>
+          <p class="spec-value">200MP · f/1.7</p>
+        </div>
+        <div class="spec-row">
+          <div>
+            <p class="spec-name">Conectividad</p>
+            <div class="spec-bar"><div class="spec-fill" style="width:100%"></div></div>
+          </div>
+          <p class="spec-value">5G · WiFi 7 · BT 5.4</p>
+        </div>
+        <div class="spec-row">
+          <div>
+            <p class="spec-name">Resistencia</p>
+            <div class="spec-bar"><div class="spec-fill" style="width:88%"></div></div>
+          </div>
+          <p class="spec-value">IP68 · Gorilla Glass 7</p>
+        </div>
+      </div>
+    </div>
+    <div class="anatomy-visual">
+      <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&q=80" alt="Phone specs">
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="video-bg"></div>
+  <div class="video-grid"></div>
+  <div class="video-content">
+    <p class="video-tag">// Conoce la tech</p>
+    <h2 class="video-title">Performance.<br><span>Sin límites.</span></h2>
+    <div class="video-play" onclick="openVideo('dQw4w9WgXcQ')">▶</div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-bar">
+  <p>⚡ Flash Sale — 30% OFF en Audio. Termina en:</p>
+  <div class="cd-row">
+    <div class="cd-unit" id="cd-h">02</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-m">15</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-s">44</div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-mono">// Lo que dicen</p>
+    <h2 class="section-title">+50.000 clientes<br>satisfechos</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El VOLT X Pro llegó en 20 horas. La cámara es brutal — fotos de noche increíbles. El ANC de los audífonos también compré y son lo mejor que he tenido."</p>
+        <div class="review-meta"><p class="review-author">@juan_tech</p><p class="review-verified">✓ Verificado</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Cambié de iPhone al VOLT y no me arrepiento. La batería dura 2 días fácil, la carga rápida es increíble y el servicio post-venta de VOLT es de primer nivel."</p>
+        <div class="review-meta"><p class="review-author">@dani_gadgets</p><p class="review-verified">✓ Verificado</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El VoltWatch ya no me lo quito. El GPS es preciso, las métricas de salud son exactas y la pantalla se ve perfecta incluso con sol directo. Excelente."</p>
+        <div class="review-meta"><p class="review-author">@carlos_runner</p><p class="review-verified">✓ Verificado</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div><p class="stat-num">50k+</p><p class="stat-label">Clientes activos</p></div>
+    <div><p class="stat-num">4.9</p><p class="stat-label">Calificación media</p></div>
+    <div><p class="stat-num">24h</p><p class="stat-label">Entrega promedio</p></div>
+    <div><p class="stat-num">98%</p><p class="stat-label">Satisfacción</p></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="nl-section">
+  <div class="nl-inner">
+    <p class="nl-tag">// Mantente al día</p>
+    <h2 class="nl-title"><span>Tech</span> antes<br>que nadie</h2>
+    <p class="nl-sub">Lanzamientos exclusivos, reviews y ofertas flash directo a tu inbox.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">Suscribirme</button>
+    </form>
+    <p class="nl-note">Sin spam. Cancelar cuando quieras.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="f-logo">VOLT<span>.</span></a>
+      <p class="f-desc">Tecnología premium para el colombiano exigente. Garantía real, soporte de verdad, precios justos.</p>
+    </div>
+    <div class="f-col"><h5>Productos</h5><ul><li><a href="#">Smartphones</a></li><li><a href="#">Audio</a></li><li><a href="#">Wearables</a></li><li><a href="#">Tablets</a></li></ul></div>
+    <div class="f-col"><h5>Soporte</h5><ul><li><a href="#">Garantías</a></li><li><a href="#">Reparaciones</a></li><li><a href="#">Devoluciones</a></li><li><a href="#">Contacto</a></li></ul></div>
+    <div class="f-col"><h5>VOLT</h5><ul><li><a href="#">Nosotros</a></li><li><a href="#">Blog Tech</a></li><li><a href="#">Afiliados</a></li><li><a href="#">Prensa</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 VOLT Technologies. All rights reserved.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+      <a href="#" title="Twitter/X"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),1800);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function openVideo(id){
+  document.getElementById('videoFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('videoModal').classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').classList.remove('open');
+}
+(function(){
+  let h=2,m=15,s=44;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=23;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMIÈRE — Joyería de Lujo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090a;--bg2:#111112;--bg3:#1a1a1c;
+  --gold:#c9a96e;--gold2:#e8cfa0;--gold3:#8a6a3a;
+  --text:#f0ece4;--muted:#8a8278;--border:#2a2a2c;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .4s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--bg2);border:1px solid var(--gold3);max-width:460px;width:100%;position:relative;overflow:hidden}
+.popup-img{width:100%;height:200px;object-fit:cover;display:block;filter:brightness(0.7)}
+.popup-close{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);border:1px solid var(--border);color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.popup-body{padding:28px 32px 32px}
+.popup-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
+.popup-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1.2;margin-bottom:8px}
+.popup-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.popup-form{display:flex;gap:8px;flex-wrap:wrap}
+.popup-form input{flex:1;min-width:160px;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 14px;font-family:'Lato',sans-serif;font-size:13px;outline:none}
+.popup-form input:focus{border-color:var(--gold)}
+.popup-btn{background:var(--gold);color:var(--bg);padding:10px 20px;border:none;cursor:pointer;font-family:'Lato',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.popup-btn:hover{background:var(--gold2)}
+.popup-skip{margin-top:12px;font-size:11px;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;color:var(--muted);font-family:'Lato',sans-serif}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px;transition:background .3s,border .3s}
+nav.scrolled{background:rgba(9,9,10,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:8px;color:var(--gold);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);font-size:11px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-icons{display:flex;gap:20px;align-items:center}
+.nav-icon{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;transition:color .2s;text-decoration:none}
+.nav-icon:hover{color:var(--gold)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1px;background:var(--text);transition:.3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;letter-spacing:4px;color:var(--text);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+
+/* HERO */
+.hero{height:100vh;min-height:600px;position:relative;display:flex;align-items:flex-end;padding:80px 60px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1400&q=90');background-size:cover;background-position:center;animation:heroZoom 12s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,10,0.92) 0%,rgba(9,9,10,0.4) 50%,rgba(9,9,10,0.2) 100%)}
+.hero-content{position:relative;z-index:1;max-width:600px}
+.hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6vw,90px);font-weight:300;line-height:1.05;margin-bottom:20px;font-style:italic}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:380px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn-gold{display:inline-block;background:var(--gold);color:var(--bg);padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.btn-gold:hover{background:var(--gold2)}
+.btn-outline{display:inline-block;border:1px solid rgba(201,169,110,.4);color:var(--gold);padding:13px 35px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:.2s}
+.btn-outline:hover{border-color:var(--gold);background:rgba(201,169,110,.08)}
+.hero-scroll{position:absolute;bottom:32px;right:60px;writing-mode:vertical-rl;font-size:10px;letter-spacing:3px;color:var(--muted);display:flex;align-items:center;gap:12px}
+.hero-scroll::after{content:'';display:block;width:1px;height:40px;background:var(--gold);margin-top:8px}
+
+/* TRUST BAR */
+.trust-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.trust-icon{color:var(--gold);font-size:14px}
+
+/* COLLECTIONS */
+.section{padding:100px 40px;max-width:1200px;margin:0 auto}
+.section-label{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,56px);font-weight:300;line-height:1.1;margin-bottom:48px}
+.section-title em{font-style:italic;color:var(--gold)}
+
+.collections-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.collection-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.collection-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.collection-card:hover img{transform:scale(1.05)}
+.collection-card .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,10,.85) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.collection-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;margin-bottom:4px}
+.collection-count{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+
+/* ANATOMY */
+.anatomy-section{background:var(--bg2);padding:100px 40px}
+.anatomy-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.anatomy-img-wrap{position:relative}
+.anatomy-img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.anatomy-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);cursor:pointer}
+.anatomy-dot::before{content:'';position:absolute;inset:-6px;border:1px solid var(--gold);border-radius:50%;opacity:.5;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.4);opacity:0}}
+.dot-1{top:22%;left:58%}
+.dot-2{top:52%;left:38%}
+.dot-3{top:72%;left:55%}
+.anatomy-dot .dot-label{position:absolute;left:20px;top:-8px;background:var(--bg3);border:1px solid var(--border);padding:8px 14px;font-size:11px;white-space:nowrap;pointer-events:none;opacity:0;transition:.2s}
+.anatomy-dot:hover .dot-label{opacity:1}
+.anatomy-content .section-label{margin-bottom:16px}
+.anatomy-list{list-style:none;margin-top:32px}
+.anatomy-list li{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border)}
+.anatomy-list li:last-child{border-bottom:none}
+.anatomy-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold);line-height:1;min-width:32px}
+.anatomy-text h4{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.anatomy-text p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* VIDEO */
+.video-section{padding:0;position:relative;overflow:hidden;height:500px;display:flex;align-items:center;justify-content:center}
+.video-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=1400&q=80');background-size:cover;background-position:center;filter:brightness(.45)}
+.video-content{position:relative;z-index:1;text-align:center;max-width:600px;padding:40px}
+.video-play{width:72px;height:72px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;cursor:pointer;transition:background .2s;font-size:20px;color:var(--gold)}
+.video-play:hover{background:rgba(201,169,110,.15)}
+.video-label{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.video-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;font-style:italic}
+
+/* VIDEO MODAL */
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.video-modal.open{display:flex}
+.video-modal iframe{width:100%;max-width:900px;aspect-ratio:16/9;border:none}
+.video-modal-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.product-card{cursor:pointer}
+.product-img-wrap{position:relative;overflow:hidden;background:var(--bg2)}
+.product-img-wrap img{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:transform .5s}
+.product-card:hover .product-img-wrap img{transform:scale(1.04)}
+.product-badge{position:absolute;top:12px;left:12px;background:var(--gold);color:var(--bg);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 8px;font-weight:700}
+.product-wishlist{position:absolute;top:10px;right:10px;background:rgba(9,9,10,.6);border:1px solid var(--border);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;opacity:0;transition:.2s;cursor:pointer}
+.product-card:hover .product-wishlist{opacity:1}
+.product-info{padding:14px 0}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;margin-bottom:4px}
+.product-sub{font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:8px}
+.product-price{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:1px}
+.product-old{text-decoration:line-through;color:var(--muted);font-size:11px;margin-left:6px;font-weight:400}
+
+/* URGENCY */
+.urgency-bar{background:linear-gradient(135deg,var(--gold3),var(--gold));padding:14px 40px;text-align:center;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.urgency-bar p{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bg)}
+.urgency-countdown{display:flex;gap:8px}
+.countdown-unit{background:rgba(0,0,0,.2);padding:4px 10px;font-size:14px;font-weight:700;color:var(--bg);font-family:'Cormorant Garamond',serif}
+
+/* REVIEWS */
+.reviews-section{padding:100px 40px;background:var(--bg2)}
+.reviews-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.review-card{background:var(--bg3);border:1px solid var(--border);padding:28px}
+.review-stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:12px}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.6;color:var(--text);margin-bottom:16px}
+.review-author{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.review-verified{font-size:10px;color:var(--gold);margin-top:2px}
+
+/* STATS */
+.stats-section{padding:80px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold);line-height:1}
+.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.newsletter-section{padding:100px 40px;text-align:center;background:var(--bg)}
+.newsletter-inner{max-width:500px;margin:0 auto}
+.nl-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;font-style:italic;margin-bottom:12px}
+.nl-sub{font-size:13px;color:var(--muted);margin-bottom:32px;line-height:1.6}
+.nl-form{display:flex;gap:0}
+.nl-input{flex:1;background:transparent;border:1px solid var(--border);border-right:none;color:var(--text);padding:12px 18px;font-family:'Lato',sans-serif;font-size:13px;outline:none}
+.nl-input:focus{border-color:var(--gold)}
+.nl-btn{background:var(--gold);color:var(--bg);border:none;padding:12px 24px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Lato',sans-serif}
+.nl-btn:hover{background:var(--gold2)}
+.nl-privacy{font-size:10px;color:var(--muted);margin-top:12px}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 40px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .nav-logo{display:block;margin-bottom:16px}
+.footer-brand p{font-size:12px;color:var(--muted);line-height:1.7}
+.footer-col h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.footer-col ul a:hover{color:var(--text)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;max-width:1100px;margin:0 auto}
+.footer-bottom p{font-size:11px;color:var(--muted)}
+.footer-social{display:flex;gap:16px}
+.footer-social a{width:32px;height:32px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;text-decoration:none;transition:.2s}
+.footer-social a:hover{border-color:var(--gold);color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px;height:60px}
+  .nav-links,.nav-icons{display:none}
+  .hamburger{display:flex}
+  .hero{padding:40px 20px 60px;align-items:flex-end}
+  .hero-title{font-size:40px}
+  .hero-scroll{display:none}
+  .trust-bar{gap:20px;padding:14px 20px}
+  .trust-item{font-size:10px;gap:6px}
+  .section{padding:60px 20px}
+  .collections-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .anatomy-inner{grid-template-columns:1fr;gap:40px}
+  .anatomy-img{aspect-ratio:1/1}
+  .products-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .reviews-section{padding:60px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:16px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .stats-section{padding:60px 20px}
+  .newsletter-section{padding:60px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid var(--border)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .video-section{height:380px}
+  .urgency-bar{padding:12px 16px}
+  .popup-body{padding:20px 20px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=600&q=80" alt="" class="popup-img">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="popup-body">
+      <p class="popup-eyebrow">Acceso Exclusivo</p>
+      <h2 class="popup-title">Bienvenida a<br>LUMIÈRE</h2>
+      <p class="popup-sub">Regístrate y recibe 10% de descuento en tu primera pieza. Además, acceso anticipado a nuevas colecciones.</p>
+      <form class="popup-form" onsubmit="closePopup();return false">
+        <input type="email" placeholder="Tu correo electrónico">
+        <button class="popup-btn">Acceder</button>
+      </form>
+      <button class="popup-skip" onclick="closePopup()">No, gracias</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <iframe id="videoFrame" src="" allowfullscreen title="Lumière — Craftsmanship"></iframe>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">LUMIÈRE</a>
+  <ul class="nav-links">
+    <li><a href="#">Colecciones</a></li>
+    <li><a href="#">Alta Joyería</a></li>
+    <li><a href="#">Craftsmanship</a></li>
+    <li><a href="#">Nosotros</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#" class="nav-icon">♡</a>
+    <a href="#" class="nav-icon">🛍</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Colecciones</a>
+  <a href="#" onclick="toggleMenu()">Alta Joyería</a>
+  <a href="#" onclick="toggleMenu()">Craftsmanship</a>
+  <a href="#" onclick="toggleMenu()">Nosotros</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Colección Otoño 2025</p>
+    <h1 class="hero-title">Joyas<br>que cuentan<br>tu historia.</h1>
+    <p class="hero-sub">Cada pieza es creada a mano con metales preciosos y piedras seleccionadas a mano. Alta joyería para momentos que se atesoran.</p>
+    <div class="hero-ctas">
+      <a href="#colecciones" class="btn-gold">Explorar Colección</a>
+      <a href="#" class="btn-outline">Alta Joyería</a>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✦</span> Oro 18k Certificado</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Envío Gratuito +$500k</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Garantía 5 Años</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Devolución 30 días</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Certificado de Autenticidad</div>
+</div>
+
+<!-- COLLECTIONS -->
+<div id="colecciones" style="padding-top:40px">
+<div class="section">
+  <p class="section-label">Universo Lumière</p>
+  <h2 class="section-title">Nuestras<br><em>Colecciones</em></h2>
+  <div class="collections-grid">
+    <div class="collection-card">
+      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Eternelle">
+      <div class="overlay">
+        <p class="collection-name">Eternelle</p>
+        <p class="collection-count">24 Piezas</p>
+      </div>
+    </div>
+    <div class="collection-card">
+      <img src="https://images.unsplash.com/photo-1573408301185-9519f94816b5?w=600&q=80" alt="Lumière Noire">
+      <div class="overlay">
+        <p class="collection-name">Lumière Noire</p>
+        <p class="collection-count">18 Piezas</p>
+      </div>
+    </div>
+    <div class="collection-card">
+      <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=600&q=80" alt="Céleste">
+      <div class="overlay">
+        <p class="collection-name">Céleste</p>
+        <p class="collection-count">31 Piezas</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ANATOMY -->
+<section class="anatomy-section">
+  <div class="anatomy-inner">
+    <div class="anatomy-img-wrap">
+      <img src="https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?w=700&q=80" alt="Anillo Eternelle" class="anatomy-img">
+      <div class="anatomy-dot dot-1">
+        <span class="dot-label">Diamante VS1 — 0.8ct</span>
+      </div>
+      <div class="anatomy-dot dot-2">
+        <span class="dot-label">Engaste Pavé — Oro 18k</span>
+      </div>
+      <div class="anatomy-dot dot-3">
+        <span class="dot-label">Banda Confort Fit</span>
+      </div>
+    </div>
+    <div class="anatomy-content">
+      <p class="section-label">Craftsmanship</p>
+      <h2 class="section-title">Cada detalle<br>tiene un <em>propósito</em></h2>
+      <ul class="anatomy-list">
+        <li>
+          <span class="anatomy-num">01</span>
+          <div class="anatomy-text">
+            <h4>Diamante Central</h4>
+            <p>Seleccionamos solo piedras con certificación GIA. Claridad VS1 o superior, corte Excelente.</p>
+          </div>
+        </li>
+        <li>
+          <span class="anatomy-num">02</span>
+          <div class="anatomy-text">
+            <h4>Metal Precioso</h4>
+            <p>Oro 18k amarillo, blanco o rosado. Aleación exclusiva para máxima durabilidad y brillo.</p>
+          </div>
+        </li>
+        <li>
+          <span class="anatomy-num">03</span>
+          <div class="anatomy-text">
+            <h4>Engaste Artesanal</h4>
+            <p>Cada piedra es engastada a mano por maestros joyeros con más de 20 años de experiencia.</p>
+          </div>
+        </li>
+        <li>
+          <span class="anatomy-num">04</span>
+          <div class="anatomy-text">
+            <h4>Acabado Pulido</h4>
+            <p>Proceso de pulido en 5 etapas para lograr un acabado espejo de alta durabilidad.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="video-bg"></div>
+  <div class="video-content">
+    <p class="video-label">Detrás de cámara</p>
+    <h2 class="video-title">El arte de<br>crear Lumière</h2>
+    <div class="video-play" onclick="openVideo('dQw4w9WgXcQ')">▶</div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-bar">
+  <p>✦ Colección Céleste — Solo quedan 7 piezas disponibles</p>
+  <div class="urgency-countdown">
+    <div class="countdown-unit" id="cd-h">04</div>
+    <div class="countdown-unit">:</div>
+    <div class="countdown-unit" id="cd-m">32</div>
+    <div class="countdown-unit">:</div>
+    <div class="countdown-unit" id="cd-s">18</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section">
+  <p class="section-label">Más Deseadas</p>
+  <h2 class="section-title">Piezas <em>Destacadas</em></h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=400&q=80" alt="Anillo Eternelle">
+        <span class="product-badge">Nuevo</span>
+        <button class="product-wishlist">♡</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">Anillo Eternelle</p>
+        <p class="product-sub">Diamante · Oro 18k</p>
+        <span class="product-price">$4.200.000</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&q=80" alt="Collar Céleste">
+        <button class="product-wishlist">♡</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">Collar Céleste</p>
+        <p class="product-sub">Zafiro · Platino</p>
+        <span class="product-price">$6.800.000</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1616697817763-1f88d2dab3b7?w=400&q=80" alt="Aretes Noire">
+        <span class="product-badge">Último</span>
+        <button class="product-wishlist">♡</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">Aretes Noire</p>
+        <p class="product-sub">Onyx · Oro Negro</p>
+        <span class="product-price">$2.900.000</span>
+        <span class="product-old">$3.600.000</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="Pulsera Lumière">
+        <button class="product-wishlist">♡</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">Pulsera Lumière</p>
+        <p class="product-sub">Esmeraldas · Oro 18k</p>
+        <span class="product-price">$5.100.000</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div style="max-width:1100px;margin:0 auto">
+    <p class="section-label" style="text-align:center">Testimonios</p>
+    <h2 class="section-title" style="text-align:center">Lo que dicen<br>nuestras <em>clientas</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El anillo de compromiso que me regalaron es una obra de arte. La calidad del diamante y el acabado son impecables. Cada vez que lo miro me enamoro más."</p>
+        <p class="review-author">— María C., Bogotá</p>
+        <p class="review-verified">✓ Compra verificada</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Compré el collar Céleste para mi aniversario y fue un sueño. El empaque es hermoso y el servicio personalizado fue extraordinario. Volvería mil veces."</p>
+        <p class="review-author">— Valentina R., Medellín</p>
+        <p class="review-verified">✓ Compra verificada</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"La calidad es incomparable con cualquier otra joyería que he visitado. El asesoramiento fue perfecto y la entrega fue puntual con empaque de lujo."</p>
+        <p class="review-author">— Isabela M., Cali</p>
+        <p class="review-verified">✓ Compra verificada</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div>
+      <p class="stat-num">12k+</p>
+      <p class="stat-label">Piezas Creadas</p>
+    </div>
+    <div>
+      <p class="stat-num">98%</p>
+      <p class="stat-label">Satisfacción</p>
+    </div>
+    <div>
+      <p class="stat-num">25</p>
+      <p class="stat-label">Años de Tradición</p>
+    </div>
+    <div>
+      <p class="stat-num">4</p>
+      <p class="stat-label">Premios Internacionales</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <p class="section-label">Círculo Privado</p>
+    <h2 class="nl-title">Acceso<br>anticipado</h2>
+    <p class="nl-sub">Únete a nuestro círculo exclusivo y recibe colecciones antes que nadie, invitaciones a eventos y descuentos especiales.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">Unirme</button>
+    </form>
+    <p class="nl-privacy">Sin spam. Cancelar en cualquier momento.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="font-size:20px;letter-spacing:6px">LUMIÈRE</a>
+      <p>Alta joyería artesanal creada con materiales preciosos de origen ético. Cada pieza, una obra única.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Tienda</h5>
+      <ul>
+        <li><a href="#">Colecciones</a></li>
+        <li><a href="#">Alta Joyería</a></li>
+        <li><a href="#">Novedades</a></li>
+        <li><a href="#">Ofertas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Servicio</h5>
+      <ul>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Garantía</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Marca</h5>
+      <ul>
+        <li><a href="#">Nuestra Historia</a></li>
+        <li><a href="#">Artesanos</a></li>
+        <li><a href="#">Prensa</a></li>
+        <li><a href="#">Sostenibilidad</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 LUMIÈRE. Todos los derechos reservados.</p>
+    <div class="footer-social">
+      <a href="#" title="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+      </a>
+      <a href="#" title="Pinterest">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.89 1.54 1.89 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.34-4.23-2.96 0-4.69 2.22-4.69 4.51 0 .89.34 1.85.77 2.37.08.1.09.19.07.29-.08.32-.25 1.04-.28 1.18-.04.19-.14.23-.32.14-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.44-2.17 6.21-5.18 6.21-1.01 0-1.96-.53-2.29-1.14l-.62 2.33c-.22.86-.83 1.94-1.24 2.6.93.29 1.92.44 2.94.44 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+      </a>
+      <a href="#" title="Facebook">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Popup
+setTimeout(()=>{ document.getElementById('popup').classList.add('active') }, 1800);
+function closePopup(){ document.getElementById('popup').classList.remove('active') }
+
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',scrollY>50)
+})
+
+// Mobile menu
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open')
+}
+
+// Countdown
+(function(){
+  let h=4,m=32,s=18;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0){h=23;}
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+})();
+
+// Video
+function openVideo(id){
+  document.getElementById('videoFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('videoModal').classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').classList.remove('open');
+}
+</script>
+</body>
+</html>

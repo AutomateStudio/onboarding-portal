@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Audio & Lifestyle Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--bg2:#f0efe9;--bg3:#e6e4dc;
+  --dark:#141414;--dark2:#2a2a2a;
+  --accent:#ff4a00;--accent2:#cc3a00;
+  --text:#141414;--muted:#888;--border:#e0dfd7;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:0;opacity:0;pointer-events:none;transition:opacity .4s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--dark);width:100%;max-width:600px;padding:40px;position:relative;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.popup-close{position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;cursor:pointer}
+.popup-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.popup-title{font-size:28px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:8px}
+.popup-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5}
+.popup-form{display:flex;flex-direction:column;gap:10px}
+.popup-input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:12px 16px;font-size:13px;font-family:'Outfit',sans-serif;outline:none}
+.popup-input:focus{border-color:var(--accent)}
+.popup-input::placeholder{color:rgba(255,255,255,.35)}
+.popup-btn{background:var(--accent);color:#fff;border:none;padding:13px;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;font-family:'Outfit',sans-serif;text-transform:uppercase}
+.popup-skip{font-size:11px;color:rgba(255,255,255,.35);cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif;text-decoration:underline;text-align:left}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:64px;background:var(--bg);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:20px;font-weight:800;color:var(--dark);text-decoration:none;letter-spacing:2px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);font-size:13px;text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--dark)}
+.nav-icons{display:flex;gap:16px;align-items:center}
+.cart-btn{background:var(--dark);color:#fff;border:none;padding:8px 20px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;letter-spacing:1px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--dark)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:26px;font-weight:700;color:var(--dark);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--dark);font-size:24px;cursor:pointer}
+
+/* HERO */
+.hero{margin-top:64px;background:var(--dark);min-height:calc(100vh - 64px);display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 60px;position:relative}
+.hero-bg-text{position:absolute;font-size:180px;font-weight:900;color:rgba(255,255,255,.03);line-height:1;top:50%;transform:translateY(-50%);left:-20px;pointer-events:none;white-space:nowrap}
+.hero-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';display:block;width:24px;height:2px;background:var(--accent)}
+.hero-title{font-size:clamp(44px,5vw,80px);font-weight:800;color:#fff;line-height:1;margin-bottom:20px}
+.hero-title em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.5);line-height:1.6;max-width:380px;margin-bottom:40px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-accent{display:inline-block;background:var(--accent);color:#fff;padding:14px 32px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none}
+.btn-accent:hover{background:var(--accent2)}
+.btn-white{display:inline-block;border:1px solid rgba(255,255,255,.2);color:#fff;padding:13px 31px;font-size:13px;font-weight:500;text-decoration:none;transition:.2s}
+.btn-white:hover{background:rgba(255,255,255,.05)}
+.hero-right{position:relative;overflow:hidden;background:linear-gradient(135deg,#1a1a1a,#0a0a0a)}
+.hero-right img{width:100%;height:100%;object-fit:cover;display:block;opacity:.7;transition:transform 10s ease}
+.hero-right:hover img{transform:scale(1.04)}
+.hero-tag-box{position:absolute;bottom:32px;left:32px;background:var(--accent);padding:12px 18px}
+.hero-tag-box p{font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px;letter-spacing:1px;text-transform:uppercase}
+.hero-tag-box strong{font-size:18px;color:#fff;font-weight:800}
+
+/* TRUST */
+.trust-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 48px;display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.trust-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;font-weight:500}
+.trust-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* SECTION */
+.section{padding:100px 48px;max-width:1200px;margin:0 auto}
+.section-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:600}
+.section-title{font-size:clamp(28px,3vw,52px);font-weight:800;line-height:1.05;margin-bottom:48px}
+
+/* PRODUCTS */
+.products-scroll{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.product-card{background:#fff;border:1px solid var(--border);overflow:hidden;transition:box-shadow .3s,transform .3s}
+.product-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.08);transform:translateY(-2px)}
+.product-img-area{background:var(--bg2);padding:32px;display:flex;align-items:center;justify-content:center;position:relative}
+.product-img-area img{width:80%;aspect-ratio:1;object-fit:contain;display:block;transition:transform .4s}
+.product-card:hover .product-img-area img{transform:scale(1.06)}
+.product-label{position:absolute;top:12px;left:12px;background:var(--accent);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;letter-spacing:1px}
+.product-body{padding:16px}
+.product-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.product-desc{font-size:11px;color:var(--muted);margin-bottom:12px}
+.product-price-row{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:16px;font-weight:800;color:var(--dark)}
+.product-old{font-size:12px;text-decoration:line-through;color:var(--muted);margin-right:6px}
+.buy-btn{background:var(--dark);color:#fff;border:none;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;letter-spacing:1px}
+.buy-btn:hover{background:var(--accent)}
+
+/* ANATOMY */
+.anatomy-section{background:var(--dark);padding:100px 48px}
+.anatomy-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.anatomy-img{width:100%;aspect-ratio:1;object-fit:contain;display:block;filter:drop-shadow(0 0 60px rgba(255,74,0,.2))}
+.anatomy-details{display:flex;flex-direction:column;gap:0}
+.anatomy-detail{padding:22px 0;border-bottom:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:44px 1fr;gap:16px}
+.anatomy-detail:last-child{border-bottom:none}
+.detail-icon{width:44px;height:44px;background:rgba(255,74,0,.1);border:1px solid rgba(255,74,0,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.detail-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;letter-spacing:.5px}
+.detail-desc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* VIDEO */
+.video-section{position:relative;height:500px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.video-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80');background-size:cover;background-position:center;filter:brightness(.35)}
+.video-content{position:relative;z-index:1;text-align:center;padding:20px}
+.video-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600}
+.video-title{font-size:44px;font-weight:800;color:#fff;line-height:1.05;margin-bottom:28px}
+.video-play{width:72px;height:72px;border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;cursor:pointer;font-size:22px;color:var(--accent);transition:background .2s}
+.video-play:hover{background:rgba(255,74,0,.15)}
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.video-modal.open{display:flex}
+.video-modal iframe{width:100%;max-width:900px;aspect-ratio:16/9;border:none}
+.vm-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* URGENCY */
+.urgency-bar{background:var(--accent);padding:14px 48px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-bar p{font-size:13px;font-weight:700;color:#fff;letter-spacing:.5px}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-box{background:rgba(0,0,0,.2);padding:5px 10px;font-size:15px;font-weight:800;color:#fff;min-width:34px;text-align:center}
+.cd-dot{font-size:15px;font-weight:800;color:#fff}
+
+/* REVIEWS */
+.reviews-section{padding:100px 48px;background:var(--bg2)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.review-card{background:#fff;padding:24px;border:1px solid var(--border)}
+.review-stars{font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:10px}
+.review-text{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:14px}
+.review-footer{display:flex;align-items:center;justify-content:space-between}
+.review-author{font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--muted)}
+.review-check{font-size:10px;color:var(--accent);font-weight:600}
+
+/* STATS */
+.stats-section{padding:80px 48px;border-top:1px solid var(--border);background:var(--bg)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-size:48px;font-weight:900;color:var(--dark);line-height:1}
+.stat-num span{color:var(--accent)}
+.stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.nl-section{padding:100px 48px;background:var(--dark);text-align:center}
+.nl-inner{max-width:480px;margin:0 auto}
+.nl-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600}
+.nl-title{font-size:40px;font-weight:900;color:#fff;margin-bottom:10px;line-height:1.05}
+.nl-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:28px;line-height:1.5}
+.nl-form{display:flex;gap:0}
+.nl-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-right:none;color:#fff;padding:12px 16px;font-size:13px;font-family:'Outfit',sans-serif;outline:none}
+.nl-input:focus{border-color:var(--accent)}
+.nl-input::placeholder{color:rgba(255,255,255,.3)}
+.nl-btn{background:var(--accent);color:#fff;border:none;padding:12px 24px;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;font-family:'Outfit',sans-serif}
+.nl-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:10px}
+
+/* FOOTER */
+footer{background:#0d0d0d;padding:60px 48px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-size:18px;font-weight:900;color:#fff;text-decoration:none;display:block;letter-spacing:2px;margin-bottom:12px}
+.f-logo span{color:var(--accent)}
+.f-desc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.6}
+.f-col h5{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;font-weight:600}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:#fff}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:rgba(255,255,255,.25)}
+.f-social{display:flex;gap:10px}
+.f-social a{width:32px;height:32px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--accent);color:var(--accent)}
+
+@media(max-width:768px){
+  nav{padding:0 20px;height:58px}
+  .nav-links,.cart-btn{display:none}
+  .hamburger{display:flex}
+  .hero{grid-template-columns:1fr;margin-top:58px}
+  .hero-left{padding:40px 20px}
+  .hero-right{height:60vw}
+  .hero-bg-text{display:none}
+  .trust-bar{gap:16px;padding:12px 20px}
+  .section{padding:60px 20px}
+  .products-scroll{grid-template-columns:1fr 1fr;gap:12px}
+  .anatomy-section{padding:60px 20px}
+  .anatomy-inner{grid-template-columns:1fr;gap:32px}
+  .video-section{height:360px}
+  .video-title{font-size:28px}
+  .urgency-bar{padding:12px 16px;flex-direction:column;gap:10px;text-align:center}
+  .reviews-section{padding:60px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:12px}
+  .stats-section{padding:60px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:60px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(255,255,255,.1)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .popup-box{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div>
+      <p class="popup-tag">🔥 Oferta de Bienvenida</p>
+      <h2 class="popup-title">Suscríbete y gana<br>$80.000 OFF</h2>
+      <p class="popup-sub">Únete a +30k usuarios que reciben drops exclusivos, reviews y las mejores ofertas tech.</p>
+    </div>
+    <div class="popup-form">
+      <input type="email" class="popup-input" placeholder="tu@correo.com">
+      <button class="popup-btn" onclick="closePopup()">Quiero mi descuento</button>
+      <button class="popup-skip" onclick="closePopup()">No, paso</button>
+    </div>
+  </div>
+</div>
+
+<div class="video-modal" id="videoModal">
+  <button class="vm-close" onclick="closeVideo()">✕</button>
+  <iframe id="videoFrame" src="" allowfullscreen title="Video NEXUS"></iframe>
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">NEXUS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Audio Pro</a></li>
+    <li><a href="#">Cámaras</a></li>
+    <li><a href="#">Smart Home</a></li>
+    <li><a href="#">Wearables</a></li>
+    <li><a href="#">Outlet</a></li>
+  </ul>
+  <div class="nav-icons">
+    <button class="cart-btn">Carrito 🛍</button>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Audio Pro</a>
+  <a href="#" onclick="toggleMenu()">Cámaras</a>
+  <a href="#" onclick="toggleMenu()">Smart Home</a>
+  <a href="#" onclick="toggleMenu()">Wearables</a>
+</div>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-bg-text">NEXUS</div>
+    <p class="hero-eyebrow">Audio de Nueva Generación</p>
+    <h1 class="hero-title">Escucha<br>el mundo<br>en <em>HD.</em></h1>
+    <p class="hero-sub">Audio de estudio. ANC de referencia. 40 horas de batería. La experiencia sonora que cambia todo.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-accent">Comprar ahora</a>
+      <a href="#" class="btn-white">Ver especificaciones</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=85" alt="Headphones">
+    <div class="hero-tag-box">
+      <p>Lanzamiento</p>
+      <strong>SoundCore X</strong>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-dot"></span>Envío en 24h</div>
+  <div class="trust-item"><span class="trust-dot"></span>Garantía 2 años</div>
+  <div class="trust-item"><span class="trust-dot"></span>Devolución sin preguntas</div>
+  <div class="trust-item"><span class="trust-dot"></span>Soporte de por vida</div>
+</div>
+
+<div class="section">
+  <p class="section-eyebrow">Lo más vendido</p>
+  <h2 class="section-title">Elige tu arma<br>de sonido</h2>
+  <div class="products-scroll">
+    <div class="product-card">
+      <div class="product-img-area">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80" alt="SoundCore X">
+        <span class="product-label">NUEVO</span>
+      </div>
+      <div class="product-body">
+        <p class="product-name">SoundCore X</p>
+        <p class="product-desc">40h · ANC 45dB · Hi-Res Audio</p>
+        <div class="product-price-row">
+          <div><span class="product-old">$620.000</span><span class="product-price">$480.000</span></div>
+          <button class="buy-btn">+Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-area">
+        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&q=80" alt="EarPods Pro">
+      </div>
+      <div class="product-body">
+        <p class="product-name">BudsPro TWS</p>
+        <p class="product-desc">8h · ANC · IPX5 · LDAC</p>
+        <div class="product-price-row">
+          <span class="product-price">$280.000</span>
+          <button class="buy-btn">+Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-area">
+        <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&q=80" alt="Soundbar">
+        <span class="product-label">HOT</span>
+      </div>
+      <div class="product-body">
+        <p class="product-name">BarX Soundbar</p>
+        <p class="product-desc">180W · Dolby Atmos · HDMI eARC</p>
+        <div class="product-price-row">
+          <span class="product-price">$840.000</span>
+          <button class="buy-btn">+Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-area">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="DAC">
+      </div>
+      <div class="product-body">
+        <p class="product-name">DAC Pro Mini</p>
+        <p class="product-desc">32bit/384kHz · USB-C · Balanced</p>
+        <div class="product-price-row">
+          <div><span class="product-old">$380.000</span><span class="product-price">$290.000</span></div>
+          <button class="buy-btn">+Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="anatomy-section">
+  <div class="anatomy-inner">
+    <div>
+      <p class="section-eyebrow" style="color:var(--accent)">Tecnología interna</p>
+      <h2 class="section-title" style="color:#fff">Ingeniería<br>de sonido</h2>
+      <div class="anatomy-details">
+        <div class="anatomy-detail">
+          <div class="detail-icon">🎵</div>
+          <div><p class="detail-name">Driver 40mm Premium</p><p class="detail-desc">Membrana de titanio recubierta. Rango 20Hz–40kHz. Respuesta plana de estudio.</p></div>
+        </div>
+        <div class="anatomy-detail">
+          <div class="detail-icon">🔇</div>
+          <div><p class="detail-name">ANC Híbrido 45dB</p><p class="detail-desc">6 micrófonos feedforward + feedback. Algoritmo adaptativo en tiempo real.</p></div>
+        </div>
+        <div class="anatomy-detail">
+          <div class="detail-icon">🔋</div>
+          <div><p class="detail-name">Batería 1200mAh</p><p class="detail-desc">40h ANC activo. Carga rápida: 10min = 4h. Carga USB-C y wireless.</p></div>
+        </div>
+        <div class="anatomy-detail">
+          <div class="detail-icon">📡</div>
+          <div><p class="detail-name">Bluetooth 5.4 + LDAC</p><p class="detail-desc">Multipoint 3 dispositivos. Codec LDAC a 990kbps para audio lossless.</p></div>
+        </div>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Headphones anatomy" class="anatomy-img">
+  </div>
+</section>
+
+<section class="video-section">
+  <div class="video-bg"></div>
+  <div class="video-content">
+    <p class="video-eyebrow">Ver en acción</p>
+    <h2 class="video-title">El sonido<br>que lo cambia todo</h2>
+    <div class="video-play" onclick="openVideo('dQw4w9WgXcQ')">▶</div>
+  </div>
+</section>
+
+<div class="urgency-bar">
+  <p>⏰ Oferta Black Friday: 35% OFF en SoundCore X. Solo quedan 23 unidades. Termina en:</p>
+  <div class="cd-row">
+    <div class="cd-box" id="cd-h">01</div>
+    <span class="cd-dot">:</span>
+    <div class="cd-box" id="cd-m">33</div>
+    <span class="cd-dot">:</span>
+    <div class="cd-box" id="cd-s">55</div>
+  </div>
+</div>
+
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-eyebrow">Reseñas reales</p>
+    <h2 class="section-title">+30.000 oyentes<br>no se equivocan</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El ANC del SoundCore X es impresionante — bloquea todo: metro, oficina, aviones. Y el sonido es de referencia real. No hay nada en este precio que se le acerque."</p>
+        <div class="review-footer"><p class="review-author">@audiofilo_co</p><p class="review-check">✓ Verificado</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Llegó en 18 horas, empaque top, y los audífonos son exactamente lo que prometían. La construcción se siente premium, el LDAC suena brutal con Tidal."</p>
+        <div class="review-footer"><p class="review-author">@music_lover_mx</p><p class="review-check">✓ Verificado</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Tengo los BudsPro para el gym y los SoundCore X para trabajo. NEXUS se convirtió en mi tienda de audio. El soporte respondió mis dudas en minutos."</p>
+        <div class="review-footer"><p class="review-author">@fitpro_juan</p><p class="review-check">✓ Verificado</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stats-inner">
+    <div><p class="stat-num">30<span>k+</span></p><p class="stat-label">Usuarios activos</p></div>
+    <div><p class="stat-num">4<span>.9★</span></p><p class="stat-label">Calificación media</p></div>
+    <div><p class="stat-num">24<span>h</span></p><p class="stat-label">Entrega promedio</p></div>
+    <div><p class="stat-num">99<span>%</span></p><p class="stat-label">Satisfacción</p></div>
+  </div>
+</section>
+
+<section class="nl-section">
+  <div class="nl-inner">
+    <p class="nl-eyebrow">Comunidad NEXUS</p>
+    <h2 class="nl-title">Drops.<br>Antes que todos.</h2>
+    <p class="nl-sub">Nuevos productos, reviews exclusivos y ofertas flash solo para suscriptores.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">Unirme</button>
+    </form>
+    <p class="nl-note">Sin spam · Cancela cuando quieras</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="f-logo">NEXUS<span>.</span></a>
+      <p class="f-desc">Tecnología de audio y lifestyle. Curación experta, precios transparentes y soporte real.</p>
+    </div>
+    <div class="f-col"><h5>Tienda</h5><ul><li><a href="#">Audio Pro</a></li><li><a href="#">Cámaras</a></li><li><a href="#">Smart Home</a></li><li><a href="#">Outlet</a></li></ul></div>
+    <div class="f-col"><h5>Soporte</h5><ul><li><a href="#">Garantía</a></li><li><a href="#">Reparaciones</a></li><li><a href="#">Devoluciones</a></li><li><a href="#">Contacto</a></li></ul></div>
+    <div class="f-col"><h5>NEXUS</h5><ul><li><a href="#">Nosotros</a></li><li><a href="#">Blog</a></li><li><a href="#">Reviews</a></li><li><a href="#">Afiliados</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 NEXUS Audio Store. All rights reserved.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+      <a href="#" title="Twitter"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),1800);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function openVideo(id){
+  document.getElementById('videoFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('videoModal').classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').classList.remove('open');
+}
+(function(){
+  let h=1,m=33,s=55;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=23;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+})();
+</script>
+</body>
+</html>

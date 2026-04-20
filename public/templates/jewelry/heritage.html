@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HERITAGE — Joyería Artesanal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf6ef;--bg2:#f0e8d8;--bg3:#e8d9c4;
+  --brown:#2c1a10;--brown2:#5a3825;
+  --gold:#c49a6c;--gold2:#a0784a;
+  --text:#2c1a10;--muted:#8a6a50;--border:#d4c4b0;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(44,26,16,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .4s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--bg);max-width:420px;width:100%;padding:0;overflow:hidden;border:1px solid var(--border)}
+.popup-header{background:var(--brown);padding:32px;text-align:center;position:relative}
+.popup-close{position:absolute;top:12px;right:12px;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer}
+.popup-header-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.popup-header-title{font-family:'Libre Baskerville',serif;font-size:26px;color:#fff;font-style:italic;line-height:1.2}
+.popup-body{padding:28px}
+.popup-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:20px;line-height:1.6}
+.popup-discount{background:var(--bg2);border:1px dashed var(--gold);padding:12px;text-align:center;margin-bottom:20px}
+.popup-code{font-family:'Libre Baskerville',serif;font-size:22px;font-weight:700;color:var(--brown);letter-spacing:4px}
+.popup-code-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.popup-form{display:flex;flex-direction:column;gap:10px}
+.popup-input{background:#fff;border:1px solid var(--border);padding:11px 16px;font-size:13px;font-family:'Nunito',sans-serif;color:var(--text);outline:none}
+.popup-input:focus{border-color:var(--gold)}
+.popup-btn{background:var(--brown);color:#fff;border:none;padding:12px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Nunito',sans-serif;transition:background .2s}
+.popup-btn:hover{background:var(--brown2)}
+.popup-skip{text-align:center;font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Nunito',sans-serif;margin-top:8px;text-decoration:underline}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:68px;background:rgba(250,246,239,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+.nav-logo{font-family:'Libre Baskerville',serif;font-size:18px;letter-spacing:4px;color:var(--brown);text-decoration:none;text-transform:uppercase}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);font-size:12px;letter-spacing:1px;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--brown)}
+.nav-icons{display:flex;gap:16px;align-items:center}
+.nav-icon{background:none;border:none;color:var(--brown);cursor:pointer;font-size:16px;text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--brown)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Libre Baskerville',serif;font-size:26px;color:var(--brown);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--brown);font-size:22px;cursor:pointer}
+
+/* HERO */
+.hero{margin-top:68px;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 68px)}
+.hero-img{position:relative;overflow:hidden}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block;animation:heroZoom 14s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.05)}}
+.hero-tag{position:absolute;top:32px;left:32px;background:var(--gold);color:#fff;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:6px 14px;font-weight:700}
+.hero-content{display:flex;flex-direction:column;justify-content:center;padding:80px 60px;background:var(--bg2)}
+.hero-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold2);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold2)}
+.hero-title{font-family:'Libre Baskerville',serif;font-size:clamp(36px,4vw,64px);line-height:1.1;margin-bottom:20px;color:var(--brown)}
+.hero-title em{font-style:italic;color:var(--gold2)}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:360px;margin-bottom:36px}
+.btn-primary{display:inline-block;background:var(--brown);color:#fff;padding:14px 36px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.btn-primary:hover{background:var(--brown2)}
+.btn-secondary{display:inline-block;color:var(--brown);font-size:12px;text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:2px;margin-left:20px;font-weight:600;letter-spacing:1px}
+.hero-trust{margin-top:36px;display:flex;gap:24px;flex-wrap:wrap}
+.hero-trust-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+.hero-trust-item svg{color:var(--gold);flex-shrink:0}
+
+/* STRIP */
+.strip{background:var(--brown);padding:12px 48px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.strip-item{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:8px}
+.strip-sep{color:var(--gold);font-size:16px}
+
+/* SECTION */
+.section{padding:100px 48px;max-width:1200px;margin:0 auto}
+.label-row{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.label-line{flex:1;height:1px;background:var(--border)}
+.section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold2)}
+.section-title{font-family:'Libre Baskerville',serif;font-size:clamp(28px,3vw,48px);line-height:1.2;margin-bottom:48px;color:var(--brown)}
+.section-title em{font-style:italic;color:var(--gold2)}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.product-card{cursor:pointer}
+.product-img-wrap{position:relative;overflow:hidden;margin-bottom:16px;background:var(--bg2)}
+.product-img-wrap img{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:transform .5s}
+.product-card:hover .product-img-wrap img{transform:scale(1.04)}
+.product-tag{position:absolute;top:10px;left:10px;background:var(--brown);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 8px;font-weight:600}
+.product-heart{position:absolute;top:8px;right:8px;width:30px;height:30px;background:rgba(250,246,239,.85);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;opacity:0;transition:.2s;cursor:pointer;border:none}
+.product-card:hover .product-heart{opacity:1}
+.product-name{font-family:'Libre Baskerville',serif;font-size:16px;margin-bottom:4px;color:var(--brown)}
+.product-mat{font-size:11px;color:var(--muted);letter-spacing:.5px;margin-bottom:8px}
+.product-price-row{display:flex;align-items:baseline;gap:8px}
+.product-price{font-size:14px;font-weight:600;color:var(--brown)}
+.product-old{font-size:11px;text-decoration:line-through;color:var(--muted)}
+
+/* ANATOMY */
+.anatomy-section{background:var(--bg2);padding:100px 48px}
+.anatomy-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.anatomy-photo-wrap{position:relative}
+.anatomy-photo{width:100%;aspect-ratio:4/5;object-fit:cover}
+.anatomy-caption{position:absolute;bottom:-1px;left:0;right:0;background:var(--brown);padding:20px 24px;display:flex;align-items:center;gap:16px}
+.anatomy-caption-icon{color:var(--gold);font-size:20px}
+.anatomy-caption-text{font-size:12px;color:rgba(255,255,255,.8);line-height:1.4}
+.anatomy-caption-text strong{color:#fff;display:block;font-size:13px;margin-bottom:2px}
+.anatomy-content .section-label{margin-bottom:16px}
+.anatomy-title{font-family:'Libre Baskerville',serif;font-size:36px;line-height:1.2;color:var(--brown);margin-bottom:32px}
+.anatomy-title em{font-style:italic;color:var(--gold2)}
+.anatomy-steps{display:flex;flex-direction:column;gap:0}
+.anatomy-step{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)}
+.anatomy-step:last-child{border-bottom:none}
+.step-num{font-family:'Libre Baskerville',serif;font-size:36px;font-weight:700;color:var(--gold);opacity:.4;line-height:1;min-width:36px}
+.step-body h4{font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;color:var(--brown)}
+.step-body p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* VIDEO */
+.video-section{position:relative;height:480px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.video-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=1400&q=80');background-size:cover;background-position:center;filter:brightness(.45)}
+.video-content{position:relative;z-index:1;text-align:center;padding:20px}
+.video-label{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.video-title{font-family:'Libre Baskerville',serif;font-size:38px;font-style:italic;color:#fff;margin-bottom:28px;line-height:1.2}
+.video-play{width:72px;height:72px;border:1.5px solid rgba(255,255,255,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;cursor:pointer;font-size:22px;color:#fff;transition:background .2s}
+.video-play:hover{background:rgba(255,255,255,.1)}
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.video-modal.open{display:flex}
+.video-modal iframe{width:100%;max-width:900px;aspect-ratio:16/9;border:none}
+.vm-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* URGENCY */
+.urgency-section{background:var(--brown);padding:20px 48px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-text{font-size:13px;color:rgba(255,255,255,.85);letter-spacing:1px}
+.urgency-text strong{color:var(--gold)}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-box{background:rgba(255,255,255,.1);border:1px solid rgba(196,154,108,.3);padding:6px 12px;font-family:'Libre Baskerville',serif;font-size:18px;color:var(--gold);min-width:38px;text-align:center}
+.cd-colon{color:var(--gold);font-size:18px;line-height:1}
+
+/* REVIEWS */
+.reviews-section{padding:100px 48px;background:var(--bg)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-summary{display:flex;align-items:center;gap:32px;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.big-rating{font-family:'Libre Baskerville',serif;font-size:72px;font-weight:700;color:var(--brown);line-height:1}
+.rating-details{flex:1}
+.rating-stars{font-size:20px;color:var(--gold);letter-spacing:3px;margin-bottom:4px}
+.rating-count{font-size:12px;color:var(--muted)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.review-card{background:var(--bg2);border:1px solid var(--border);padding:24px}
+.review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.review-stars-sm{color:var(--gold);font-size:11px;letter-spacing:2px}
+.review-date{font-size:10px;color:var(--muted)}
+.review-text{font-size:13px;font-style:italic;line-height:1.6;color:var(--text);margin-bottom:12px;font-family:'Libre Baskerville',serif}
+.review-author{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.review-verified{font-size:10px;color:var(--gold2);margin-top:2px}
+
+/* STATS */
+.stats-bg{background:var(--bg2);padding:80px 48px}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:var(--brown)}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.nl-section{padding:100px 48px;text-align:center;background:var(--bg3)}
+.nl-inner{max-width:520px;margin:0 auto}
+.nl-icon{font-size:32px;margin-bottom:16px}
+.nl-title{font-family:'Libre Baskerville',serif;font-size:38px;font-style:italic;color:var(--brown);margin-bottom:10px}
+.nl-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.nl-form{display:flex;gap:0}
+.nl-input{flex:1;background:#fff;border:1px solid var(--border);border-right:none;padding:12px 18px;font-size:13px;font-family:'Nunito',sans-serif;color:var(--text);outline:none}
+.nl-input:focus{border-color:var(--gold)}
+.nl-btn{background:var(--brown);color:#fff;border:none;padding:12px 24px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Nunito',sans-serif}
+.nl-btn:hover{background:var(--brown2)}
+.nl-note{font-size:10px;color:var(--muted);margin-top:12px}
+
+/* FOOTER */
+footer{background:var(--brown);padding:60px 48px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-family:'Libre Baskerville',serif;font-size:18px;letter-spacing:4px;color:#fff;text-decoration:none;display:block;text-transform:uppercase;margin-bottom:12px}
+.f-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.7}
+.f-col h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:#fff}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:rgba(255,255,255,.3)}
+.f-social{display:flex;gap:12px}
+.f-social a{width:32px;height:32px;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--gold);color:var(--gold)}
+
+@media(max-width:768px){
+  nav{padding:0 20px;height:60px}
+  .nav-links,.nav-icons{display:none}
+  .hamburger{display:flex}
+  .hero{grid-template-columns:1fr;margin-top:60px}
+  .hero-img{height:55vw}
+  .hero-content{padding:40px 20px;order:2}
+  .strip{gap:16px;padding:12px 20px}
+  .section{padding:60px 20px}
+  .products-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .anatomy-section{padding:60px 20px}
+  .anatomy-inner{grid-template-columns:1fr;gap:32px}
+  .anatomy-photo{aspect-ratio:4/3}
+  .video-section{height:360px}
+  .video-title{font-size:28px}
+  .urgency-section{padding:14px 16px;flex-direction:column;gap:12px;text-align:center}
+  .reviews-section{padding:60px 20px}
+  .reviews-summary{flex-direction:column;text-align:center;gap:16px}
+  .reviews-grid{grid-template-columns:1fr;gap:12px}
+  .stats-bg{padding:60px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:60px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid var(--border)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-header">
+      <button class="popup-close" onclick="closePopup()">✕</button>
+      <p class="popup-header-eyebrow">Bienvenida a Heritage</p>
+      <h2 class="popup-header-title">Tu primera joya<br>con 12% de descuento</h2>
+    </div>
+    <div class="popup-body">
+      <p class="popup-sub">Suscríbete y recibe tu código exclusivo de bienvenida. Tradición artesanal colombiana desde 1998.</p>
+      <div class="popup-discount">
+        <p class="popup-code">BIENVENIDA12</p>
+        <p class="popup-code-label">Copia este código · Solo nuevos clientes</p>
+      </div>
+      <form class="popup-form" onsubmit="closePopup();return false">
+        <input type="email" class="popup-input" placeholder="Correo electrónico">
+        <button type="submit" class="popup-btn">Reclamar descuento</button>
+      </form>
+      <button class="popup-skip" onclick="closePopup()">No, gracias</button>
+    </div>
+  </div>
+</div>
+
+<div class="video-modal" id="videoModal">
+  <button class="vm-close" onclick="closeVideo()">✕</button>
+  <iframe id="videoFrame" src="" allowfullscreen title="Video Heritage"></iframe>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">HERITAGE</a>
+  <ul class="nav-links">
+    <li><a href="#">Colecciones</a></li>
+    <li><a href="#">Anillos</a></li>
+    <li><a href="#">Collares</a></li>
+    <li><a href="#">Personalizar</a></li>
+    <li><a href="#">Historia</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#" class="nav-icon">♡</a>
+    <a href="#" class="nav-icon">🛍</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Colecciones</a>
+  <a href="#" onclick="toggleMenu()">Anillos</a>
+  <a href="#" onclick="toggleMenu()">Collares</a>
+  <a href="#" onclick="toggleMenu()">Personalizar</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=1000&q=85" alt="Heritage Jewelry">
+    <span class="hero-tag">Artesanal desde 1998</span>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Colección Raíces</p>
+    <h1 class="hero-title">Joyas con<br>alma <em>propia.</em></h1>
+    <p class="hero-sub">Cada pieza Heritage lleva consigo la historia de nuestra familia artesana. Oro colombiano, técnicas ancestrales, diseño contemporáneo.</p>
+    <div>
+      <a href="#" class="btn-primary">Explorar Colección</a>
+      <a href="#" class="btn-secondary">Nuestra historia</a>
+    </div>
+    <div class="hero-trust">
+      <div class="hero-trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Certificado de autenticidad
+      </div>
+      <div class="hero-trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Personalización gratuita
+      </div>
+      <div class="hero-trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Envío asegurado
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">✦ Oro 18k Colombiano</div>
+  <div class="strip-sep">|</div>
+  <div class="strip-item">Artesanal — Sin fábrica</div>
+  <div class="strip-sep">|</div>
+  <div class="strip-item">Certificado de Origen</div>
+  <div class="strip-sep">|</div>
+  <div class="strip-item">Grabado Personalizado Gratis</div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section">
+  <div class="label-row">
+    <div class="label-line"></div>
+    <span class="section-label">Colección Actual</span>
+    <div class="label-line"></div>
+  </div>
+  <h2 class="section-title" style="text-align:center">Piezas <em>artesanales</em><br>más queridas</h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=400&q=80" alt="">
+        <span class="product-tag">Bestseller</span>
+        <button class="product-heart">♡</button>
+      </div>
+      <p class="product-name">Anillo Raíces</p>
+      <p class="product-mat">Filigrana · Oro 18k</p>
+      <div class="product-price-row"><span class="product-price">$1.850.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=400&q=80" alt="">
+        <button class="product-heart">♡</button>
+      </div>
+      <p class="product-name">Collar Ancestro</p>
+      <p class="product-mat">Técnica precolombina · Oro</p>
+      <div class="product-price-row"><span class="product-price">$3.200.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1573408301185-9519f94816b5?w=400&q=80" alt="">
+        <span class="product-tag">Nuevo</span>
+        <button class="product-heart">♡</button>
+      </div>
+      <p class="product-name">Aretes Calados</p>
+      <p class="product-mat">Filigrana · Oro Rosa</p>
+      <div class="product-price-row"><span class="product-price">$980.000</span><span class="product-old">$1.200.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="">
+        <button class="product-heart">♡</button>
+      </div>
+      <p class="product-name">Pulsera Herencia</p>
+      <p class="product-mat">Macramé y Oro</p>
+      <div class="product-price-row"><span class="product-price">$1.450.000</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ANATOMY -->
+<section class="anatomy-section">
+  <div class="anatomy-inner">
+    <div class="anatomy-photo-wrap">
+      <img src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=700&q=80" alt="Artesano Heritage" class="anatomy-photo">
+      <div class="anatomy-caption">
+        <span class="anatomy-caption-icon">🏆</span>
+        <div class="anatomy-caption-text">
+          <strong>Don Carlos — Maestro Joyero</strong>
+          35 años perfeccionando la filigrana colombiana
+        </div>
+      </div>
+    </div>
+    <div class="anatomy-content">
+      <p class="section-label">Nuestro Proceso</p>
+      <h2 class="anatomy-title">Hecho a mano,<br>pieza a <em>pieza</em></h2>
+      <div class="anatomy-steps">
+        <div class="anatomy-step">
+          <span class="step-num">01</span>
+          <div class="step-body">
+            <h4>Fundición del Metal</h4>
+            <p>Oro colombiano de la región de Chocó, fundido a 1064°C para eliminar impurezas.</p>
+          </div>
+        </div>
+        <div class="anatomy-step">
+          <span class="step-num">02</span>
+          <div class="step-body">
+            <h4>Tejido de Filigrana</h4>
+            <p>Hilos de oro de 0.2mm tejidos a mano en patrones inspirados en arte precolombino.</p>
+          </div>
+        </div>
+        <div class="anatomy-step">
+          <span class="step-num">03</span>
+          <div class="step-body">
+            <h4>Engaste de Piedras</h4>
+            <p>Esmeraldas y piedras semipreciosas engastadas una a una con herramientas de precisión.</p>
+          </div>
+        </div>
+        <div class="anatomy-step">
+          <span class="step-num">04</span>
+          <div class="step-body">
+            <h4>Pulido y Certificación</h4>
+            <p>Acabado espejo artesanal y emisión de certificado de autenticidad numerado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="video-bg"></div>
+  <div class="video-content">
+    <p class="video-label">Detrás del taller</p>
+    <h2 class="video-title">El arte de la<br>filigrana colombiana</h2>
+    <div class="video-play" onclick="openVideo('dQw4w9WgXcQ')">▶</div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-section">
+  <p class="urgency-text">⏳ <strong>Colección Raíces:</strong> Solo 12 piezas disponibles este mes. Piezas únicas, no se repiten.</p>
+  <div class="cd-row">
+    <div class="cd-box" id="cd-h">03</div>
+    <span class="cd-colon">:</span>
+    <div class="cd-box" id="cd-m">48</div>
+    <span class="cd-colon">:</span>
+    <div class="cd-box" id="cd-s">22</div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-label" style="margin-bottom:12px">Testimonios</p>
+    <h2 class="section-title">Historias de<br>nuestras <em>clientas</em></h2>
+    <div class="reviews-summary">
+      <p class="big-rating">4.9</p>
+      <div class="rating-details">
+        <p class="rating-stars">★★★★★</p>
+        <p class="rating-count">+1,240 reseñas verificadas · 97% recomiendan</p>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-stars-sm">★★★★★</span>
+          <span class="review-date">hace 1 semana</span>
+        </div>
+        <p class="review-text">"El anillo que pedí es una verdadera obra de arte. La filigrana es tan delicada y perfecta. Llevo el orgullo de Colombia en mi mano."</p>
+        <p class="review-author">Lorena G. — Bogotá</p>
+        <p class="review-verified">✓ Compra verificada</p>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-stars-sm">★★★★★</span>
+          <span class="review-date">hace 3 semanas</span>
+        </div>
+        <p class="review-text">"Personalicé el collar con las iniciales de mis hijas y quedó perfecto. El grabado es tan fino y elegante. Definitivamente un tesoro familiar."</p>
+        <p class="review-author">Patricia M. — Medellín</p>
+        <p class="review-verified">✓ Compra verificada</p>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-stars-sm">★★★★★</span>
+          <span class="review-date">hace 1 mes</span>
+        </div>
+        <p class="review-text">"Compré como regalo de bodas y la pareja quedó emocionada. La caja de presentación, el certificado, todo habla de una marca que ama lo que hace."</p>
+        <p class="review-author">Camila R. — Cali</p>
+        <p class="review-verified">✓ Compra verificada</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bg">
+  <div class="stats-inner">
+    <div><p class="stat-num">27</p><p class="stat-label">Años de tradición</p></div>
+    <div><p class="stat-num">1.2k+</p><p class="stat-label">Reseñas 5 ★</p></div>
+    <div><p class="stat-num">100%</p><p class="stat-label">Artesanal</p></div>
+    <div><p class="stat-num">8k+</p><p class="stat-label">Piezas únicas</p></div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="nl-section">
+  <div class="nl-inner">
+    <div class="nl-icon">✉</div>
+    <h2 class="nl-title">Historias<br>que inspiran</h2>
+    <p class="nl-sub">Nuevas colecciones, el proceso artesanal y descuentos exclusivos directo a tu correo.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">Suscribirme</button>
+    </form>
+    <p class="nl-note">Privacidad garantizada · Darse de baja en cualquier momento</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="f-logo">HERITAGE</a>
+      <p class="f-desc">Joyería artesanal colombiana desde 1998. Filigrana, esmeraldas y técnicas ancestrales en cada pieza.</p>
+    </div>
+    <div class="f-col">
+      <h5>Tienda</h5>
+      <ul>
+        <li><a href="#">Colecciones</a></li>
+        <li><a href="#">Personalizar</a></li>
+        <li><a href="#">Novedades</a></li>
+        <li><a href="#">Ofertas</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Ayuda</h5>
+      <ul>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Garantía</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Empresa</h5>
+      <ul>
+        <li><a href="#">Historia</a></li>
+        <li><a href="#">Artesanos</a></li>
+        <li><a href="#">Responsabilidad</a></li>
+        <li><a href="#">Prensa</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 HERITAGE Joyería. Todos los derechos reservados.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="Facebook"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="#" title="Pinterest"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83l1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.89 1.54 1.89 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.34-4.23-2.96 0-4.69 2.22-4.69 4.51 0 .89.34 1.85.77 2.37.08.1.09.19.07.29l-.28 1.18c-.04.19-.14.23-.32.14-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.44-2.17 6.21-5.18 6.21-1.01 0-1.96-.53-2.29-1.14l-.62 2.33c-.22.86-.83 1.94-1.24 2.6.93.29 1.92.44 2.94.44 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),1800);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function openVideo(id){
+  document.getElementById('videoFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('videoModal').classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').classList.remove('open');
+}
+(function(){
+  let h=3,m=48,s=22;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=23;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+})();
+</script>
+</body>
+</html>

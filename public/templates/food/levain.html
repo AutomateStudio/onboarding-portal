@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEVAIN — Panadería & Alimentos Orgánicos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --warm-white: #fdf8f0;
+    --green: #2d4a2d;
+    --green-light: #4a6741;
+    --terra: #c4856a;
+    --terra-light: #f5e6df;
+    --warm-gray: #e8ddd0;
+    --dark: #1c1410;
+    --muted: #7a6a5a;
+    --card: #f5ede5;
+    --font-head: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--dark); font-family: var(--font-body); overflow-x: hidden; }
+
+  /* PROMO BAR */
+  .promo-bar {
+    background: var(--green);
+    color: rgba(255,255,255,0.85);
+    text-align: center; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.5px; padding: 8px 20px;
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+  }
+  .promo-bar strong { color: #a8d4a0; }
+  .promo-close { cursor: pointer; opacity: 0.6; font-size: 16px; margin-left: 12px; }
+
+  /* NAV */
+  nav {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--warm-gray);
+    padding: 0 60px;
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; height: 72px;
+    position: sticky; top: 0; z-index: 100;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(45,74,45,0.08); }
+  .nav-left { display: flex; gap: 28px; }
+  .nav-left a, .nav-right a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0.3px; transition: color 0.2s; }
+  .nav-left a:hover, .nav-right a:hover { color: var(--green); }
+  .nav-logo { text-align: center; font-family: var(--font-head); font-size: 28px; font-weight: 300; letter-spacing: 6px; color: var(--dark); text-decoration: none; text-transform: uppercase; }
+  .nav-right { display: flex; gap: 28px; justify-content: flex-end; align-items: center; }
+  .nav-cart { background: var(--green); color: #fff; padding: 8px 20px; border-radius: 100px; font-size: 12px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+  .nav-cart:hover { background: var(--green-light); }
+
+  /* HERO - SPLIT */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 90vh;
+  }
+  .hero-left {
+    background: var(--card);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 80px 80px 100px;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--terra-light); color: var(--terra);
+    font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 32px; width: fit-content;
+  }
+  .hero-title {
+    font-family: var(--font-head);
+    font-size: clamp(48px, 5vw, 76px);
+    font-weight: 300; line-height: 1.1; color: var(--dark);
+    margin-bottom: 24px;
+  }
+  .hero-title strong { font-weight: 700; font-style: italic; color: var(--green); }
+  .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 380px; margin-bottom: 44px; }
+  .hero-ctas { display: flex; gap: 16px; align-items: center; margin-bottom: 52px; }
+  .btn-green {
+    background: var(--green); color: #fff;
+    padding: 14px 32px; border-radius: 6px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-green:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,74,45,0.25); }
+  .btn-outline {
+    color: var(--green); font-size: 13px; font-weight: 600;
+    text-decoration: none; border-bottom: 1.5px solid var(--green);
+    padding-bottom: 2px; transition: color 0.2s;
+  }
+  .hero-certifications { display: flex; gap: 20px; flex-wrap: wrap; }
+  .cert-badge {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: rgba(45,74,45,0.08);
+    border-radius: 8px; border: 1px solid rgba(45,74,45,0.12);
+  }
+  .cert-icon { font-size: 16px; }
+  .cert-text { font-size: 11px; font-weight: 600; color: var(--green); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-right img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-badge {
+    position: absolute; bottom: 40px; left: -20px;
+    background: var(--warm-white); border-radius: 16px;
+    padding: 20px 24px; box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    min-width: 180px;
+  }
+  .hero-badge-title { font-family: var(--font-head); font-size: 32px; font-weight: 600; color: var(--green); line-height: 1; }
+  .hero-badge-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .hero-badge-stars { color: #f5a623; font-size: 12px; margin-top: 6px; }
+
+  /* AS FEATURED IN */
+  .featured-in {
+    background: var(--warm-white);
+    border-top: 1px solid var(--warm-gray); border-bottom: 1px solid var(--warm-gray);
+    padding: 32px 60px;
+    display: flex; align-items: center; gap: 40px;
+  }
+  .featured-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .featured-divider { width: 1px; height: 30px; background: var(--warm-gray); }
+  .featured-logos { display: flex; gap: 48px; align-items: center; flex-wrap: wrap; }
+  .featured-logo { font-family: var(--font-head); font-size: 18px; font-weight: 600; color: var(--muted); opacity: 0.35; letter-spacing: 1px; transition: opacity 0.2s; cursor: default; }
+  .featured-logo:hover { opacity: 0.6; }
+
+  /* BEST SELLERS */
+  .bestsellers { padding: 100px 60px; background: var(--warm-white); }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
+  .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--terra); margin-bottom: 10px; }
+  .section-title { font-family: var(--font-head); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; color: var(--dark); line-height: 1.1; }
+  .section-title em { font-style: italic; font-weight: 600; color: var(--green); }
+  .view-all { font-size: 13px; font-weight: 600; color: var(--green); text-decoration: none; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--green); padding-bottom: 2px; }
+  .products-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .prod { background: var(--card); border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+  .prod:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(28,20,16,0.1); }
+  .prod-img { position: relative; aspect-ratio: 1; overflow: hidden; }
+  .prod-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .prod:hover .prod-img img { transform: scale(1.07); }
+  .prod-tag { position: absolute; top: 12px; left: 12px; background: var(--green); color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; }
+  .wishlist { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .wishlist:hover { background: var(--terra); color: #fff; }
+  .quick-add {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: var(--green); color: #fff;
+    text-align: center; padding: 11px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    transform: translateY(100%); transition: transform 0.25s;
+    cursor: pointer; border: none; width: 100%; font-family: var(--font-body);
+  }
+  .prod:hover .quick-add { transform: translateY(0); }
+  .prod-body { padding: 18px 18px 20px; }
+  .prod-cat { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terra); margin-bottom: 6px; }
+  .prod-name { font-family: var(--font-head); font-size: 18px; font-weight: 500; color: var(--dark); margin-bottom: 6px; line-height: 1.3; }
+  .prod-weight { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .prod-foot { display: flex; align-items: center; justify-content: space-between; }
+  .prod-price { font-size: 18px; font-weight: 700; color: var(--dark); font-family: var(--font-head); }
+  .prod-rating { font-size: 12px; color: #f5a623; display: flex; align-items: center; gap: 4px; }
+  .prod-rating span { color: var(--muted); font-size: 11px; }
+
+  /* STORY SECTION */
+  .story {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; background: var(--green);
+    min-height: 600px;
+  }
+  .story-img { overflow: hidden; }
+  .story-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .story-content {
+    padding: 80px 80px 80px 72px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .story-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+  .story-title { font-family: var(--font-head); font-size: 52px; font-weight: 300; color: #fff; line-height: 1.1; margin-bottom: 24px; }
+  .story-title strong { font-weight: 600; font-style: italic; }
+  .story-body { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.9; margin-bottom: 36px; }
+  .story-values { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+  .value-item { padding: 16px 18px; background: rgba(255,255,255,0.08); border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
+  .value-icon { font-size: 22px; margin-bottom: 8px; }
+  .value-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
+  .value-desc { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+  .btn-white { background: #fff; color: var(--green); padding: 13px 30px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-white:hover { background: var(--warm-white); transform: translateY(-2px); }
+
+  /* NUTRITIONAL INFO / TABS */
+  .nutrition { padding: 90px 60px; background: var(--card); }
+  .nutrition-header { text-align: center; margin-bottom: 52px; }
+  .tabs { display: flex; gap: 0; border: 1px solid var(--warm-gray); border-radius: 8px; overflow: hidden; margin-bottom: 48px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .tab { flex: 1; padding: 12px 20px; text-align: center; font-size: 13px; font-weight: 600; cursor: pointer; background: #fff; color: var(--muted); border: none; transition: all 0.2s; font-family: var(--font-body); }
+  .tab.active { background: var(--green); color: #fff; }
+  .nutrition-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .nut-card { background: #fff; border-radius: 14px; padding: 28px; border: 1px solid var(--warm-gray); }
+  .nut-emoji { font-size: 32px; margin-bottom: 12px; }
+  .nut-title { font-family: var(--font-head); font-size: 20px; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+  .nut-body { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .nut-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .nut-tag { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 100px; background: rgba(45,74,45,0.08); color: var(--green); }
+
+  /* REVIEWS CAROUSEL */
+  .reviews { padding: 90px 60px; background: var(--warm-white); }
+  .reviews-header { text-align: center; margin-bottom: 52px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .review { background: var(--card); border-radius: 14px; padding: 30px; }
+  .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+  .review-stars { color: #f5a623; font-size: 14px; }
+  .review-verified-badge { font-size: 9px; font-weight: 700; color: var(--green); background: rgba(45,74,45,0.1); padding: 3px 8px; border-radius: 100px; letter-spacing: 0.5px; }
+  .review-text { font-family: var(--font-head); font-style: italic; font-size: 17px; color: var(--dark); line-height: 1.6; margin-bottom: 20px; }
+  .review-footer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .reviewer-name { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .reviewer-info { font-size: 11px; color: var(--muted); }
+  .overall-rating { text-align: center; margin-bottom: 40px; }
+  .rating-big { font-family: var(--font-head); font-size: 72px; font-weight: 300; color: var(--green); line-height: 1; }
+  .rating-stars-big { font-size: 20px; color: #f5a623; margin: 8px 0; }
+  .rating-count { font-size: 13px; color: var(--muted); }
+
+  /* BLOG / RECIPES */
+  .recipes { padding: 90px 60px; background: var(--card); }
+  .recipes-header { margin-bottom: 48px; }
+  .recipes-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; }
+  .recipe-card { border-radius: 14px; overflow: hidden; background: var(--warm-white); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+  .recipe-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(28,20,16,0.1); }
+  .recipe-img { overflow: hidden; }
+  .recipe-img img { width: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+  .recipe-img.tall img { height: 320px; }
+  .recipe-img.short img { height: 200px; }
+  .recipe-card:hover .recipe-img img { transform: scale(1.04); }
+  .recipe-body { padding: 20px; }
+  .recipe-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--terra); margin-bottom: 8px; }
+  .recipe-title { font-family: var(--font-head); font-size: 20px; font-weight: 600; color: var(--dark); line-height: 1.3; margin-bottom: 8px; }
+  .recipe-meta { font-size: 12px; color: var(--muted); }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: var(--terra-light);
+    padding: 100px 60px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .nl-title { font-family: var(--font-head); font-size: 52px; font-weight: 300; color: var(--dark); line-height: 1.15; margin-bottom: 16px; }
+  .nl-title strong { font-weight: 700; font-style: italic; color: var(--terra); }
+  .nl-sub { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+  .nl-form { display: flex; flex-direction: column; gap: 12px; max-width: 400px; }
+  .nl-name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .nl-input {
+    width: 100%; padding: 13px 18px; border: 1.5px solid var(--warm-gray);
+    background: #fff; border-radius: 8px; font-size: 14px; color: var(--dark);
+    outline: none; font-family: var(--font-body); transition: border-color 0.2s;
+  }
+  .nl-input:focus { border-color: var(--green); }
+  .nl-input::placeholder { color: var(--muted); opacity: 0.6; }
+  .nl-submit { padding: 14px 30px; background: var(--green); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font-body); transition: all 0.2s; text-align: center; }
+  .nl-submit:hover { background: var(--green-light); transform: translateY(-1px); }
+  .nl-visual img { width: 100%; border-radius: 20px; aspect-ratio: 3/4; object-fit: cover; }
+  .nl-incentive { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding: 14px 20px; background: rgba(196,133,106,0.12); border-radius: 10px; border: 1px solid rgba(196,133,106,0.25); }
+  .nl-incentive-icon { font-size: 24px; }
+  .nl-incentive-text { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .nl-incentive-text span { color: var(--terra); }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: rgba(255,255,255,0.55); padding: 72px 60px 36px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+  .footer-logo { font-family: var(--font-head); font-size: 28px; font-weight: 300; letter-spacing: 6px; color: #fff; margin-bottom: 16px; display: block; text-transform: uppercase; }
+  .footer-desc { font-size: 13px; line-height: 1.8; max-width: 280px; margin-bottom: 24px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .f-social { width: 34px; height: 34px; border-radius: 8px; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+  .f-social:hover { background: var(--terra); }
+  .footer-col h5 { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { font-size: 13px; text-decoration: none; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+  .footer-col ul li a:hover { color: rgba(255,255,255,0.9); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+  .footer-certifications { display: flex; gap: 16px; align-items: center; }
+  .f-cert { font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ────────────────────────────────────────────── */
+  .nav-hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 24px; color: var(--dark); padding: 4px; line-height: 1; }
+
+  @media (max-width: 768px) {
+    /* NAV */
+    nav { padding: 0 20px; height: 60px; grid-template-columns: 1fr auto 1fr; }
+    .nav-left { display: none; }
+    .nav-right { justify-content: flex-end; }
+    .nav-right a:not(.nav-cart):not(.nav-hamburger-wrap) { display: none; }
+    .nav-cart { display: none; }
+    .nav-hamburger { display: block; }
+    .nav-logo { font-size: 22px; letter-spacing: 4px; }
+    nav.mobile-open .nav-left { display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; background: var(--warm-white); padding: 24px 20px; gap: 18px; z-index: 200; border-bottom: 1px solid var(--warm-gray); }
+    nav.mobile-open .nav-left a { font-size: 16px; font-weight: 600; color: var(--dark); border-bottom: 1px solid var(--warm-gray); padding-bottom: 14px; }
+    nav.mobile-open .nav-right .nav-cart { display: inline-block; }
+
+    /* PROMO */
+    .promo-bar { font-size: 11px; gap: 6px; flex-wrap: wrap; padding: 7px 16px; }
+    .promo-bar span:nth-child(2) { display: none; }
+    .promo-bar span:nth-child(3) { display: none; }
+
+    /* HERO — imagen de fondo con texto encima */
+    .hero { display: block; position: relative; height: 88vh; min-height: 580px; overflow: hidden; }
+    .hero-right { position: absolute; inset: 0; z-index: 0; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,14,8,0.88) 0%, rgba(20,14,8,0.55) 45%, rgba(20,14,8,0.2) 100%); }
+    .hero-badge { display: none; }
+    .hero-left { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 20px 48px; background: none; }
+    .hero-tag { background: rgba(196,133,106,0.25); color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.2); font-size: 10px; padding: 5px 12px; margin-bottom: 20px; }
+    .hero-title { color: #fff; font-size: 42px; margin-bottom: 14px; }
+    .hero-title strong { color: #e8d4c0; }
+    .hero-sub { color: rgba(255,255,255,0.72); font-size: 14px; margin-bottom: 28px; max-width: 100%; }
+    .hero-ctas { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 24px; }
+    .btn-green { width: 100%; text-align: center; padding: 13px 24px; }
+    .btn-outline { color: rgba(255,255,255,0.85); border-bottom-color: rgba(255,255,255,0.4); }
+    .hero-certifications { flex-wrap: wrap; gap: 8px; }
+    .cert-badge { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); }
+    .cert-text { color: rgba(255,255,255,0.85); }
+
+    /* FEATURED IN */
+    .featured-in { padding: 20px; flex-wrap: wrap; gap: 12px; }
+    .featured-divider { display: none; }
+    .featured-logos { gap: 20px; flex-wrap: wrap; }
+
+    /* BEST SELLERS */
+    .bestsellers { padding: 48px 20px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 32px; }
+    .section-title { font-size: 30px; }
+    .products-row { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .prod-body { padding: 14px 12px 16px; }
+    .prod-name { font-size: 15px; }
+    .prod-weight { font-size: 11px; }
+    .prod-price { font-size: 16px; }
+
+    /* STORY */
+    .story { grid-template-columns: 1fr; }
+    .story-img { height: 260px; }
+    .story-content { padding: 44px 20px; }
+    .story-title { font-size: 36px; }
+    .story-body { font-size: 14px; }
+    .story-values { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .value-name { font-size: 12px; }
+    .value-desc { font-size: 10px; }
+
+    /* NUTRITION */
+    .nutrition { padding: 48px 20px; }
+    .nutrition-grid { grid-template-columns: 1fr; gap: 14px; }
+    .tabs { max-width: 100%; }
+
+    /* REVIEWS */
+    .reviews { padding: 48px 20px; }
+    .reviews-grid { grid-template-columns: 1fr; gap: 14px; }
+    .rating-big { font-size: 56px; }
+
+    /* RECIPES */
+    .recipes { padding: 48px 20px; }
+    .recipes-grid { grid-template-columns: 1fr; gap: 14px; }
+    .recipe-img.tall img, .recipe-img.short img { height: 200px; }
+
+    /* NEWSLETTER */
+    .newsletter { grid-template-columns: 1fr; padding: 48px 20px; gap: 32px; }
+    .nl-visual { display: none; }
+    .nl-title { font-size: 36px; }
+    .nl-sub { font-size: 14px; margin-bottom: 20px; }
+    .nl-name-row { grid-template-columns: 1fr; }
+    .nl-submit { padding: 13px 24px; }
+
+    /* FOOTER */
+    footer { padding: 44px 20px 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 40px; }
+    .footer-desc { max-width: 100%; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    .footer-certifications { justify-content: center; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: 32px; }
+    .story-values { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PROMO BAR -->
+<div class="promo-bar">
+  <span>🌾 Ingredientes orgánicos certificados · <strong>Envío gratis</strong> en pedidos +$120.000</span>
+  <span>·</span>
+  <span>Usa el código <strong>BIENVENIDO</strong> y obtén 15% de descuento en tu primer pedido</span>
+  <span class="promo-close">✕</span>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-left" id="nav-left">
+    <a href="#">Tienda</a>
+    <a href="#">Categorías</a>
+    <a href="#">Recetas</a>
+  </div>
+  <a href="#" class="nav-logo">Levain</a>
+  <div class="nav-right" id="nav-right">
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">☰</button>
+    <a href="#">Nuestra historia</a>
+    <a href="#">Blog</a>
+    <a href="#" class="nav-cart">🛒 Carrito (0)</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">🌿 Nuevo lanzamiento de temporada</div>
+    <h1 class="hero-title">Pan, origen<br>y <strong>propósito.</strong></h1>
+    <p class="hero-sub">Harinas de grano entero molidas a la piedra, masa madre cultivada en casa y recetas transmitidas por generaciones. Eso es Levain.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-green">Ver colección</a>
+      <a href="#" class="btn-outline">Conocer más →</a>
+    </div>
+    <div class="hero-certifications">
+      <div class="cert-badge"><span class="cert-icon">🌾</span><span class="cert-text">Harina orgánica</span></div>
+      <div class="cert-badge"><span class="cert-icon">🚫</span><span class="cert-text">Sin gluten opc.</span></div>
+      <div class="cert-badge"><span class="cert-icon">🤝</span><span class="cert-text">Comercio justo</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80" alt="Pan artesanal Levain">
+    <div class="hero-badge">
+      <div class="hero-badge-title">98%</div>
+      <div class="hero-badge-sub">Satisfacción garantizada</div>
+      <div class="hero-badge-stars">★★★★★ (2.4k reseñas)</div>
+    </div>
+  </div>
+</div>
+
+<!-- AS FEATURED IN -->
+<div class="featured-in">
+  <span class="featured-label">Mencionados en</span>
+  <div class="featured-divider"></div>
+  <div class="featured-logos">
+    <div class="featured-logo">El Espectador</div>
+    <div class="featured-logo">Vogue CO</div>
+    <div class="featured-logo">Food & Wine</div>
+    <div class="featured-logo">Semana</div>
+    <div class="featured-logo">GQ Colombia</div>
+  </div>
+</div>
+
+<!-- BEST SELLERS -->
+<section class="bestsellers fade-up">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Los más pedidos</p>
+      <h2 class="section-title">Clásicos que<br>nunca <em>fallan</em></h2>
+    </div>
+    <a href="#" class="view-all">Catálogo completo →</a>
+  </div>
+  <div class="products-row">
+    <div class="prod fade-up">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80" alt="Pan masa madre">
+        <span class="prod-tag">Bestseller</span>
+        <span class="wishlist">♡</span>
+        <button class="quick-add">+ Añadir al carrito</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Panadería</div>
+        <div class="prod-name">Pan de Masa Madre Clásico</div>
+        <div class="prod-weight">850g · Fermentación 24h</div>
+        <div class="prod-foot">
+          <div class="prod-price">$38.000</div>
+          <div class="prod-rating">★★★★★ <span>(312)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="prod fade-up">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80" alt="Croissant">
+        <span class="wishlist">♡</span>
+        <button class="quick-add">+ Añadir al carrito</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Pastelería</div>
+        <div class="prod-name">Croissant de Mantequilla</div>
+        <div class="prod-weight">Pack x6 · Laminado 3 días</div>
+        <div class="prod-foot">
+          <div class="prod-price">$52.000</div>
+          <div class="prod-rating">★★★★★ <span>(189)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="prod fade-up">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=400&q=80" alt="Granola">
+        <span class="prod-tag">Nuevo</span>
+        <span class="wishlist">♡</span>
+        <button class="quick-add">+ Añadir al carrito</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Desayunos</div>
+        <div class="prod-name">Granola de Avena y Almendras</div>
+        <div class="prod-weight">500g · Bajo en azúcar</div>
+        <div class="prod-foot">
+          <div class="prod-price">$44.000</div>
+          <div class="prod-rating">★★★★☆ <span>(98)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="prod fade-up">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400&q=80" alt="Chocolate">
+        <span class="wishlist">♡</span>
+        <button class="quick-add">+ Añadir al carrito</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Chocolates</div>
+        <div class="prod-name">Chocolate de Origen Colombiano</div>
+        <div class="prod-weight">100g · Cacao 72% Huila</div>
+        <div class="prod-foot">
+          <div class="prod-price">$28.000</div>
+          <div class="prod-rating">★★★★★ <span>(445)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STORY (Green split) -->
+<div class="story">
+  <div class="story-img">
+    <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=800&q=80" alt="Historia Levain">
+  </div>
+  <div class="story-content">
+    <p class="story-eyebrow">Nuestra filosofía</p>
+    <h2 class="story-title">Hacemos<br><strong>comida real.</strong></h2>
+    <p class="story-body">Levain nació de una obsesión: entender por qué el pan de la abuela sabía diferente. La respuesta estaba en el tiempo, los ingredientes y el respeto por el proceso. Hoy hacemos lo mismo, a escala humana.</p>
+    <div class="story-values">
+      <div class="value-item">
+        <div class="value-icon">⏱️</div>
+        <div class="value-name">Sin prisa</div>
+        <div class="value-desc">Fermentación lenta de 18-48h</div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🌾</div>
+        <div class="value-name">Granos enteros</div>
+        <div class="value-desc">Molinos de piedra locales</div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🤲</div>
+        <div class="value-name">Artesanal</div>
+        <div class="value-desc">Formado a mano, pieza a pieza</div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🌿</div>
+        <div class="value-name">Orgánico</div>
+        <div class="value-desc">Certificado USDA & ICA Colombia</div>
+      </div>
+    </div>
+    <a href="#" class="btn-white">Ver quiénes somos →</a>
+  </div>
+</div>
+
+<!-- NUTRITIONAL / TABS -->
+<section class="nutrition fade-up">
+  <div class="nutrition-header">
+    <p class="section-eyebrow">Transparencia total</p>
+    <h2 class="section-title" style="font-size:42px;">Lo que está<br><em>adentro importa</em></h2>
+  </div>
+  <div class="tabs">
+    <button class="tab active">Ingredientes</button>
+    <button class="tab">Alérgenos</button>
+    <button class="tab">Nutricional</button>
+  </div>
+  <div class="nutrition-grid">
+    <div class="nut-card fade-up">
+      <div class="nut-emoji">🌾</div>
+      <div class="nut-title">Harinas orgánicas</div>
+      <div class="nut-body">Molidas a la piedra en molinos artesanales. Conservan el germen y el salvado para máxima nutrición.</div>
+      <div class="nut-tags"><span class="nut-tag">Sin blanquear</span><span class="nut-tag">Integral</span><span class="nut-tag">Colombia</span></div>
+    </div>
+    <div class="nut-card fade-up">
+      <div class="nut-emoji">🧫</div>
+      <div class="nut-title">Masa madre viva</div>
+      <div class="nut-body">Cultivada en nuestra panadería hace 8 años. Mejora la digestibilidad y da el sabor único de Levain.</div>
+      <div class="nut-tags"><span class="nut-tag">Prebiótica</span><span class="nut-tag">Digestiva</span><span class="nut-tag">Sin levadura industrial</span></div>
+    </div>
+    <div class="nut-card fade-up">
+      <div class="nut-emoji">🧂</div>
+      <div class="nut-title">Solo lo necesario</div>
+      <div class="nut-body">Harina, agua, sal y tiempo. Sin conservantes, sin mejorantes, sin aditivos. La lista de ingredientes más corta posible.</div>
+      <div class="nut-tags"><span class="nut-tag">4 ingredientes</span><span class="nut-tag">Sin aditivos</span><span class="nut-tag">Sin conservantes</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews fade-up">
+  <div class="reviews-header">
+    <p class="section-eyebrow">Comunidad Levain</p>
+    <h2 class="section-title" style="text-align:center;">Lo que dicen nuestros<br><em>panaderos en casa</em></h2>
+  </div>
+  <div class="overall-rating">
+    <div class="rating-big">4.9</div>
+    <div class="rating-stars-big">★★★★★</div>
+    <div class="rating-count">Basado en 2.418 reseñas verificadas</div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review">
+      <div class="review-header">
+        <div class="review-stars">★★★★★</div>
+        <span class="review-verified-badge">✓ Verificado</span>
+      </div>
+      <p class="review-text">"El pan de masa madre tiene una corteza perfecta y una miga esponjosa. Se nota que está hecho con cariño y buenos ingredientes."</p>
+      <div class="review-footer">
+        <img class="reviewer-img" src="https://images.unsplash.com/photo-1494790108755-2616b7b4a6cd?w=80&q=80" alt="">
+        <div><div class="reviewer-name">Carolina T.</div><div class="reviewer-info">Bogotá · Hace 2 días</div></div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="review-header">
+        <div class="review-stars">★★★★★</div>
+        <span class="review-verified-badge">✓ Verificado</span>
+      </div>
+      <p class="review-text">"Los croissants llegaron perfectos. Calientitos en el horno por 5 minutos y parecen recién hechos. Mi familia los adora cada domingo."</p>
+      <div class="review-footer">
+        <img class="reviewer-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="">
+        <div><div class="reviewer-name">Ricardo M.</div><div class="reviewer-info">Medellín · Hace 5 días</div></div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="review-header">
+        <div class="review-stars">★★★★★</div>
+        <span class="review-verified-badge">✓ Verificado</span>
+      </div>
+      <p class="review-text">"Finalmente un chocolate colombiano que realmente sabe a cacao. El de Huila al 72% es extraordinario. Lo compro cada mes sin falta."</p>
+      <div class="review-footer">
+        <img class="reviewer-img" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="">
+        <div><div class="reviewer-name">Sofía L.</div><div class="reviewer-info">Cali · Hace 1 semana</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES BLOG -->
+<section class="recipes fade-up">
+  <div class="recipes-header">
+    <p class="section-eyebrow">Del blog</p>
+    <h2 class="section-title">Recetas &amp; <em>inspiración</em></h2>
+  </div>
+  <div class="recipes-grid">
+    <div class="recipe-card">
+      <div class="recipe-img tall"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Receta"></div>
+      <div class="recipe-body">
+        <div class="recipe-cat">Panadería en casa</div>
+        <div class="recipe-title">Cómo hacer tu primera hogaza de masa madre sin experiencia previa</div>
+        <div class="recipe-meta">12 min de lectura · Por Chef Laura V.</div>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-img short"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80" alt="Receta"></div>
+      <div class="recipe-body">
+        <div class="recipe-cat">Desayunos</div>
+        <div class="recipe-title">Bowl de granola con frutas de temporada</div>
+        <div class="recipe-meta">5 min · Fácil</div>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-img short"><img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400&q=80" alt="Receta"></div>
+      <div class="recipe-body">
+        <div class="recipe-cat">Chocolatería</div>
+        <div class="recipe-title">Trufas de chocolate colombiano en 20 minutos</div>
+        <div class="recipe-meta">20 min · Intermedio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter fade-up">
+  <div>
+    <p class="section-eyebrow">La comunidad</p>
+    <h2 class="nl-title">Únete a<br><strong>La Mesa</strong></h2>
+    <p class="nl-sub">Nuestra newsletter semanal con recetas exclusivas, novedades y consejos de panadería artesanal. +12.000 suscriptores activos.</p>
+    <div class="nl-incentive">
+      <span class="nl-incentive-icon">🎁</span>
+      <span class="nl-incentive-text">Al suscribirte recibes <span>15% OFF</span> + nuestra guía gratuita de masa madre</span>
+    </div>
+    <form class="nl-form" onsubmit="return false;">
+      <div class="nl-name-row">
+        <input class="nl-input" type="text" placeholder="Tu nombre">
+        <input class="nl-input" type="text" placeholder="Ciudad">
+      </div>
+      <input class="nl-input" type="email" placeholder="Tu correo electrónico">
+      <button class="nl-submit">Unirme a La Mesa →</button>
+    </form>
+  </div>
+  <div class="nl-visual">
+    <img src="https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=600&q=80" alt="Newsletter">
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="footer-logo">Levain</span>
+      <p class="footer-desc">Panadería artesanal y alimentos orgánicos elaborados con ingredientes de origen certificado y procesos lentos que respetan la tradición.</p>
+      <div class="footer-socials">
+        <div class="f-social"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+        <div class="f-social"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+        <div class="f-social"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-6.34 6.29 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.73a4.85 4.85 0 0 1-1-4z"/></svg></div>
+        <div class="f-social"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Tienda</h5>
+      <ul>
+        <li><a href="#">Panadería</a></li>
+        <li><a href="#">Pastelería</a></li>
+        <li><a href="#">Granolas</a></li>
+        <li><a href="#">Chocolates</a></li>
+        <li><a href="#">Kits regalo</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Nosotros</h5>
+      <ul>
+        <li><a href="#">Nuestra historia</a></li>
+        <li><a href="#">Productores</a></li>
+        <li><a href="#">Blog y recetas</a></li>
+        <li><a href="#">Prensa</a></li>
+        <li><a href="#">Trabaja con nosotros</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Soporte</h5>
+      <ul>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contáctanos</a></li>
+        <li><a href="#">Mayoristas</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Levain · Panadería artesanal colombiana</span>
+    <div class="footer-certifications">
+      <span class="f-cert">🌿 Orgánico ICA</span>
+      <span class="f-cert">🤝 Comercio Justo</span>
+      <span class="f-cert">♻️ Empaque eco</span>
+    </div>
+    <span>Privacidad · Términos</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+  const hamburger = document.getElementById('hamburger');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('mobile-open');
+      hamburger.textContent = nav.classList.contains('mobile-open') ? '✕' : '☰';
+    });
+  }
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); });
+  });
+</script>
+</body>
+</html>
