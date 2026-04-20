@@ -1,51 +1,62 @@
 # CLAUDE.md — Onboarding Portal
 
-## ⚠️ REGLA CRÍTICA — LEER ANTES DE TOCAR CUALQUIER ARCHIVO
-
-Este repositorio tiene **dos zonas de trabajo separadas**. Respeta estrictamente la tuya.
-
----
-
-## Si eres el desarrollador del HTML standalone
-
-**Solo puedes editar:**
-```
-portal-automate.html
-```
-
-**Nunca toques:**
-- `src/` — código del portal Next.js (otro desarrollador)
-- `public/templates/` — templates HTML de industrias (otro desarrollador)
-- `src/constants/industryTemplates.ts` — registro de templates (otro desarrollador)
-- Cualquier archivo `.tsx`, `.ts`, `.css` fuera de tu archivo
-
-**Para abrir tu archivo en el navegador:**
-```bash
-start "" "http://localhost:3000/portal-automate.html"
-```
-
----
-
-## Si eres el desarrollador del portal Next.js
-
-**Tu zona de trabajo:**
-```
-src/
-public/templates/
-src/constants/
-```
-
-**Nunca toques:**
-- `portal-automate.html` — archivo del otro desarrollador
-
----
-
-## Stack del proyecto
+## Stack
 - Next.js 15 (App Router) + TypeScript
 - Tailwind CSS + Framer Motion
 - Zustand (estado global)
 
 ## Arrancar
 ```bash
+npm install
 npm run dev   # http://localhost:3000
 ```
+
+## Estructura clave
+```
+src/
+├── app/page.tsx
+├── components/
+│   ├── OnboardingLayout.tsx
+│   ├── LivePreview.tsx
+│   └── steps/
+│       ├── Step1Welcome.tsx
+│       ├── Step2Brand.tsx
+│       ├── Step3Plan.tsx
+│       ├── Step4Apps.tsx
+│       ├── Step5Content.tsx
+│       └── Step6Access.tsx
+├── stores/brandStore.ts
+└── constants/
+    ├── industryTemplates.ts
+    ├── themes.ts
+    ├── palettes.ts
+    ├── fonts.ts
+    ├── plans.ts
+    └── apps.ts
+public/templates/   ← templates HTML por industria
+```
+
+## Flujo de trabajo en equipo — IMPORTANTE
+
+Este proyecto tiene dos desarrolladores trabajando en paralelo.
+
+**Antes de empezar a trabajar siempre:**
+```bash
+git pull origin main
+```
+
+**Para trabajar en una feature o tarea:**
+```bash
+git checkout -b nombre-de-lo-que-vas-a-hacer
+# trabajas, haces cambios...
+git add .
+git commit -m "descripción del cambio"
+git push origin nombre-de-lo-que-vas-a-hacer
+```
+Luego avisas al otro dev para hacer merge a main.
+
+**Nunca trabajar directamente en `main` sin hacer pull primero.**
+
+## Lo que NO tocar
+- `src/app/api/catalog/setup/route.ts` — integración Google Drive, ya funciona
+- `templates/plantilla-productos-automate.xlsx` — plantilla del cliente
