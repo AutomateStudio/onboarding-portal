@@ -7,16 +7,6 @@ import { PALETTES } from '@/constants/palettes';
 import { FONTS } from '@/constants/fonts';
 import { INDUSTRY_TEMPLATES, buildDesktopHtml, buildMobileHtml } from '@/constants/industryTemplates';
 
-const PHONE_BG: Record<string, string> = {
-  onyx: '#1a1512', bloom: '#f5f5f5', elegancia: '#f5ede6', aura: '#f8f9fa',
-  cosecha: '#faf6f0', levain: '#fdf8f0', mercado: '#0d0d0d', default: '#f5f0ea',
-};
-const PHONE_BORDER: Record<string, string> = {
-  onyx: '#3a3028', elegancia: '#ccc', mercado: '#333', default: '#1a1a1a',
-};
-const DEVICE_LABEL_COLOR: Record<string, string> = {
-  onyx: '#6a5a48', elegancia: '#8b6f47', mercado: '#555', default: '#bbb',
-};
 
 export function Step2Brand() {
   const theme = useBrandStore((s) => s.theme);
@@ -157,9 +147,6 @@ export function Step2Brand() {
           <div className="flex flex-col gap-6">
             {industryTemplates.map((t, idx) => {
               const isSelected = theme === t.id;
-              const phoneBg = PHONE_BG[t.id] ?? PHONE_BG.default;
-              const phoneBorder = PHONE_BORDER[t.id] ?? PHONE_BORDER.default;
-              const labelColor = DEVICE_LABEL_COLOR[t.id] ?? DEVICE_LABEL_COLOR.default;
 
               return (
                 <motion.div
@@ -181,88 +168,33 @@ export function Step2Brand() {
                     </div>
                   )}
 
-                  {/* Dual preview: laptop + phone */}
-                  <div style={{ display: 'flex', height: 340, overflow: 'hidden' }}>
-                    {/* Laptop mockup */}
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                      {/* Browser bar */}
-                      <div style={{
-                        height: 26, background: '#e0e0e0',
-                        display: 'flex', alignItems: 'center',
-                        padding: '0 12px', gap: 10, flexShrink: 0,
-                      }}>
-                        <div style={{ display: 'flex', gap: 5 }}>
-                          <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#ff5f57', display: 'block' }} />
-                          <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#febc2e', display: 'block' }} />
-                          <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#28c840', display: 'block' }} />
-                        </div>
-                        <div style={{
-                          flex: 1, maxWidth: 200, height: 14, background: '#fff',
-                          borderRadius: 8, margin: '0 auto',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: 8, color: '#999', fontFamily: 'Inter, sans-serif',
-                        }}>
-                          mitienda.myshopify.com
-                        </div>
-                      </div>
-                      {/* Desktop content */}
-                      <div
-                        style={{ flex: 1, overflow: 'hidden' }}
-                        dangerouslySetInnerHTML={{ __html: buildDesktopHtml(t) }}
-                      />
-                    </div>
-
-                    {/* Phone mockup column */}
+                  {/* Desktop-only preview */}
+                  <div style={{ height: 340, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                    {/* Browser bar */}
                     <div style={{
-                      width: 160,
-                      background: phoneBg,
-                      display: 'flex', flexDirection: 'column',
-                      alignItems: 'center', justifyContent: 'center',
-                      gap: 8, padding: '16px 10px', flexShrink: 0,
-                      borderLeft: '1px solid rgba(0,0,0,0.07)',
+                      height: 26, background: '#e0e0e0',
+                      display: 'flex', alignItems: 'center',
+                      padding: '0 12px', gap: 10, flexShrink: 0,
                     }}>
-                      <div style={{
-                        width: 108, height: 215,
-                        borderRadius: 20,
-                        border: `3px solid ${phoneBorder}`,
-                        overflow: 'hidden', position: 'relative',
-                        boxShadow: '0 8px 28px rgba(0,0,0,0.22)',
-                        flexShrink: 0,
-                      }}>
-                        {/* Notch */}
-                        <div style={{
-                          position: 'absolute', top: 0, left: '50%',
-                          transform: 'translateX(-50%)',
-                          width: 26, height: 6,
-                          background: phoneBorder,
-                          borderRadius: '0 0 6px 6px', zIndex: 10,
-                        }} />
-                        {t.previewUrl ? (
-                          <iframe
-                            src={t.previewUrl}
-                            style={{
-                              width: 390,
-                              height: 800,
-                              border: 'none',
-                              display: 'block',
-                              transform: 'scale(0.261)',
-                              transformOrigin: 'top left',
-                              pointerEvents: 'none',
-                            }}
-                            title={t.name}
-                            scrolling="no"
-                          />
-                        ) : (
-                          <div
-                            style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
-                            dangerouslySetInnerHTML={{ __html: buildMobileHtml(t) }}
-                          />
-                        )}
+                      <div style={{ display: 'flex', gap: 5 }}>
+                        <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#ff5f57', display: 'block' }} />
+                        <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#febc2e', display: 'block' }} />
+                        <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#28c840', display: 'block' }} />
                       </div>
-                      <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: 0.5, textTransform: 'uppercase', color: labelColor }}>
-                        Mobile
-                      </span>
+                      <div style={{
+                        flex: 1, maxWidth: 240, height: 14, background: '#fff',
+                        borderRadius: 8, margin: '0 auto',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 8, color: '#999', fontFamily: 'Inter, sans-serif',
+                      }}>
+                        mitienda.myshopify.com
+                      </div>
                     </div>
+                    {/* Desktop content — full width */}
+                    <div
+                      style={{ flex: 1, overflow: 'hidden' }}
+                      dangerouslySetInnerHTML={{ __html: buildDesktopHtml(t) }}
+                    />
                   </div>
 
                   {/* Meta footer */}
