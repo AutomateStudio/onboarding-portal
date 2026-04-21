@@ -550,9 +550,9 @@ function buildAuroraDesktop(t: IndustryTemplate): string {
     <!-- Hero -->
     <div style="height:190px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center top;" loading="lazy">
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.18);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.60) 100%);"></div>
       <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 40px;">
-        <div style="font-size:34px;font-family:'Cormorant Garamond',serif;color:#fff;font-weight:600;line-height:1.1;text-shadow:0 2px 12px rgba(0,0,0,0.25);">El Brillo <em style="font-style:italic;color:#d4b896;">de</em> la Eternidad</div>
+        <div style="font-size:34px;font-family:'Cormorant Garamond',serif;color:#fff;font-weight:600;line-height:1.1;text-shadow:0 2px 16px rgba(0,0,0,0.6);">El Brillo <em style="font-style:italic;color:#d4b896;">de</em> la Eternidad</div>
         <p style="font-size:10px;color:rgba(255,255,255,0.88);margin-top:10px;line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,0.3);">Un diálogo entre la luz y la piel.</p>
         <div style="display:flex;gap:10px;margin-top:14px;">
           <div style="background:#fff;color:#111;font-size:8.5px;font-weight:700;letter-spacing:1.5px;padding:8px 18px;border-radius:100px;">COMPRAR AHORA</div>
@@ -598,7 +598,7 @@ function buildAuroraMobile(t: IndustryTemplate): string {
     <!-- Hero -->
     <div style="height:115px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;object-position:center top;" loading="lazy">
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.22);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.50) 0%,rgba(0,0,0,0.65) 100%);"></div>
       <div style="position:relative;z-index:2;text-align:center;padding:0 12px;">
         <div style="font-size:17px;font-family:'Cormorant Garamond',serif;color:#fff;font-weight:600;line-height:1.1;">El Brillo <em style="font-style:italic;color:#d4b896;">de</em><br>la Eternidad</div>
         <div style="display:flex;gap:5px;justify-content:center;margin-top:8px;">
@@ -657,7 +657,7 @@ function buildOnyxDesktop(t: IndustryTemplate): string {
       <!-- Center hero -->
       <div style="flex:1;position:relative;overflow:hidden;">
         <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.60) 100%);"></div>
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;">
           <div style="font-size:10px;color:rgba(255,255,255,0.85);font-weight:500;letter-spacing:1px;margin-bottom:10px;">Blend Beauty In You</div>
           <div style="font-size:26px;font-weight:800;color:#fff;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.2);">Get the skin you<br>want to feel</div>
@@ -703,7 +703,7 @@ function buildOnyxMobile(t: IndustryTemplate): string {
       <div style="width:12%;background:linear-gradient(135deg,#e8b4a0,#f5d5c8);flex-shrink:0;"></div>
       <div style="flex:1;position:relative;overflow:hidden;">
         <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
-        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.15);"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.60) 100%);"></div>
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 10px;">
           <div style="font-size:7px;color:rgba(255,255,255,0.8);margin-bottom:5px;">Blend Beauty In You</div>
           <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.1;">Get the skin<br>you want to feel</div>
