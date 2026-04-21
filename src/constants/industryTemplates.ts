@@ -502,6 +502,15 @@ export function buildDesktopHtml(t: IndustryTemplate): string {
   if (t.id === 'volt')      return buildVoltDesktop(t);
   if (t.id === 'nexus')     return buildNexusDesktop(t);
   if (t.id === 'circuit')   return buildCircuitDesktop(t);
+  if (t.id === 'apex')      return buildApexDesktop(t);
+  if (t.id === 'stride')    return buildStrideDesktop(t);
+  if (t.id === 'arena')     return buildArenaDesktop(t);
+  if (t.id === 'haven')     return buildHavenDesktop(t);
+  if (t.id === 'nordia')    return buildNordiaDesktop(t);
+  if (t.id === 'loft')      return buildLoftDesktop(t);
+  if (t.id === 'diamante')  return buildDiamanteDesktop(t);
+  if (t.id === 'heritage')  return buildHeritageDesktop(t);
+  if (t.id === 'lumiere')   return buildLumiereDesktop(t);
   return buildAuroraDesktop(t);
 }
 
@@ -518,6 +527,15 @@ export function buildMobileHtml(t: IndustryTemplate): string {
   if (t.id === 'volt')      return buildVoltMobile(t);
   if (t.id === 'nexus')     return buildNexusMobile(t);
   if (t.id === 'circuit')   return buildCircuitMobile(t);
+  if (t.id === 'apex')      return buildApexMobile(t);
+  if (t.id === 'stride')    return buildStrideMobile(t);
+  if (t.id === 'arena')     return buildArenaMobile(t);
+  if (t.id === 'haven')     return buildHavenMobile(t);
+  if (t.id === 'nordia')    return buildNordiaMobile(t);
+  if (t.id === 'loft')      return buildLoftMobile(t);
+  if (t.id === 'diamante')  return buildDiamanteMobile(t);
+  if (t.id === 'heritage')  return buildHeritageMobile(t);
+  if (t.id === 'lumiere')   return buildLumiereMobile(t);
   return buildAuroraMobile(t);
 }
 
@@ -1357,7 +1375,7 @@ function buildVoltDesktop(t: IndustryTemplate): string {
 }
 
 function buildVoltMobile(t: IndustryTemplate): string {
-  const prods = t.products.slice(0,2).map((p,i) => `
+  const prods = t.products.slice(0,2).map((p,_i) => `
     <div style="background:#0a0a0f;border:1px solid #1e1e30;overflow:hidden;">
       <div style="background:#101018;padding:10px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;">
         <img src="${p.img}" style="height:52px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(79,142,247,.2));" loading="lazy">
@@ -1508,7 +1526,6 @@ function buildNexusMobile(t: IndustryTemplate): string {
 function buildCircuitDesktop(t: IndustryTemplate): string {
   const specs = ['4K Display · RTX','16GB RAM · SSD','128MP · 5000mAh','42mm · GPS'];
   const pills = ['NUEVO','','HOT',''];
-  const pillColors = ['#00ff88','','#00ff88',''];
   const prods = t.products.map((p,i) => `
     <div style="background:#0e1218;border:1px solid #1e2d3e;overflow:hidden;">
       <div style="position:relative;background:#141b24;padding:14px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;">
@@ -1604,6 +1621,786 @@ function buildCircuitMobile(t: IndustryTemplate): string {
     <div style="position:relative;background:#0e1218;border-top:1px solid #1e2d3e;padding:6px 7px;flex:1;">
       <div style="font-size:6px;color:#4a6080;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-family:monospace;">// PRODUCTS</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── APEX (Sports — Activewear Premium) ─────────────────────────────────────
+
+function buildApexDesktop(t: IndustryTemplate): string {
+  const pills = ['NEW','SALE','','HOT'];
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:3/4;overflow:hidden;margin-bottom:6px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0);"></div>
+        ${pills[i]?`<div style="position:absolute;top:6px;left:6px;background:#e63030;color:#fff;font-size:7px;font-weight:700;padding:2px 6px;letter-spacing:1.5px;">${pills[i]}</div>`:''}
+      </div>
+      <div style="font-size:9.5px;font-weight:700;color:#f5f5f5;letter-spacing:1px;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:9px;color:#e63030;font-weight:700;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#0a0a0a;height:100%;overflow:hidden;font-family:'Barlow',sans-serif;">
+    <div style="background:#e63030;height:22px;display:flex;align-items:center;justify-content:center;gap:20px;">
+      <span style="font-size:8px;color:#fff;font-weight:700;letter-spacing:2px;">ENVÍO GRATIS</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.5);">·</span>
+      <span style="font-size:8px;color:#fff;font-weight:700;letter-spacing:2px;">ACTIVEWEAR PREMIUM</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.5);">·</span>
+      <span style="font-size:8px;color:#fff;font-weight:700;letter-spacing:2px;">30 DÍAS DEVOLUCIÓN</span>
+    </div>
+    <div style="background:rgba(10,10,10,.97);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #2a2a2a;">
+      <div style="display:flex;gap:18px;"><span style="font-size:9px;color:#666;letter-spacing:1.5px;text-transform:uppercase;">Hombre</span><span style="font-size:9px;color:#666;letter-spacing:1.5px;text-transform:uppercase;">Mujer</span><span style="font-size:9px;color:#666;letter-spacing:1.5px;text-transform:uppercase;">Accesorios</span></div>
+      <span style="font-size:16px;font-weight:700;letter-spacing:5px;color:#f5f5f5;text-transform:uppercase;">APEX</span>
+      <div style="display:flex;gap:12px;font-size:14px;color:#666;">♡ 🛒</div>
+    </div>
+    <div style="height:176px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.88) 35%,rgba(10,10,10,0.15) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 24px;max-width:55%;">
+        <div style="font-size:8px;font-weight:700;color:#e63030;letter-spacing:4px;margin-bottom:8px;text-transform:uppercase;">ACTIVEWEAR</div>
+        <div style="font-size:28px;font-weight:700;color:#fff;line-height:.92;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">TU LÍMITE<br>ES EL <span style="color:#e63030;">CIELO.</span></div>
+        <div style="display:inline-block;padding:7px 18px;background:#e63030;color:#fff;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Comprar →</div>
+      </div>
+      <div style="position:absolute;bottom:12px;right:20px;display:flex;gap:20px;">
+        <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#fff;">50K+</div><div style="font-size:7px;letter-spacing:2px;color:#666;text-transform:uppercase;">Clientes</div></div>
+        <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#fff;">4.9★</div><div style="font-size:7px;letter-spacing:2px;color:#666;text-transform:uppercase;">Rating</div></div>
+      </div>
+    </div>
+    <div style="background:#0a0a0a;padding:12px 16px 8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:10px;font-weight:700;color:#f5f5f5;letter-spacing:1.5px;text-transform:uppercase;">Nueva Colección</span>
+        <span style="font-size:8.5px;color:#e63030;letter-spacing:1px;text-transform:uppercase;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildApexMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 55%);"></div>
+      ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#e63030;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;letter-spacing:1px;">NEW</div>':''}
+      <div style="position:absolute;bottom:5px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;letter-spacing:.5px;margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:6.5px;color:#e63030;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#0a0a0a;height:100%;display:flex;flex-direction:column;font-family:'Barlow',sans-serif;">
+    <div style="background:#e63030;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:#fff;font-weight:700;letter-spacing:1.5px;">ENVÍO GRATIS · ACTIVEWEAR PREMIUM</span></div>
+    <div style="background:#0a0a0a;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #2a2a2a;flex-shrink:0;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:4px;color:#f5f5f5;">APEX</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#666;">♡ 🛒</div>
+    </div>
+    <div style="height:125px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.85) 40%,rgba(10,10,10,0.1) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 10px;max-width:60%;">
+        <div style="font-size:6px;color:#e63030;letter-spacing:2px;font-weight:700;margin-bottom:6px;text-transform:uppercase;">ACTIVEWEAR</div>
+        <div style="font-size:18px;font-weight:700;color:#fff;line-height:.92;text-transform:uppercase;margin-bottom:8px;">TU LÍMITE<br>ES EL <span style="color:#e63030;">CIELO.</span></div>
+        <div style="display:inline-block;padding:4px 10px;background:#e63030;color:#fff;font-size:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;width:fit-content;">Comprar →</div>
+      </div>
+    </div>
+    <div style="background:#111;border-top:1px solid #2a2a2a;padding:6px 7px;flex:1;">
+      <div style="font-size:6px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-weight:700;">NUEVA COLECCIÓN</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── STRIDE (Sports — Running Outdoor) ──────────────────────────────────────
+
+function buildStrideDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="background:#fff;border:1px solid #c8ddc8;overflow:hidden;">
+      <div style="position:relative;background:#ebf0eb;padding:14px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;">
+        <img src="${p.img}" style="height:64px;object-fit:contain;display:block;transition:transform .3s;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:6px;left:6px;background:#2d6a2d;color:#fff;font-size:7px;font-weight:600;padding:2px 7px;letter-spacing:1px;">NUEVO</div>':''}
+      </div>
+      <div style="padding:8px 10px 10px;">
+        <div style="font-size:9px;font-weight:600;color:#0f1f0f;letter-spacing:.5px;margin-bottom:2px;">${p.name}</div>
+        <div style="font-size:9px;color:#5a7a5a;margin-bottom:6px;letter-spacing:.3px;">Running Premium</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:10px;font-weight:700;color:#0f1f0f;">${p.price}</span>
+          <div style="background:#2d6a2d;color:#fff;font-size:7px;font-weight:600;padding:3px 8px;letter-spacing:.5px;">+ CARRITO</div>
+        </div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#f5f8f5;height:100%;overflow:hidden;font-family:'Source Sans 3',sans-serif;">
+    <div style="background:#2d6a2d;height:22px;display:flex;align-items:center;justify-content:center;gap:24px;">
+      <span style="font-size:8px;color:rgba(255,255,255,.7);letter-spacing:2px;text-transform:uppercase;">🏃 Envío gratis +$200k</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.4);">·</span>
+      <span style="font-size:8px;color:#7fbf3f;font-weight:600;letter-spacing:2px;text-transform:uppercase;">Tecnología Trail</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.4);">·</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.7);letter-spacing:2px;text-transform:uppercase;">Devolución 30D</span>
+    </div>
+    <div style="background:rgba(245,248,245,.97);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #c8ddc8;">
+      <span style="font-size:16px;font-weight:700;letter-spacing:5px;color:#0f1f0f;text-transform:uppercase;">STRIDE</span>
+      <div style="display:flex;gap:20px;"><span style="font-size:9.5px;color:#5a7a5a;letter-spacing:.5px;">Running</span><span style="font-size:9.5px;color:#5a7a5a;letter-spacing:.5px;">Trail</span><span style="font-size:9.5px;color:#5a7a5a;letter-spacing:.5px;">Accesorios</span></div>
+      <div style="display:flex;gap:12px;font-size:14px;color:#0f1f0f;">♡ 🛒</div>
+    </div>
+    <div style="height:172px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,31,15,.86) 0%,rgba(15,31,15,.35) 55%,rgba(15,31,15,.1) 100%);"></div>
+      <div style="position:absolute;bottom:20px;left:24px;max-width:65%;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div style="width:20px;height:2px;background:#7fbf3f;"></div>
+          <span style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#7fbf3f;font-weight:600;">RUNNING PREMIUM</span>
+        </div>
+        <div style="font-size:26px;font-weight:700;color:#fff;line-height:.92;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">CORRE MÁS.<br><span style="color:#7fbf3f;">LLEGA MÁS LEJOS.</span></div>
+        <div style="display:inline-block;padding:7px 18px;background:#7fbf3f;color:#0f1f0f;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Ver modelos →</div>
+      </div>
+    </div>
+    <div style="background:#f5f8f5;padding:10px 16px 8px;border-top:1px solid #c8ddc8;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:9.5px;font-weight:700;color:#0f1f0f;letter-spacing:1px;text-transform:uppercase;">Más vendidos</span>
+        <span style="font-size:8.5px;color:#2d6a2d;letter-spacing:1px;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildStrideMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:#fff;border:1px solid #c8ddc8;overflow:hidden;">
+      <div style="background:#ebf0eb;padding:8px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;position:relative;">
+        <img src="${p.img}" style="height:40px;object-fit:contain;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:3px;left:3px;background:#2d6a2d;color:#fff;font-size:5.5px;font-weight:600;padding:1px 4px;letter-spacing:1px;">NEW</div>':''}
+      </div>
+      <div style="padding:4px 5px 5px;">
+        <div style="font-size:6px;color:#0f1f0f;font-weight:600;margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:6.5px;color:#0f1f0f;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#f5f8f5;height:100%;display:flex;flex-direction:column;font-family:'Source Sans 3',sans-serif;">
+    <div style="background:#2d6a2d;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:rgba(255,255,255,.7);letter-spacing:1.5px;text-transform:uppercase;">🏃 RUNNING PREMIUM · ENVÍO GRATIS</span></div>
+    <div style="background:#f5f8f5;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #c8ddc8;flex-shrink:0;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:4px;color:#0f1f0f;">STRIDE</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#0f1f0f;">♡ 🛒</div>
+    </div>
+    <div style="height:125px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,31,15,.85) 0%,transparent 55%);"></div>
+      <div style="position:absolute;bottom:10px;left:10px;">
+        <div style="font-size:16px;font-weight:700;color:#fff;line-height:.92;text-transform:uppercase;margin-bottom:6px;">CORRE MÁS.<br><span style="color:#7fbf3f;">MÁS LEJOS.</span></div>
+        <div style="display:inline-block;padding:3px 10px;background:#7fbf3f;color:#0f1f0f;font-size:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Ver modelos</div>
+      </div>
+    </div>
+    <div style="background:#f5f8f5;border-top:1px solid #c8ddc8;padding:6px 7px;flex:1;">
+      <div style="font-size:6px;color:#2d6a2d;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">MÁS VENDIDOS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── ARENA (Sports — Gym Performance) ───────────────────────────────────────
+
+function buildArenaDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="background:#141414;border:1px solid #2a2a2a;overflow:hidden;">
+      <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,14,0.8) 0%,transparent 55%);"></div>
+        ${i===0?'<div style="position:absolute;top:6px;left:6px;background:#f5e000;color:#0e0e0e;font-size:7px;font-weight:700;padding:2px 6px;letter-spacing:1px;">HOT</div>':''}
+        <div style="position:absolute;bottom:6px;left:6px;right:6px;">
+          <div style="font-size:8.5px;font-weight:600;color:#fff;letter-spacing:.5px;margin-bottom:1px;">${p.name}</div>
+          <div style="font-size:9px;color:#f5e000;font-weight:700;">${p.price}</div>
+        </div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#0e0e0e;height:100%;overflow:hidden;font-family:'Rajdhani',sans-serif;">
+    <div style="background:#f5e000;height:22px;display:flex;align-items:center;justify-content:space-around;padding:0 16px;">
+      <span style="font-size:8px;color:#0e0e0e;font-weight:700;letter-spacing:2px;text-transform:uppercase;">🏋️ ENVÍO GRATIS</span>
+      <span style="font-size:8px;color:#0e0e0e;font-weight:700;letter-spacing:2px;text-transform:uppercase;">⚡ PAGO SEGURO</span>
+      <span style="font-size:8px;color:#0e0e0e;font-weight:700;letter-spacing:2px;text-transform:uppercase;">🔄 DEVOLUCIÓN 30D</span>
+    </div>
+    <div style="background:#0e0e0e;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
+      <div style="display:flex;gap:18px;"><span style="font-size:9px;color:#666;letter-spacing:2px;text-transform:uppercase;font-weight:600;">Ropa</span><span style="font-size:9px;color:#666;letter-spacing:2px;text-transform:uppercase;font-weight:600;">Calzado</span><span style="font-size:9px;color:#666;letter-spacing:2px;text-transform:uppercase;font-weight:600;">Equipos</span></div>
+      <span style="font-size:18px;font-weight:700;letter-spacing:5px;color:#fff;text-transform:uppercase;">ARE<span style="color:#f5e000;">NA</span></span>
+      <div style="background:#f5e000;color:#0e0e0e;font-size:8px;font-weight:700;padding:4px 12px;letter-spacing:1.5px;text-transform:uppercase;">Carrito (0)</div>
+    </div>
+    <div style="height:172px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(14,14,14,0.9) 45%,rgba(14,14,14,0.25) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 24px;max-width:58%;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <div style="width:28px;height:3px;background:#f5e000;"></div>
+          <span style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#f5e000;font-weight:700;">GYM PERFORMANCE</span>
+        </div>
+        <div style="font-size:30px;font-weight:700;color:#fff;line-height:.88;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">NO HAY<br><span style="color:#f5e000;">LÍMITES.</span></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div style="padding:7px 16px;background:#f5e000;color:#0e0e0e;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Comprar ahora →</div>
+          <div style="padding:7px 16px;border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Ver colección</div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:12px;left:24px;display:flex;gap:24px;">
+        <div style="border-left:3px solid #f5e000;padding-left:10px;"><div style="font-size:16px;font-weight:700;color:#fff;line-height:1;">10K+</div><div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#666;">Atletas</div></div>
+        <div style="border-left:3px solid #f5e000;padding-left:10px;"><div style="font-size:16px;font-weight:700;color:#fff;line-height:1;">4.8★</div><div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#666;">Rating</div></div>
+      </div>
+    </div>
+    <div style="padding:10px 16px 8px;background:#0e0e0e;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:9px;font-weight:700;color:#e8e8e8;letter-spacing:2px;text-transform:uppercase;">Top Productos</span>
+        <span style="font-size:8px;color:#f5e000;font-weight:600;letter-spacing:1px;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildArenaMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:#141414;border:1px solid #2a2a2a;overflow:hidden;position:relative;aspect-ratio:3/4;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,14,0.85) 0%,transparent 50%);"></div>
+      ${i===0?'<div style="position:absolute;top:3px;left:3px;background:#f5e000;color:#0e0e0e;font-size:5.5px;font-weight:700;padding:1px 5px;letter-spacing:1px;">HOT</div>':''}
+      <div style="position:absolute;bottom:5px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:600;margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:6.5px;color:#f5e000;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#0e0e0e;height:100%;display:flex;flex-direction:column;font-family:'Rajdhani',sans-serif;">
+    <div style="background:#f5e000;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:#0e0e0e;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">⚡ GYM PERFORMANCE · ENVÍO GRATIS</span></div>
+    <div style="background:#0e0e0e;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;flex-shrink:0;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:3px;color:#fff;">ARE<span style="color:#f5e000;">NA</span></span>
+      <div style="background:#f5e000;color:#0e0e0e;font-size:5.5px;font-weight:700;padding:2px 8px;letter-spacing:1px;">CARRITO</div>
+    </div>
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(14,14,14,0.9) 45%,rgba(14,14,14,0.1) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 10px;max-width:60%;">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;">
+          <div style="width:18px;height:2px;background:#f5e000;"></div>
+          <span style="font-size:6px;letter-spacing:2px;text-transform:uppercase;color:#f5e000;font-weight:700;">GYM</span>
+        </div>
+        <div style="font-size:22px;font-weight:700;color:#fff;line-height:.88;text-transform:uppercase;margin-bottom:8px;">NO HAY<br><span style="color:#f5e000;">LÍMITES.</span></div>
+        <div style="display:inline-block;padding:4px 10px;background:#f5e000;color:#0e0e0e;font-size:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;width:fit-content;">Comprar →</div>
+      </div>
+    </div>
+    <div style="background:#111;border-top:1px solid #2a2a2a;padding:6px 7px;flex:1;">
+      <div style="font-size:6px;color:#f5e000;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">TOP PRODUCTOS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── HAVEN (Home — Contemporáneo Cálido) ────────────────────────────────────
+
+function buildHavenDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:1;overflow:hidden;background:#f3ede4;margin-bottom:8px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#c06840;color:#fff;font-size:7px;letter-spacing:1px;padding:2px 7px;font-weight:600;">POPULAR</div>':''}
+      </div>
+      <div style="font-family:'Playfair Display',serif;font-size:10px;color:#1c1410;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:8.5px;color:#8a7060;margin-bottom:3px;letter-spacing:.3px;">Hogar Contemporáneo</div>
+      <div style="font-size:9.5px;font-weight:600;color:#1c1410;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#faf8f5;height:100%;overflow:hidden;font-family:'Jost',sans-serif;">
+    <div style="background:#1c1410;height:22px;display:flex;align-items:center;justify-content:center;gap:24px;">
+      <span style="font-size:8px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;">🚚 Envío gratis</span>
+      <span style="font-size:10px;color:#c06840;">·</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;">✓ Garantía 2 años</span>
+      <span style="font-size:10px;color:#c06840;">·</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;">🔄 30 días</span>
+    </div>
+    <div style="background:rgba(250,248,245,.95);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #d8cec4;">
+      <div style="display:flex;gap:20px;"><span style="font-size:9.5px;color:#8a7060;">Sala</span><span style="font-size:9.5px;color:#8a7060;">Comedor</span><span style="font-size:9.5px;color:#8a7060;">Dormitorio</span></div>
+      <span style="font-family:'Playfair Display',serif;font-size:16px;color:#1c1410;letter-spacing:4px;">HAVEN</span>
+      <div style="display:flex;gap:12px;font-size:14px;color:#1c1410;">♡ 🛒</div>
+    </div>
+    <div style="height:176px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(28,20,16,0.80) 0%,rgba(28,20,16,0.25) 55%,rgba(28,20,16,0.05) 100%);"></div>
+      <div style="position:absolute;bottom:24px;left:24px;max-width:60%;">
+        <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#c06840;margin-bottom:10px;font-weight:500;">DISEÑO DE HOGAR</div>
+        <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:#fff;line-height:1.05;font-style:italic;margin-bottom:14px;">Espacios que<br>inspiran.</div>
+        <div style="display:inline-block;padding:8px 20px;background:#c06840;color:#fff;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;">Explorar →</div>
+      </div>
+      <div style="position:absolute;bottom:24px;right:24px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);writing-mode:vertical-rl;">SCROLL</div>
+    </div>
+    <div style="background:#faf8f5;padding:12px 16px 8px;border-top:1px solid #d8cec4;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div>
+          <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#c06840;margin-bottom:2px;">Nuestros Favoritos</div>
+          <div style="font-family:'Playfair Display',serif;font-size:12px;color:#1c1410;font-style:italic;">Diseño que permanece</div>
+        </div>
+        <span style="font-size:8.5px;color:#c06840;letter-spacing:1px;text-transform:uppercase;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildHavenMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div>
+      <div style="aspect-ratio:1;overflow:hidden;background:#f3ede4;margin-bottom:4px;position:relative;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#c06840;color:#fff;font-size:5.5px;padding:1px 5px;font-weight:600;letter-spacing:.5px;">POP</div>':''}
+      </div>
+      <div style="font-family:'Playfair Display',serif;font-size:6.5px;color:#1c1410;margin-bottom:1px;font-style:italic;">${p.name}</div>
+      <div style="font-size:6.5px;font-weight:600;color:#1c1410;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#faf8f5;height:100%;display:flex;flex-direction:column;font-family:'Jost',sans-serif;">
+    <div style="background:#1c1410;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:rgba(255,255,255,.6);letter-spacing:1.5px;text-transform:uppercase;">🚚 Envío gratis · ✓ Garantía 2 años</span></div>
+    <div style="background:#faf8f5;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #d8cec4;flex-shrink:0;">
+      <span style="font-family:'Playfair Display',serif;font-size:12px;color:#1c1410;letter-spacing:3px;">HAVEN</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#1c1410;">♡ 🛒</div>
+    </div>
+    <div style="height:125px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(28,20,16,0.82) 0%,rgba(28,20,16,0.2) 55%,transparent 100%);"></div>
+      <div style="position:absolute;bottom:12px;left:10px;max-width:65%;">
+        <div style="font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#c06840;margin-bottom:6px;">HOGAR</div>
+        <div style="font-family:'Playfair Display',serif;font-size:16px;color:#fff;line-height:1.05;font-style:italic;margin-bottom:7px;">Espacios que<br>inspiran.</div>
+        <div style="display:inline-block;padding:3px 10px;background:#c06840;color:#fff;font-size:6px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">Explorar →</div>
+      </div>
+    </div>
+    <div style="background:#faf8f5;border-top:1px solid #d8cec4;padding:7px 9px;flex:1;">
+      <div style="font-family:'Playfair Display',serif;font-size:7px;color:#1c1410;font-style:italic;margin-bottom:6px;">Nuestros Favoritos</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── NORDIA (Home — Escandinavo Minimalista) ────────────────────────────────
+
+function buildNordiaDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:1;overflow:hidden;background:#f0ece4;margin-bottom:8px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#1e1a16;color:#fff;font-size:7px;letter-spacing:1px;padding:2px 7px;font-weight:600;">NUEVO</div>':''}
+      </div>
+      <div style="font-family:'Fraunces',serif;font-size:10px;font-style:italic;color:#1e1a16;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:8.5px;color:#9a8a7a;margin-bottom:3px;">Diseño nórdico</div>
+      <div style="font-size:9.5px;font-weight:600;color:#1e1a16;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#f9f7f3;height:100%;overflow:hidden;font-family:'Mulish',sans-serif;">
+    <div style="background:#1e1a16;height:22px;display:flex;align-items:center;justify-content:center;gap:24px;">
+      <span style="font-size:8px;color:rgba(255,255,255,.55);letter-spacing:1px;">Envío gratis</span>
+      <span style="width:4px;height:4px;background:#b08060;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:8px;color:rgba(255,255,255,.55);letter-spacing:1px;">Madera sostenible</span>
+      <span style="width:4px;height:4px;background:#b08060;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:8px;color:rgba(255,255,255,.55);letter-spacing:1px;">30 días garantía</span>
+    </div>
+    <div style="background:rgba(249,247,243,.97);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #ddd5c8;">
+      <div style="display:flex;gap:20px;"><span style="font-size:9.5px;color:#9a8a7a;">Colecciones</span><span style="font-size:9.5px;color:#9a8a7a;">Materiales</span><span style="font-size:9.5px;color:#9a8a7a;">Sobre</span></div>
+      <span style="font-family:'Fraunces',serif;font-size:16px;font-weight:300;color:#1e1a16;letter-spacing:4px;">NORDIA</span>
+      <div style="display:flex;gap:12px;font-size:14px;color:#1e1a16;">♡ 🛒</div>
+    </div>
+    <div style="height:172px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
+      <div style="background:#f0ece4;display:flex;flex-direction:column;justify-content:center;padding:0 28px;position:relative;">
+        <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#b08060;margin-bottom:12px;">DISEÑO NÓRDICO</div>
+        <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:300;font-style:italic;color:#1e1a16;line-height:1.05;margin-bottom:16px;">Simplicidad que<br>permanece.</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="padding:7px 18px;background:#1e1a16;color:#fff;font-size:8.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;">Ver colección</div>
+          <span style="font-size:8.5px;color:#b08060;border-bottom:1px solid #b08060;padding-bottom:1px;letter-spacing:1px;">Materiales →</span>
+        </div>
+        <div style="position:absolute;bottom:16px;left:28px;background:#f9f7f3;padding:10px 14px;">
+          <div style="font-family:'Fraunces',serif;font-size:10px;font-style:italic;color:#1e1a16;margin-bottom:2px;">Colección Oslo</div>
+          <div style="font-size:8px;color:#9a8a7a;letter-spacing:1px;text-transform:uppercase;">Madera de roble</div>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      </div>
+    </div>
+    <div style="background:#f9f7f3;padding:12px 16px 8px;border-top:1px solid #ddd5c8;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-family:'Fraunces',serif;font-size:12px;font-style:italic;color:#1e1a16;">Nuestros favoritos</div>
+        <span style="font-size:8.5px;color:#b08060;letter-spacing:1px;text-transform:uppercase;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildNordiaMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div>
+      <div style="aspect-ratio:1;overflow:hidden;background:#f0ece4;margin-bottom:4px;position:relative;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#1e1a16;color:#fff;font-size:5px;padding:1px 5px;font-weight:600;letter-spacing:.5px;">NEW</div>':''}
+      </div>
+      <div style="font-family:'Fraunces',serif;font-size:6.5px;font-style:italic;color:#1e1a16;margin-bottom:1px;">${p.name}</div>
+      <div style="font-size:6.5px;font-weight:600;color:#1e1a16;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#f9f7f3;height:100%;display:flex;flex-direction:column;font-family:'Mulish',sans-serif;">
+    <div style="background:#1e1a16;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:rgba(255,255,255,.55);letter-spacing:1.5px;">Envío gratis · Madera sostenible</span></div>
+    <div style="background:#f9f7f3;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #ddd5c8;flex-shrink:0;">
+      <span style="font-family:'Fraunces',serif;font-size:12px;font-weight:300;color:#1e1a16;letter-spacing:3px;">NORDIA</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#1e1a16;">♡ 🛒</div>
+    </div>
+    <div style="height:120px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
+      <div style="background:#f0ece4;display:flex;flex-direction:column;justify-content:center;padding:0 10px;">
+        <div style="font-size:6px;letter-spacing:2px;text-transform:uppercase;color:#b08060;margin-bottom:7px;">NÓRDICO</div>
+        <div style="font-family:'Fraunces',serif;font-size:14px;font-weight:300;font-style:italic;color:#1e1a16;line-height:1.05;margin-bottom:9px;">Simplicidad<br>que permanece.</div>
+        <div style="display:inline-block;padding:4px 10px;background:#1e1a16;color:#fff;font-size:5.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;width:fit-content;">Ver →</div>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      </div>
+    </div>
+    <div style="background:#f9f7f3;border-top:1px solid #ddd5c8;padding:7px 9px;flex:1;">
+      <div style="font-family:'Fraunces',serif;font-size:7px;font-style:italic;color:#1e1a16;margin-bottom:6px;">Nuestros favoritos</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── LOFT (Home — Industrial Urbano) ────────────────────────────────────────
+
+function buildLoftDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="background:#222220;overflow:hidden;position:relative;aspect-ratio:1;cursor:pointer;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.85) 0%,transparent 55%);"></div>
+      ${i===0?'<div style="position:absolute;top:6px;left:6px;background:#b8963e;color:#1a1a18;font-size:6.5px;font-weight:700;padding:2px 6px;letter-spacing:1px;text-transform:uppercase;">NEW</div>':''}
+      <div style="position:absolute;bottom:6px;left:6px;right:6px;">
+        <div style="font-size:8.5px;color:#e8e4dc;font-weight:600;letter-spacing:.5px;margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:9px;color:#b8963e;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#1a1a18;height:100%;overflow:hidden;font-family:'Barlow',sans-serif;">
+    <div style="background:#2f2f2c;border-bottom:1px solid #333;height:22px;display:flex;align-items:center;justify-content:space-around;padding:0 16px;">
+      <span style="font-size:8px;color:#e8e4dc;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">🚚 ENVÍO GRATIS</span>
+      <span style="font-size:8px;color:#e8e4dc;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">⚙️ MATERIALES PREMIUM</span>
+      <span style="font-size:8px;color:#e8e4dc;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">🔄 30 DÍAS</span>
+    </div>
+    <div style="background:#1a1a18;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #333;">
+      <div style="display:flex;gap:18px;"><span style="font-size:9px;color:#8a8a82;letter-spacing:2px;text-transform:uppercase;font-weight:500;">Sala</span><span style="font-size:9px;color:#8a8a82;letter-spacing:2px;text-transform:uppercase;font-weight:500;">Comedor</span><span style="font-size:9px;color:#8a8a82;letter-spacing:2px;text-transform:uppercase;font-weight:500;">Oficina</span></div>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;color:#e8e4dc;text-transform:uppercase;">LO<span style="color:#b8963e;">FT</span></span>
+      <div style="background:#b8963e;color:#1a1a18;font-size:8px;font-weight:700;padding:4px 12px;letter-spacing:1.5px;text-transform:uppercase;">Carrito</div>
+    </div>
+    <div style="height:176px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.92) 0%,rgba(26,26,24,0.35) 50%,transparent 100%);"></div>
+      <div style="position:absolute;bottom:20px;left:22px;max-width:65%;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <div style="width:32px;height:1px;background:#b8963e;"></div>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#b8963e;font-weight:600;">DISEÑO INDUSTRIAL</span>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:#e8e4dc;line-height:.9;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">ESPACIOS QUE<br><span style="color:#b8963e;">RESPIRAN.</span></div>
+        <div style="display:flex;gap:8px;">
+          <div style="padding:7px 16px;background:#b8963e;color:#1a1a18;font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Explorar →</div>
+          <div style="padding:7px 16px;border:1px solid rgba(232,228,220,0.35);color:#e8e4dc;font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">Ver colección</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#1a1a18;padding:10px 16px 8px;border-top:1px solid #333;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div>
+          <div style="font-size:7px;color:#b8963e;letter-spacing:3px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;">COLECCIONES</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;color:#e8e4dc;text-transform:uppercase;letter-spacing:1px;">Más vendidos</div>
+        </div>
+        <span style="font-size:8px;color:#b8963e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildLoftMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:#222220;position:relative;aspect-ratio:1;overflow:hidden;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.88) 0%,transparent 55%);"></div>
+      ${i===0?'<div style="position:absolute;top:3px;left:3px;background:#b8963e;color:#1a1a18;font-size:5.5px;font-weight:700;padding:1px 5px;letter-spacing:1px;text-transform:uppercase;">NEW</div>':''}
+      <div style="position:absolute;bottom:5px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#e8e4dc;font-weight:600;margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:6.5px;color:#b8963e;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#1a1a18;height:100%;display:flex;flex-direction:column;font-family:'Barlow',sans-serif;">
+    <div style="background:#2f2f2c;border-bottom:1px solid #333;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:#e8e4dc;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">⚙️ MATERIALES PREMIUM · ENVÍO GRATIS</span></div>
+    <div style="background:#1a1a18;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #333;flex-shrink:0;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;letter-spacing:3px;color:#e8e4dc;text-transform:uppercase;">LO<span style="color:#b8963e;">FT</span></span>
+      <div style="background:#b8963e;color:#1a1a18;font-size:5.5px;font-weight:700;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;">CARRITO</div>
+    </div>
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.92) 0%,rgba(26,26,24,0.3) 55%,transparent 100%);"></div>
+      <div style="position:absolute;bottom:10px;left:10px;max-width:70%;">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px;">
+          <div style="width:20px;height:1px;background:#b8963e;"></div>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:6px;letter-spacing:2px;text-transform:uppercase;color:#b8963e;font-weight:600;">INDUSTRIAL</span>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:#e8e4dc;line-height:.9;text-transform:uppercase;margin-bottom:8px;">ESPACIOS<br><span style="color:#b8963e;">RESPIRAN.</span></div>
+        <div style="display:inline-block;padding:4px 10px;background:#b8963e;color:#1a1a18;font-family:'Barlow Condensed',sans-serif;font-size:6px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:fit-content;">Explorar →</div>
+      </div>
+    </div>
+    <div style="background:#1a1a18;border-top:1px solid #333;padding:6px 7px;flex:1;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:6px;color:#b8963e;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-weight:600;">MÁS VENDIDOS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── DIAMANTE (Jewelry — Minimalista Premium) ───────────────────────────────
+
+function buildDiamanteDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:1;overflow:hidden;background:#f9f9f9;margin-bottom:8px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#1a1a1a;color:#fff;font-size:7px;letter-spacing:1px;padding:2px 7px;font-weight:500;text-transform:uppercase;">Nuevo</div>':''}
+      </div>
+      <div style="font-family:'Bodoni Moda',serif;font-size:10px;color:#1a1a1a;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:8.5px;color:#888;margin-bottom:3px;letter-spacing:.5px;">Alta Joyería</div>
+      <div style="font-size:9.5px;font-weight:500;color:#1a1a1a;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;">
+    <div style="background:#1a1a1a;height:22px;display:flex;align-items:center;justify-content:center;gap:24px;">
+      <span style="font-size:7.5px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;">Envío gratuito</span>
+      <span style="width:4px;height:4px;background:#c0a882;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:7.5px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;">Certificado GIA</span>
+      <span style="width:4px;height:4px;background:#c0a882;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:7.5px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;">Garantía de por vida</span>
+    </div>
+    <div style="background:#fff;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #e0e0e0;">
+      <div style="display:flex;gap:20px;"><span style="font-size:9.5px;color:#888;letter-spacing:1px;">Colección</span><span style="font-size:9.5px;color:#888;letter-spacing:1px;">Novias</span><span style="font-size:9.5px;color:#888;letter-spacing:1px;">Contacto</span></div>
+      <span style="font-family:'Bodoni Moda',serif;font-size:16px;font-weight:400;letter-spacing:8px;color:#1a1a1a;text-transform:uppercase;">DIAMANTE</span>
+      <div style="display:flex;gap:12px;font-size:14px;color:#1a1a1a;">♡ 🛒</div>
+    </div>
+    <div style="height:172px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
+      <div style="background:#f9f9f9;display:flex;flex-direction:column;justify-content:center;padding:0 28px;">
+        <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#8a7250;margin-bottom:14px;">ALTA JOYERÍA</div>
+        <div style="font-family:'Bodoni Moda',serif;font-size:22px;line-height:1.05;color:#1a1a1a;margin-bottom:18px;">Brillo que no<br>necesita palabras.</div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <div style="padding:8px 18px;background:#1a1a1a;color:#fff;font-size:8.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;">Descubrir →</div>
+          <span style="font-size:9px;color:#1a1a1a;border-bottom:1px solid #1a1a1a;padding-bottom:1px;">Ver todo</span>
+        </div>
+        <div style="margin-top:18px;padding:12px 14px;background:#fff;display:inline-flex;align-items:center;gap:10px;border:1px solid #e0e0e0;">
+          <div style="font-family:'Bodoni Moda',serif;font-size:20px;font-weight:700;color:#1a1a1a;line-height:1;">4.9</div>
+          <div>
+            <div style="font-size:9px;color:#c9a96e;letter-spacing:2px;">★★★★★</div>
+            <div style="font-size:7.5px;color:#888;letter-spacing:1px;">+2,000 reseñas</div>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      </div>
+    </div>
+    <div style="background:#fff;padding:12px 16px 8px;border-top:1px solid #e0e0e0;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-family:'Bodoni Moda',serif;font-size:12px;color:#1a1a1a;">Piezas Destacadas</div>
+        <span style="font-size:8.5px;color:#8a7250;letter-spacing:1px;text-transform:uppercase;">Ver colección →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildDiamanteMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div>
+      <div style="aspect-ratio:1;overflow:hidden;background:#f9f9f9;margin-bottom:4px;position:relative;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#1a1a1a;color:#fff;font-size:5.5px;padding:1px 5px;font-weight:500;letter-spacing:.5px;">NUEVO</div>':''}
+      </div>
+      <div style="font-family:'Bodoni Moda',serif;font-size:6.5px;color:#1a1a1a;margin-bottom:1px;">${p.name}</div>
+      <div style="font-size:6.5px;font-weight:500;color:#1a1a1a;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'DM Sans',sans-serif;">
+    <div style="background:#1a1a1a;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;">Envío gratuito · Certificado GIA</span></div>
+    <div style="background:#fff;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #e0e0e0;flex-shrink:0;">
+      <span style="font-family:'Bodoni Moda',serif;font-size:11px;font-weight:400;letter-spacing:5px;color:#1a1a1a;text-transform:uppercase;">DIAMANTE</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#1a1a1a;">♡ 🛒</div>
+    </div>
+    <div style="height:120px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
+      <div style="background:#f9f9f9;display:flex;flex-direction:column;justify-content:center;padding:0 10px;">
+        <div style="font-size:6px;letter-spacing:3px;text-transform:uppercase;color:#8a7250;margin-bottom:8px;">ALTA JOYERÍA</div>
+        <div style="font-family:'Bodoni Moda',serif;font-size:14px;line-height:1.1;color:#1a1a1a;margin-bottom:10px;">Brillo que<br>no necesita<br>palabras.</div>
+        <div style="display:inline-block;padding:4px 10px;background:#1a1a1a;color:#fff;font-size:5.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;width:fit-content;">Descubrir →</div>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      </div>
+    </div>
+    <div style="background:#fff;border-top:1px solid #e0e0e0;padding:7px 9px;flex:1;">
+      <div style="font-family:'Bodoni Moda',serif;font-size:7px;color:#1a1a1a;margin-bottom:6px;">Piezas Destacadas</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── HERITAGE (Jewelry — Joyería Artesanal) ─────────────────────────────────
+
+function buildHeritageDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:1;overflow:hidden;background:#f0e8d8;margin-bottom:8px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#2c1a10;color:#fff;font-size:7px;letter-spacing:1.5px;padding:2px 7px;font-weight:600;text-transform:uppercase;">Artesanal</div>':''}
+      </div>
+      <div style="font-family:'Libre Baskerville',serif;font-size:10px;color:#2c1a10;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:8.5px;color:#8a6a50;margin-bottom:3px;letter-spacing:.3px;">Hecho a mano</div>
+      <div style="font-size:9.5px;font-weight:600;color:#2c1a10;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#faf6ef;height:100%;overflow:hidden;font-family:'Nunito',sans-serif;">
+    <div style="background:#2c1a10;height:22px;display:flex;align-items:center;justify-content:center;gap:24px;">
+      <span style="font-size:7.5px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;">Envío gratis</span>
+      <span style="color:#c49a6c;font-size:14px;line-height:1;">·</span>
+      <span style="font-size:7.5px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;">Joyería artesanal</span>
+      <span style="color:#c49a6c;font-size:14px;line-height:1;">·</span>
+      <span style="font-size:7.5px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;">Garantía de por vida</span>
+    </div>
+    <div style="background:rgba(250,246,239,.95);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #d4c4b0;">
+      <div style="display:flex;gap:20px;"><span style="font-size:9.5px;color:#8a6a50;">Tienda</span><span style="font-size:9.5px;color:#8a6a50;">Historia</span><span style="font-size:9.5px;color:#8a6a50;">Taller</span></div>
+      <span style="font-family:'Libre Baskerville',serif;font-size:14px;letter-spacing:5px;color:#2c1a10;text-transform:uppercase;">HERITAGE</span>
+      <div style="display:flex;gap:12px;font-size:14px;color:#2c1a10;">♡ 🛒</div>
+    </div>
+    <div style="height:172px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
+      <div style="position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        <div style="position:absolute;top:14px;left:14px;background:#c49a6c;color:#fff;font-size:7.5px;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;font-weight:700;">Artesanal</div>
+      </div>
+      <div style="background:#f0e8d8;display:flex;flex-direction:column;justify-content:center;padding:0 24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="width:24px;height:1px;background:#c49a6c;"></div>
+          <span style="font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:#a0784a;">JOYERÍA ARTESANAL</span>
+        </div>
+        <div style="font-family:'Libre Baskerville',serif;font-size:20px;line-height:1.15;color:#2c1a10;margin-bottom:16px;">Hechas a mano,<br>hechas para <em>siempre.</em></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <div style="padding:7px 16px;background:#2c1a10;color:#fff;font-size:8.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;">Ver colección →</div>
+          <span style="font-size:8.5px;color:#2c1a10;border-bottom:1px solid #c49a6c;padding-bottom:1px;letter-spacing:1px;">Historia</span>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:14px;">
+          <div style="display:flex;align-items:center;gap:5px;font-size:8px;color:#8a6a50;">✓ Plata 925</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:8px;color:#8a6a50;">✓ Oro 18k</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#faf6ef;padding:12px 16px 8px;border-top:1px solid #d4c4b0;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-family:'Libre Baskerville',serif;font-size:12px;color:#2c1a10;font-style:italic;">Piezas Especiales</div>
+        <span style="font-size:8.5px;color:#a0784a;letter-spacing:1px;text-transform:uppercase;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildHeritageMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div>
+      <div style="aspect-ratio:1;overflow:hidden;background:#f0e8d8;margin-bottom:4px;position:relative;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#c49a6c;color:#fff;font-size:5px;padding:1px 5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;">Art.</div>':''}
+      </div>
+      <div style="font-family:'Libre Baskerville',serif;font-size:6.5px;color:#2c1a10;margin-bottom:1px;">${p.name}</div>
+      <div style="font-size:6.5px;font-weight:600;color:#2c1a10;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#faf6ef;height:100%;display:flex;flex-direction:column;font-family:'Nunito',sans-serif;">
+    <div style="background:#2c1a10;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:rgba(255,255,255,.65);letter-spacing:1.5px;text-transform:uppercase;">Envío gratis · Joyería artesanal</span></div>
+    <div style="background:#faf6ef;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #d4c4b0;flex-shrink:0;">
+      <span style="font-family:'Libre Baskerville',serif;font-size:10px;letter-spacing:4px;color:#2c1a10;text-transform:uppercase;">HERITAGE</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#2c1a10;">♡ 🛒</div>
+    </div>
+    <div style="height:120px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
+      <div style="position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        <div style="position:absolute;top:6px;left:6px;background:#c49a6c;color:#fff;font-size:5.5px;letter-spacing:2px;padding:2px 6px;font-weight:700;text-transform:uppercase;">ART.</div>
+      </div>
+      <div style="background:#f0e8d8;display:flex;flex-direction:column;justify-content:center;padding:0 10px;">
+        <div style="font-size:5.5px;letter-spacing:2px;text-transform:uppercase;color:#a0784a;margin-bottom:6px;">ARTESANAL</div>
+        <div style="font-family:'Libre Baskerville',serif;font-size:13px;line-height:1.15;color:#2c1a10;margin-bottom:8px;">Hechas a<br>mano, para<br><em>siempre.</em></div>
+        <div style="display:inline-block;padding:4px 10px;background:#2c1a10;color:#fff;font-size:5.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;width:fit-content;">Ver →</div>
+      </div>
+    </div>
+    <div style="background:#faf6ef;border-top:1px solid #d4c4b0;padding:7px 9px;flex:1;">
+      <div style="font-family:'Libre Baskerville',serif;font-size:7px;font-style:italic;color:#2c1a10;margin-bottom:6px;">Piezas Especiales</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+// ── LUMIÈRE (Jewelry — Lujo Oscuro) ────────────────────────────────────────
+
+function buildLumiereDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,10,0.88) 0%,transparent 55%);"></div>
+      ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#c9a96e;color:#09090a;font-size:7px;font-weight:700;padding:2px 8px;letter-spacing:1.5px;text-transform:uppercase;">Exclusivo</div>':''}
+      <div style="position:absolute;bottom:10px;left:10px;right:10px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:300;color:#f0ece4;margin-bottom:2px;">${p.name}</div>
+        <div style="font-size:9px;color:#c9a96e;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#09090a;height:100%;overflow:hidden;font-family:'Lato',sans-serif;">
+    <div style="background:#111112;border-bottom:1px solid #2a2a2c;height:22px;display:flex;align-items:center;justify-content:center;gap:28px;">
+      <span style="font-size:7.5px;color:#8a8278;letter-spacing:2px;text-transform:uppercase;">🚚 Envío discreto</span>
+      <span style="width:4px;height:4px;background:#c9a96e;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:7.5px;color:#8a8278;letter-spacing:2px;text-transform:uppercase;">✦ Certificado autenticidad</span>
+      <span style="width:4px;height:4px;background:#c9a96e;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:7.5px;color:#8a8278;letter-spacing:2px;text-transform:uppercase;">♦ Garantía vitalicia</span>
+    </div>
+    <div style="background:rgba(9,9,10,.95);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #2a2a2c;">
+      <div style="display:flex;gap:20px;"><span style="font-size:9.5px;color:#8a8278;letter-spacing:2px;text-transform:uppercase;">Colecciones</span><span style="font-size:9.5px;color:#8a8278;letter-spacing:2px;text-transform:uppercase;">Anillos</span><span style="font-size:9.5px;color:#8a8278;letter-spacing:2px;text-transform:uppercase;">Nosotros</span></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:10px;color:#c9a96e;text-transform:uppercase;">LUMIÈRE</span>
+      <div style="display:flex;gap:14px;font-size:14px;color:#8a8278;">♡ 🛒</div>
+    </div>
+    <div style="height:172px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,10,0.92) 0%,rgba(9,9,10,0.35) 50%,rgba(9,9,10,0.15) 100%);"></div>
+      <div style="position:absolute;bottom:20px;left:24px;max-width:60%;">
+        <div style="font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px;">JOYERÍA DE LUJO</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;font-style:italic;color:#f0ece4;line-height:1.05;margin-bottom:16px;">Piezas que<br>perduran.</div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <div style="padding:7px 18px;background:#c9a96e;color:#09090a;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Explorar →</div>
+          <div style="padding:7px 16px;border:1px solid rgba(201,169,110,0.35);color:#c9a96e;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Colecciones</div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:20px;right:24px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:8px;letter-spacing:3px;color:#8a8278;writing-mode:vertical-rl;">SCROLL</div>
+    </div>
+    <div style="background:#09090a;padding:10px 16px 8px;border-top:1px solid #2a2a2c;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div>
+          <div style="font-size:7.5px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;margin-bottom:2px;">COLECCIÓN</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:300;color:#f0ece4;font-style:italic;">Piezas Únicas</div>
+        </div>
+        <span style="font-size:8px;color:#c9a96e;letter-spacing:2px;text-transform:uppercase;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildLumiereMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,10,0.9) 0%,transparent 50%);"></div>
+      ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#c9a96e;color:#09090a;font-size:5px;font-weight:700;padding:1px 5px;letter-spacing:1px;text-transform:uppercase;">Excl.</div>':''}
+      <div style="position:absolute;bottom:5px;left:5px;right:5px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:6.5px;font-weight:300;color:#f0ece4;margin-bottom:1px;font-style:italic;">${p.name}</div>
+        <div style="font-size:6.5px;color:#c9a96e;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#09090a;height:100%;display:flex;flex-direction:column;font-family:'Lato',sans-serif;">
+    <div style="background:#111112;border-bottom:1px solid #2a2a2c;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:#8a8278;letter-spacing:2px;text-transform:uppercase;">✦ Joyería de lujo · Envío discreto</span></div>
+    <div style="background:#09090a;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #2a2a2c;flex-shrink:0;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;letter-spacing:6px;color:#c9a96e;text-transform:uppercase;">LUMIÈRE</span>
+      <div style="display:flex;gap:7px;font-size:10px;color:#8a8278;">♡ 🛒</div>
+    </div>
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,10,0.92) 0%,rgba(9,9,10,0.3) 55%,transparent 100%);"></div>
+      <div style="position:absolute;bottom:10px;left:10px;max-width:70%;">
+        <div style="font-size:6.5px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;margin-bottom:7px;">JOYERÍA DE LUJO</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;font-style:italic;color:#f0ece4;line-height:1.05;margin-bottom:8px;">Piezas que<br>perduran.</div>
+        <div style="display:inline-block;padding:4px 12px;background:#c9a96e;color:#09090a;font-size:6px;font-weight:700;letter-spacing:2px;text-transform:uppercase;width:fit-content;">Explorar →</div>
+      </div>
+    </div>
+    <div style="background:#09090a;border-top:1px solid #2a2a2c;padding:6px 7px;flex:1;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:7px;font-style:italic;color:#f0ece4;margin-bottom:5px;font-weight:300;">Piezas Únicas</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">${prods}</div>
     </div>
   </div>`;
 }
