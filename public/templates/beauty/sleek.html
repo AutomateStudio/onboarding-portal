@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLEEK — Clean Beauty Minimal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--off:#f8f8f8;--light:#f2f2f2;
+  --dark:#1a1a1a;--mid:#555;--muted:#999;--border:#ececec;
+  --pink:#f5c5ce;--pink2:#f0a8b5;--sage:#c8d9c8;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--dark);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(26,26,26,.82);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:#fff;max-width:440px;width:90%;padding:44px;position:relative;border-radius:2px}
+.popup-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)}
+.popup-badge{width:60px;height:60px;background:var(--off);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 20px}
+.popup-title{font-size:26px;font-weight:800;color:var(--dark);text-align:center;margin-bottom:8px;line-height:1.1}
+.popup-sub{font-size:13px;color:var(--muted);line-height:1.7;text-align:center;margin-bottom:24px}
+.popup-form{display:flex;gap:0;margin-bottom:10px}
+.popup-input{flex:1;background:var(--off);border:1.5px solid var(--border);border-right:none;color:var(--dark);padding:12px 16px;font-size:13px;font-family:'Inter',sans-serif;outline:none;border-radius:2px 0 0 2px}
+.popup-input:focus{border-color:var(--dark)}
+.popup-btn{background:var(--dark);color:#fff;border:none;padding:12px 20px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;cursor:pointer;white-space:nowrap;text-transform:uppercase;border-radius:0 2px 2px 0}
+.popup-btn:hover{background:var(--mid)}
+.popup-skip{font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;text-decoration:underline;display:block;text-align:center}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);padding:0 56px;display:flex;align-items:center;justify-content:space-between;height:62px}
+.nav-logo{font-size:20px;font-weight:800;letter-spacing:2px;color:var(--dark);text-decoration:none}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);font-size:12px;font-weight:600;letter-spacing:1px;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--dark)}
+.nav-icons{display:flex;gap:14px;align-items:center}
+.nav-icon{font-size:16px;color:var(--muted);text-decoration:none;transition:color .2s;cursor:pointer;background:none;border:none}
+.nav-icon:hover{color:var(--dark)}
+.nav-shop-btn{background:var(--dark);color:#fff;border:none;padding:8px 20px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;text-decoration:none;border-radius:100px;text-transform:uppercase}
+.nav-shop-btn:hover{opacity:.85}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--dark)}
+.mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:24px;font-weight:800;letter-spacing:2px;color:var(--dark);text-decoration:none}
+.mobile-close{position:absolute;top:22px;right:28px;background:none;border:none;color:var(--dark);font-size:24px;cursor:pointer}
+
+/* HERO SLIDER */
+.hero{position:relative;height:88vh;min-height:560px;display:flex;overflow:hidden}
+.hero-side{width:13%;background:linear-gradient(135deg,#e8b4a0,#f5d5c8);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.hero-side.right{background:linear-gradient(135deg,#f8d4e0,#f0b8c8)}
+.hero-side-text{font-size:9px;font-weight:700;letter-spacing:4px;color:rgba(42,31,20,.35);text-transform:uppercase;writing-mode:vertical-rl;text-orientation:mixed}
+.hero-main{flex:1;position:relative;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:heroZoom 14s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.04)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,26,26,.5) 0%,rgba(26,26,26,.3) 50%,rgba(26,26,26,.55) 100%)}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 40px}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:14px}
+.hero-title{font-size:clamp(42px,6vw,76px);font-weight:800;color:#fff;line-height:1.05;margin-bottom:16px;letter-spacing:-1px}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;max-width:440px;margin-bottom:32px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-white{display:inline-block;background:#fff;color:var(--dark);padding:13px 36px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:.2s}
+.btn-white:hover{background:var(--off)}
+.btn-outline-w{display:inline-block;border:2px solid rgba(255,255,255,.6);color:#fff;padding:11px 34px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:.2s}
+.btn-outline-w:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.hero-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4)}
+.hero-dot.active{background:#fff;width:20px;border-radius:3px}
+
+/* TABS NAV */
+.tabs-bar{background:#fff;border-bottom:1px solid var(--border);padding:0 56px;display:flex;gap:32px;align-items:center}
+.tbar-tab{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:16px 0;border-bottom:2px solid transparent;cursor:pointer;transition:.2s}
+.tbar-tab.active{color:var(--dark);border-bottom-color:var(--dark)}
+.tbar-tab:hover:not(.active){color:var(--mid)}
+.tbar-right{margin-left:auto;font-size:11px;color:var(--mid);font-weight:600;text-decoration:underline;cursor:pointer}
+
+/* SECTION */
+.section{padding:88px 56px;max-width:1200px;margin:0 auto}
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.section-title{font-size:clamp(32px,4vw,52px);font-weight:800;color:var(--dark);line-height:.95;letter-spacing:-1px;margin-bottom:48px}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.product-card{cursor:pointer;background:var(--off)}
+.product-img-wrap{position:relative;overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--off)}
+.product-img-wrap img{height:140px;object-fit:contain;transition:transform .5s}
+.product-card:hover .product-img-wrap img{transform:scale(1.08)}
+.product-overlay{position:absolute;inset:0;background:rgba(26,26,26,0);transition:.3s;display:flex;align-items:flex-end;padding:14px}
+.product-card:hover .product-overlay{background:rgba(26,26,26,.07)}
+.quick-shop{background:var(--dark);color:#fff;width:100%;padding:9px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-align:center;cursor:pointer;border:none;border-radius:100px;opacity:0;transform:translateY(8px);transition:.3s;text-transform:uppercase}
+.product-card:hover .quick-shop{opacity:1;transform:translateY(0)}
+.product-pill{position:absolute;top:12px;left:12px;color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:100px}
+.product-pill.discount{background:#dc2626}
+.product-pill.new{background:var(--dark)}
+.product-info{padding:14px 16px 18px}
+.product-cat{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:.5px}
+.product-name{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:5px}
+.product-price-row{display:flex;gap:8px;align-items:baseline}
+.product-price{font-size:13px;font-weight:800;color:var(--dark)}
+.product-price.sale{color:#dc2626}
+.product-old{font-size:11px;text-decoration:line-through;color:var(--muted)}
+
+/* INGREDIENTS */
+.ingredients-section{background:var(--off);padding:88px 0;border-top:1px solid var(--border)}
+.ingredients-inner{max-width:1100px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.ingredients-img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-radius:2px}
+.ingredients-eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ingredients-title{font-size:46px;font-weight:800;color:var(--dark);line-height:.95;letter-spacing:-1px;margin-bottom:28px}
+.ingredients-text{font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:32px}
+.ingredient-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.ing-pill{background:#fff;border:1.5px solid var(--border);padding:7px 16px;border-radius:100px;font-size:11px;font-weight:600;color:var(--dark);letter-spacing:.5px}
+.ing-pill:hover{border-color:var(--dark)}
+
+/* ROUTINE */
+.routine-section{padding:88px 56px;background:#fff}
+.routine-inner{max-width:900px;margin:0 auto;text-align:center}
+.routine-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px}
+.routine-step{text-align:center}
+.routine-num{width:48px;height:48px;border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:14px;font-weight:800;color:var(--dark)}
+.routine-step-name{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dark);margin-bottom:6px}
+.routine-step-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.routine-connector{display:none}
+
+/* URGENCY */
+.urgency-bar{background:var(--dark);padding:16px 56px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-text{font-size:13px;font-weight:600;color:#fff}
+.urgency-text span{color:var(--pink2)}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-unit{background:rgba(255,255,255,.12);color:#fff;padding:6px 12px;font-size:18px;font-weight:800;min-width:40px;text-align:center;border-radius:3px}
+.cd-sep{font-size:18px;font-weight:800;color:rgba(255,255,255,.35)}
+
+/* REVIEWS */
+.reviews-section{padding:88px 56px;background:var(--off)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px}
+.review-aggregate{display:flex;align-items:center;gap:16px}
+.review-big-stars{font-size:20px;color:var(--dark);letter-spacing:2px}
+.review-big-num{font-size:42px;font-weight:800;color:var(--dark);line-height:1}
+.review-big-count{font-size:12px;color:var(--muted);margin-top:2px}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review-card{background:#fff;border-radius:2px;padding:24px;border:1px solid var(--border)}
+.review-stars{color:var(--dark);font-size:12px;letter-spacing:2px;margin-bottom:10px}
+.review-text{font-size:13px;line-height:1.7;color:var(--dark);margin-bottom:14px}
+.review-footer{display:flex;justify-content:space-between;align-items:center}
+.review-author{font-size:12px;font-weight:700;color:var(--dark)}
+.review-check{font-size:10px;color:#16a34a;font-weight:600}
+
+/* STATS */
+.stats-section{padding:80px 56px;background:#fff;border-top:1px solid var(--border)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-size:52px;font-weight:900;color:var(--dark);letter-spacing:-1px;line-height:1}
+.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:6px;font-weight:600}
+
+/* NEWSLETTER */
+.nl-section{padding:88px 56px;background:var(--pink);text-align:center}
+.nl-inner{max-width:480px;margin:0 auto}
+.nl-eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(26,26,26,.5);margin-bottom:10px}
+.nl-title{font-size:48px;font-weight:900;color:var(--dark);letter-spacing:-1px;line-height:.95;margin-bottom:12px}
+.nl-sub{font-size:13px;color:var(--mid);margin-bottom:28px;line-height:1.6}
+.nl-form{display:flex;margin-bottom:10px}
+.nl-input{flex:1;background:rgba(255,255,255,.7);border:1.5px solid rgba(26,26,26,.15);border-right:none;color:var(--dark);padding:13px 18px;font-size:13px;font-family:'Inter',sans-serif;outline:none}
+.nl-input:focus{border-color:var(--dark)}
+.nl-btn{background:var(--dark);color:#fff;border:none;padding:13px 24px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;text-transform:uppercase}
+.nl-note{font-size:11px;color:rgba(26,26,26,.45)}
+
+/* FOOTER */
+footer{background:var(--dark);padding:64px 56px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-size:20px;font-weight:800;letter-spacing:2px;color:#fff;text-decoration:none;display:block;margin-bottom:12px}
+.f-desc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7}
+.f-col h5{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:#fff}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:rgba(255,255,255,.25)}
+.f-social{display:flex;gap:10px}
+.f-social a{width:32px;height:32px;border:1px solid rgba(255,255,255,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--pink2);color:var(--pink2)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links,.nav-shop-btn{display:none}
+  .hamburger{display:flex}
+  .hero{height:70vh}
+  .hero-side{display:none}
+  .section{padding:64px 20px}
+  .products-grid{grid-template-columns:1fr 1fr;gap:3px}
+  .tabs-bar{padding:0 20px;gap:16px;overflow-x:auto}
+  .ingredients-section{padding:64px 0}
+  .ingredients-inner{grid-template-columns:1fr;gap:32px;padding:0 20px}
+  .ingredients-img{aspect-ratio:1}
+  .routine-section{padding:64px 20px}
+  .routine-steps{grid-template-columns:1fr 1fr;gap:24px}
+  .urgency-bar{padding:12px 20px;flex-direction:column;gap:10px}
+  .reviews-section{padding:64px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:14px}
+  .stats-section{padding:64px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:64px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1.5px solid rgba(26,26,26,.15)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .popup-box{padding:28px 20px}
+  .popup-form{flex-direction:column}
+  .popup-input{border-right:1.5px solid var(--border);border-radius:2px}
+  .popup-btn{border-radius:2px;width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="popup-badge">✨</div>
+    <h2 class="popup-title">Blend Beauty<br>In You</h2>
+    <p class="popup-sub">Suscríbete y obtén 15% en tu primera compra. Más acceso anticipado a nuevos lanzamientos.</p>
+    <div class="popup-form">
+      <input type="email" class="popup-input" placeholder="tu@correo.com">
+      <button class="popup-btn" onclick="closePopup()">Activar</button>
+    </div>
+    <button class="popup-skip" onclick="closePopup()">Continuar sin descuento</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Sleek</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Presets ▾</a></li>
+    <li><a href="#">Shop ▾</a></li>
+    <li><a href="#">Collections ▾</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#" class="nav-icon" title="Buscar">🔍</a>
+    <a href="#" class="nav-icon" title="Cuenta">👤</a>
+    <a href="#" class="nav-shop-btn">🛒 Cart (0)</a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Home</a>
+  <a href="#" onclick="toggleMenu()">Shop</a>
+  <a href="#" onclick="toggleMenu()">Collections</a>
+  <a href="#" onclick="toggleMenu()">Presets</a>
+  <a href="#" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-side"><span class="hero-side-text">Clean Beauty</span></div>
+  <div class="hero-main">
+    <img src="/images/templates/beauty/sleek/hero.jpg" alt="Sleek Clean Beauty" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Blend Beauty In You</p>
+      <h1 class="hero-title">Get the skin you<br>want to feel</h1>
+      <p class="hero-sub">Clean, science-backed formulas that work with your skin, not against it. Minimal ingredients, maximum results.</p>
+      <div class="hero-ctas">
+        <a href="#productos" class="btn-white">Shop Now</a>
+        <a href="#ingredientes" class="btn-outline-w">Our Ingredients</a>
+      </div>
+    </div>
+    <div class="hero-dots">
+      <div class="hero-dot active"></div>
+      <div class="hero-dot"></div>
+      <div class="hero-dot"></div>
+    </div>
+  </div>
+  <div class="hero-side right"><span class="hero-side-text">Skincare</span></div>
+</section>
+
+<!-- TABS NAV -->
+<div class="tabs-bar">
+  <span class="tbar-tab active">Lo más vendido</span>
+  <span class="tbar-tab">Bestsellers</span>
+  <span class="tbar-tab">Ofertas</span>
+  <span class="tbar-right">Ver todos los productos →</span>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section" id="productos">
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/sleek/product-1.jpg" alt="Sunscreen Lotion">
+        <span class="product-pill discount">-25%</span>
+        <div class="product-overlay"><button class="quick-shop">ADD TO CART</button></div>
+      </div>
+      <div class="product-info">
+        <p class="product-cat">Protección Solar</p>
+        <p class="product-name">Sunscreen Lotion SPF50</p>
+        <div class="product-price-row"><span class="product-price sale">$22.000</span><span class="product-old">$29.000</span></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/sleek/product-2.jpg" alt="Rejuvenating Night Oil">
+        <span class="product-pill new">New</span>
+        <div class="product-overlay"><button class="quick-shop">ADD TO CART</button></div>
+      </div>
+      <div class="product-info">
+        <p class="product-cat">Aceite Facial</p>
+        <p class="product-name">Rejuvenating Night Oil</p>
+        <div class="product-price-row"><span class="product-price">$79.000</span></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/sleek/product-3.jpg" alt="Dream Bio Retinol">
+        <span class="product-pill discount">-30%</span>
+        <div class="product-overlay"><button class="quick-shop">ADD TO CART</button></div>
+      </div>
+      <div class="product-info">
+        <p class="product-cat">Sérum</p>
+        <p class="product-name">Dream Bio Retinol</p>
+        <div class="product-price-row"><span class="product-price sale">$27.000</span><span class="product-old">$39.000</span></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/sleek/product-4.jpg" alt="Protective Day Oil">
+        <div class="product-overlay"><button class="quick-shop">ADD TO CART</button></div>
+      </div>
+      <div class="product-info">
+        <p class="product-cat">Hidratante</p>
+        <p class="product-name">Protective Day Oil</p>
+        <div class="product-price-row"><span class="product-price">$99.000</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INGREDIENTS -->
+<section class="ingredients-section" id="ingredientes">
+  <div class="ingredients-inner">
+    <img src="/images/templates/beauty/sleek/product-3.jpg" alt="Ingredientes Sleek" class="ingredients-img">
+    <div>
+      <p class="ingredients-eyebrow">Clean Formula</p>
+      <h2 class="ingredients-title">NOTHING<br>TO HIDE</h2>
+      <p class="ingredients-text">Each product lists every ingredient, clearly. No mystery blends, no hidden fillers. Just actives that earn their place in the formula.</p>
+      <div class="ingredient-pills">
+        <span class="ing-pill">Niacinamide 10%</span>
+        <span class="ing-pill">Hyaluronic Acid</span>
+        <span class="ing-pill">Bio Retinol</span>
+        <span class="ing-pill">Vitamin C</span>
+        <span class="ing-pill">Peptides</span>
+        <span class="ing-pill">Ceramides</span>
+        <span class="ing-pill">AHA/BHA</span>
+        <span class="ing-pill">Bakuchiol</span>
+      </div>
+      <a href="#" class="btn-white" style="display:inline-block;background:var(--dark);color:#fff;padding:12px 28px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:100px">Full Ingredient List →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTINE -->
+<section class="routine-section">
+  <div class="routine-inner">
+    <p class="section-eyebrow" style="text-align:center">Your Ritual</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:0">THE DAILY ROUTINE</h2>
+    <div class="routine-steps">
+      <div class="routine-step">
+        <div class="routine-num">AM</div>
+        <p class="routine-step-name">Cleanser</p>
+        <p class="routine-step-desc">Gel limpiador pH-balanced que elimina sin resecar.</p>
+      </div>
+      <div class="routine-step">
+        <div class="routine-num">02</div>
+        <p class="routine-step-name">Sérum</p>
+        <p class="routine-step-desc">Activos concentrados para brightening e hidratación.</p>
+      </div>
+      <div class="routine-step">
+        <div class="routine-num">03</div>
+        <p class="routine-step-name">Moisturizer</p>
+        <p class="routine-step-desc">Barrera cutánea reforzada con ceramidas y ácido hialurónico.</p>
+      </div>
+      <div class="routine-step">
+        <div class="routine-num">SPF</div>
+        <p class="routine-step-name">Sunscreen</p>
+        <p class="routine-step-desc">El paso que más protege. Siempre el último por la mañana.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-bar">
+  <p class="urgency-text">🌙 BUNDLE NOCHE: Retinol + Night Oil con <span>35% OFF</span>. Solo 72h. Termina en:</p>
+  <div class="cd-row">
+    <div class="cd-unit" id="cd-h">71</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-m">34</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-s">17</div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <div>
+        <p class="section-eyebrow">Real Reviews</p>
+        <h2 class="section-title" style="margin-bottom:0">SKIN STORIES</h2>
+      </div>
+      <div class="review-aggregate">
+        <div>
+          <p class="review-big-num">4.9</p>
+          <p class="review-big-stars">★★★★★</p>
+          <p class="review-big-count">+2.400 reseñas</p>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El Sunscreen SPF50 es lo mejor que he probado. Ligero, sin residuo blanco, perfecto bajo el maquillaje. Desde que lo uso mi piel está notablemente más uniforme."</p>
+        <div class="review-footer"><p class="review-author">María J.</p><p class="review-check">✓ Verified</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El Dream Bio Retinol me cambió la piel en 6 semanas. Sin irritación, sin peeling excesivo. Es el retinol que recomendaría a cualquier principiante."</p>
+        <div class="review-footer"><p class="review-author">Laura P.</p><p class="review-check">✓ Verified</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Fórmulas limpias y honestas. Puede ver cada ingrediente y entender para qué sirve. Eso me da confianza total. El Night Oil es absolutamente adictivo."</p>
+        <div class="review-footer"><p class="review-author">Sofía R.</p><p class="review-check">✓ Verified</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div><p class="stat-num">18k+</p><p class="stat-label">Clientes activos</p></div>
+    <div><p class="stat-num">4.9</p><p class="stat-label">Calificación</p></div>
+    <div><p class="stat-num">0</p><p class="stat-label">Ingredientes ocultos</p></div>
+    <div><p class="stat-num">100%</p><p class="stat-label">Clean formula</p></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="nl-section">
+  <div class="nl-inner">
+    <p class="nl-eyebrow">Skin Club</p>
+    <h2 class="nl-title">GLOW UP<br>WEEKLY</h2>
+    <p class="nl-sub">Rutinas, ciencia detrás de cada ingrediente y ofertas exclusivas para la comunidad Sleek.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">UNIRME</button>
+    </form>
+    <p class="nl-note">Sin spam · Cancelar en cualquier momento</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="f-logo">Sleek</a>
+      <p class="f-desc">Clean skincare para quienes leen los ingredientes. Fórmulas sin secretos, resultados reales.</p>
+    </div>
+    <div class="f-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="#">Sérums</a></li>
+        <li><a href="#">Aceites</a></li>
+        <li><a href="#">Protección Solar</a></li>
+        <li><a href="#">Kits</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Help</h5>
+      <ul>
+        <li><a href="#">Quiz de piel</a></li>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Sleek</h5>
+      <ul>
+        <li><a href="#">Nuestra historia</a></li>
+        <li><a href="#">Ingredientes</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Presets</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 Sleek Beauty. Todos los derechos reservados.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="TikTok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+      <a href="#" title="YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),1800);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+document.querySelectorAll('.tbar-tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tbar-tab').forEach(x=>x.classList.remove('active'));t.classList.add('active')}));
+(function(){let h=71,m=34,s=17;setInterval(()=>{s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=71;document.getElementById('cd-h').textContent=String(h).padStart(2,'0');document.getElementById('cd-m').textContent=String(m).padStart(2,'0');document.getElementById('cd-s').textContent=String(s).padStart(2,'0')},1000)})();
+</script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JULY — Luxury Skincare Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf6f0;--cream2:#f5ede0;--cream3:#e8ddd0;
+  --brown:#2a1f14;--amber:#c8860a;--amber-light:#f5e6c0;
+  --muted:#7a6a58;--border:#e4ddd0;--green:#4a6741;
+  --font-head:'Cormorant Garamond',serif;--font-body:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--brown);font-family:var(--font-body);overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(42,31,20,.88);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--cream);max-width:500px;width:90%;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.popup-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);z-index:1}
+.popup-img{width:100%;height:100%;object-fit:cover;display:block}
+.popup-right{padding:36px 30px;display:flex;flex-direction:column;justify-content:center}
+.popup-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.popup-title{font-family:var(--font-head);font-size:40px;font-weight:600;font-style:italic;color:var(--brown);line-height:1;margin-bottom:10px}
+.popup-title span{color:var(--amber)}
+.popup-sub{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.popup-input{width:100%;background:#fff;border:1px solid var(--border);color:var(--brown);padding:11px 14px;font-size:12px;font-family:var(--font-body);outline:none;margin-bottom:8px}
+.popup-input:focus{border-color:var(--amber)}
+.popup-btn{width:100%;background:var(--brown);color:var(--cream);border:none;padding:11px;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:2px;cursor:pointer;text-transform:uppercase}
+.popup-btn:hover{background:var(--amber)}
+.popup-skip{font-size:10px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--font-body);text-decoration:underline;margin-top:8px;display:block}
+
+/* ANN BAR */
+.ann-bar{background:var(--brown);color:rgba(232,221,204,.8);text-align:center;font-size:11px;font-weight:500;letter-spacing:2px;padding:9px 20px;text-transform:uppercase}
+.ann-bar span{color:var(--amber-light)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:0 56px;display:flex;align-items:center;justify-content:space-between;height:68px;transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 2px 24px rgba(42,31,20,.08)}
+.nav-util{display:flex;gap:14px;font-size:11px;color:var(--muted)}
+.nav-logo{font-family:var(--font-head);font-size:26px;font-weight:700;font-style:italic;letter-spacing:2px;color:var(--brown);text-decoration:none}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--brown)}
+.nav-icons{display:flex;gap:14px;align-items:center;font-size:16px;color:var(--brown)}
+.nav-icons a{text-decoration:none;color:var(--brown);transition:color .2s}
+.nav-icons a:hover{color:var(--amber)}
+.nav-cart-btn{background:var(--brown);color:var(--cream);border:none;padding:7px 18px;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase;text-decoration:none;border-radius:100px}
+.nav-cart-btn:hover{background:var(--amber)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--brown)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--cream);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-head);font-size:32px;font-style:italic;color:var(--brown);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--brown);font-size:24px;cursor:pointer}
+
+/* HERO */
+.hero{position:relative;height:92vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;animation:heroZoom 14s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.04)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(42,31,20,.85) 0%,rgba(42,31,20,.35) 50%,rgba(42,31,20,.05) 100%)}
+.hero-content{position:relative;z-index:1;padding:0 60px 72px;max-width:640px}
+.hero-eyebrow{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--amber-light);margin-bottom:16px;opacity:.85}
+.hero-title{font-family:var(--font-head);font-size:clamp(52px,7vw,88px);font-weight:600;font-style:italic;color:#fff;line-height:1;margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,.3)}
+.hero-title em{color:var(--amber-light)}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.72);line-height:1.8;max-width:400px;margin-bottom:32px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn-cream{display:inline-block;background:var(--cream);color:var(--brown);padding:13px 36px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:.2s}
+.btn-cream:hover{background:var(--amber-light)}
+.btn-outline-w{display:inline-block;border:1.5px solid rgba(255,255,255,.55);color:#fff;padding:12px 34px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:.2s}
+.btn-outline-w:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+
+/* TRUST BAR */
+.trust-bar{background:#fff;padding:16px 56px;border-bottom:1px solid var(--border);display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.trust-item{text-align:center}
+.trust-label{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:3px}
+.trust-value{font-size:12px;color:var(--muted)}
+
+/* SECTION */
+.section{padding:96px 56px;max-width:1200px;margin:0 auto}
+.section-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.section-title{font-family:var(--font-head);font-size:clamp(36px,4.5vw,60px);font-weight:600;font-style:italic;color:var(--brown);line-height:1;margin-bottom:48px}
+
+/* PRODUCTS */
+.products-tabs{display:flex;gap:24px;margin-bottom:32px;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px}
+.ptab{font-size:12px;font-weight:600;letter-spacing:1px;color:var(--muted);cursor:pointer;padding-bottom:12px;border-bottom:2px solid transparent;margin-bottom:-13px;transition:.2s;text-transform:uppercase}
+.ptab.active{color:var(--brown);border-bottom-color:var(--amber)}
+.ptab-right{margin-left:auto;font-size:11px;color:var(--muted);text-decoration:underline;cursor:pointer}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.product-card{cursor:pointer}
+.product-img-wrap{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--cream2);border-radius:4px;margin-bottom:14px}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.product-card:hover .product-img-wrap img{transform:scale(1.06)}
+.product-overlay{position:absolute;inset:0;background:rgba(42,31,20,0);transition:.3s;display:flex;align-items:flex-end;padding:14px}
+.product-card:hover .product-overlay{background:rgba(42,31,20,.14)}
+.quick-shop{background:var(--brown);color:var(--cream);width:100%;padding:9px;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:1.5px;text-align:center;cursor:pointer;border:none;text-transform:uppercase;border-radius:100px;opacity:0;transform:translateY(8px);transition:.3s}
+.product-card:hover .quick-shop{opacity:1;transform:translateY(0)}
+.product-pill{position:absolute;top:12px;left:12px;background:var(--amber);color:#fff;font-size:9px;font-weight:600;letter-spacing:1px;padding:3px 10px;border-radius:100px}
+.product-cat{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:.5px}
+.product-name{font-family:var(--font-head);font-size:16px;font-weight:600;font-style:italic;color:var(--brown);margin-bottom:4px}
+.product-price-row{display:flex;gap:8px;align-items:baseline}
+.product-price{font-size:13px;font-weight:600;color:var(--amber)}
+.product-old{font-size:11px;text-decoration:line-through;color:var(--muted)}
+
+/* RITUAL */
+.ritual-section{background:var(--brown);padding:96px 0}
+.ritual-inner{max-width:1100px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.ritual-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-radius:4px;filter:brightness(.95)}
+.ritual-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.ritual-title{font-family:var(--font-head);font-size:52px;font-weight:600;font-style:italic;color:var(--cream);line-height:1;margin-bottom:20px}
+.ritual-title em{color:var(--amber-light)}
+.ritual-text{font-size:13px;color:rgba(232,221,204,.65);line-height:1.9;margin-bottom:36px}
+.ritual-steps{display:flex;flex-direction:column;gap:0}
+.ritual-step{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid rgba(232,221,204,.12)}
+.ritual-step:last-child{border-bottom:none}
+.ritual-num{font-family:var(--font-head);font-size:32px;font-style:italic;color:var(--amber);min-width:36px;line-height:1}
+.ritual-step-name{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);margin-bottom:4px}
+.ritual-step-desc{font-size:12px;color:rgba(232,221,204,.55);line-height:1.6}
+
+/* URGENCY */
+.urgency-bar{background:var(--amber);padding:16px 56px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-text{font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--brown)}
+.urgency-text span{font-weight:800}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-unit{background:var(--brown);color:var(--amber-light);padding:6px 12px;font-size:18px;font-weight:800;min-width:40px;text-align:center;border-radius:3px}
+.cd-sep{font-size:18px;font-weight:800;color:rgba(42,31,20,.5)}
+
+/* REVIEWS */
+.reviews-section{padding:96px 56px;background:var(--cream)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.review-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:28px}
+.review-stars{color:var(--amber);font-size:13px;letter-spacing:2px;margin-bottom:10px}
+.review-text{font-family:var(--font-head);font-size:15px;font-style:italic;line-height:1.7;color:var(--brown);margin-bottom:16px}
+.review-footer{display:flex;justify-content:space-between;align-items:center}
+.review-author{font-size:11px;font-weight:600;color:var(--amber)}
+.review-check{font-size:10px;color:var(--green);font-weight:600}
+
+/* STATS */
+.stats-section{padding:80px 56px;background:var(--cream2);border-top:1px solid var(--border)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-family:var(--font-head);font-size:56px;font-weight:600;font-style:italic;color:var(--amber);line-height:1}
+.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* NEWSLETTER */
+.nl-section{padding:96px 56px;background:var(--brown);text-align:center}
+.nl-inner{max-width:480px;margin:0 auto}
+.nl-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:rgba(200,134,10,.75);margin-bottom:12px}
+.nl-title{font-family:var(--font-head);font-size:54px;font-weight:600;font-style:italic;color:var(--cream);line-height:.95;margin-bottom:12px}
+.nl-sub{font-size:13px;color:rgba(232,221,204,.55);margin-bottom:28px;line-height:1.7}
+.nl-form{display:flex;margin-bottom:10px}
+.nl-input{flex:1;background:rgba(250,246,240,.08);border:1px solid rgba(250,246,240,.2);border-right:none;color:var(--cream);padding:13px 18px;font-size:13px;font-family:var(--font-body);outline:none}
+.nl-input::placeholder{color:rgba(232,221,204,.35)}
+.nl-input:focus{border-color:rgba(200,134,10,.6)}
+.nl-btn{background:var(--amber);color:var(--brown);border:none;padding:13px 24px;font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:2px;cursor:pointer;text-transform:uppercase}
+.nl-btn:hover{background:var(--amber-light)}
+.nl-note{font-size:11px;color:rgba(232,221,204,.35)}
+
+/* FOOTER */
+footer{background:var(--brown);border-top:1px solid rgba(250,246,240,.08);padding:64px 56px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-family:var(--font-head);font-size:24px;font-weight:700;font-style:italic;letter-spacing:2px;color:var(--cream);text-decoration:none;display:block;margin-bottom:12px}
+.f-desc{font-size:12px;color:rgba(232,221,204,.35);line-height:1.7}
+.f-col h5{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:16px;font-weight:600}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:rgba(232,221,204,.35);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:var(--cream)}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(250,246,240,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:rgba(232,221,204,.25)}
+.f-social{display:flex;gap:10px}
+.f-social a{width:32px;height:32px;border:1px solid rgba(250,246,240,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(232,221,204,.35);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--amber);color:var(--amber)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links,.nav-util,.nav-cart-btn{display:none}
+  .hamburger{display:flex}
+  .hero-content{padding:0 24px 48px}
+  .hero-title{font-size:52px}
+  .trust-bar{gap:20px;padding:14px 20px}
+  .section{padding:64px 20px}
+  .products-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .ritual-section{padding:64px 0}
+  .ritual-inner{grid-template-columns:1fr;gap:36px;padding:0 20px}
+  .ritual-img{aspect-ratio:1}
+  .ritual-title{font-size:40px}
+  .urgency-bar{padding:12px 20px;flex-direction:column;gap:10px}
+  .reviews-section{padding:64px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:16px}
+  .stats-section{padding:64px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:64px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(250,246,240,.2)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .popup-box{grid-template-columns:1fr}
+  .popup-img-wrap{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <img src="/images/templates/beauty/july/product-1.jpg" alt="July" class="popup-img popup-img-wrap">
+    <div class="popup-right">
+      <p class="popup-eyebrow">Bienvenida a July</p>
+      <h2 class="popup-title">Cuida tu <span>piel</span></h2>
+      <p class="popup-sub">Únete a nuestra comunidad. Accede a rituales exclusivos, preventas y 10% de descuento en tu primer pedido.</p>
+      <input type="email" class="popup-input" placeholder="tu@correo.com">
+      <button class="popup-btn" onclick="closePopup()">Empezar mi ritual</button>
+      <button class="popup-skip" onclick="closePopup()">Continuar sin descuento</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANN BAR -->
+<div class="ann-bar">Envío gratis en pedidos +$80.000 · <span>Libre de Crueldad · Carbono Neutro</span></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-util"><span>ENGLISH ▾</span><span>COP ▾</span></div>
+  <a href="#" class="nav-logo">July</a>
+  <ul class="nav-links">
+    <li><a href="#">HOME</a></li>
+    <li><a href="#">SHOP ▾</a></li>
+    <li><a href="#" style="background:#b91c1c;color:#fff;padding:4px 12px;border-radius:2px;font-size:10px;">SALE</a></li>
+    <li><a href="#">ABOUT ▾</a></li>
+    <li><a href="#">BLOG</a></li>
+    <li><a href="#">PRESETS ▾</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#" title="Buscar">🔍</a>
+    <a href="#" title="Cuenta">👤</a>
+    <a href="#" class="nav-cart-btn">🛒 Carrito</a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Shop</a>
+  <a href="#" onclick="toggleMenu()">Rituales</a>
+  <a href="#" onclick="toggleMenu()">Blog</a>
+  <a href="#" onclick="toggleMenu()">Presets</a>
+  <a href="#" onclick="toggleMenu()" style="color:#b91c1c">SALE</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="/images/templates/beauty/july/hero.jpg" alt="July Luxury Skincare" class="hero-img">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Luxury Skincare Editorial</p>
+    <h1 class="hero-title">El Brillo <em>de</em><br>la Eternidad</h1>
+    <p class="hero-sub">Un diálogo entre la luz y la piel. Fórmulas desarrolladas con ciencia y sensibilidad.</p>
+    <div class="hero-ctas">
+      <a href="#productos" class="btn-cream">COMPRAR AHORA</a>
+      <a href="#ritual" class="btn-outline-w">LEER HISTORIA</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><p class="trust-label">CRAFT</p><p class="trust-value">Small Batch</p></div>
+  <div class="trust-item"><p class="trust-label">COMMITMENT</p><p class="trust-value">Libre de Crueldad</p></div>
+  <div class="trust-item"><p class="trust-label">SOSTENIBILIDAD</p><p class="trust-value">Carbono Neutro</p></div>
+  <div class="trust-item"><p class="trust-label">CIENCIA</p><p class="trust-value">Testado Dermatólogos</p></div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section" id="productos">
+  <div class="products-tabs">
+    <span class="ptab active">Lo más vendido</span>
+    <span class="ptab">Bestsellers</span>
+    <span class="ptab">Ofertas</span>
+    <span class="ptab-right">Ver todos los productos →</span>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/july/product-1.jpg" alt="Orchid Facial Oil">
+        <span class="product-pill">-25%</span>
+        <div class="product-overlay"><button class="quick-shop">AGREGAR AL CARRITO</button></div>
+      </div>
+      <p class="product-cat">Aceite Facial</p>
+      <p class="product-name">Orchid Facial Oil</p>
+      <div class="product-price-row"><span class="product-price">$96.000</span><span class="product-old">$128.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/july/product-2.jpg" alt="Bakuchiol Serum">
+        <div class="product-overlay"><button class="quick-shop">AGREGAR AL CARRITO</button></div>
+      </div>
+      <p class="product-cat">Sérum</p>
+      <p class="product-name">Bakuchiol Serum</p>
+      <div class="product-price-row"><span class="product-price">$145.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/july/product-3.jpg" alt="Eye Anti-Aging Cream">
+        <span class="product-pill" style="background:#1a1a1a">New</span>
+        <div class="product-overlay"><button class="quick-shop">AGREGAR AL CARRITO</button></div>
+      </div>
+      <p class="product-cat">Contorno de Ojos</p>
+      <p class="product-name">Eye Anti-Aging Cream</p>
+      <div class="product-price-row"><span class="product-price">$98.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/beauty/july/product-4.jpg" alt="Hydra Night Cream">
+        <div class="product-overlay"><button class="quick-shop">AGREGAR AL CARRITO</button></div>
+      </div>
+      <p class="product-cat">Crema de Noche</p>
+      <p class="product-name">Hydra Night Cream</p>
+      <div class="product-price-row"><span class="product-price">$112.000</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- RITUAL -->
+<section class="ritual-section" id="ritual">
+  <div class="ritual-inner">
+    <img src="/images/templates/beauty/july/product-2.jpg" alt="Ritual July" class="ritual-img">
+    <div>
+      <p class="ritual-eyebrow">El Ritual July</p>
+      <h2 class="ritual-title">Ciencia que<br><em>enamora</em></h2>
+      <p class="ritual-text">Cada fórmula nace de la investigación y el respeto por la piel. Ingredientes activos de máxima pureza, sin compromisos.</p>
+      <div class="ritual-steps">
+        <div class="ritual-step">
+          <span class="ritual-num">01</span>
+          <div>
+            <p class="ritual-step-name">Ingredientes activos</p>
+            <p class="ritual-step-desc">Solo los más efectivos: Bakuchiol, Ácido Hialurónico, Niacinamida. Sin rellenos ni parabenos.</p>
+          </div>
+        </div>
+        <div class="ritual-step">
+          <span class="ritual-num">02</span>
+          <div>
+            <p class="ritual-step-name">Fórmulas pequeño lote</p>
+            <p class="ritual-step-desc">Producción limitada para garantizar frescura y potencia en cada frasco.</p>
+          </div>
+        </div>
+        <div class="ritual-step">
+          <span class="ritual-num">03</span>
+          <div>
+            <p class="ritual-step-name">Testado por dermatólogos</p>
+            <p class="ritual-step-desc">Clínicamente probado para pieles sensibles. Sin fragancias artificiales.</p>
+          </div>
+        </div>
+        <div class="ritual-step">
+          <span class="ritual-num">04</span>
+          <div>
+            <p class="ritual-step-name">100% libre de crueldad</p>
+            <p class="ritual-step-desc">Nunca testeado en animales. Certificado Leaping Bunny e ingredientes veganos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-bar">
+  <p class="urgency-text">✨ OFERTA ESPECIAL: <span>30% OFF</span> en sérum Bakuchiol. Solo 48 horas. Termina en:</p>
+  <div class="cd-row">
+    <div class="cd-unit" id="cd-h">47</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-m">23</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-s">59</div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-eyebrow">Comunidad July</p>
+    <h2 class="section-title">Pieles que<br>lo cuentan</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El Orchid Facial Oil cambió mi rutina. La piel absorbió el aceite al instante, sin sensación grasa. En dos semanas noté una diferencia real."</p>
+        <div class="review-footer"><p class="review-author">@skincare_cali</p><p class="review-check">✓ Compra verificada</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El Bakuchiol Serum es maravilloso. Piel sensible como la mía por fin tiene un retinol alternativo que no irrita. Brillo natural garantizado."</p>
+        <div class="review-footer"><p class="review-author">@glow_medellin</p><p class="review-check">✓ Compra verificada</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Los productos llegan en un empaque hermoso, como un regalo. Calidad que supera marcas internacionales a precio colombiano. Los recomiendo siempre."</p>
+        <div class="review-footer"><p class="review-author">@beauty_bogota</p><p class="review-check">✓ Compra verificada</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div><p class="stat-num">20k+</p><p class="stat-label">Pieles felices</p></div>
+    <div><p class="stat-num">4.9</p><p class="stat-label">Calificación</p></div>
+    <div><p class="stat-num">100%</p><p class="stat-label">Sin crueldad</p></div>
+    <div><p class="stat-num">12</p><p class="stat-label">Activos clínicos</p></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="nl-section">
+  <div class="nl-inner">
+    <p class="nl-eyebrow">La comunidad</p>
+    <h2 class="nl-title">Tu ritual,<br>tu brillo.</h2>
+    <p class="nl-sub">Rituales exclusivos, lanzamientos y contenido de skincare directamente a tu correo.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">UNIRME</button>
+    </form>
+    <p class="nl-note">Sin spam · Cancelar en cualquier momento</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="f-logo">July</a>
+      <p class="f-desc">Skincare de lujo editorial para quienes creen en el poder de los ingredientes activos. Colombiano, consciente, efectivo.</p>
+    </div>
+    <div class="f-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="#">Aceites</a></li>
+        <li><a href="#">Sérums</a></li>
+        <li><a href="#">Cremas</a></li>
+        <li><a href="#">Kits</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Ayuda</h5>
+      <ul>
+        <li><a href="#">Guía de piel</a></li>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>July</h5>
+      <ul>
+        <li><a href="#">Nuestra historia</a></li>
+        <li><a href="#">Ingredientes</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Presets</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 July Skincare. Todos los derechos reservados.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      <a href="#" title="TikTok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+      <a href="#" title="Pinterest"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.852 0 1.265.64 1.265 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.136-1.867 3.136-4.561 0-2.385-1.714-4.052-4.161-4.052-2.833 0-4.496 2.124-4.496 4.32 0 .855.33 1.772.741 2.273.082.1.094.187.07.288-.076.31-.243.995-.276 1.134-.044.183-.146.222-.337.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.522 0 10-4.477 10-10S17.522 2 12 2z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),2000);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40));
+document.querySelectorAll('.ptab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.ptab').forEach(x=>x.classList.remove('active'));t.classList.add('active')}));
+(function(){let h=47,m=23,s=59;setInterval(()=>{s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=47;document.getElementById('cd-h').textContent=String(h).padStart(2,'0');document.getElementById('cd-m').textContent=String(m).padStart(2,'0');document.getElementById('cd-s').textContent=String(s).padStart(2,'0')},1000)})();
+</script>
+</body>
+</html>
