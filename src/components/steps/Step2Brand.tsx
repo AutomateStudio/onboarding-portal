@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useBrandStore } from '@/stores/brandStore';
-import { THEME_DEFS, THEME_PREVIEW_STYLES, FASHION_TEMPLATE_DEFS } from '@/constants/themes';
+import { THEME_DEFS, THEME_PREVIEW_STYLES } from '@/constants/themes';
 import { PALETTES } from '@/constants/palettes';
 import { FONTS } from '@/constants/fonts';
 import { INDUSTRY_TEMPLATES, buildDesktopHtml } from '@/constants/industryTemplates';
@@ -20,8 +20,6 @@ export function Step2Brand() {
   const previousStep = useBrandStore((s) => s.previousStep);
 
   const industryTemplates = INDUSTRY_TEMPLATES[industry] ?? null;
-  const isFashion = industry === 'fashion';
-  const activeFashionTheme = isFashion ? FASHION_TEMPLATE_DEFS.find(t => t.id === theme) : null;
 
   return (
     <motion.div
@@ -42,95 +40,6 @@ export function Step2Brand() {
         </p>
       </div>
 
-      {/* FASHION-SPECIFIC TEMPLATES */}
-      {isFashion && (
-        <section>
-          <div className="flex items-center gap-2 mb-1">
-            <h2 className="text-xs font-bold tracking-widest text-gray-400 uppercase">
-              Plantillas de Moda
-            </h2>
-            {activeFashionTheme && (
-              <span className="text-gray-900 text-xs font-semibold normal-case">· {activeFashionTheme.name}</span>
-            )}
-          </div>
-          <p className="text-[11px] text-gray-400 mb-4">Diseñadas específicamente para tiendas de ropa y moda.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            {FASHION_TEMPLATE_DEFS.map((t, idx) => {
-              const isSelected = theme === t.id;
-              return (
-                <motion.button
-                  key={t.id}
-                  type="button"
-                  onClick={() => setTheme(t.id)}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * idx }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`relative rounded-2xl overflow-hidden border-2 text-left transition-all ${
-                    isSelected ? 'border-gray-900 shadow-lg shadow-gray-900/10' : 'border-transparent hover:border-gray-300'
-                  }`}
-                >
-                  {/* Mini template preview */}
-                  <div className="h-32 sm:h-36 w-full relative overflow-hidden" style={{ backgroundColor: t.bgColor }}>
-                    {/* Announcement bar */}
-                    <div className="h-4 flex items-center justify-center" style={{ backgroundColor: t.id === 'simetria' ? '#f0ede8' : 'rgba(0,0,0,0.3)' }}>
-                      <div className="h-1 w-24 rounded-full" style={{ backgroundColor: t.id === 'simetria' ? '#aaa' : 'rgba(255,255,255,0.3)' }} />
-                    </div>
-                    {/* Nav bar */}
-                    <div className="flex items-center justify-between px-3 h-7" style={{ backgroundColor: t.navColor, borderBottom: '1px solid rgba(128,128,128,0.15)' }}>
-                      <div className="flex gap-2">
-                        <div className="h-1 w-6 rounded-full" style={{ backgroundColor: t.id === 'aura' ? '#111' : (t.id === 'simetria' ? '#1a1a1a' : 'rgba(255,255,255,0.3)'), opacity: 0.5 }} />
-                        <div className="h-1 w-6 rounded-full" style={{ backgroundColor: t.id === 'aura' ? '#111' : (t.id === 'simetria' ? '#1a1a1a' : 'rgba(255,255,255,0.3)'), opacity: 0.5 }} />
-                      </div>
-                      <span className="text-[8px] font-black tracking-widest" style={{ color: t.id === 'aura' ? '#111' : (t.id === 'simetria' ? '#1a1a1a' : '#fff') }}>{t.ref.toUpperCase()}</span>
-                      <div className="flex gap-1">
-                        <div className="h-1 w-4 rounded-full" style={{ backgroundColor: t.id === 'aura' ? '#111' : (t.id === 'simetria' ? '#1a1a1a' : 'rgba(255,255,255,0.3)'), opacity: 0.5 }} />
-                      </div>
-                    </div>
-                    {/* Hero area */}
-                    <div className="relative flex-1 h-14 flex items-end px-3 pb-2" style={{ background: t.id === 'aura' ? 'linear-gradient(135deg, #222 0%, #111 100%)' : (t.id === 'elegancia' ? 'linear-gradient(135deg, #0a1828 0%, #0d1e30 100%)' : 'linear-gradient(135deg, #e8e0d8 0%, #f5f0e8 100%)') }}>
-                      <div>
-                        <div className="h-0.5 w-8 rounded-full mb-1" style={{ backgroundColor: t.accentColor, opacity: 0.6 }} />
-                        <div className="h-2 w-16 rounded-sm mb-1" style={{ backgroundColor: t.id === 'simetria' ? '#1a1a1a' : '#fff', opacity: 0.85 }} />
-                        <div className="h-1 w-10 rounded-sm" style={{ backgroundColor: t.id === 'simetria' ? '#1a1a1a' : '#fff', opacity: 0.45 }} />
-                      </div>
-                    </div>
-                    {/* Product grid */}
-                    <div className="grid grid-cols-3 gap-1 px-2 pt-1">
-                      {[0,1,2].map(i => (
-                        <div key={i} className="rounded-sm overflow-hidden" style={{ height: 22, backgroundColor: t.id === 'elegancia' ? '#0a1828' : (t.id === 'simetria' ? ['#f5f0e8','#e8f0f5','#efe8f0'][i] : '#1a1a1a') }}>
-                          <div className="w-full h-full opacity-40" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%)' }} />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* Card info */}
-                  <div className="p-2.5 sm:p-3 bg-white">
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <p className="text-xs font-bold text-gray-900">{t.name}</p>
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600 uppercase tracking-wide">Moda</span>
-                    </div>
-                    <p className="text-[10px] text-gray-400 leading-snug">{t.desc}</p>
-                    <p className="text-[9px] text-gray-300 mt-0.5">Basado en {t.ref}</p>
-                  </div>
-                  {isSelected && (
-                    <div className="absolute top-2 right-2 w-5 h-5 bg-gray-900 rounded-full flex items-center justify-center shadow-md">
-                      <span className="text-white text-[9px]">✓</span>
-                    </div>
-                  )}
-                </motion.button>
-              );
-            })}
-          </div>
-          <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-gray-100" />
-            <span className="text-xs text-gray-400 font-medium">Otros temas disponibles</span>
-            <div className="flex-1 h-px bg-gray-100" />
-          </div>
-        </section>
-      )}
-
       {/* THEMES */}
       <section>
         <h2 className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4 sm:mb-5">
@@ -143,7 +52,7 @@ export function Step2Brand() {
         </h2>
 
         {/* Industry-specific templates — full-width stacked cards */}
-        {industryTemplates && !isFashion ? (
+        {industryTemplates ? (
           <div className="flex flex-col gap-6">
             {industryTemplates.map((t, idx) => {
               const isSelected = theme === t.id;
