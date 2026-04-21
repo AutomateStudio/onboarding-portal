@@ -270,6 +270,7 @@ export default function LandingPage() {
             {[['#diseños', 'Diseños'], ['#casos', 'Casos'], ['#precios', 'Precios'], ['#faq', 'FAQ']].map(([href, label]) => (
               <a key={href} href={href} onClick={() => setMenuOpen(false)} style={{ fontSize: 28, fontWeight: 700, color: '#fff' }}>{label}</a>
             ))}
+            <a href="/disenos.html" onClick={() => setMenuOpen(false)} style={{ fontSize: 28, fontWeight: 700, color: '#fff' }}>Ver Diseños</a>
             <a href="/onboarding" onClick={() => setMenuOpen(false)} style={{ padding: '14px 36px', borderRadius: 10, background: '#3b82f6', color: '#fff', fontWeight: 700, fontSize: 18 }}>Empieza Ahora →</a>
           </motion.div>
         )}
@@ -320,7 +321,7 @@ export default function LandingPage() {
             >
               Configurar mi tienda →
             </a>
-            <a href="#diseños" style={{
+            <a href="/disenos.html" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '16px 36px', borderRadius: 12,
               border: '1.5px solid rgba(255,255,255,0.2)', color: '#fff', fontWeight: 500, fontSize: 16,
@@ -478,7 +479,7 @@ export default function LandingPage() {
           </div>
         ))}
         <div style={{ textAlign: 'center', padding: '48px 40px 80px' }}>
-          <a href="/onboarding" style={{
+          <a href="/disenos.html" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 32px', borderRadius: 10,
             border: '1.5px solid rgba(255,255,255,0.25)', color: '#fff', fontWeight: 600, fontSize: 15, transition: 'all 0.3s',
           }}

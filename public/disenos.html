@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseños | Automate Studio</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8f8f8; color: #0f172a; }
+        header { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; height: 72px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .logo { font-size: 22px; font-weight: 900; color: #0f172a; letter-spacing: -1px; text-decoration: none; }
+        nav a { color: #64748b; text-decoration: none; font-size: 14px; font-weight: 600; margin-left: 32px; }
+        nav a.cta { background: #3b82f6; color: #fff; padding: 10px 22px; border-radius: 8px; }
+        .hero-section { padding: 80px 60px 60px; background: #fff; border-bottom: 1px solid rgba(0,0,0,0.06); text-align: center; }
+        .back { display: inline-flex; align-items: center; gap: 6px; color: #94a3b8; text-decoration: none; font-size: 13px; font-weight: 600; margin-bottom: 40px; }
+        .back:hover { color: #3b82f6; }
+        h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 16px; }
+        .subtitle { font-size: 17px; color: #64748b; max-width: 500px; margin: 0 auto; line-height: 1.7; }
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; padding: 40px 60px 0; }
+        .filter-btn.active { background: #0f172a !important; color: #fff !important; border-color: #0f172a !important; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1300px; margin: 0 auto; padding: 40px 60px 80px; }
+        .template-card { display: block; }
+        .template-card.hidden { display: none; }
+        footer { padding: 40px 60px; text-align: center; border-top: 1px solid rgba(0,0,0,0.06); color: #94a3b8; font-size: 13px; }
+        footer a { color: #3b82f6; text-decoration: none; }
+        @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3,1fr); } }
+        @media (max-width: 768px) { .grid { grid-template-columns: repeat(2,1fr); padding: 24px; } header { padding: 0 24px; } .hero-section, .filters { padding-left: 24px; padding-right: 24px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">automate<span style="color:#3b82f6;">.</span></a>
+        <nav>
+            <a href="/#casos">Casos</a>
+            <a href="/#precios">Precios</a>
+            <a href="/#contacto" class="cta">Contacto</a>
+        </nav>
+    </header>
+
+    <div class="hero-section">
+        <a href="/" class="back">← Volver al inicio</a>
+        <div style="font-size:12px;font-weight:700;letter-spacing:3px;color:#3b82f6;text-transform:uppercase;margin-bottom:16px;">Diseños Premium</div>
+        <h1>Más de 20 diseños<br>para tu industria</h1>
+        <p class="subtitle">Templates profesionales listos para personalizar. Todos incluyen producto, colección, carrito y checkout optimizados.</p>
+    </div>
+
+    <div class="filters">
+        <button onclick="filterTemplates('Todos')" class="filter-btn" data-cat="Todos" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Todos</button>
+                    <button onclick="filterTemplates('Belleza')" class="filter-btn" data-cat="Belleza" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Belleza</button>
+                    <button onclick="filterTemplates('Moda')" class="filter-btn" data-cat="Moda" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Moda</button>
+                    <button onclick="filterTemplates('Deportes')" class="filter-btn" data-cat="Deportes" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Deportes</button>
+                    <button onclick="filterTemplates('Gastronomía')" class="filter-btn" data-cat="Gastronomía" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Gastronomía</button>
+                    <button onclick="filterTemplates('Electrónica')" class="filter-btn" data-cat="Electrónica" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Electrónica</button>
+                    <button onclick="filterTemplates('Hogar')" class="filter-btn" data-cat="Hogar" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Hogar</button>
+                    <button onclick="filterTemplates('Joyería')" class="filter-btn" data-cat="Joyería" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">Joyería</button>
+                    <button onclick="filterTemplates('General')" class="filter-btn" data-cat="General" style="padding:8px 18px;border-radius:100px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">General</button>
+    </div>
+
+    <div class="grid" id="templatesGrid">
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/july/hero.jpg" alt="July" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#ec4899;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Belleza</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/july/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/july/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/july/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/july/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">July</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/sleek/hero.jpg" alt="Sleek" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#ec4899;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Belleza</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/sleek/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/sleek/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/sleek/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/sleek/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Sleek</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/glow/hero.jpg" alt="Glow" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#ec4899;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Belleza</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/glow/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/glow/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/glow/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/beauty/glow/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Glow</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/aura/hero.jpg" alt="Aura" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#8b5cf6;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Moda</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/aura/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/aura/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/aura/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/aura/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Aura</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/elegancia/hero.jpg" alt="Elegancia" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#8b5cf6;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Moda</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/elegancia/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/elegancia/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/elegancia/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/elegancia/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Elegancia</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/fashion/simetria/hero.jpg" alt="Simetría" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#8b5cf6;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Moda</div>
+                    </div>
+                    
+                    <div style="padding:16px 16px 20px;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Simetría</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/apex/hero.jpg" alt="Apex" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#3b82f6;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Deportes</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/apex/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/apex/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/apex/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/apex/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Apex</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/stride/hero.jpg" alt="Stride" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#3b82f6;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Deportes</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/stride/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/stride/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/stride/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/stride/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Stride</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/arena/hero.jpg" alt="Arena" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#3b82f6;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Deportes</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/arena/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/arena/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/arena/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/sports/arena/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Arena</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/levain/hero.jpg" alt="Levain" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#f59e0b;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Gastronomía</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/levain/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/levain/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/levain/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/levain/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Levain</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/cosecha/hero.jpg" alt="Cosecha" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#f59e0b;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Gastronomía</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/cosecha/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/cosecha/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/cosecha/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/cosecha/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Cosecha</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/mercado/hero.jpg" alt="Mercado" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#f59e0b;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Gastronomía</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/mercado/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/mercado/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/mercado/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/food/mercado/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Mercado</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/quantum/hero.jpg" alt="Quantum" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#06b6d4;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Electrónica</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/quantum/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/quantum/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/quantum/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/quantum/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Quantum</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/harmony/hero.jpg" alt="Harmony" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#06b6d4;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Electrónica</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/harmony/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/harmony/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/harmony/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/harmony/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Harmony</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/woodstock/hero.jpg" alt="Woodstock" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#06b6d4;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Electrónica</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/woodstock/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/woodstock/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/woodstock/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/electronics/woodstock/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Woodstock</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/haven/hero.jpg" alt="Haven" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#10b981;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Hogar</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/haven/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/haven/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/haven/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/haven/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Haven</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/nordia/hero.jpg" alt="Nordia" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#10b981;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Hogar</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/nordia/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/nordia/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/nordia/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/nordia/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Nordia</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/loft/hero.jpg" alt="Loft" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#10b981;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Hogar</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/loft/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/loft/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/loft/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/home/loft/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Loft</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/lumiere/hero.jpg" alt="Lumière" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#f97316;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Joyería</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/lumiere/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/lumiere/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/lumiere/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/lumiere/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Lumière</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/diamante/hero.jpg" alt="Diamante" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#f97316;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Joyería</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/diamante/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/diamante/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/diamante/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/diamante/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Diamante</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/heritage/hero.jpg" alt="Heritage" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#f97316;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">Joyería</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/heritage/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/heritage/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/heritage/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/jewelry/heritage/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Heritage</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/urban/hero.jpg" alt="Urban" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#6b7280;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">General</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/urban/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/urban/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/urban/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/urban/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Urban</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/bazaar/hero.jpg" alt="Bazaar" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#6b7280;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">General</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/bazaar/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/bazaar/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/bazaar/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/bazaar/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Bazaar</div>
+                    </div>
+                </div>
+
+                <div style="border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                    <div style="height:220px;overflow:hidden;position:relative;">
+                        <img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/vida/hero.jpg" alt="Vida" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+                        <div style="position:absolute;top:12px;left:12px;background:#6b7280;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">General</div>
+                    </div>
+                    <div style="display:flex;gap:6px;padding:12px 16px 16px;"><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/vida/product-1.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/vida/product-2.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/vida/product-3.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div><div style="flex:1;aspect-ratio:1;overflow:hidden;border-radius:6px;"><img src="https://raw.githubusercontent.com/AutomateStudio/onboarding-portal/feat/generated-template-images/public/images/templates/general/vida/product-4.jpg" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div></div>
+                    <div style="padding:16px 20px;padding-top:0;">
+                        <div style="font-size:18px;font-weight:900;color:#0f172a;letter-spacing:-0.5px;">Vida</div>
+                    </div>
+                </div>
+    </div>
+
+    <footer>
+        © 2026 Automate Studio &nbsp;·&nbsp; <a href="/">Volver al inicio</a> &nbsp;·&nbsp; <a href="/#contacto">Empezar proyecto</a>
+    </footer>
+
+    <script>
+        // Activate "Todos" on load
+        document.querySelector('.filter-btn[data-cat="Todos"]').classList.add('active');
+
+        // Map display category → template cards
+        const catMap = {
+            'Belleza':      ['july','sleek','glow'],
+            'Moda':         ['aura','elegancia','simetria'],
+            'Deportes':     ['apex','stride','arena'],
+            'Gastronomía':  ['cosecha','levain','mercado'],
+            'Electrónica':  ['quantum','harmony','woodstock'],
+            'Hogar':        ['haven','nordia','loft'],
+            'Joyería':      ['lumiere','diamante','heritage'],
+            'General':      ['urban','bazaar','vida'],
+        };
+
+        function filterTemplates(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`.filter-btn[data-cat="${cat}"]`).classList.add('active');
+
+            const cards = document.querySelectorAll('#templatesGrid > div');
+            cards.forEach(card => {
+                const img = card.querySelector('img');
+                if (!img) return;
+                const src = img.getAttribute('src');
+                if (cat === 'Todos') {
+                    card.style.display = '';
+                    return;
+                }
+                const templates = catMap[cat] || [];
+                const match = templates.some(t => src.includes('/' + t + '/'));
+                card.style.display = match ? '' : 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>
