@@ -1296,89 +1296,104 @@ function buildMercadoMobile(t: IndustryTemplate): string {
 // ── VOLT (Quantum) ─────────────────────────────────────────────────────────
 
 function buildVoltDesktop(t: IndustryTemplate): string {
-  const cats = [
-    { label: 'Headphones', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80' },
-    { label: 'Earbuds',    img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&q=80' },
-    { label: 'Gaming',     img: 'https://images.unsplash.com/photo-1612444530582-fc66183b16f7?w=300&q=80' },
-    { label: 'Speakers',   img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300&q=80' },
-  ];
-  const catCards = cats.map((c,i) => `
-    <div style="position:relative;overflow:hidden;cursor:pointer;border-radius:0;">
-      <div style="height:140px;overflow:hidden;">
-        <img src="${c.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+  const specs = ['40h Battery · ANC','Noise Cancel · Pro','8Ω · Hi-Res','360° Surround'];
+  const pills = ['NUEVO','','HOT',''];
+  const prods = t.products.map((p,i) => `
+    <div style="background:#0a0a0f;border:1px solid #1e1e30;overflow:hidden;">
+      <div style="position:relative;padding:12px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:#101018;">
+        <img src="${p.img}" style="height:70px;object-fit:contain;display:block;filter:drop-shadow(0 0 10px rgba(79,142,247,.2));" loading="lazy">
+        ${pills[i]?`<div style="position:absolute;top:5px;left:5px;background:#4f8ef7;color:#fff;font-size:6.5px;font-weight:600;padding:1px 6px;letter-spacing:1px;">${pills[i]}</div>`:''}
       </div>
-      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 100%);padding:10px 12px;">
-        <div style="font-size:11px;font-weight:800;color:#fff;letter-spacing:0.3px;">${c.label}</div>
+      <div style="padding:6px 8px 8px;">
+        <div style="font-size:7px;color:#4a4a6a;margin-bottom:1px;">${specs[i]}</div>
+        <div style="font-size:8.5px;color:#f0f0ff;font-weight:600;margin-bottom:2px;">${p.name}</div>
+        <div style="font-size:9px;font-weight:700;color:#4f8ef7;">${p.price}</div>
       </div>
-      ${i===2 ? '<div style="position:absolute;top:10px;right:10px;background:#fff;border-radius:100px;padding:5px 12px;font-size:8px;font-weight:700;color:#111;">Shop now</div>' : ''}
     </div>`).join('');
-  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
-    <!-- Top bar -->
-    <div style="background:#f8f8f8;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #eee;">
-      <div style="display:flex;gap:8px;font-size:11px;color:#555;">f  in  ▶  ♪  ✕</div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span style="font-size:8px;color:#555;">Descubre nuevos productos</span>
-        <div style="background:#dc2626;color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:100px;">Ver ahora →</div>
-      </div>
-      <div style="font-size:8px;color:#555;">AUD ▾  EN ▾</div>
+  return `<div style="background:#050508;height:100%;overflow:hidden;font-family:'Space Grotesk',sans-serif;position:relative;">
+    <!-- Grid bg overlay -->
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#1e1e30 1px,transparent 1px),linear-gradient(90deg,#1e1e30 1px,transparent 1px);background-size:32px 32px;opacity:.4;pointer-events:none;"></div>
+    <!-- Blue glow -->
+    <div style="position:absolute;top:50px;left:40%;width:220px;height:220px;background:#4f8ef7;opacity:.05;border-radius:50%;filter:blur(60px);pointer-events:none;"></div>
+    <!-- Ann bar -->
+    <div style="position:relative;background:rgba(10,10,15,.95);height:20px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #1e1e30;">
+      <span style="font-size:7.5px;color:#4a4a6a;letter-spacing:1.5px;font-family:'Space Grotesk',monospace;">LANZAMIENTO</span>
+      <span style="font-size:7.5px;color:#4f8ef7;margin-left:6px;font-weight:600;letter-spacing:1px;">— Pro Max disponible ahora</span>
     </div>
     <!-- Nav -->
-    <div style="background:#fff;height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #eee;">
-      <div style="display:flex;gap:16px;font-size:9px;color:#444;font-weight:500;"><span>SHOP ▾</span><span>COLECCIONES ▾</span><span>BLOG</span></div>
-      <span style="font-size:14px;font-weight:900;letter-spacing:2px;color:#111;">QUANTUM</span>
-      <div style="display:flex;gap:10px;font-size:13px;color:#111;">🔍 👤 🛒</div>
+    <div style="position:relative;background:rgba(5,5,8,.92);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #1e1e30;">
+      <span style="font-size:16px;font-weight:700;color:#f0f0ff;letter-spacing:4px;">VOLT<span style="color:#4f8ef7;">.</span></span>
+      <div style="display:flex;gap:16px;font-size:9px;color:#6a6a8a;font-weight:500;"><span>Smartphones</span><span>Audio</span><span>Wearables</span><span>Accesorios</span><span style="color:#4f8ef7;">Offers</span></div>
+      <div style="background:#4f8ef7;color:#fff;font-size:9px;font-weight:600;padding:5px 14px;letter-spacing:.5px;">Carrito (0)</div>
     </div>
-    <!-- Hero split -->
-    <div style="height:180px;display:flex;overflow:hidden;">
-      <!-- Left: text on light gray -->
-      <div style="flex:0 0 42%;background:#f2f2f2;display:flex;flex-direction:column;justify-content:center;padding:0 22px;">
-        <div style="font-size:19px;font-weight:900;color:#111;line-height:1.1;margin-bottom:8px;">Gadgets<br>Premium &<br>con Estilo</div>
-        <div style="font-size:8.5px;color:#666;margin-bottom:12px;line-height:1.4;">Mejora tu tech con accesorios de alta calidad</div>
-        <div style="display:inline-flex;align-items:center;gap:6px;background:#111;color:#fff;font-size:8px;font-weight:700;padding:7px 14px;border-radius:100px;width:fit-content;">Ver colección <span style="font-size:10px;">↗</span></div>
+    <!-- Hero -->
+    <div style="position:relative;height:158px;display:flex;align-items:center;overflow:hidden;">
+      <div style="position:relative;z-index:2;flex:0 0 50%;padding:0 22px;">
+        <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);color:#4f8ef7;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;margin-bottom:12px;">▣ NUEVO LANZAMIENTO</div>
+        <div style="font-size:26px;font-weight:700;line-height:1.0;color:#f0f0ff;margin-bottom:12px;">El futuro<br>es <span style="color:#4f8ef7;">ahora.</span><br><span style="color:#00d4ff;">Tech</span> que<br>lidera.</div>
+        <div style="display:flex;gap:12px;">
+          <div style="text-align:left;"><div style="font-size:12px;font-weight:700;color:#4f8ef7;">4.9★</div><div style="font-size:5.5px;color:#4a4a6a;letter-spacing:1px;text-transform:uppercase;">Rating</div></div>
+          <div style="text-align:left;"><div style="font-size:12px;font-weight:700;color:#4f8ef7;">50k+</div><div style="font-size:5.5px;color:#4a4a6a;letter-spacing:1px;text-transform:uppercase;">Clientes</div></div>
+          <div style="text-align:left;"><div style="font-size:12px;font-weight:700;color:#4f8ef7;">24h</div><div style="font-size:5.5px;color:#4a4a6a;letter-spacing:1px;text-transform:uppercase;">Soporte</div></div>
+        </div>
       </div>
-      <!-- Right: model on green-textured bg -->
-      <div style="flex:1;background:#4a7c59;position:relative;overflow:hidden;">
-        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;opacity:0.85;" loading="lazy">
-        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(60,110,75,0.5) 0%,transparent 60%);"></div>
+      <div style="flex:1;height:100%;display:flex;align-items:center;justify-content:center;position:relative;">
+        <img src="${t.hero}" style="height:145px;object-fit:contain;filter:drop-shadow(0 0 28px rgba(79,142,247,.35));position:relative;z-index:1;" loading="lazy">
+        <div style="position:absolute;top:14px;right:8px;background:#0a0a0f;border:1px solid #1e1e30;padding:7px 11px;z-index:2;">
+          <div style="font-size:6px;color:#4a4a6a;letter-spacing:2px;text-transform:uppercase;margin-bottom:1px;">NUEVO</div>
+          <div style="font-size:11px;font-weight:700;color:#00d4ff;line-height:1.1;">Pro <span style="color:#f0f0ff;">Max</span></div>
+        </div>
       </div>
     </div>
-    <!-- Decorative text strip -->
-    <div style="background:#f8f8f8;height:20px;overflow:hidden;display:flex;align-items:center;padding:0 16px;">
-      <span style="font-size:22px;font-weight:900;color:#e0e0e0;letter-spacing:-1px;white-space:nowrap;">QUANTUM · QUANTUM · QUANTUM ·</span>
-    </div>
-    <!-- Category grid -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#ddd;">
-      ${catCards}
+    <!-- Products -->
+    <div style="position:relative;background:#0a0a0f;border-top:1px solid #1e1e30;padding:8px 16px 12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:7.5px;color:#4a4a6a;letter-spacing:2px;text-transform:uppercase;">// PRODUCTOS</span>
+        <span style="font-size:7.5px;color:#4f8ef7;">Ver todos →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">${prods}</div>
     </div>
   </div>`;
 }
 
 function buildVoltMobile(t: IndustryTemplate): string {
-  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
-    <div style="background:#f8f8f8;height:11px;display:flex;align-items:center;justify-content:center;gap:8px;">
-      <span style="font-size:5.5px;color:#555;">Nuevos productos</span>
-      <div style="background:#dc2626;color:#fff;font-size:4.5px;font-weight:700;padding:1px 5px;border-radius:100px;">Ver →</div>
-    </div>
-    <div style="background:#fff;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #eee;flex-shrink:0;">
-      <div style="font-size:7.5px;color:#444;font-weight:500;">SHOP ▾</div>
-      <span style="font-size:9px;font-weight:900;letter-spacing:1.5px;color:#111;">QUANTUM</span>
-      <div style="display:flex;gap:5px;font-size:11px;color:#111;">🔍🛒</div>
-    </div>
-    <div style="height:105px;display:flex;overflow:hidden;flex-shrink:0;">
-      <div style="flex:0 0 45%;background:#f2f2f2;display:flex;flex-direction:column;justify-content:center;padding:0 8px;">
-        <div style="font-size:12px;font-weight:900;color:#111;line-height:1.1;margin-bottom:5px;">Gadgets<br>Premium</div>
-        <div style="display:inline-flex;background:#111;color:#fff;font-size:6px;font-weight:700;padding:4px 8px;border-radius:100px;width:fit-content;">Ver ↗</div>
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:#0a0a0f;border:1px solid #1e1e30;overflow:hidden;">
+      <div style="background:#101018;padding:10px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;">
+        <img src="${p.img}" style="height:52px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(79,142,247,.2));" loading="lazy">
       </div>
-      <div style="flex:1;background:#4a7c59;overflow:hidden;">
-        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.85;" loading="lazy">
+      <div style="padding:4px 6px 6px;">
+        <div style="font-size:6.5px;color:#f0f0ff;font-weight:600;margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:7px;font-weight:700;color:#4f8ef7;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#050508;height:100%;display:flex;flex-direction:column;font-family:'Space Grotesk',sans-serif;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#1e1e30 1px,transparent 1px),linear-gradient(90deg,#1e1e30 1px,transparent 1px);background-size:28px 28px;opacity:.4;pointer-events:none;"></div>
+    <div style="position:relative;background:rgba(10,10,15,.95);height:12px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #1e1e30;">
+      <span style="font-size:5.5px;color:#4a4a6a;letter-spacing:1px;">NUEVO LANZAMIENTO</span>
+      <span style="font-size:5.5px;color:#4f8ef7;margin-left:4px;font-weight:600;">— Pro Max</span>
+    </div>
+    <div style="position:relative;background:rgba(5,5,8,.92);height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #1e1e30;flex-shrink:0;">
+      <span style="font-size:9px;font-weight:700;color:#f0f0ff;letter-spacing:3px;">VOLT<span style="color:#4f8ef7;">.</span></span>
+      <div style="display:flex;gap:8px;font-size:6.5px;color:#6a6a8a;"><span>Audio</span><span>Wearables</span></div>
+      <div style="background:#4f8ef7;color:#fff;font-size:5.5px;font-weight:600;padding:2px 8px;">Carrito</div>
+    </div>
+    <div style="position:relative;height:128px;display:flex;align-items:center;overflow:hidden;flex-shrink:0;">
+      <div style="flex:0 0 50%;padding:0 12px;z-index:2;">
+        <div style="display:inline-flex;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.2);color:#4f8ef7;font-size:5.5px;letter-spacing:1.5px;padding:2px 7px;margin-bottom:8px;">▣ NUEVO</div>
+        <div style="font-size:20px;font-weight:700;line-height:.97;color:#f0f0ff;margin-bottom:8px;">El futuro<br>es <span style="color:#4f8ef7;">ahora.</span><br><span style="color:#00d4ff;">Tech</span><br>lidera.</div>
+        <div style="display:flex;gap:8px;">
+          <div style="font-size:9px;font-weight:700;color:#4f8ef7;">4.9★</div>
+          <div style="font-size:9px;font-weight:700;color:#4f8ef7;">50k+</div>
+        </div>
+      </div>
+      <div style="flex:1;height:100%;display:flex;align-items:center;justify-content:center;position:relative;">
+        <img src="${t.hero}" style="height:115px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(79,142,247,.3));position:relative;z-index:1;" loading="lazy">
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#ddd;flex:1;">
-      ${t.products.slice(0,4).map((p,i) => `
-        <div style="position:relative;overflow:hidden;background:#111;">
-          <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.75;" loading="lazy">
-          <div style="position:absolute;bottom:4px;left:5px;font-size:6.5px;font-weight:800;color:#fff;">${['Headphones','Earbuds','Gaming','Speakers'][i]}</div>
-        </div>`).join('')}
+    <div style="position:relative;background:#0a0a0f;border-top:1px solid #1e1e30;padding:6px 7px;flex:1;">
+      <div style="font-size:6.5px;color:#4a4a6a;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">// PRODUCTOS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
     </div>
   </div>`;
 }
@@ -1386,86 +1401,104 @@ function buildVoltMobile(t: IndustryTemplate): string {
 // ── NEXUS (Harmony) ────────────────────────────────────────────────────────
 
 function buildNexusDesktop(t: IndustryTemplate): string {
-  const cats = [
-    { label: 'All products', sup: '59', sub: 'Check out all our products', img: t.products[0].img },
-    { label: 'Headphones',   sup: '15', sub: 'Surround yourself in sound', img: t.products[0].img },
-    { label: 'Earphones',    sup: '8',  sub: 'Small design, great sound',  img: t.products[1].img },
-    { label: 'Speakers',     sup: '11', sub: "The world's most immersive", img: t.products[2].img },
-  ];
-  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
-    <!-- Top bar black -->
-    <div style="background:#000;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
-      <div style="display:flex;gap:8px;font-size:10px;color:#555;">f  ✕  📷  ▶</div>
-      <div style="font-size:7.5px;color:#aaa;font-weight:600;letter-spacing:0.5px;">Ahorra hasta 60% · código BLACKFRIDAY →</div>
-      <div style="font-size:7.5px;color:#666;">English · Colombia (USD $)</div>
+  const prods = t.products.map((p,i) => `
+    <div style="background:#fff;border:1px solid #e6e4dc;overflow:hidden;">
+      <div style="background:#f0efe9;padding:16px;display:flex;align-items:center;justify-content:center;position:relative;aspect-ratio:1;">
+        <img src="${p.img}" style="height:70px;object-fit:contain;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#ff4a00;color:#fff;font-size:7px;font-weight:700;padding:2px 7px;letter-spacing:1px;">HOT</div>':''}
+      </div>
+      <div style="padding:7px 10px 9px;">
+        <div style="font-size:8.5px;font-weight:700;color:#141414;margin-bottom:2px;">${p.name}</div>
+        <div style="font-size:8.5px;font-weight:800;color:#141414;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#f8f8f6;height:100%;overflow:hidden;font-family:'Outfit',sans-serif;">
+    <!-- Ann bar dark -->
+    <div style="background:#141414;height:22px;display:flex;align-items:center;justify-content:center;gap:8px;">
+      <span style="font-size:8px;color:rgba(255,255,255,.5);letter-spacing:.5px;">Ahorra hasta 60%</span>
+      <span style="font-size:8px;color:#ff4a00;font-weight:700;letter-spacing:1px;">código BLACKFRIDAY →</span>
     </div>
     <!-- Nav -->
-    <div style="background:#fff;height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #eee;">
-      <div style="display:flex;gap:4px;">
-        <div style="width:18px;height:12px;background:linear-gradient(135deg,#333 0%,#666 50%,#333 100%);border-radius:2px;"></div>
-        <div style="width:18px;height:12px;background:linear-gradient(135deg,#555 0%,#888 50%,#555 100%);border-radius:2px;margin-left:-6px;"></div>
-      </div>
-      <div style="display:flex;gap:18px;font-size:9px;color:#333;font-weight:500;"><span>Shop</span><span>Collections</span><span>Explore</span><span>Compare</span><span>Contact</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:#111;">🔍 👤 🛒</div>
+    <div style="background:#f8f8f6;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid #e6e4dc;">
+      <span style="font-size:17px;font-weight:800;color:#141414;letter-spacing:2px;">NEX<span style="color:#ff4a00;">US</span></span>
+      <div style="display:flex;gap:20px;font-size:9.5px;color:#888;font-weight:500;"><span>Shop</span><span>Collections</span><span>Explore</span><span>Compare</span><span>Contact</span></div>
+      <div style="background:#141414;color:#fff;font-size:9px;font-weight:600;padding:6px 16px;letter-spacing:1px;">Carrito (0)</div>
     </div>
-    <!-- Hero full-bleed -->
-    <div style="height:185px;position:relative;overflow:hidden;">
-      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 60%);"></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 16px;">
-        <div style="font-size:36px;font-weight:900;color:rgba(255,255,255,0.08);letter-spacing:-2px;line-height:1;text-transform:uppercase;">EXPERIE</div>
+    <!-- Hero: dark split -->
+    <div style="height:168px;display:flex;overflow:hidden;">
+      <!-- Left text on dark -->
+      <div style="flex:0 0 46%;background:#141414;display:flex;flex-direction:column;justify-content:center;padding:0 22px;position:relative;overflow:hidden;">
+        <div style="position:absolute;font-size:100px;font-weight:900;color:rgba(255,255,255,.03);line-height:1;top:50%;transform:translateY(-50%);left:-10px;pointer-events:none;white-space:nowrap;">AUDIO</div>
+        <div style="font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:#ff4a00;margin-bottom:14px;display:flex;align-items:center;gap:8px;position:relative;">
+          <div style="width:18px;height:1.5px;background:#ff4a00;"></div>NUEVO LANZAMIENTO
+        </div>
+        <div style="font-size:26px;font-weight:800;color:#fff;line-height:1;margin-bottom:14px;position:relative;">El futuro<br>del <em style="font-style:normal;color:#ff4a00;">audio.</em></div>
+        <div style="display:flex;gap:8px;position:relative;">
+          <div style="background:#ff4a00;color:#fff;font-size:8px;font-weight:700;padding:7px 14px;letter-spacing:1px;text-transform:uppercase;">Comprar</div>
+          <div style="border:1px solid rgba(255,255,255,.2);color:#fff;font-size:8px;font-weight:500;padding:6px 14px;">Ver más</div>
+        </div>
+      </div>
+      <!-- Right: image -->
+      <div style="flex:1;background:linear-gradient(135deg,#1a1a1a,#0a0a0a);position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:.7;" loading="lazy">
+        <div style="position:absolute;bottom:16px;left:16px;background:#ff4a00;padding:9px 14px;">
+          <div style="font-size:8px;color:rgba(255,255,255,.7);margin-bottom:1px;letter-spacing:1px;text-transform:uppercase;">Nuevo</div>
+          <div style="font-size:15px;font-weight:800;color:#fff;">Pro Max</div>
+        </div>
       </div>
     </div>
-    <!-- Category grid -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#fff;border-top:1px solid #eee;">
-      ${cats.map(c => `
-        <div style="padding:14px 12px;border-right:1px solid #f0f0f0;cursor:pointer;background:#fff;">
-          <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;background:#f6f6f6;border-radius:6px;overflow:hidden;">
-            <img src="${c.img}" style="height:65px;object-fit:contain;" loading="lazy">
-          </div>
-          <div style="font-size:10px;font-weight:700;color:#1a1a1a;">${c.label}<sup style="font-size:7px;color:#999;">${c.sup}</sup></div>
-          <div style="font-size:8px;color:#888;margin-top:2px;">${c.sub}</div>
-          <div style="font-size:9px;color:#111;font-weight:700;margin-top:6px;">→</div>
-        </div>`).join('')}
-    </div>
-    <!-- Secondary dark hero strip -->
-    <div style="height:90px;position:relative;overflow:hidden;background:#0a0a0a;display:flex;align-items:center;justify-content:center;">
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(50,50,80,0.6) 0%,transparent 70%);"></div>
-      <div style="position:relative;z-index:2;text-align:center;">
-        <div style="font-size:16px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.1;text-transform:uppercase;">UNIQUELY CRAFTED<br>EARPHONES FOR YOUR STYLE</div>
-        <div style="margin-top:8px;display:inline-block;padding:5px 16px;border:1.5px solid rgba(255,255,255,0.6);color:#fff;font-size:8px;font-weight:700;border-radius:2px;">Shop Earphones</div>
+    <!-- Products -->
+    <div style="background:#f8f8f6;padding:10px 16px 12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:#ff4a00;font-weight:600;">BESTSELLERS</span>
+        <span style="font-size:8px;color:#888;text-decoration:underline;">Ver todos →</span>
       </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">${prods}</div>
     </div>
   </div>`;
 }
 
 function buildNexusMobile(t: IndustryTemplate): string {
-  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
-    <div style="background:#000;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#888;letter-spacing:0.5px;">Ahorra hasta 60% · código BLACKFRIDAY →</div>
-    <div style="background:#fff;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #eee;flex-shrink:0;">
-      <div style="display:flex;gap:2px;">
-        <div style="width:10px;height:7px;background:#333;border-radius:1px;"></div>
-        <div style="width:10px;height:7px;background:#555;border-radius:1px;margin-left:-3px;"></div>
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:#fff;border:1px solid #e6e4dc;overflow:hidden;">
+      <div style="background:#f0efe9;padding:10px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;position:relative;">
+        <img src="${p.img}" style="height:52px;object-fit:contain;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#ff4a00;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;">HOT</div>':''}
       </div>
-      <div style="display:flex;gap:10px;font-size:7px;color:#333;font-weight:500;"><span>Shop</span><span>Collections</span><span>Explore</span></div>
-      <div style="display:flex;gap:5px;font-size:11px;color:#111;">🔍🛒</div>
+      <div style="padding:4px 6px 6px;">
+        <div style="font-size:6.5px;font-weight:700;color:#141414;margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:7px;font-weight:800;color:#141414;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#f8f8f6;height:100%;display:flex;flex-direction:column;font-family:'Outfit',sans-serif;">
+    <div style="background:#141414;height:12px;display:flex;align-items:center;justify-content:center;gap:5px;">
+      <span style="font-size:5.5px;color:rgba(255,255,255,.4);">Ahorra hasta 60%</span>
+      <span style="font-size:5.5px;color:#ff4a00;font-weight:700;">BLACKFRIDAY →</span>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
-      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);"></div>
-      <div style="position:absolute;bottom:5px;left:8px;">
-        <div style="font-size:20px;font-weight:900;color:rgba(255,255,255,0.08);text-transform:uppercase;">EXPERIE</div>
+    <div style="background:#f8f8f6;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #e6e4dc;flex-shrink:0;">
+      <span style="font-size:10px;font-weight:800;color:#141414;letter-spacing:1.5px;">NEX<span style="color:#ff4a00;">US</span></span>
+      <div style="display:flex;gap:8px;font-size:6.5px;color:#888;"><span>Shop</span><span>Collections</span></div>
+      <div style="background:#141414;color:#fff;font-size:5.5px;font-weight:600;padding:2px 8px;">Carrito</div>
+    </div>
+    <div style="height:130px;display:flex;overflow:hidden;flex-shrink:0;">
+      <div style="flex:0 0 48%;background:#141414;display:flex;flex-direction:column;justify-content:center;padding:0 10px;position:relative;overflow:hidden;">
+        <div style="font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:#ff4a00;margin-bottom:8px;display:flex;align-items:center;gap:5px;">
+          <div style="width:12px;height:1px;background:#ff4a00;"></div>NUEVO
+        </div>
+        <div style="font-size:18px;font-weight:800;color:#fff;line-height:.98;margin-bottom:10px;">El futuro<br>del <em style="font-style:normal;color:#ff4a00;">audio.</em></div>
+        <div style="background:#ff4a00;color:#fff;font-size:6px;font-weight:700;padding:4px 9px;letter-spacing:1px;display:inline-block;width:fit-content;">Comprar</div>
+      </div>
+      <div style="flex:1;position:relative;overflow:hidden;">
+        <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:.7;" loading="lazy">
+        <div style="position:absolute;bottom:8px;left:8px;background:#ff4a00;padding:5px 8px;">
+          <div style="font-size:6px;color:rgba(255,255,255,.7);letter-spacing:1px;">NUEVO</div>
+          <div style="font-size:10px;font-weight:800;color:#fff;">Pro Max</div>
+        </div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #eee;flex:1;">
-      ${t.products.slice(0,4).map((p,i) => `
-        <div style="padding:8px;border-right:${i%2===0?'1px solid #f0f0f0':'none'};border-bottom:1px solid #f0f0f0;background:#fff;">
-          <div style="height:40px;background:#f6f6f6;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:5px;">
-            <img src="${p.img}" style="height:36px;object-fit:contain;" loading="lazy">
-          </div>
-          <div style="font-size:6.5px;font-weight:700;color:#111;">${['Headphones¹⁵','Earphones⁸','Speakers¹¹','All products⁵⁹'][i]}</div>
-          <div style="font-size:5.5px;color:#888;margin-top:1px;">→</div>
-        </div>`).join('')}
+    <div style="background:#f8f8f6;padding:7px;flex:1;">
+      <div style="font-size:6px;letter-spacing:2px;text-transform:uppercase;color:#ff4a00;font-weight:600;margin-bottom:5px;">BESTSELLERS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
     </div>
   </div>`;
 }
@@ -1473,135 +1506,104 @@ function buildNexusMobile(t: IndustryTemplate): string {
 // ── CIRCUIT (Woodstock) ────────────────────────────────────────────────────
 
 function buildCircuitDesktop(t: IndustryTemplate): string {
-  const collections = [
-    { name: 'Relojes Premium', count: '40 productos', img: t.products[0].img },
-    { name: 'Computadores & Tablets', count: '8 productos', img: t.products[2].img },
-    { name: 'Celulares', count: '5 productos', img: t.products[3].img },
-    { name: 'Accesorios', count: '16 productos', img: t.products[1].img },
-  ];
-  const stars = '★★★★☆';
+  const specs = ['4K Display · RTX','16GB RAM · SSD','128MP · 5000mAh','42mm · GPS'];
+  const pills = ['NUEVO','','HOT',''];
+  const pillColors = ['#00ff88','','#00ff88',''];
   const prods = t.products.map((p,i) => `
-    <div style="padding:10px;cursor:pointer;">
-      <div style="position:relative;margin-bottom:8px;">
-        ${i===0 ? '<div style="position:absolute;top:0;left:0;background:#dc2626;color:#fff;font-size:7px;font-weight:700;padding:2px 7px;border-radius:100px;z-index:2;">Save 34%</div>' : ''}
-        <div style="height:90px;display:flex;align-items:center;justify-content:center;background:#f8f8f8;border-radius:6px;overflow:hidden;">
-          <img src="${p.img}" style="height:80px;object-fit:contain;" loading="lazy">
-        </div>
+    <div style="background:#0e1218;border:1px solid #1e2d3e;overflow:hidden;">
+      <div style="position:relative;background:#141b24;padding:14px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;">
+        <img src="${p.img}" style="height:68px;object-fit:contain;display:block;filter:drop-shadow(0 0 8px rgba(0,255,136,.12));" loading="lazy">
+        ${pills[i]?`<div style="position:absolute;top:6px;left:6px;background:#00ff88;color:#080b10;font-size:6px;font-weight:700;padding:1px 6px;letter-spacing:1px;">${pills[i]}</div>`:''}
       </div>
-      <div style="display:flex;gap:3px;margin-bottom:4px;">
-        ${[0,1,2].map(j=>`<div style="width:8px;height:8px;border-radius:50%;background:${['#111','#c00','#4a7c59'][j]};border:1px solid #ddd;"></div>`).join('')}
+      <div style="padding:6px 8px 8px;">
+        <div style="font-size:7px;color:#4a6080;margin-bottom:1px;font-family:monospace;">${specs[i]}</div>
+        <div style="font-size:8.5px;color:#e0eaff;font-weight:600;margin-bottom:2px;letter-spacing:.3px;">${p.name}</div>
+        <div style="font-size:9px;font-weight:700;color:#00ff88;">${p.price}</div>
       </div>
-      <div style="font-size:7.5px;color:#999;margin-bottom:1px;">Woodstock Electronics</div>
-      <div style="font-size:9.5px;font-weight:700;color:#111;margin-bottom:3px;">${p.name}</div>
-      <div style="font-size:8.5px;color:#f59e0b;margin-bottom:3px;">${stars}</div>
-      ${i===0 ? `<div><span style="font-size:8.5px;color:#999;text-decoration:line-through;margin-right:4px;">$377.000</span><span style="font-size:9px;font-weight:700;color:#dc2626;">From ${p.price}</span></div>` : `<div style="font-size:9px;font-weight:600;color:#111;">From ${p.price}</div>`}
     </div>`).join('');
-  return `<div style="background:#fff;height:100%;overflow:hidden;font-family:'Inter',sans-serif;">
-    <!-- Top bar -->
-    <div style="background:#f5f5f5;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #eee;">
-      <span style="font-size:8px;color:#555;font-weight:500;">🚚 Envío Gratis en Pedidos +$100.000</span>
-      <div style="display:flex;gap:10px;font-size:8px;color:#555;"><span>United States (USD $) ▾</span><span>English ▾</span><span style="font-size:12px;">✕ f 📷</span></div>
+  return `<div style="background:#080b10;height:100%;overflow:hidden;font-family:'Inter',sans-serif;position:relative;">
+    <!-- Grid bg -->
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,136,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
+    <!-- Green glow bottom -->
+    <div style="position:absolute;bottom:-60px;left:20%;width:300px;height:200px;background:rgba(0,255,136,.04);border-radius:50%;filter:blur(50px);pointer-events:none;"></div>
+    <!-- Ann bar -->
+    <div style="position:relative;background:rgba(14,18,24,.95);height:20px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #1e2d3e;">
+      <span style="font-size:7.5px;color:#4a6080;letter-spacing:1.5px;">⟢ NUEVO LANZAMIENTO</span>
+      <span style="font-size:7.5px;color:#00ff88;margin-left:6px;font-weight:600;">— RTX 5090 en stock</span>
     </div>
-    <!-- Nav with search -->
-    <div style="background:#fff;border-bottom:1px solid #eee;">
-      <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
-        <div style="display:flex;gap:4px;align-items:center;">
-          <div style="width:14px;height:14px;border-radius:50%;border:2.5px solid #333;"></div>
-          <div style="width:14px;height:14px;border-radius:50%;border:2.5px solid #333;margin-left:-6px;"></div>
+    <!-- Nav -->
+    <div style="position:relative;background:rgba(8,11,16,.95);height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #1e2d3e;">
+      <span style="font-size:16px;font-weight:700;color:#e0eaff;letter-spacing:3px;font-family:'Inter',sans-serif;">CIR<span style="color:#00ff88;">CUIT</span></span>
+      <div style="display:flex;gap:16px;font-size:9px;color:#4a6080;font-weight:500;"><span>Gaming</span><span>Laptops</span><span>Periféricos</span><span>Mobile</span><span style="color:#00ff88;">Offers</span></div>
+      <div style="background:#00ff88;color:#080b10;font-size:9px;font-weight:700;padding:5px 14px;letter-spacing:1px;">Carrito (0)</div>
+    </div>
+    <!-- Hero -->
+    <div style="position:relative;height:160px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
+      <!-- Left text -->
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:0 22px;position:relative;z-index:2;">
+        <div style="font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:#00ff88;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+          <div style="width:18px;height:1px;background:#00ff88;"></div>GAMING & TECH
         </div>
-        <div style="flex:1;max-width:200px;margin:0 16px;background:#f5f5f5;border-radius:4px;height:22px;display:flex;align-items:center;padding:0 8px;gap:4px;">
-          <span style="font-size:10px;color:#999;">🔍</span>
-          <span style="font-size:8px;color:#bbb;">Search</span>
+        <div style="font-size:28px;font-weight:700;line-height:.95;color:#e0eaff;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;">DOMINA<br>EL <span style="color:#00ff88;">JUEGO.</span></div>
+        <div style="display:flex;gap:8px;">
+          <div style="background:#00ff88;color:#080b10;font-size:8px;font-weight:700;padding:7px 14px;letter-spacing:1px;text-transform:uppercase;">Ver productos</div>
+          <div style="border:1px solid #1e2d3e;color:#e0eaff;font-size:8px;padding:6px 14px;">Comparar</div>
         </div>
-        <div style="font-size:8px;color:#666;">📞 1-800-123-45-67</div>
-        <div style="display:flex;gap:10px;font-size:13px;color:#111;">👤 ♡ 🛒</div>
       </div>
-      <div style="height:30px;display:flex;align-items:center;padding:0 16px;gap:16px;border-top:1px solid #f0f0f0;">
-        <span style="font-size:8.5px;color:#555;font-weight:500;">Tiendas</span>
-        <span style="font-size:8.5px;color:#555;font-weight:500;">Relojes ▾</span>
-        <span style="font-size:8.5px;color:#555;font-weight:500;">Celulares ▾</span>
-        <div style="background:#2563eb;color:#fff;font-size:8px;font-weight:700;padding:3px 10px;border-radius:100px;">Accesorios</div>
-        <span style="font-size:8.5px;color:#555;font-weight:500;">Laptops</span>
-        <span style="font-size:8.5px;color:#555;font-weight:500;">Soporte</span>
+      <!-- Right image -->
+      <div style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <img src="${t.hero}" style="height:145px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(0,255,136,.25));position:relative;z-index:1;" loading="lazy">
       </div>
     </div>
-    <!-- Hero: smartwatch on gradient bg -->
-    <div style="height:130px;position:relative;overflow:hidden;background:linear-gradient(135deg,#b8c8d8 0%,#8aa0b8 50%,#6080a0 100%);display:flex;align-items:center;">
-      <div style="flex:1;"></div>
-      <div style="flex:0 0 200px;text-align:right;padding-right:20px;">
-        <div style="display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:7px;font-weight:700;padding:3px 10px;border-radius:2px;letter-spacing:2px;margin-bottom:8px;">RELOJES</div>
-        <div style="font-size:19px;font-weight:900;color:#fff;line-height:1.1;margin-bottom:6px;">La Tecnología<br>Se Encuentra<br>con el Estilo</div>
-        <div style="font-size:8px;color:rgba(255,255,255,0.8);">Navega tu día con nuestros<br>smartwatches innovadores</div>
+    <!-- Products -->
+    <div style="position:relative;background:#0e1218;border-top:1px solid #1e2d3e;padding:8px 16px 12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:7.5px;color:#4a6080;letter-spacing:2px;text-transform:uppercase;font-family:monospace;">// PRODUCTS</span>
+        <span style="font-size:7.5px;color:#00ff88;">Ver todos →</span>
       </div>
-      <div style="position:absolute;left:30px;top:50%;transform:translateY(-50%);">
-        <img src="${t.hero}" style="height:115px;object-fit:contain;" loading="lazy">
-      </div>
-    </div>
-    <!-- Product grid -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid #eee;border-bottom:1px solid #eee;">
-      ${prods}
-    </div>
-    <!-- Collections -->
-    <div style="padding:8px 16px;">
-      <div style="font-size:10px;font-weight:800;color:#111;margin-bottom:6px;">Collections</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
-        ${collections.map(c=>`
-          <div style="border-radius:8px;overflow:hidden;position:relative;cursor:pointer;">
-            <div style="height:50px;background:#f0f0f0;overflow:hidden;">
-              <img src="${c.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
-            </div>
-            <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);padding:4px 6px;">
-              <div style="font-size:7px;font-weight:700;color:#fff;">${c.name}</div>
-              <div style="font-size:6px;color:rgba(255,255,255,0.75);">${c.count}</div>
-            </div>
-          </div>`).join('')}
-      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">${prods}</div>
     </div>
   </div>`;
 }
 
 function buildCircuitMobile(t: IndustryTemplate): string {
-  return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
-    <div style="background:#f5f5f5;height:11px;display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#555;">🚚 Envío Gratis en Pedidos +$100.000</div>
-    <div style="background:#fff;border-bottom:1px solid #eee;">
-      <div style="height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;">
-        <div style="display:flex;gap:2px;align-items:center;">
-          <div style="width:10px;height:10px;border-radius:50%;border:2px solid #333;"></div>
-          <div style="width:10px;height:10px;border-radius:50%;border:2px solid #333;margin-left:-4px;"></div>
-        </div>
-        <div style="flex:1;max-width:100px;margin:0 6px;background:#f5f5f5;border-radius:3px;height:14px;display:flex;align-items:center;padding:0 5px;">
-          <span style="font-size:7px;color:#bbb;">🔍 Search</span>
-        </div>
-        <div style="display:flex;gap:4px;font-size:10px;color:#111;">👤🛒</div>
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="background:#0e1218;border:1px solid #1e2d3e;overflow:hidden;">
+      <div style="background:#141b24;padding:10px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;position:relative;">
+        <img src="${p.img}" style="height:52px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,255,136,.15));" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#00ff88;color:#080b10;font-size:5.5px;font-weight:700;padding:1px 5px;letter-spacing:1px;">NUEVO</div>':''}
       </div>
-      <div style="height:18px;display:flex;align-items:center;padding:0 8px;gap:8px;border-top:1px solid #f0f0f0;overflow:hidden;">
-        <span style="font-size:6.5px;color:#555;white-space:nowrap;">Relojes</span>
-        <span style="font-size:6.5px;color:#555;white-space:nowrap;">Celulares</span>
-        <div style="background:#2563eb;color:#fff;font-size:5.5px;font-weight:700;padding:2px 7px;border-radius:100px;white-space:nowrap;">Accesorios</div>
-        <span style="font-size:6.5px;color:#555;white-space:nowrap;">Laptops</span>
+      <div style="padding:4px 6px 6px;">
+        <div style="font-size:6.5px;color:#e0eaff;font-weight:600;margin-bottom:1px;letter-spacing:.3px;">${p.name}</div>
+        <div style="font-size:7px;font-weight:700;color:#00ff88;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#080b10;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,136,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;"></div>
+    <div style="position:relative;background:rgba(14,18,24,.95);height:12px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #1e2d3e;">
+      <span style="font-size:5.5px;color:#4a6080;letter-spacing:1px;">⟢ NUEVO LANZAMIENTO</span>
+      <span style="font-size:5.5px;color:#00ff88;margin-left:4px;font-weight:600;">RTX 5090</span>
+    </div>
+    <div style="position:relative;background:rgba(8,11,16,.95);height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #1e2d3e;flex-shrink:0;">
+      <span style="font-size:9px;font-weight:700;color:#e0eaff;letter-spacing:2px;">CIR<span style="color:#00ff88;">CUIT</span></span>
+      <div style="display:flex;gap:7px;font-size:6.5px;color:#4a6080;"><span>Gaming</span><span>Laptops</span></div>
+      <div style="background:#00ff88;color:#080b10;font-size:5.5px;font-weight:700;padding:2px 8px;letter-spacing:.5px;">Carrito</div>
+    </div>
+    <div style="position:relative;height:130px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:0 10px;z-index:2;">
+        <div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#00ff88;margin-bottom:8px;display:flex;align-items:center;gap:5px;">
+          <div style="width:12px;height:1px;background:#00ff88;"></div>GAMING
+        </div>
+        <div style="font-size:20px;font-weight:700;line-height:.92;color:#e0eaff;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">DOMINA<br>EL <span style="color:#00ff88;">JUEGO.</span></div>
+        <div style="background:#00ff88;color:#080b10;font-size:6px;font-weight:700;padding:5px 10px;letter-spacing:1px;display:inline-block;width:fit-content;">Ver más</div>
+      </div>
+      <div style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <img src="${t.hero}" style="height:118px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(0,255,136,.2));" loading="lazy">
       </div>
     </div>
-    <div style="height:90px;background:linear-gradient(135deg,#b8c8d8,#6080a0);position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;">
-      <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%);">
-        <img src="${t.hero}" style="height:80px;object-fit:contain;" loading="lazy">
-      </div>
-      <div style="margin-left:auto;padding-right:10px;text-align:right;">
-        <div style="font-size:12px;font-weight:900;color:#fff;line-height:1.1;">La Tecnología<br>Se Encuentra<br>con el Estilo</div>
-      </div>
-    </div>
-    <div style="padding:6px 8px;flex:1;overflow:hidden;">
-      <div style="font-size:7px;font-weight:800;color:#111;margin-bottom:5px;">Collections</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
-        ${t.products.slice(0,4).map((p,i)=>`
-          <div style="border-radius:6px;overflow:hidden;position:relative;">
-            <div style="height:44px;background:#f0f0f0;overflow:hidden;">
-              <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
-            </div>
-            <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);padding:3px 5px;">
-              <div style="font-size:6px;font-weight:700;color:#fff;">${['Relojes Premium','Computadores','Celulares','Accesorios'][i]}</div>
-            </div>
-          </div>`).join('')}
-      </div>
+    <div style="position:relative;background:#0e1218;border-top:1px solid #1e2d3e;padding:6px 7px;flex:1;">
+      <div style="font-size:6px;color:#4a6080;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-family:monospace;">// PRODUCTS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
     </div>
   </div>`;
 }
