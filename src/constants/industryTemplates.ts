@@ -511,6 +511,9 @@ export function buildDesktopHtml(t: IndustryTemplate): string {
   if (t.id === 'diamante')  return buildDiamanteDesktop(t);
   if (t.id === 'heritage')  return buildHeritageDesktop(t);
   if (t.id === 'lumiere')   return buildLumiereDesktop(t);
+  if (t.id === 'bazaar')    return buildBazaarDesktop(t);
+  if (t.id === 'urban')     return buildUrbanDesktop(t);
+  if (t.id === 'vida')      return buildVidaDesktop(t);
   return buildAuroraDesktop(t);
 }
 
@@ -536,6 +539,9 @@ export function buildMobileHtml(t: IndustryTemplate): string {
   if (t.id === 'diamante')  return buildDiamanteMobile(t);
   if (t.id === 'heritage')  return buildHeritageMobile(t);
   if (t.id === 'lumiere')   return buildLumiereMobile(t);
+  if (t.id === 'bazaar')    return buildBazaarMobile(t);
+  if (t.id === 'urban')     return buildUrbanMobile(t);
+  if (t.id === 'vida')      return buildVidaMobile(t);
   return buildAuroraMobile(t);
 }
 
@@ -596,14 +602,13 @@ function buildAuroraDesktop(t: IndustryTemplate): string {
 function buildAuroraMobile(t: IndustryTemplate): string {
   const pills = ['-25%','New','',''];
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="background:#faf6f0;border-radius:4px;overflow:hidden;">
-      <div style="position:relative;aspect-ratio:3/4;background:#f0e8dc;overflow:hidden;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-        ${pills[i]?`<div style="position:absolute;top:4px;left:4px;background:#c8860a;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:100px;">${pills[i]}</div>`:''}
-      </div>
-      <div style="padding:5px 6px 6px;">
-        <div style="font-size:6.5px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;color:#2a1f14;margin-bottom:1px;">${p.name}</div>
-        <div style="font-size:6.5px;font-weight:700;color:#c8860a;">${p.price}</div>
+    <div style="position:relative;overflow:hidden;border-radius:4px;flex:1;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
+      ${pills[i]?`<div style="position:absolute;top:4px;left:4px;background:#c8860a;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:100px;">${pills[i]}</div>`:''}
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+        <div style="font-size:6px;color:#c8860a;font-weight:700;">${p.price}</div>
       </div>
     </div>`).join('');
   return `<div style="background:#faf6f0;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
@@ -616,7 +621,7 @@ function buildAuroraMobile(t: IndustryTemplate): string {
       <div style="display:flex;gap:5px;font-size:10px;color:#2a1f14;">🔍🛒</div>
     </div>
     <!-- Hero -->
-    <div style="height:120px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;object-position:center top;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(42,31,20,.85) 0%,rgba(42,31,20,.2) 60%);"></div>
       <div style="position:absolute;bottom:10px;left:10px;">
@@ -627,16 +632,8 @@ function buildAuroraMobile(t: IndustryTemplate): string {
         </div>
       </div>
     </div>
-    <!-- Trust bar -->
-    <div style="background:#fff;padding:4px 9px;border-bottom:1px solid #ede6de;display:flex;justify-content:center;gap:8px;align-items:center;">
-      <span style="font-size:5.5px;color:#9a8878;">Small Batch</span>
-      <span style="font-size:5.5px;color:#c8860a;">·</span>
-      <span style="font-size:5.5px;color:#9a8878;">Sin Crueldad</span>
-      <span style="font-size:5.5px;color:#c8860a;">·</span>
-      <span style="font-size:5.5px;color:#9a8878;">Carbono Neutro</span>
-    </div>
     <!-- Products -->
-    <div style="padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#faf6f0;">${prods}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#faf6f0;">${prods}</div>
   </div>`;
 }
 
@@ -725,7 +722,7 @@ function buildOnyxMobile(t: IndustryTemplate): string {
       <div style="display:flex;gap:6px;font-size:7px;color:#888;"><span>Shop</span><span>Collections</span></div>
       <div style="display:flex;gap:5px;font-size:10px;color:#1a1a1a;">🔍🛒</div>
     </div>
-    <div style="height:114px;position:relative;overflow:hidden;flex-shrink:0;display:flex;">
+    <div style="height:128px;position:relative;overflow:hidden;flex-shrink:0;display:flex;">
       <div style="width:12%;background:linear-gradient(135deg,#e8b4a0,#f5d5c8);flex-shrink:0;"></div>
       <div style="flex:1;position:relative;overflow:hidden;">
         <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
@@ -809,15 +806,13 @@ function buildBloomMobile(t: IndustryTemplate): string {
   const pills = ['Nuevo','HOT'];
   const pillColors = ['#4d8c80','#d4a855'];
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="background:#0d2020;border-radius:5px;overflow:hidden;border:1px solid rgba(245,240,232,.08);">
-      <div style="position:relative;aspect-ratio:3/4;background:#122828;display:flex;align-items:center;justify-content:center;padding:12px;">
-        <img src="${p.img}" style="height:60px;object-fit:contain;display:block;" loading="lazy">
-        <div style="position:absolute;top:5px;left:5px;background:${pillColors[i]};color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:100px;">${pills[i]}</div>
-      </div>
-      <div style="padding:5px 6px 7px;">
-        <div style="font-size:6px;color:#a0d4c8;font-weight:600;margin-bottom:1px;">${i===0?'Sérum Facial':'Aceite Activo'}</div>
-        <div style="font-size:7px;color:#f5f0e8;font-weight:700;margin-bottom:2px;">${p.name}</div>
-        <div style="font-size:7px;font-weight:800;color:#a0d4c8;">${p.price}</div>
+    <div style="position:relative;overflow:hidden;border-radius:4px;flex:1;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
+      <div style="position:absolute;top:4px;left:4px;background:${pillColors[i]};color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:100px;">${pills[i]}</div>
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+        <div style="font-size:6px;color:#a0d4c8;font-weight:700;">${p.price}</div>
       </div>
     </div>`).join('');
   return `<div style="background:#0a1a1a;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
@@ -827,14 +822,14 @@ function buildBloomMobile(t: IndustryTemplate): string {
       <div style="display:flex;gap:8px;font-size:6.5px;color:rgba(255,255,255,0.7);"><span>Shop</span><span>Bestseller</span></div>
       <div style="display:flex;gap:5px;font-size:10px;color:#a0d4c8;">🔍🛒</div>
     </div>
-    <div style="height:118px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:brightness(.5);" loading="lazy">
       <div style="position:relative;z-index:2;text-align:center;">
         <div style="font-size:36px;font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;color:#fff;line-height:1;letter-spacing:-1px;">belleza</div>
         <div style="font-size:5.5px;color:#a0d4c8;letter-spacing:2.5px;font-weight:600;margin-top:5px;border-top:1px solid rgba(160,212,200,.3);padding-top:4px;text-transform:uppercase;">Donde Comienza El Skincare</div>
       </div>
     </div>
-    <div style="padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#0a1a1a;">${prods}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#0a1a1a;">${prods}</div>
   </div>`;
 }
 
@@ -903,14 +898,13 @@ function buildAuraDesktop(t: IndustryTemplate): string {
 function buildAuraMobile(t: IndustryTemplate): string {
   const pills = ['NUEVO','','HOT',''];
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="background:#fff;border-radius:5px;overflow:hidden;border:1px solid #e8eaed;">
-      <div style="position:relative;aspect-ratio:3/4;background:#e8f0f8;overflow:hidden;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-        ${pills[i]?`<div style="position:absolute;top:4px;left:4px;background:#3498db;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:100px;">${pills[i]}</div>`:''}
-      </div>
-      <div style="padding:4px 5px 6px;">
-        <div style="font-size:6.5px;color:#3498db;font-weight:800;margin-bottom:1px;">${p.name}</div>
-        <div style="font-size:6.5px;color:#1565c0;font-weight:800;">${p.price}</div>
+    <div style="position:relative;overflow:hidden;border-radius:4px;flex:1;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
+      ${pills[i]?`<div style="position:absolute;top:4px;left:4px;background:#3498db;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:100px;">${pills[i]}</div>`:''}
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+        <div style="font-size:6px;color:#64b5f6;font-weight:700;">${p.price}</div>
       </div>
     </div>`).join('');
   return `<div style="background:#f8f9fa;height:100%;display:flex;flex-direction:column;font-family:'Montserrat',sans-serif;">
@@ -919,7 +913,7 @@ function buildAuraMobile(t: IndustryTemplate): string {
       <span style="font-size:7px;font-weight:900;letter-spacing:2.5px;color:#1565c0;">AURA</span>
       <div style="display:flex;gap:6px;font-size:10px;color:#666;">♡ 🛒</div>
     </div>
-    <div style="height:120px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(13,71,161,.85) 0%,rgba(21,101,192,.25) 70%,transparent 100%);"></div>
       <div style="position:absolute;bottom:10px;left:10px;">
@@ -928,7 +922,7 @@ function buildAuraMobile(t: IndustryTemplate): string {
         <div style="margin-top:6px;display:inline-block;padding:3px 10px;background:#3498db;color:#fff;font-size:6px;font-weight:700;border-radius:100px;letter-spacing:1px;">Explorar</div>
       </div>
     </div>
-    <div style="padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#f8f9fa;">${prods}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#f8f9fa;">${prods}</div>
   </div>`;
 }
 
@@ -991,14 +985,13 @@ function buildEleganciaDesktop(t: IndustryTemplate): string {
 function buildEleganciaMobile(t: IndustryTemplate): string {
   const pills = ['Nuevo','','Exclusivo',''];
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="background:#faf5f0;border-radius:3px;overflow:hidden;">
-      <div style="position:relative;aspect-ratio:3/4;background:#ede0d4;overflow:hidden;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-        ${pills[i]?`<div style="position:absolute;top:4px;left:4px;background:#3a3530;color:#f5ede6;font-size:5px;font-weight:500;padding:1px 5px;letter-spacing:.5px;text-transform:uppercase;">${pills[i]}</div>`:''}
-      </div>
-      <div style="padding:4px 5px 6px;">
-        <div style="font-size:6.5px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;color:#3a3530;margin-bottom:1px;">${p.name}</div>
-        <div style="font-size:6.5px;font-weight:600;color:#8b6f47;">${p.price}</div>
+    <div style="position:relative;overflow:hidden;border-radius:4px;flex:1;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
+      ${pills[i]?`<div style="position:absolute;top:4px;left:4px;background:#3a3530;color:#f5ede6;font-size:5px;font-weight:500;padding:1px 5px;letter-spacing:.5px;text-transform:uppercase;">${pills[i]}</div>`:''}
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+        <div style="font-size:6px;color:#c9a96e;font-weight:700;">${p.price}</div>
       </div>
     </div>`).join('');
   return `<div style="background:#faf5f0;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
@@ -1008,7 +1001,7 @@ function buildEleganciaMobile(t: IndustryTemplate): string {
       <span style="font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:600;letter-spacing:2px;color:#3a3530;font-style:italic;">ELEGANCIA</span>
       <div style="display:flex;gap:5px;font-size:10px;color:#8b6f47;">♡ 🛒</div>
     </div>
-    <div style="height:118px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(245,237,230,.95) 0%,rgba(245,237,230,.45) 50%,rgba(245,237,230,0) 80%);"></div>
       <div style="position:absolute;left:9px;top:50%;transform:translateY(-50%);">
@@ -1017,7 +1010,7 @@ function buildEleganciaMobile(t: IndustryTemplate): string {
         <div style="margin-top:6px;display:inline-block;padding:2px 8px;background:#3a3530;color:#f5ede6;font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;">Descubrir →</div>
       </div>
     </div>
-    <div style="padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#faf5f0;">${prods}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#faf5f0;">${prods}</div>
   </div>`;
 }
 
@@ -1090,14 +1083,14 @@ function buildSimetriaMobile(t: IndustryTemplate): string {
   const pills = ['Nuevo','–20%'];
   const pillColors = ['#111','#f4a855'];
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="background:${colors[i]};border-radius:5px;overflow:hidden;">
-      <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
-        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+    <div style="background:${colors[i]};border-radius:4px;overflow:hidden;display:flex;flex-direction:column;position:relative;">
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:0;">
+        <img src="${p.img}" style="height:100%;width:100%;object-fit:cover;display:block;" loading="lazy">
         <div style="position:absolute;top:4px;left:4px;background:${pillColors[i]};color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:2px;">${pills[i]}</div>
       </div>
-      <div style="padding:4px 5px 6px;">
-        <div style="font-size:6.5px;color:#1a1a1a;font-weight:700;margin-bottom:1px;">${p.name}</div>
-        <div style="font-size:6.5px;color:#444;font-weight:700;">${p.price}</div>
+      <div style="padding:2px 4px;flex-shrink:0;background:rgba(255,255,255,0.7);">
+        <div style="font-size:5.5px;color:#1a1a1a;font-weight:700;">${p.name}</div>
+        <div style="font-size:5.5px;color:#444;font-weight:700;">${p.price}</div>
       </div>
     </div>`).join('');
   return `<div style="background:#fff;height:100%;display:flex;flex-direction:column;font-family:'Inter',sans-serif;">
@@ -1106,7 +1099,7 @@ function buildSimetriaMobile(t: IndustryTemplate): string {
       <span style="font-size:7.5px;font-weight:900;letter-spacing:2px;color:#111;text-transform:uppercase;">SIMETRÍA</span>
       <div style="display:flex;gap:6px;font-size:10px;color:#555;">🔍 🛒</div>
     </div>
-    <div style="height:116px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
       <div style="position:absolute;inset:0;background:rgba(255,255,255,.35);"></div>
       <div style="position:relative;z-index:2;text-align:center;padding:0 8px;">
@@ -1115,7 +1108,7 @@ function buildSimetriaMobile(t: IndustryTemplate): string {
         <div style="margin-top:8px;display:inline-block;padding:3px 10px;background:#111;color:#fff;font-size:6px;font-weight:700;border-radius:2px;letter-spacing:1px;">Ver Colección</div>
       </div>
     </div>
-    <div style="padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;background:#fff;">${prods}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#fff;">${prods}</div>
   </div>`;
 }
 
@@ -1173,7 +1166,7 @@ function buildCosechaMobile(t: IndustryTemplate): string {
       <span style="font-size:7px;font-weight:700;letter-spacing:2.5px;color:#2a1f14;">COSECHA</span>
       <div style="display:flex;gap:7px;font-size:10px;color:#6b5040;">♡ 🛒</div>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:120px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(42,31,20,0.72) 0%,transparent 55%);"></div>
       <div style="position:absolute;bottom:10px;left:10px;">
@@ -1238,7 +1231,7 @@ function buildLevainMobile(t: IndustryTemplate): string {
     <div style="background:#fdf8f0;height:22px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #e8e0d0;flex-shrink:0;">
       <span style="font-size:9px;font-weight:600;letter-spacing:3px;color:#2d4a2d;">LEVAIN</span>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:120px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(253,248,240,0.9) 0%,transparent 55%);"></div>
       <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%);">
@@ -1299,7 +1292,7 @@ function buildMercadoMobile(t: IndustryTemplate): string {
       <span style="font-size:7.5px;font-weight:900;letter-spacing:2px;color:#fff;">MERCADO</span>
       <div style="display:flex;gap:6px;font-size:10px;color:#e8520a;">🛒</div>
     </div>
-    <div style="height:110px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+    <div style="height:120px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" loading="lazy">
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.65);"></div>
       <div style="position:relative;z-index:2;text-align:center;">
@@ -1409,10 +1402,7 @@ function buildVoltMobile(t: IndustryTemplate): string {
         <img src="${t.hero}" style="height:115px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(79,142,247,.3));position:relative;z-index:1;" loading="lazy">
       </div>
     </div>
-    <div style="position:relative;background:#0a0a0f;border-top:1px solid #1e1e30;padding:6px 7px;flex:1;">
-      <div style="font-size:6.5px;color:#4a4a6a;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">// PRODUCTOS</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
-    </div>
+    <div style="position:relative;background:#0a0a0f;border-top:1px solid #1e1e30;padding:5px 7px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:5px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -1618,10 +1608,7 @@ function buildCircuitMobile(t: IndustryTemplate): string {
         <img src="${t.hero}" style="height:118px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(0,255,136,.2));" loading="lazy">
       </div>
     </div>
-    <div style="position:relative;background:#0e1218;border-top:1px solid #1e2d3e;padding:6px 7px;flex:1;">
-      <div style="font-size:6px;color:#4a6080;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-family:monospace;">// PRODUCTS</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
-    </div>
+    <div style="position:relative;background:#0e1218;border-top:1px solid #1e2d3e;padding:5px 7px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:5px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -1677,7 +1664,7 @@ function buildApexDesktop(t: IndustryTemplate): string {
 
 function buildApexMobile(t: IndustryTemplate): string {
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+    <div style="position:relative;overflow:hidden;flex:1;">
       <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 55%);"></div>
       ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#e63030;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;letter-spacing:1px;">NEW</div>':''}
@@ -1692,7 +1679,7 @@ function buildApexMobile(t: IndustryTemplate): string {
       <span style="font-size:11px;font-weight:700;letter-spacing:4px;color:#f5f5f5;">APEX</span>
       <div style="display:flex;gap:7px;font-size:10px;color:#666;">♡ 🛒</div>
     </div>
-    <div style="height:125px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:135px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.85) 40%,rgba(10,10,10,0.1) 100%);"></div>
       <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 10px;max-width:60%;">
@@ -1701,10 +1688,7 @@ function buildApexMobile(t: IndustryTemplate): string {
         <div style="display:inline-block;padding:4px 10px;background:#e63030;color:#fff;font-size:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;width:fit-content;">Comprar →</div>
       </div>
     </div>
-    <div style="background:#111;border-top:1px solid #2a2a2a;padding:6px 7px;flex:1;">
-      <div style="font-size:6px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-weight:700;">NUEVA COLECCIÓN</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
-    </div>
+    <div style="background:#111;border-top:1px solid #2a2a2a;padding:5px 7px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
   </div>`;
 }
 
@@ -1779,7 +1763,7 @@ function buildStrideMobile(t: IndustryTemplate): string {
       <span style="font-size:11px;font-weight:700;letter-spacing:4px;color:#0f1f0f;">STRIDE</span>
       <div style="display:flex;gap:7px;font-size:10px;color:#0f1f0f;">♡ 🛒</div>
     </div>
-    <div style="height:125px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,31,15,.85) 0%,transparent 55%);"></div>
       <div style="position:absolute;bottom:10px;left:10px;">
@@ -1787,10 +1771,7 @@ function buildStrideMobile(t: IndustryTemplate): string {
         <div style="display:inline-block;padding:3px 10px;background:#7fbf3f;color:#0f1f0f;font-size:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Ver modelos</div>
       </div>
     </div>
-    <div style="background:#f5f8f5;border-top:1px solid #c8ddc8;padding:6px 7px;flex:1;">
-      <div style="font-size:6px;color:#2d6a2d;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">MÁS VENDIDOS</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
-    </div>
+    <div style="background:#f5f8f5;border-top:1px solid #c8ddc8;padding:5px 7px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:5px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -1851,7 +1832,7 @@ function buildArenaDesktop(t: IndustryTemplate): string {
 
 function buildArenaMobile(t: IndustryTemplate): string {
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="background:#141414;border:1px solid #2a2a2a;overflow:hidden;position:relative;aspect-ratio:3/4;">
+    <div style="background:#141414;border:1px solid #2a2a2a;overflow:hidden;position:relative;flex:1;">
       <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,14,0.85) 0%,transparent 50%);"></div>
       ${i===0?'<div style="position:absolute;top:3px;left:3px;background:#f5e000;color:#0e0e0e;font-size:5.5px;font-weight:700;padding:1px 5px;letter-spacing:1px;">HOT</div>':''}
@@ -1878,10 +1859,7 @@ function buildArenaMobile(t: IndustryTemplate): string {
         <div style="display:inline-block;padding:4px 10px;background:#f5e000;color:#0e0e0e;font-size:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;width:fit-content;">Comprar →</div>
       </div>
     </div>
-    <div style="background:#111;border-top:1px solid #2a2a2a;padding:6px 7px;flex:1;">
-      <div style="font-size:6px;color:#f5e000;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">TOP PRODUCTOS</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
-    </div>
+    <div style="background:#111;border-top:1px solid #2a2a2a;padding:5px 7px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:5px;">${prods}</div>
   </div>`;
 }
 
@@ -1950,7 +1928,7 @@ function buildHavenMobile(t: IndustryTemplate): string {
       <span style="font-family:'Playfair Display',serif;font-size:12px;color:#1c1410;letter-spacing:3px;">HAVEN</span>
       <div style="display:flex;gap:7px;font-size:10px;color:#1c1410;">♡ 🛒</div>
     </div>
-    <div style="height:125px;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
       <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(28,20,16,0.82) 0%,rgba(28,20,16,0.2) 55%,transparent 100%);"></div>
       <div style="position:absolute;bottom:12px;left:10px;max-width:65%;">
@@ -1959,10 +1937,7 @@ function buildHavenMobile(t: IndustryTemplate): string {
         <div style="display:inline-block;padding:3px 10px;background:#c06840;color:#fff;font-size:6px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">Explorar →</div>
       </div>
     </div>
-    <div style="background:#faf8f5;border-top:1px solid #d8cec4;padding:7px 9px;flex:1;">
-      <div style="font-family:'Playfair Display',serif;font-size:7px;color:#1c1410;font-style:italic;margin-bottom:6px;">Nuestros Favoritos</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
-    </div>
+    <div style="background:#faf8f5;border-top:1px solid #d8cec4;padding:5px 9px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -2035,7 +2010,7 @@ function buildNordiaMobile(t: IndustryTemplate): string {
       <span style="font-family:'Fraunces',serif;font-size:12px;font-weight:300;color:#1e1a16;letter-spacing:3px;">NORDIA</span>
       <div style="display:flex;gap:7px;font-size:10px;color:#1e1a16;">♡ 🛒</div>
     </div>
-    <div style="height:120px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
       <div style="background:#f0ece4;display:flex;flex-direction:column;justify-content:center;padding:0 10px;">
         <div style="font-size:6px;letter-spacing:2px;text-transform:uppercase;color:#b08060;margin-bottom:7px;">NÓRDICO</div>
         <div style="font-family:'Fraunces',serif;font-size:14px;font-weight:300;font-style:italic;color:#1e1a16;line-height:1.05;margin-bottom:9px;">Simplicidad<br>que permanece.</div>
@@ -2045,10 +2020,7 @@ function buildNordiaMobile(t: IndustryTemplate): string {
         <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       </div>
     </div>
-    <div style="background:#f9f7f3;border-top:1px solid #ddd5c8;padding:7px 9px;flex:1;">
-      <div style="font-family:'Fraunces',serif;font-size:7px;font-style:italic;color:#1e1a16;margin-bottom:6px;">Nuestros favoritos</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
-    </div>
+    <div style="background:#f9f7f3;border-top:1px solid #ddd5c8;padding:5px 9px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -2133,10 +2105,7 @@ function buildLoftMobile(t: IndustryTemplate): string {
         <div style="display:inline-block;padding:4px 10px;background:#b8963e;color:#1a1a18;font-family:'Barlow Condensed',sans-serif;font-size:6px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:fit-content;">Explorar →</div>
       </div>
     </div>
-    <div style="background:#1a1a18;border-top:1px solid #333;padding:6px 7px;flex:1;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:6px;color:#b8963e;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-weight:600;">MÁS VENDIDOS</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">${prods}</div>
-    </div>
+    <div style="background:#1a1a18;border-top:1px solid #333;padding:5px 7px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -2212,7 +2181,7 @@ function buildDiamanteMobile(t: IndustryTemplate): string {
       <span style="font-family:'Bodoni Moda',serif;font-size:11px;font-weight:400;letter-spacing:5px;color:#1a1a1a;text-transform:uppercase;">DIAMANTE</span>
       <div style="display:flex;gap:7px;font-size:10px;color:#1a1a1a;">♡ 🛒</div>
     </div>
-    <div style="height:120px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
       <div style="background:#f9f9f9;display:flex;flex-direction:column;justify-content:center;padding:0 10px;">
         <div style="font-size:6px;letter-spacing:3px;text-transform:uppercase;color:#8a7250;margin-bottom:8px;">ALTA JOYERÍA</div>
         <div style="font-family:'Bodoni Moda',serif;font-size:14px;line-height:1.1;color:#1a1a1a;margin-bottom:10px;">Brillo que<br>no necesita<br>palabras.</div>
@@ -2222,10 +2191,7 @@ function buildDiamanteMobile(t: IndustryTemplate): string {
         <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       </div>
     </div>
-    <div style="background:#fff;border-top:1px solid #e0e0e0;padding:7px 9px;flex:1;">
-      <div style="font-family:'Bodoni Moda',serif;font-size:7px;color:#1a1a1a;margin-bottom:6px;">Piezas Destacadas</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
-    </div>
+    <div style="background:#fff;border-top:1px solid #e0e0e0;padding:5px 9px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -2302,7 +2268,7 @@ function buildHeritageMobile(t: IndustryTemplate): string {
       <span style="font-family:'Libre Baskerville',serif;font-size:10px;letter-spacing:4px;color:#2c1a10;text-transform:uppercase;">HERITAGE</span>
       <div style="display:flex;gap:7px;font-size:10px;color:#2c1a10;">♡ 🛒</div>
     </div>
-    <div style="height:120px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
+    <div style="height:130px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex-shrink:0;">
       <div style="position:relative;overflow:hidden;">
         <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
         <div style="position:absolute;top:6px;left:6px;background:#c49a6c;color:#fff;font-size:5.5px;letter-spacing:2px;padding:2px 6px;font-weight:700;text-transform:uppercase;">ART.</div>
@@ -2313,10 +2279,7 @@ function buildHeritageMobile(t: IndustryTemplate): string {
         <div style="display:inline-block;padding:4px 10px;background:#2c1a10;color:#fff;font-size:5.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;width:fit-content;">Ver →</div>
       </div>
     </div>
-    <div style="background:#faf6ef;border-top:1px solid #d4c4b0;padding:7px 9px;flex:1;">
-      <div style="font-family:'Libre Baskerville',serif;font-size:7px;font-style:italic;color:#2c1a10;margin-bottom:6px;">Piezas Especiales</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${prods}</div>
-    </div>
+    <div style="background:#faf6ef;border-top:1px solid #d4c4b0;padding:5px 9px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start;">${prods}</div>
   </div>`;
 }
 
@@ -2374,13 +2337,13 @@ function buildLumiereDesktop(t: IndustryTemplate): string {
 
 function buildLumiereMobile(t: IndustryTemplate): string {
   const prods = t.products.slice(0,2).map((p,i) => `
-    <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+    <div style="position:relative;overflow:hidden;border-radius:4px;flex:1;">
       <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,10,0.9) 0%,transparent 50%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
       ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#c9a96e;color:#09090a;font-size:5px;font-weight:700;padding:1px 5px;letter-spacing:1px;text-transform:uppercase;">Excl.</div>':''}
-      <div style="position:absolute;bottom:5px;left:5px;right:5px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:6.5px;font-weight:300;color:#f0ece4;margin-bottom:1px;font-style:italic;">${p.name}</div>
-        <div style="font-size:6.5px;color:#c9a96e;font-weight:700;">${p.price}</div>
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+        <div style="font-size:6px;color:#c9a96e;font-weight:700;">${p.price}</div>
       </div>
     </div>`).join('');
   return `<div style="background:#09090a;height:100%;display:flex;flex-direction:column;font-family:'Lato',sans-serif;">
@@ -2398,9 +2361,213 @@ function buildLumiereMobile(t: IndustryTemplate): string {
         <div style="display:inline-block;padding:4px 12px;background:#c9a96e;color:#09090a;font-size:6px;font-weight:700;letter-spacing:2px;text-transform:uppercase;width:fit-content;">Explorar →</div>
       </div>
     </div>
-    <div style="background:#09090a;border-top:1px solid #2a2a2c;padding:6px 7px;flex:1;">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:7px;font-style:italic;color:#f0ece4;margin-bottom:5px;font-weight:300;">Piezas Únicas</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">${prods}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#09090a;">${prods}</div>
+  </div>`;
+}
+
+// ── BAZAAR (General — Marketplace) ─────────────────────────────────────────
+
+function buildBazaarDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:1;overflow:hidden;background:#f3f0fa;border-radius:6px;margin-bottom:8px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#7c3aed;color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:3px;">HOT</div>':''}
+      </div>
+      <div style="font-size:10px;color:#1a0a3a;font-weight:700;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:9.5px;font-weight:700;color:#7c3aed;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#fafafa;height:100%;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;">
+    <div style="background:#7c3aed;height:22px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700;letter-spacing:1.5px;">🛍️ ENVÍO GRATIS EN TODO COLOMBIA · MARKETPLACE GENERAL</div>
+    <div style="background:#fff;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #e5e7eb;">
+      <span style="font-size:16px;font-weight:800;letter-spacing:2px;color:#1a0a3a;text-transform:uppercase;">BAZAAR</span>
+      <div style="display:flex;gap:20px;font-size:9.5px;color:#6b7280;font-weight:600;"><span>Tienda</span><span>Categorías</span><span style="color:#7c3aed;font-weight:700;">Ofertas</span></div>
+      <div style="display:flex;gap:12px;font-size:14px;color:#7c3aed;">🔍 🛒</div>
     </div>
+    <div style="height:186px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(26,10,58,0.88) 35%,rgba(26,10,58,0.2) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 28px;max-width:55%;">
+        <div style="font-size:9px;color:#c4b5fd;letter-spacing:3px;font-weight:700;margin-bottom:10px;text-transform:uppercase;">TODO LO QUE BUSCAS</div>
+        <div style="font-size:32px;font-weight:800;color:#fff;line-height:.92;margin-bottom:14px;">Tu tienda<br>todo en uno.</div>
+        <div style="display:inline-block;padding:8px 20px;background:#7c3aed;color:#fff;font-size:9px;font-weight:700;border-radius:4px;letter-spacing:1px;">Explorar →</div>
+      </div>
+    </div>
+    <div style="background:#fafafa;padding:14px 20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <span style="font-size:10px;font-weight:700;color:#1a0a3a;">Lo más popular</span>
+        <span style="font-size:8.5px;color:#7c3aed;text-decoration:underline;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildBazaarMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="position:relative;overflow:hidden;border-radius:4px;flex:1;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(30,10,60,0.82) 0%,transparent 55%);"></div>
+      ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#7c3aed;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:2px;">HOT</div>':''}
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
+        <div style="font-size:6px;color:#c4b5fd;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#fafafa;height:100%;display:flex;flex-direction:column;font-family:'Plus Jakarta Sans',sans-serif;">
+    <div style="background:#7c3aed;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:#fff;font-weight:700;letter-spacing:1px;">🛍️ ENVÍO GRATIS · MARKETPLACE GENERAL</span></div>
+    <div style="background:#fff;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #e5e7eb;flex-shrink:0;">
+      <span style="font-size:10px;font-weight:800;letter-spacing:2px;color:#1a0a3a;text-transform:uppercase;">BAZAAR</span>
+      <div style="display:flex;gap:6px;font-size:10px;color:#7c3aed;">🔍🛒</div>
+    </div>
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(26,10,58,0.88) 35%,rgba(26,10,58,0.2) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 10px;max-width:65%;">
+        <div style="font-size:6px;color:#c4b5fd;letter-spacing:2px;font-weight:700;margin-bottom:5px;text-transform:uppercase;">TODO LO QUE BUSCAS</div>
+        <div style="font-size:20px;font-weight:800;color:#fff;line-height:.92;margin-bottom:7px;">Tu tienda<br>todo en uno.</div>
+        <div style="display:inline-block;padding:4px 10px;background:#7c3aed;color:#fff;font-size:6px;font-weight:700;border-radius:4px;letter-spacing:1px;">Explorar →</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#fafafa;">${prods}</div>
+  </div>`;
+}
+
+// ── URBAN (General — Lifestyle Oscuro) ─────────────────────────────────────
+
+function buildUrbanDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:3/4;overflow:hidden;margin-bottom:6px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 55%);"></div>
+        ${i===0?'<div style="position:absolute;top:6px;left:6px;background:#e5f900;color:#0a0a0a;font-size:7px;font-weight:700;padding:2px 7px;letter-spacing:1px;">NEW</div>':''}
+        <div style="position:absolute;bottom:8px;left:8px;right:8px;">
+          <div style="font-size:9px;color:#fff;font-weight:700;margin-bottom:2px;">${p.name}</div>
+          <div style="font-size:9px;color:#e5f900;font-weight:700;">${p.price}</div>
+        </div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#0a0a0a;height:100%;overflow:hidden;font-family:'Syne',sans-serif;">
+    <div style="background:#0a0a0a;height:22px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #222;font-size:8px;color:#e5f900;font-weight:700;letter-spacing:2px;">⚡ URBAN DROP · ENVÍO GRATIS EN TODO COLOMBIA</div>
+    <div style="background:#0a0a0a;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #222;">
+      <span style="font-size:16px;font-weight:800;letter-spacing:4px;color:#fff;text-transform:uppercase;">URBAN</span>
+      <div style="display:flex;gap:20px;font-size:9.5px;color:#666;font-weight:600;"><span>Hombre</span><span>Mujer</span><span>Accesorios</span></div>
+      <div style="display:flex;gap:12px;font-size:14px;color:#e5f900;">♡ 🛒</div>
+    </div>
+    <div style="height:176px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.7);" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.9) 40%,rgba(0,0,0,0.15) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 28px;max-width:55%;">
+        <div style="font-size:9px;color:#e5f900;letter-spacing:4px;font-weight:700;margin-bottom:10px;text-transform:uppercase;">URBAN LIFESTYLE</div>
+        <div style="font-size:30px;font-weight:800;color:#fff;line-height:.9;text-transform:uppercase;margin-bottom:14px;">DEFINE<br>TU ESTILO.</div>
+        <div style="display:inline-block;padding:8px 20px;background:#e5f900;color:#0a0a0a;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Ver drop →</div>
+      </div>
+    </div>
+    <div style="background:#111;padding:12px 16px 8px;border-top:1px solid #222;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:10px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;">Drops recientes</span>
+        <span style="font-size:8.5px;color:#e5f900;letter-spacing:1px;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildUrbanMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="position:relative;overflow:hidden;border-radius:3px;flex:1;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 55%);"></div>
+      ${i===0?'<div style="position:absolute;top:3px;left:3px;background:#e5f900;color:#0a0a0a;font-size:5.5px;font-weight:700;padding:1px 5px;">NEW</div>':''}
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
+        <div style="font-size:6px;color:#e5f900;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#0a0a0a;height:100%;display:flex;flex-direction:column;font-family:'Syne',sans-serif;">
+    <div style="background:#0a0a0a;height:11px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #222;"><span style="font-size:5.5px;color:#e5f900;font-weight:700;letter-spacing:1.5px;">⚡ URBAN DROP · ENVÍO GRATIS</span></div>
+    <div style="background:#0a0a0a;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #222;flex-shrink:0;">
+      <span style="font-size:10px;font-weight:800;letter-spacing:3px;color:#fff;text-transform:uppercase;">URBAN</span>
+      <div style="display:flex;gap:6px;font-size:10px;color:#e5f900;">♡ 🛒</div>
+    </div>
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.7);" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.9) 40%,rgba(0,0,0,0.15) 100%);"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 10px;max-width:60%;">
+        <div style="font-size:6px;color:#e5f900;letter-spacing:3px;font-weight:700;margin-bottom:6px;text-transform:uppercase;">URBAN LIFESTYLE</div>
+        <div style="font-size:22px;font-weight:800;color:#fff;line-height:.9;text-transform:uppercase;margin-bottom:8px;">DEFINE<br>TU ESTILO.</div>
+        <div style="display:inline-block;padding:4px 10px;background:#e5f900;color:#0a0a0a;font-size:6px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Ver drop →</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;flex:1;padding:5px;background:#111;">${prods}</div>
+  </div>`;
+}
+
+// ── VIDA (General — Lifestyle Latino) ──────────────────────────────────────
+
+function buildVidaDesktop(t: IndustryTemplate): string {
+  const prods = t.products.map((p,i) => `
+    <div style="cursor:pointer;">
+      <div style="position:relative;aspect-ratio:1;overflow:hidden;background:#f5ede0;border-radius:6px;margin-bottom:8px;">
+        <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+        ${i===0?'<div style="position:absolute;top:8px;left:8px;background:#e8520a;color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:3px;">NUEVO</div>':''}
+      </div>
+      <div style="font-size:10px;color:#3c1905;font-weight:600;margin-bottom:2px;">${p.name}</div>
+      <div style="font-size:9.5px;font-weight:700;color:#e8520a;">${p.price}</div>
+    </div>`).join('');
+  return `<div style="background:#fffbf5;height:100%;overflow:hidden;font-family:'DM Serif Display',serif;">
+    <div style="background:#3c1905;height:22px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fbbf24;font-weight:600;letter-spacing:1.5px;">🌿 ESTILO LATINO · ENVÍO GRATIS EN COLOMBIA</div>
+    <div style="background:#fffbf5;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #f0e0d0;">
+      <div style="display:flex;gap:20px;font-size:9.5px;color:#9a6844;"><span>Hogar</span><span>Moda</span><span>Bienestar</span></div>
+      <span style="font-size:22px;font-weight:400;letter-spacing:3px;color:#3c1905;font-style:italic;">vida</span>
+      <div style="display:flex;gap:12px;font-size:14px;color:#e8520a;">♡ 🛒</div>
+    </div>
+    <div style="height:176px;position:relative;overflow:hidden;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(60,25,5,0.85) 0%,rgba(60,25,5,0.2) 55%,transparent 100%);"></div>
+      <div style="position:absolute;bottom:24px;left:28px;max-width:60%;">
+        <div style="font-size:9px;color:#fbbf24;letter-spacing:3px;font-weight:600;margin-bottom:10px;text-transform:uppercase;">LIFESTYLE LATINO</div>
+        <div style="font-size:28px;color:#fff;line-height:1.1;margin-bottom:14px;font-style:italic;">El sabor de<br>vivir bien.</div>
+        <div style="display:inline-block;padding:8px 20px;background:#e8520a;color:#fff;font-size:9px;font-weight:700;border-radius:4px;">Explorar →</div>
+      </div>
+    </div>
+    <div style="background:#fffbf5;padding:14px 20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <span style="font-size:13px;font-style:italic;color:#3c1905;">Lo más querido</span>
+        <span style="font-size:8.5px;color:#e8520a;text-decoration:underline;">Ver todo →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">${prods}</div>
+    </div>
+  </div>`;
+}
+
+function buildVidaMobile(t: IndustryTemplate): string {
+  const prods = t.products.slice(0,2).map((p,i) => `
+    <div style="position:relative;overflow:hidden;border-radius:5px;flex:1;">
+      <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(60,25,5,0.82) 0%,transparent 55%);"></div>
+      ${i===0?'<div style="position:absolute;top:4px;left:4px;background:#e8520a;color:#fff;font-size:5.5px;font-weight:700;padding:1px 5px;border-radius:2px;">NUEVO</div>':''}
+      <div style="position:absolute;bottom:4px;left:5px;right:5px;">
+        <div style="font-size:6px;color:#fff;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
+        <div style="font-size:6px;color:#fbbf24;font-weight:700;">${p.price}</div>
+      </div>
+    </div>`).join('');
+  return `<div style="background:#fffbf5;height:100%;display:flex;flex-direction:column;font-family:'DM Serif Display',serif;">
+    <div style="background:#3c1905;height:11px;display:flex;align-items:center;justify-content:center;"><span style="font-size:5.5px;color:#fbbf24;font-weight:600;letter-spacing:1px;">🌿 ESTILO LATINO · ENVÍO GRATIS</span></div>
+    <div style="background:#fffbf5;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 9px;border-bottom:1px solid #f0e0d0;flex-shrink:0;">
+      <span style="font-size:13px;font-weight:400;letter-spacing:2px;color:#3c1905;font-style:italic;">vida</span>
+      <div style="display:flex;gap:6px;font-size:10px;color:#e8520a;">♡ 🛒</div>
+    </div>
+    <div style="height:130px;position:relative;overflow:hidden;flex-shrink:0;">
+      <img src="${t.hero}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(60,25,5,0.85) 0%,rgba(60,25,5,0.2) 55%,transparent 100%);"></div>
+      <div style="position:absolute;bottom:10px;left:10px;max-width:70%;">
+        <div style="font-size:6px;color:#fbbf24;letter-spacing:2px;font-weight:600;margin-bottom:5px;text-transform:uppercase;">LIFESTYLE LATINO</div>
+        <div style="font-size:18px;color:#fff;line-height:1.1;margin-bottom:7px;font-style:italic;">El sabor de<br>vivir bien.</div>
+        <div style="display:inline-block;padding:4px 10px;background:#e8520a;color:#fff;font-size:6px;font-weight:700;border-radius:3px;">Explorar →</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;padding:5px;background:#fffbf5;">${prods}</div>
   </div>`;
 }
