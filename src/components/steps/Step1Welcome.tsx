@@ -1,8 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useBrandStore } from '@/stores/brandStore';
+
+function toShopifySlug(name: string) {
+  return name
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+}
 
 const INDUSTRIES = [
   { value: 'jewelry',     label: 'Joyería y Accesorios' },
@@ -23,6 +32,35 @@ export function Step1Welcome() {
   } = useBrandStore();
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [urlSlug, setUrlSlug] = useState(() => {
+    // extract slug from stored value (strip .myshopify.com if present)
+    return shopifyUrl.replace(/\.myshopify\.com\/?$/, '').replace(/^https?:\/\//, '');
+  });
+  const [autoFilled, setAutoFilled] = useState(false);
+
+  // When store name changes, suggest slug if field is empty or was auto-filled
+  useEffect(() => {
+    if (!storeName || urlSlug) return;
+    const suggested = toShopifySlug(storeName);
+    if (suggested) {
+      setUrlSlug(suggested);
+      setShopifyUrl(suggested + '.myshopify.com');
+      setAutoFilled(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeName]);
+
+  const handleSlugChange = (raw: string) => {
+    // strip full URL if pasted
+    const cleaned = raw
+      .replace(/^https?:\/\//, '')
+      .replace(/\.myshopify\.com\/?$/, '')
+      .replace(/[^a-z0-9-]/g, '');
+    setUrlSlug(cleaned);
+    setShopifyUrl(cleaned ? cleaned + '.myshopify.com' : '');
+    setAutoFilled(false);
+    clearFieldError('shopifyUrl');
+  };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -57,6 +95,15 @@ export function Step1Welcome() {
       transition={{ duration: 0.35 }}
       className="w-full max-w-xl"
     >
+      {/* Back to home */}
+      <a
+        href="/"
+        className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-700 transition-colors mb-6 group"
+      >
+        <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
+        Volver al inicio
+      </a>
+
       {/* Header */}
       <div className="mb-8 sm:mb-10">
         <span className="inline-block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">
@@ -79,7 +126,17 @@ export function Step1Welcome() {
           <input
             type="text"
             value={storeName}
-            onChange={(e) => { setStoreName(e.target.value); clearFieldError('storeName'); }}
+            onChange={(e) => {
+              setStoreName(e.target.value);
+              clearFieldError('storeName');
+              // auto-suggest slug only if user hasn't typed one manually
+              if (!urlSlug || autoFilled) {
+                const suggested = toShopifySlug(e.target.value);
+                setUrlSlug(suggested);
+                setShopifyUrl(suggested ? suggested + '.myshopify.com' : '');
+                setAutoFilled(true);
+              }
+            }}
             placeholder="Ej: Luna Joyería, Bold Studio..."
             className={`w-full px-4 py-3 rounded-xl border text-gray-900 placeholder-gray-400 text-sm font-medium focus:outline-none focus:ring-2 transition-all ${
               errors.storeName
@@ -95,28 +152,33 @@ export function Step1Welcome() {
         {/* Shopify URL */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
-            URL de tu tienda Shopify <span className="text-red-400">*</span>
+            Nombre de tu tienda en Shopify <span className="text-red-400">*</span>
           </label>
           <div className={`flex items-center rounded-xl border overflow-hidden transition-all focus-within:ring-2 ${
             errors.shopifyUrl
               ? 'border-red-300 focus-within:ring-red-100'
               : 'border-gray-200 focus-within:border-gray-400 focus-within:ring-gray-100'
           }`}>
-            <span className="px-3 py-3 bg-gray-50 text-gray-400 text-sm font-medium border-r border-gray-200 select-none whitespace-nowrap">
-              https://
-            </span>
             <input
               type="text"
-              value={shopifyUrl}
-              onChange={(e) => { setShopifyUrl(e.target.value.replace(/^https?:\/\//, '')); clearFieldError('shopifyUrl'); }}
-              placeholder="mitienda.myshopify.com"
-              className="flex-1 px-3 py-3 text-gray-900 placeholder-gray-400 text-sm font-medium focus:outline-none bg-white min-w-0"
+              value={urlSlug}
+              onChange={(e) => handleSlugChange(e.target.value)}
+              placeholder="mi-tienda"
+              className="flex-1 px-4 py-3 text-gray-900 placeholder-gray-400 text-sm font-medium focus:outline-none bg-white min-w-0"
             />
+            <span className="px-3 py-3 bg-gray-50 text-gray-400 text-sm font-medium border-l border-gray-200 select-none whitespace-nowrap">
+              .myshopify.com
+            </span>
           </div>
           {errors.shopifyUrl ? (
             <p className="mt-1.5 text-xs text-red-500">{errors.shopifyUrl}</p>
+          ) : urlSlug ? (
+            <p className="mt-1.5 text-xs text-gray-400 flex items-center gap-1">
+              {autoFilled && <span className="text-blue-500 font-medium">✦ Auto-completado · </span>}
+              Tu URL: <span className="font-medium text-gray-600">{urlSlug}.myshopify.com</span>
+            </p>
           ) : (
-            <p className="mt-1.5 text-xs text-gray-400">Si aún no tienes tienda, escribe el nombre que quieres usar.</p>
+            <p className="mt-1.5 text-xs text-gray-400">Solo el nombre — nosotros agregamos .myshopify.com</p>
           )}
         </div>
 
