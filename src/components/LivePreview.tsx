@@ -5,7 +5,7 @@ import { useBrandStore } from '@/stores/brandStore';
 import { PALETTES } from '@/constants/palettes';
 import { FONTS } from '@/constants/fonts';
 import { INDUSTRY_CONTENT } from '@/constants/industries';
-import { THEME_NAV, THEME_COLORS, FASHION_TEMPLATE_DEFS } from '@/constants/themes';
+import { THEME_NAV, THEME_COLORS } from '@/constants/themes';
 import { PLANS, PlanKey } from '@/constants/plans';
 import { INDUSTRY_TEMPLATE_IDS, getTemplateById, buildMobileHtml } from '@/constants/industryTemplates';
 
@@ -46,9 +46,6 @@ export function LivePreview() {
   // Resolve theme nav
   const nav = theme ? (THEME_NAV[theme] ?? THEME_NAV['minimal']) : THEME_NAV['minimal'];
   const logoText = storeName ? storeName.toUpperCase().slice(0, 10) : nav.logo;
-
-  // Fashion template check
-  const fashionTemplate = FASHION_TEMPLATE_DEFS.find(t => t.id === theme);
 
   // Pricing
   const currentPlan = plan ? PLANS[plan as PlanKey] : null;

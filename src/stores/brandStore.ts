@@ -18,6 +18,14 @@ interface BrandState {
   palette: string | null;
   font: string;
 
+  // Step 2.5 — Logo
+  logoUrl: string | null;
+  logo: File | null;
+
+  // Step 4 — Inventory
+  bannerImages: File[];
+  productTemplate: File | null;
+
   // Step 3 — Plan
   plan: PlanKey | null;
 
@@ -29,6 +37,11 @@ interface BrandState {
   brandDesc: string;
   topProducts: string;
   productsFile: File | null;
+
+  // Step 5 — Access / Payments
+  collaboratorEmails: string[];
+  wompiApiKey: string;
+  payuApiKey: string;
 
   // Step 6 — Access
   email: string;
@@ -47,6 +60,14 @@ interface BrandState {
   setPalette: (palette: string | null) => void;
   setFont: (font: string) => void;
 
+  // Step 2.5 Actions
+  setLogo: (file: File | null) => void;
+  setLogoUrl: (url: string | null) => void;
+
+  // Step 4 Actions
+  setBannerImages: (images: File[]) => void;
+  setProductTemplate: (file: File | null) => void;
+
   // Step 3 Actions
   setPlan: (plan: PlanKey | null) => void;
 
@@ -59,6 +80,11 @@ interface BrandState {
   setBrandDesc: (desc: string) => void;
   setTopProducts: (products: string) => void;
   setProductsFile: (file: File | null) => void;
+
+  // Step 5 Actions
+  setCollaboratorEmails: (emails: string[]) => void;
+  setWompiApiKey: (key: string) => void;
+  setPayuApiKey: (key: string) => void;
 
   // Step 6 Actions
   setEmail: (email: string) => void;
@@ -92,6 +118,11 @@ const initialState = {
   palette: null,
   font: 'inter',
 
+  logoUrl: null,
+  logo: null,
+  bannerImages: [] as File[],
+  productTemplate: null,
+
   plan: null as PlanKey | null,
 
   selectedApps: [] as string[],
@@ -100,6 +131,10 @@ const initialState = {
   brandDesc: '',
   topProducts: '',
   productsFile: null,
+
+  collaboratorEmails: [] as string[],
+  wompiApiKey: '',
+  payuApiKey: '',
 
   email: '',
   shopifyAccess: '',
@@ -121,6 +156,14 @@ export const useBrandStore = create<BrandState>((set) => ({
   setPalette: (palette) => set({ palette }),
   setFont: (font) => set({ font }),
 
+  // Step 2.5
+  setLogo: (logo) => set({ logo }),
+  setLogoUrl: (logoUrl) => set({ logoUrl }),
+
+  // Step 4
+  setBannerImages: (bannerImages) => set({ bannerImages }),
+  setProductTemplate: (productTemplate) => set({ productTemplate }),
+
   // Step 3
   setPlan: (plan) => set({ plan }),
 
@@ -138,6 +181,11 @@ export const useBrandStore = create<BrandState>((set) => ({
   setBrandDesc: (brandDesc) => set({ brandDesc }),
   setTopProducts: (topProducts) => set({ topProducts }),
   setProductsFile: (productsFile) => set({ productsFile }),
+
+  // Step 5
+  setCollaboratorEmails: (collaboratorEmails) => set({ collaboratorEmails }),
+  setWompiApiKey: (wompiApiKey) => set({ wompiApiKey }),
+  setPayuApiKey: (payuApiKey) => set({ payuApiKey }),
 
   // Step 6
   setEmail: (email) => set({ email }),

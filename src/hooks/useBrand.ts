@@ -1,5 +1,4 @@
 import { useBrandStore } from '@/stores/brandStore';
-import { ColorPaletteKey, TypographyStyle } from '@/types';
 
 export const useBrand = () => {
   const store = useBrandStore();
@@ -10,8 +9,9 @@ export const useBrand = () => {
       storeName: store.storeName,
       shopifyUrl: store.shopifyUrl,
       industry: store.industry,
-      colorPalette: store.colorPalette,
-      typography: store.typography,
+      theme: store.theme,
+      palette: store.palette,
+      font: store.font,
       logo: store.logo,
       logoUrl: store.logoUrl,
       bannerImages: store.bannerImages,
@@ -28,8 +28,9 @@ export const useBrand = () => {
     setIndustry: store.setIndustry,
 
     // Step 2
-    setColorPalette: store.setColorPalette,
-    setTypography: store.setTypography,
+    setTheme: store.setTheme,
+    setPalette: store.setPalette,
+    setFont: store.setFont,
 
     // Navigation
     currentStep: store.currentStep,

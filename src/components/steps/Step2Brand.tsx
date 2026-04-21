@@ -5,7 +5,7 @@ import { useBrandStore } from '@/stores/brandStore';
 import { THEME_DEFS, THEME_PREVIEW_STYLES, FASHION_TEMPLATE_DEFS } from '@/constants/themes';
 import { PALETTES } from '@/constants/palettes';
 import { FONTS } from '@/constants/fonts';
-import { INDUSTRY_TEMPLATES, buildDesktopHtml, buildMobileHtml } from '@/constants/industryTemplates';
+import { INDUSTRY_TEMPLATES, buildDesktopHtml } from '@/constants/industryTemplates';
 
 
 export function Step2Brand() {
@@ -143,7 +143,7 @@ export function Step2Brand() {
         </h2>
 
         {/* Industry-specific templates — full-width stacked cards */}
-        {industryTemplates ? (
+        {industryTemplates && !isFashion ? (
           <div className="flex flex-col gap-6">
             {industryTemplates.map((t, idx) => {
               const isSelected = theme === t.id;
