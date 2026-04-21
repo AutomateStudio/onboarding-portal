@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELEGANCIA — Moda Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf5f0;--cream2:#f5ede6;--cream3:#ede0d4;
+  --tan:#8b6f47;--tan2:#6b5344;--tan3:#3a3530;
+  --gold:#c8a96e;--muted:#9a8878;--border:rgba(107,83,68,.15);
+  --font-head:'Cormorant Garamond',serif;--font-body:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--tan3);font-family:var(--font-body);overflow-x:hidden}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(58,53,48,.88);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--cream);max-width:500px;width:90%;padding:48px;position:relative;border:1px solid var(--border)}
+.popup-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)}
+.popup-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--tan);margin-bottom:12px}
+.popup-title{font-family:var(--font-head);font-size:46px;font-weight:600;font-style:italic;color:var(--tan3);line-height:1;margin-bottom:10px}
+.popup-title span{color:var(--tan)}
+.popup-sub{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.popup-form{display:flex;gap:0;margin-bottom:10px}
+.popup-input{flex:1;background:#fff;border:1px solid var(--border);border-right:none;color:var(--tan3);padding:12px 16px;font-size:13px;font-family:var(--font-body);outline:none}
+.popup-input:focus{border-color:var(--tan)}
+.popup-btn{background:var(--tan3);color:var(--cream);border:none;padding:12px 22px;font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:2px;cursor:pointer;white-space:nowrap;text-transform:uppercase}
+.popup-btn:hover{background:var(--tan)}
+.popup-skip{font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--font-body);text-decoration:underline;display:block}
+
+/* ANN BAR */
+.ann-bar{background:var(--tan3);color:var(--cream3);text-align:center;font-size:11px;font-weight:500;letter-spacing:3px;padding:9px 20px;text-transform:uppercase}
+.ann-bar span{color:var(--gold)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:0 60px;display:flex;align-items:center;justify-content:space-between;height:66px;transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 2px 20px rgba(58,53,48,.08)}
+.nav-left{display:flex;gap:32px;list-style:none}
+.nav-left a{color:var(--muted);font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.nav-left a:hover{color:var(--tan3)}
+.nav-logo{font-family:var(--font-head);font-size:22px;font-weight:600;letter-spacing:4px;color:var(--tan3);text-decoration:none}
+.nav-right{display:flex;gap:22px;align-items:center}
+.nav-right a{color:var(--muted);font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.nav-right a:hover{color:var(--tan3)}
+.nav-icon{font-size:17px;text-decoration:none;color:var(--tan);transition:color .2s}
+.nav-icon:hover{color:var(--tan3)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--tan3)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--cream);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-head);font-size:32px;font-style:italic;color:var(--tan3);text-decoration:none}
+.mobile-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--tan3);font-size:24px;cursor:pointer}
+
+/* HERO */
+.hero{position:relative;height:92vh;min-height:600px;display:flex;align-items:center;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:heroZoom 14s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.04)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(245,237,230,.95) 0%,rgba(245,237,230,.6) 45%,rgba(245,237,230,0) 80%)}
+.hero-content{position:relative;z-index:1;padding:0 72px;max-width:560px}
+.hero-eyebrow{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--tan);margin-bottom:18px}
+.hero-title{font-family:var(--font-head);font-size:clamp(52px,6vw,84px);font-weight:600;font-style:italic;color:var(--tan3);line-height:1.05;margin-bottom:18px}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.8;max-width:380px;margin-bottom:36px;font-weight:400}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn-tan{display:inline-block;background:var(--tan3);color:var(--cream);padding:13px 36px;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:.2s}
+.btn-tan:hover{background:var(--tan)}
+.btn-tan-outline{display:inline-block;border:1px solid var(--tan3);color:var(--tan3);padding:12px 35px;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:.2s}
+.btn-tan-outline:hover{background:var(--tan3);color:var(--cream)}
+
+/* STRIP */
+.strip{background:var(--cream3);padding:12px 60px;display:flex;justify-content:center;gap:40px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.strip-item{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--tan2);display:flex;align-items:center;gap:10px}
+.strip-dot{width:3px;height:3px;background:var(--tan);border-radius:50%}
+
+/* SECTION */
+.section{padding:96px 60px;max-width:1200px;margin:0 auto}
+.section-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--tan);margin-bottom:10px}
+.section-title{font-family:var(--font-head);font-size:clamp(36px,4vw,58px);font-weight:600;font-style:italic;color:var(--tan3);line-height:1.05;margin-bottom:48px}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.product-card{cursor:pointer}
+.product-img-wrap{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--cream2);margin-bottom:14px}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.product-card:hover .product-img-wrap img{transform:scale(1.05)}
+.product-overlay{position:absolute;inset:0;background:rgba(58,53,48,0);transition:.3s;display:flex;align-items:flex-end;padding:16px}
+.product-card:hover .product-overlay{background:rgba(58,53,48,.12)}
+.quick-shop{background:var(--tan3);color:var(--cream);width:100%;padding:10px;font-family:var(--font-body);font-size:10px;font-weight:500;letter-spacing:2px;text-align:center;cursor:pointer;border:none;text-transform:uppercase;opacity:0;transform:translateY(10px);transition:.3s}
+.product-card:hover .quick-shop{opacity:1;transform:translateY(0)}
+.product-pill{position:absolute;top:14px;left:14px;background:var(--tan3);color:var(--cream);font-size:8px;font-weight:500;letter-spacing:2px;padding:4px 10px;text-transform:uppercase}
+.product-name{font-family:var(--font-head);font-size:16px;font-weight:600;font-style:italic;color:var(--tan3);margin-bottom:4px}
+.product-spec{font-size:11px;color:var(--muted);margin-bottom:8px}
+.product-price-row{display:flex;gap:10px;align-items:baseline}
+.product-price{font-size:13px;font-weight:600;color:var(--tan2)}
+.product-old{font-size:11px;text-decoration:line-through;color:var(--muted)}
+
+/* EDITORIAL */
+.editorial-section{background:var(--cream2);padding:96px 0}
+.editorial-inner{max-width:1100px;margin:0 auto;padding:0 60px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.editorial-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.editorial-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--tan);margin-bottom:14px}
+.editorial-title{font-family:var(--font-head);font-size:52px;font-weight:600;font-style:italic;color:var(--tan3);line-height:1;margin-bottom:20px}
+.editorial-title span{color:var(--tan)}
+.editorial-text{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:32px}
+.pillar-list{display:flex;flex-direction:column;gap:20px}
+.pillar-item{display:flex;gap:16px;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.pillar-item:last-child{border-bottom:none}
+.pillar-num{font-family:var(--font-head);font-size:28px;font-weight:600;font-style:italic;color:var(--tan);min-width:32px}
+.pillar-name{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--tan3);margin-bottom:3px}
+.pillar-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* URGENCY */
+.urgency-bar{background:var(--tan3);padding:18px 60px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.urgency-text{font-size:13px;font-weight:500;letter-spacing:1px;color:var(--cream)}
+.urgency-text span{color:var(--gold)}
+.cd-row{display:flex;gap:4px;align-items:center}
+.cd-unit{background:var(--tan);color:var(--cream);padding:6px 12px;font-size:18px;font-weight:700;min-width:40px;text-align:center;border-radius:2px}
+.cd-sep{font-size:18px;font-weight:700;color:rgba(250,245,240,.4)}
+
+/* REVIEWS */
+.reviews-section{padding:96px 60px;background:var(--cream)}
+.reviews-inner{max-width:1100px;margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.review-card{background:var(--cream2);border:1px solid var(--border);padding:28px}
+.review-stars{color:var(--tan);font-size:12px;letter-spacing:3px;margin-bottom:12px}
+.review-text{font-family:var(--font-head);font-size:15px;font-style:italic;line-height:1.7;color:var(--tan3);margin-bottom:16px}
+.review-footer{display:flex;justify-content:space-between;align-items:center}
+.review-author{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--tan)}
+.review-check{font-size:10px;color:var(--muted)}
+
+/* STATS */
+.stats-section{padding:80px 60px;background:var(--cream2);border-top:1px solid var(--border)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-num{font-family:var(--font-head);font-size:56px;font-weight:600;font-style:italic;color:var(--tan2);line-height:1}
+.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:6px;font-weight:500}
+
+/* NEWSLETTER */
+.nl-section{padding:96px 60px;background:var(--tan3);text-align:center}
+.nl-inner{max-width:480px;margin:0 auto}
+.nl-eyebrow{font-size:9px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:rgba(250,245,240,.5);margin-bottom:12px}
+.nl-title{font-family:var(--font-head);font-size:56px;font-weight:600;font-style:italic;color:var(--cream);line-height:.95;margin-bottom:12px}
+.nl-sub{font-size:13px;color:rgba(250,245,240,.65);margin-bottom:28px;line-height:1.7}
+.nl-form{display:flex;margin-bottom:10px}
+.nl-input{flex:1;background:rgba(250,245,240,.1);border:1px solid rgba(250,245,240,.25);border-right:none;color:var(--cream);padding:12px 18px;font-size:13px;font-family:var(--font-body);outline:none}
+.nl-input::placeholder{color:rgba(250,245,240,.4)}
+.nl-input:focus{border-color:rgba(250,245,240,.55)}
+.nl-btn{background:var(--cream);color:var(--tan3);border:none;padding:12px 24px;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:2px;cursor:pointer;text-transform:uppercase}
+.nl-btn:hover{background:var(--cream3)}
+.nl-note{font-size:11px;color:rgba(250,245,240,.4)}
+
+/* FOOTER */
+footer{background:var(--tan3);border-top:1px solid rgba(250,245,240,.1);padding:64px 60px 32px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo{font-family:var(--font-head);font-size:22px;font-weight:600;letter-spacing:4px;color:var(--cream);text-decoration:none;display:block;margin-bottom:12px;font-style:italic}
+.f-desc{font-size:12px;color:rgba(250,245,240,.4);line-height:1.7}
+.f-col h5{font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-col a{font-size:12px;color:rgba(250,245,240,.4);text-decoration:none;transition:color .2s}
+.f-col a:hover{color:var(--cream)}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(250,245,240,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:11px;color:rgba(250,245,240,.3)}
+.f-social{display:flex;gap:10px}
+.f-social a{width:32px;height:32px;border:1px solid rgba(250,245,240,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(250,245,240,.4);text-decoration:none;font-size:12px;transition:.2s}
+.f-social a:hover{border-color:var(--gold);color:var(--gold)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-left,.nav-right .nav-right-links{display:none}
+  .hamburger{display:flex}
+  .hero-content{padding:0 24px}
+  .hero-title{font-size:48px}
+  .strip{gap:16px;padding:10px 16px}
+  .section{padding:64px 20px}
+  .products-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .editorial-section{padding:64px 0}
+  .editorial-inner{grid-template-columns:1fr;gap:36px;padding:0 20px}
+  .editorial-img{aspect-ratio:1}
+  .urgency-bar{padding:12px 20px;flex-direction:column;gap:10px}
+  .reviews-section{padding:64px 20px}
+  .reviews-grid{grid-template-columns:1fr;gap:16px}
+  .stats-section{padding:64px 20px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .nl-section{padding:64px 20px}
+  .nl-form{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(250,245,240,.25)}
+  .nl-btn{width:100%}
+  footer{padding:40px 20px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .popup-box{padding:28px 24px}
+  .popup-form{flex-direction:column}
+  .popup-input{border-right:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <p class="popup-eyebrow">Bienvenida a Elegancia</p>
+    <h2 class="popup-title">Acceso <span>Exclusivo</span></h2>
+    <p class="popup-sub">Suscríbete y accede a preventas, colecciones limitadas y un 10% de descuento en tu primera compra.</p>
+    <div class="popup-form">
+      <input type="email" class="popup-input" placeholder="tu@correo.com">
+      <button class="popup-btn" onclick="closePopup()">Unirme</button>
+    </div>
+    <button class="popup-skip" onclick="closePopup()">Continuar sin descuento</button>
+  </div>
+</div>
+
+<!-- ANN BAR -->
+<div class="ann-bar">Colección Premium · Envío incluido en pedidos +$200.000 · <span>Nuevas piezas disponibles</span></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <ul class="nav-left">
+    <li><a href="#">Colección</a></li>
+    <li><a href="#">Editorial</a></li>
+    <li><a href="#">Lookbook</a></li>
+  </ul>
+  <a href="#" class="nav-logo">ELEGANCIA</a>
+  <div class="nav-right">
+    <a href="#">Contacto</a>
+    <a href="#" class="nav-icon" title="Favoritos">♡</a>
+    <a href="#" class="nav-icon" title="Carrito">🛒</a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="toggleMenu()">Colección</a>
+  <a href="#" onclick="toggleMenu()">Editorial</a>
+  <a href="#" onclick="toggleMenu()">Lookbook</a>
+  <a href="#" onclick="toggleMenu()">Contacto</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="/images/templates/fashion/elegancia/hero.jpg" alt="ELEGANCIA" class="hero-img">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Línea Premium · Otoño 2025</p>
+    <h1 class="hero-title">Sofisticación<br>sin esfuerzo.</h1>
+    <p class="hero-sub">Piezas pensadas para la mujer que lidera. Materiales de primera selección, siluetas atemporales.</p>
+    <div class="hero-ctas">
+      <a href="#coleccion" class="btn-tan">Descubrir →</a>
+      <a href="#editorial" class="btn-tan-outline">Ver Editorial</a>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">Materiales Premium</div>
+  <div class="strip-dot"></div>
+  <div class="strip-item">Envío incluido +$200k</div>
+  <div class="strip-dot"></div>
+  <div class="strip-item">Devolución 15 días</div>
+  <div class="strip-dot"></div>
+  <div class="strip-item">Ediciones limitadas</div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section" id="coleccion">
+  <p class="section-eyebrow">Piezas Selectas</p>
+  <h2 class="section-title">La Colección</h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/fashion/elegancia/product-1.jpg" alt="Blusa Premium">
+        <span class="product-pill">Nuevo</span>
+        <div class="product-overlay"><button class="quick-shop">Agregar al Carrito</button></div>
+      </div>
+      <p class="product-name">Blusa Premium</p>
+      <p class="product-spec">Seda natural · Tallas S–XL</p>
+      <div class="product-price-row"><span class="product-price">$156.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/fashion/elegancia/product-2.jpg" alt="Pantalón Elegante">
+        <div class="product-overlay"><button class="quick-shop">Agregar al Carrito</button></div>
+      </div>
+      <p class="product-name">Pantalón Elegante</p>
+      <p class="product-spec">Lino premium · Corte recto</p>
+      <div class="product-price-row"><span class="product-price">$198.000</span><span class="product-old">$245.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/fashion/elegancia/product-3.jpg" alt="Accesorios Lujo">
+        <span class="product-pill">Exclusivo</span>
+        <div class="product-overlay"><button class="quick-shop">Agregar al Carrito</button></div>
+      </div>
+      <p class="product-name">Accesorios Lujo</p>
+      <p class="product-spec">Edición limitada · Hecho a mano</p>
+      <div class="product-price-row"><span class="product-price">$125.000</span></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="/images/templates/fashion/elegancia/product-4.jpg" alt="Cinturón">
+        <div class="product-overlay"><button class="quick-shop">Agregar al Carrito</button></div>
+      </div>
+      <p class="product-name">Cinturón</p>
+      <p class="product-spec">Cuero genuino · Ajustable</p>
+      <div class="product-price-row"><span class="product-price">$85.000</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDITORIAL -->
+<section class="editorial-section" id="editorial">
+  <div class="editorial-inner">
+    <img src="/images/templates/fashion/elegancia/product-1.jpg" alt="Editorial ELEGANCIA" class="editorial-img">
+    <div>
+      <p class="editorial-eyebrow">Filosofía de Diseño</p>
+      <h2 class="editorial-title">La elegancia<br><span>es actitud.</span></h2>
+      <p class="editorial-text">Cada pieza nace de una visión: vestir a la mujer que define su propio ritmo. Materiales de primera selección, siluetas que perduran más allá de las temporadas.</p>
+      <div class="pillar-list">
+        <div class="pillar-item">
+          <span class="pillar-num">01</span>
+          <div>
+            <p class="pillar-name">Calidad sin concesiones</p>
+            <p class="pillar-desc">Solo los mejores materiales: seda, lino, lana merino. Cada tela pasa control de calidad en origen.</p>
+          </div>
+        </div>
+        <div class="pillar-item">
+          <span class="pillar-num">02</span>
+          <div>
+            <p class="pillar-name">Corte atemporal</p>
+            <p class="pillar-desc">Siluetas clásicas con detalles contemporáneos. Piezas que funcionan esta temporada y la próxima.</p>
+          </div>
+        </div>
+        <div class="pillar-item">
+          <span class="pillar-num">03</span>
+          <div>
+            <p class="pillar-name">Producción responsable</p>
+            <p class="pillar-desc">Talleres locales, procesos sostenibles, ediciones limitadas para evitar el desperdicio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-bar">
+  <p class="urgency-text">✦ EDICIÓN LIMITADA: Solo quedan <span>12 piezas</span> de la Blusa de Seda. Termina en:</p>
+  <div class="cd-row">
+    <div class="cd-unit" id="cd-h">23</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-m">47</div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit" id="cd-s">33</div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-eyebrow">Clientas que confían</p>
+    <h2 class="section-title">Experiencias<br>reales</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"La blusa de seda superó todas mis expectativas. La caída, la textura, el acabado. Se nota que hay un cuidado real detrás de cada pieza."</p>
+        <div class="review-footer"><p class="review-author">Camila R.</p><p class="review-check">✓ Compra verificada</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"El pantalón de lino es perfecto: cómodo, elegante, atemporal. Ya lo tengo en dos colores. El servicio al cliente, impecable."</p>
+        <div class="review-footer"><p class="review-author">Isabella M.</p><p class="review-check">✓ Compra verificada</p></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"Calidad que justifica el precio. Cada compra se siente como una inversión, no un gasto. Son piezas que duran y mejoran con el tiempo."</p>
+        <div class="review-footer"><p class="review-author">Valentina C.</p><p class="review-check">✓ Compra verificada</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div><p class="stat-num">12k+</p><p class="stat-label">Clientas satisfechas</p></div>
+    <div><p class="stat-num">4.9</p><p class="stat-label">Calificación</p></div>
+    <div><p class="stat-num">8</p><p class="stat-label">Años de historia</p></div>
+    <div><p class="stat-num">96%</p><p class="stat-label">Recompra</p></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="nl-section">
+  <div class="nl-inner">
+    <p class="nl-eyebrow">Acceso exclusivo</p>
+    <h2 class="nl-title">Primeras<br>en saber.</h2>
+    <p class="nl-sub">Preventas, colecciones limitadas y editoriales antes que nadie. Solo para suscriptoras.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" class="nl-input" placeholder="tu@correo.com">
+      <button class="nl-btn">Unirme</button>
+    </form>
+    <p class="nl-note">Sin spam · Cancelar en cualquier momento</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="f-logo">ELEGANCIA</a>
+      <p class="f-desc">Moda premium para la mujer que sabe lo que quiere. Calidad, diseño y sofisticación colombiana.</p>
+    </div>
+    <div class="f-col">
+      <h5>Colección</h5>
+      <ul>
+        <li><a href="#">Blusas</a></li>
+        <li><a href="#">Pantalones</a></li>
+        <li><a href="#">Accesorios</a></li>
+        <li><a href="#">Ediciones limitadas</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Ayuda</h5>
+      <ul>
+        <li><a href="#">Guía de tallas</a></li>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Elegancia</h5>
+      <ul>
+        <li><a href="#">Nosotras</a></li>
+        <li><a href="#">Editorial</a></li>
+        <li><a href="#">Lookbook</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-copy">© 2025 ELEGANCIA. Todos los derechos reservados.</p>
+    <div class="f-social">
+      <a href="#" title="Instagram">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+      </a>
+      <a href="#" title="Pinterest">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.852 0 1.265.64 1.265 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.136-1.867 3.136-4.561 0-2.385-1.714-4.052-4.161-4.052-2.833 0-4.496 2.124-4.496 4.32 0 .855.33 1.772.741 2.273.082.1.094.187.07.288-.076.31-.243.995-.276 1.134-.044.183-.146.222-.337.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.522 0 10-4.477 10-10S17.522 2 12 2z"/></svg>
+      </a>
+      <a href="#" title="TikTok">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+setTimeout(()=>document.getElementById('popup').classList.add('active'),2000);
+function closePopup(){document.getElementById('popup').classList.remove('active')}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40)
+});
+(function(){
+  let h=23,m=47,s=33;
+  setInterval(()=>{
+    s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0)h=23;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  },1000);
+})();
+</script>
+</body>
+</html>
