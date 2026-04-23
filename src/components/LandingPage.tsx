@@ -44,6 +44,7 @@ function NetworkCanvas() {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     let raf: number;
+    let frame = 0;
 
     function resize() {
       canvas.width = canvas.offsetWidth;
@@ -52,18 +53,22 @@ function NetworkCanvas() {
     resize();
     window.addEventListener('resize', resize);
 
-    const N = 65;
-    const MAX_DIST = 185;
+    const N = 42;
+    const MAX_DIST = 160;
     type Pt = { x: number; y: number; vx: number; vy: number };
 
     const pts: Pt[] = Array.from({ length: N }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.22,
-      vy: (Math.random() - 0.5) * 0.22,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.18,
     }));
 
     function draw() {
+      frame++;
+      // Skip every other frame for performance
+      if (frame % 2 === 0) { raf = requestAnimationFrame(draw); return; }
+
       const w = canvas.width, h = canvas.height;
       ctx.clearRect(0, 0, w, h);
 
@@ -73,40 +78,19 @@ function NetworkCanvas() {
         if (p.y < 0 || p.y > h) p.vy *= -1;
       }
 
-      // Build adjacency
-      const adj: Set<number>[] = Array.from({ length: N }, () => new Set<number>());
+      // Build edges only — no triangle fill (avoids O(N³))
       const pairs: [number, number, number][] = [];
       for (let i = 0; i < N; i++) {
         for (let j = i + 1; j < N; j++) {
           const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
           const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < MAX_DIST) { pairs.push([i, j, d]); adj[i].add(j); adj[j].add(i); }
-        }
-      }
-
-      // Fill triangles
-      for (let i = 0; i < N; i++) {
-        const nb = Array.from(adj[i]);
-        for (let a = 0; a < nb.length; a++) {
-          const j = nb[a]; if (j <= i) continue;
-          for (let b = a + 1; b < nb.length; b++) {
-            const k = nb[b];
-            if (adj[j].has(k)) {
-              ctx.beginPath();
-              ctx.moveTo(pts[i].x, pts[i].y);
-              ctx.lineTo(pts[j].x, pts[j].y);
-              ctx.lineTo(pts[k].x, pts[k].y);
-              ctx.closePath();
-              ctx.fillStyle = 'rgba(30,90,180,0.04)';
-              ctx.fill();
-            }
-          }
+          if (d < MAX_DIST) pairs.push([i, j, d]);
         }
       }
 
       // Draw edges
       for (const [i, j, d] of pairs) {
-        const alpha = (1 - d / MAX_DIST) * 0.28;
+        const alpha = (1 - d / MAX_DIST) * 0.25;
         ctx.beginPath();
         ctx.moveTo(pts[i].x, pts[i].y);
         ctx.lineTo(pts[j].x, pts[j].y);
@@ -119,7 +103,7 @@ function NetworkCanvas() {
       for (const p of pts) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(120,180,255,0.55)';
+        ctx.fillStyle = 'rgba(120,180,255,0.5)';
         ctx.fill();
       }
 
@@ -132,9 +116,10 @@ function NetworkCanvas() {
 }
 
 /* ─── Floating badge ─────────────────────── */
-function Badge({ icon, text, delay, style }: { icon: React.ReactNode; text: string; delay: number; style: React.CSSProperties }) {
+function Badge({ icon, text, delay, style, className }: { icon: React.ReactNode; text: string; delay: number; style: React.CSSProperties; className?: string }) {
   return (
     <motion.div
+      className={className}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1, y: [0, -9, 0] }}
       transition={{ opacity: { delay, duration: 0.5 }, scale: { delay, duration: 0.5 }, y: { delay: delay + 0.5, duration: 3.5, repeat: Infinity, ease: 'easeInOut' } }}
@@ -217,11 +202,11 @@ const TESTIMONIALS = [
 function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
   const { ref, count } = useCounter(value);
   return (
-    <div style={{ textAlign: 'center', padding: '0 24px' }}>
-      <div style={{ fontSize: 52, fontWeight: 900, color: '#fff', letterSpacing: -2, lineHeight: 1 }}>
+    <div style={{ textAlign: 'center' }}>
+      <div className="stat-num" style={{ fontSize: 52, fontWeight: 900, color: '#fff', letterSpacing: -2, lineHeight: 1 }}>
         <span ref={ref}>{count}</span>{suffix}
       </div>
-      <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', marginTop: 8, fontWeight: 400 }}>{label}</div>
+      <div className="stat-label" style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', marginTop: 8, fontWeight: 400 }}>{label}</div>
     </div>
   );
 }
@@ -274,16 +259,34 @@ export default function LandingPage() {
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes pulse-ring { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(99,102,241,0.5); } 70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(99,102,241,0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(99,102,241,0); } }
         @media (max-width: 768px) {
-          .hero-h1 { font-size: 44px !important; letter-spacing: -1px !important; }
+          .nav-links { display: none !important; }
+          .mobile-menu-btn { display: flex !important; }
+          .hero-badge { display: none !important; }
+          .hero-section { padding: 100px 20px 60px !important; }
+          .hero-h1 { font-size: 38px !important; letter-spacing: -1.5px !important; }
           .hero-p { font-size: 16px !important; }
+          .hero-btns { flex-direction: column !important; align-items: stretch !important; }
+          .hero-btns a { justify-content: center !important; }
+          .hero-trust { flex-direction: column !important; gap: 6px !important; }
           .stats-grid { grid-template-columns: 1fr 1fr !important; }
+          .stats-border { border-right: none !important; }
+          .stat-num { font-size: 36px !important; letter-spacing: -1px !important; }
+          .stat-label { font-size: 11px !important; }
+          .section-pad { padding: 60px 20px !important; }
+          .section-title { font-size: 32px !important; letter-spacing: -1px !important; }
+          .comp-headers { display: none !important; }
+          .comp-row { grid-template-columns: 1fr 1fr !important; }
+          .comp-label { display: none !important; }
+          .summary-cards { grid-template-columns: 1fr 1fr !important; }
           .steps-grid { grid-template-columns: 1fr !important; }
           .plans-grid { grid-template-columns: 1fr !important; }
           .testimonials-grid { grid-template-columns: 1fr !important; }
-          .nav-links { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
-          .footer-grid { grid-template-columns: 1fr 1fr !important; }
-          .hero-badge { display: none !important; }
+          .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+          .cta-title { font-size: 36px !important; letter-spacing: -1.5px !important; }
+          .cta-btns { flex-direction: column !important; align-items: stretch !important; }
+          .cta-btns a { justify-content: center !important; }
+          .wrap { padding: 0 20px !important; }
         }
       `}</style>
 
@@ -337,7 +340,7 @@ export default function LandingPage() {
       </AnimatePresence>
 
       {/* ── HERO ── */}
-      <section style={{ minHeight: '100vh', background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 40px 80px', position: 'relative', overflow: 'hidden' }}>
+      <section className="hero-section" style={{ minHeight: '100vh', background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 40px 80px', position: 'relative', overflow: 'hidden' }}>
         <NetworkCanvas />
 
         {/* Glow blobs */}
@@ -382,7 +385,7 @@ export default function LandingPage() {
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}
-            style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 52 }}>
+            className="hero-btns" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 52 }}>
             <a href="/onboarding" style={{
               display: 'inline-flex', alignItems: 'center', gap: 10,
               padding: '16px 38px', borderRadius: 50,
@@ -413,7 +416,7 @@ export default function LandingPage() {
 
           {/* Trust bar */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}
-            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+            className="hero-trust" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <div style={{ display: 'flex' }}>
               {['#6366f1', '#8b5cf6', '#a855f7', '#ec4899', '#f43f5e'].map((c, i) => (
                 <div key={i} style={{ width: 32, height: 32, borderRadius: '50%', background: c, border: '2px solid rgba(10,14,26,0.8)', marginLeft: i === 0 ? 0 : -8, fontSize: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#fff' }}>
@@ -440,12 +443,12 @@ export default function LandingPage() {
       </section>
 
       {/* ── STATS ── */}
-      <section style={{ background: BG2, padding: '80px 40px', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-        <div style={container}>
+      <section className="section-pad" style={{ background: BG2, padding: '80px 40px', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="wrap" style={container}>
           <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0 }}>
             {STATS.map((st, i) => (
               <FadeUp key={st.label} delay={i * 0.08}>
-                <div style={{ textAlign: 'center', padding: '16px 24px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                <div className={i < 3 ? 'stats-border' : ''} style={{ textAlign: 'center', padding: '16px 24px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
                   <Stat {...st} />
                 </div>
               </FadeUp>
@@ -455,23 +458,20 @@ export default function LandingPage() {
       </section>
 
       {/* ── COMPARISON ── */}
-      <section style={{ background: BG, padding: '120px 40px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-          <NetworkCanvas />
-        </div>
+      <section className="section-pad" style={{ background: BG, padding: '120px 40px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', width: 500, height: 500, bottom: 0, right: '-5%', background: 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
         <div style={{ ...container, position: 'relative', zIndex: 2 }}>
           <FadeUp>
-            <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <div style={{ textAlign: 'center', marginBottom: 48 }}>
               <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 3, color: '#6366f1', textTransform: 'uppercase' }}>Por qué elegirnos</span>
-              <h2 style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, lineHeight: 1.05, color: '#fff' }}>La diferencia es clara.</h2>
+              <h2 className="section-title" style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, lineHeight: 1.05, color: '#fff' }}>La diferencia es clara.</h2>
               <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.45)', marginTop: 16, maxWidth: 480, margin: '16px auto 0' }}>Mismos resultados. Una fracción del tiempo y el costo.</p>
             </div>
           </FadeUp>
 
-          {/* Comparison headers */}
+          {/* Comparison headers — hidden on mobile */}
           <FadeUp delay={0.1}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 0, marginBottom: 8 }}>
+            <div className="comp-headers" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 0, marginBottom: 8 }}>
               <div />
               <div style={{ padding: '14px 20px', textAlign: 'center' }}>
                 <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>Comparado con</span>
@@ -493,21 +493,21 @@ export default function LandingPage() {
           <FadeUp delay={0.15}>
             <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)' }}>
               {COMPARISON_ROWS.map((row, i) => (
-                <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
-                  <div style={{ padding: '18px 24px', fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', display: 'flex', alignItems: 'center' }}>{row.label}</div>
-                  <div style={{ padding: '18px 24px', display: 'flex', alignItems: 'center', gap: 10, borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
-                    <span style={{ color: '#ef4444', fontWeight: 700, fontSize: 16 }}>✗</span>
+                <div key={row.label} className="comp-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
+                  <div className="comp-label" style={{ padding: '18px 24px', fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', display: 'flex', alignItems: 'center' }}>{row.label}</div>
+                  <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 10, borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+                    <span style={{ color: '#ef4444', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>✗</span>
                     <div>
-                      <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', fontWeight: 500, marginBottom: 4 }}>{row.bad}</div>
+                      <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', fontWeight: 500, marginBottom: 4 }}>{row.bad}</div>
                       <div style={{ height: 3, borderRadius: 2, background: 'rgba(239,68,68,0.4)', width: '70%' }} />
                     </div>
                   </div>
-                  <div style={{ padding: '18px 24px', display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(99,102,241,0.08)', borderLeft: '1px solid rgba(99,102,241,0.2)' }}>
+                  <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(99,102,241,0.08)', borderLeft: '1px solid rgba(99,102,241,0.2)' }}>
                     <span style={{ width: 20, height: 20, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#fff', fontWeight: 700, flexShrink: 0 }}>✓</span>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 14, color: '#fff', fontWeight: 600, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 13, color: '#fff', fontWeight: 600, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
                         {row.good}
-                        {row.badge && <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1, background: '#22c55e', color: '#000', padding: '2px 8px', borderRadius: 4 }}>{row.badge}</span>}
+                        {row.badge && <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1, background: '#22c55e', color: '#000', padding: '2px 7px', borderRadius: 4, whiteSpace: 'nowrap' }}>{row.badge}</span>}
                       </div>
                       <div style={{ height: 3, borderRadius: 2, background: 'linear-gradient(to right, #6366f1, #a855f7)', width: '85%' }} />
                     </div>
@@ -519,15 +519,15 @@ export default function LandingPage() {
 
           {/* Summary cards */}
           <FadeUp delay={0.25}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 40 }}>
+            <div className="summary-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 32 }}>
               {[
                 { n: '8x', label: 'Más rápido' },
                 { n: '90%', label: 'Menor costo' },
                 { n: '100%', label: 'Online, sin reuniones' },
               ].map(c => (
-                <div key={c.n} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '32px 24px', textAlign: 'center' }}>
-                  <div style={{ fontSize: 48, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', letterSpacing: -2 }}>{c.n}</div>
-                  <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', marginTop: 6 }}>{c.label}</div>
+                <div key={c.n} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '28px 20px', textAlign: 'center' }}>
+                  <div style={{ fontSize: 44, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', letterSpacing: -2 }}>{c.n}</div>
+                  <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 6 }}>{c.label}</div>
                 </div>
               ))}
             </div>
@@ -536,12 +536,12 @@ export default function LandingPage() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section style={{ background: BG2, padding: '120px 40px' }}>
+      <section className="section-pad" style={{ background: BG2, padding: '120px 40px' }}>
         <div style={container}>
           <FadeUp>
-            <div style={{ textAlign: 'center', marginBottom: 72 }}>
+            <div style={{ textAlign: 'center', marginBottom: 56 }}>
               <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 3, color: '#6366f1', textTransform: 'uppercase' }}>El proceso</span>
-              <h2 style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>3 pasos hacia tu tienda.</h2>
+              <h2 className="section-title" style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>3 pasos hacia tu tienda.</h2>
             </div>
           </FadeUp>
           <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
@@ -575,7 +575,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── DESIGNS MARQUEE ── */}
-      <section id="diseños" style={{ background: BG, padding: '120px 0 0', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <section id="diseños" style={{ background: BG, padding: '80px 0 0', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ ...container, textAlign: 'center', marginBottom: 60 }}>
           <FadeUp>
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 3, color: '#6366f1', textTransform: 'uppercase' }}>Diseños premium</span>
@@ -610,12 +610,12 @@ export default function LandingPage() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section id="casos" style={{ background: BG2, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <section id="casos" className="section-pad" style={{ background: BG2, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={container}>
           <FadeUp>
-            <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <div style={{ textAlign: 'center', marginBottom: 48 }}>
               <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 3, color: '#6366f1', textTransform: 'uppercase' }}>Resultados reales · 20+ tiendas en vivo</span>
-              <h2 style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>
+              <h2 className="section-title" style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>
                 Casos <span style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>de Éxito.</span>
               </h2>
               <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.45)', marginTop: 16, maxWidth: 500, margin: '16px auto 0' }}>Tiendas que pasaron de cero a vender de forma consistente en su primer mes.</p>
@@ -644,12 +644,12 @@ export default function LandingPage() {
       </section>
 
       {/* ── PRICING ── */}
-      <section id="precios" style={{ background: BG, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <section id="precios" className="section-pad" style={{ background: BG, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={container}>
           <FadeUp>
-            <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <div style={{ textAlign: 'center', marginBottom: 48 }}>
               <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 3, color: '#6366f1', textTransform: 'uppercase' }}>Precios</span>
-              <h2 style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>Inversión transparente.</h2>
+              <h2 className="section-title" style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>Inversión transparente.</h2>
               <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.45)', marginTop: 16 }}>Un precio. Todo incluido. Sin sorpresas.</p>
             </div>
           </FadeUp>
@@ -703,12 +703,12 @@ export default function LandingPage() {
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" style={{ background: BG2, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <section id="faq" className="section-pad" style={{ background: BG2, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ ...container, maxWidth: 760 }}>
           <FadeUp>
-            <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <div style={{ textAlign: 'center', marginBottom: 48 }}>
               <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 3, color: '#6366f1', textTransform: 'uppercase' }}>FAQ</span>
-              <h2 style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>Preguntas frecuentes.</h2>
+              <h2 className="section-title" style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, marginTop: 12, color: '#fff' }}>Preguntas frecuentes.</h2>
             </div>
           </FadeUp>
           <FadeUp delay={0.1}>
@@ -718,22 +718,19 @@ export default function LandingPage() {
       </section>
 
       {/* ── FINAL CTA ── */}
-      <section style={{ background: BG, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-          <NetworkCanvas />
-        </div>
+      <section className="section-pad" style={{ background: BG, padding: '120px 40px', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', width: 700, height: 700, top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
         <div style={{ ...container, textAlign: 'center', position: 'relative', zIndex: 2 }}>
           <FadeUp>
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 3, color: '#6366f1', textTransform: 'uppercase' }}>¿Listo para lanzar?</span>
-            <h2 style={{ fontSize: 60, fontWeight: 900, letterSpacing: -3, marginTop: 16, lineHeight: 1.02, color: '#fff' }}>
+            <h2 className="cta-title" style={{ fontSize: 60, fontWeight: 900, letterSpacing: -3, marginTop: 16, lineHeight: 1.02, color: '#fff' }}>
               Empieza a vender<br />
               <span style={{ background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>en internet hoy mismo.</span>
             </h2>
             <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.45)', marginTop: 20, maxWidth: 500, margin: '20px auto 0' }}>
               El onboarding toma 10 minutos. Tu tienda estará lista en 7 días.
             </p>
-            <div style={{ marginTop: 48, display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div className="cta-btns" style={{ marginTop: 48, display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
               <a href="/onboarding" style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10, padding: '18px 48px', borderRadius: 50,
                 background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
@@ -792,7 +789,7 @@ export default function LandingPage() {
               <a href="/onboarding" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 8, padding: '10px 20px', borderRadius: 50, background: 'linear-gradient(135deg, #6366f1, #4f46e5)', color: '#fff', fontSize: 13, fontWeight: 600 }}>Iniciar proyecto</a>
             </div>
           </div>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+          <div className="footer-bottom" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.2)' }}>© 2026 Automate Studio. Todos los derechos reservados.</p>
             <div style={{ display: 'flex', gap: 24 }}>
               {['Privacidad', 'Términos'].map(item => (
