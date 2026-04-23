@@ -3,7 +3,7 @@
 // Pegar este código en Extensions → Apps Script del sheet
 // ============================================================
 
-const SHEET_ID = '1KCOvL5IMDt7iJBKNeUjq_9fnpo4YRQYQKLoo3_n8_QM';
+const SHEET_ID = '1KGJRjOAFHDApxW0R0sAiYWbtMF6a6RtLtbV1FzNWpSY';
 const SHEET_NAME = 'Leads';
 
 const HEADERS = [
