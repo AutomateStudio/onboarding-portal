@@ -278,6 +278,7 @@ export default function LandingPage() {
           .comp-mobile-header { display: grid !important; }
           .comp-row { grid-template-columns: 1fr 1fr !important; }
           .comp-label { display: none !important; }
+          .comp-badge { display: none !important; }
           .summary-cards { grid-template-columns: 1fr !important; }
           .steps-grid { grid-template-columns: 1fr !important; }
           .plans-grid { grid-template-columns: 1fr !important; }
@@ -521,9 +522,9 @@ export default function LandingPage() {
                   <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(99,102,241,0.08)', borderLeft: '1px solid rgba(99,102,241,0.2)' }}>
                     <span style={{ width: 20, height: 20, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#fff', fontWeight: 700, flexShrink: 0 }}>✓</span>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 13, color: '#fff', fontWeight: 600, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                        {row.good}
-                        {row.badge && <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1, background: '#22c55e', color: '#000', padding: '2px 7px', borderRadius: 4, whiteSpace: 'nowrap' }}>{row.badge}</span>}
+                      <div style={{ fontSize: 13, color: '#fff', fontWeight: 600, marginBottom: 4, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                        <span>{row.good}</span>
+                        {row.badge && <span className="comp-badge" style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1, background: '#22c55e', color: '#000', padding: '2px 7px', borderRadius: 4, whiteSpace: 'nowrap', alignSelf: 'flex-start' }}>{row.badge}</span>}
                       </div>
                       <div style={{ height: 3, borderRadius: 2, background: 'linear-gradient(to right, #6366f1, #a855f7)', width: '85%' }} />
                     </div>
