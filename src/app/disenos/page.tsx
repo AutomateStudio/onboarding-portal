@@ -106,8 +106,8 @@ function TemplateCard({ template, onClick }: { template: TemplateWithCategory; o
         boxShadow: hovered ? '0 20px 60px rgba(99,102,241,0.18)' : 'none',
       }}
     >
-      {/* Image */}
-      <div style={{ position: 'relative', aspectRatio: '16/10', overflow: 'hidden' }}>
+      {/* Hero image */}
+      <div style={{ position: 'relative', height: 190, overflow: 'hidden' }}>
         <img
           src={template.hero}
           alt={template.name}
@@ -136,7 +136,7 @@ function TemplateCard({ template, onClick }: { template: TemplateWithCategory; o
             Ver demo →
           </span>
         </div>
-        {/* Badge */}
+        {/* Category badge */}
         {template.badge && (
           <span style={{
             position: 'absolute', top: 12, left: 12,
@@ -148,38 +148,41 @@ function TemplateCard({ template, onClick }: { template: TemplateWithCategory; o
             {template.badge === 'popular' ? 'Popular' : 'Nuevo'}
           </span>
         )}
-        {/* Preview indicator */}
+        {/* Live demo pill */}
         {template.previewUrl && (
           <span style={{
-            position: 'absolute', bottom: 12, right: 12,
+            position: 'absolute', bottom: 10, right: 10,
             fontSize: 9, fontWeight: 700, letterSpacing: 0.5,
             padding: '3px 8px', borderRadius: 4,
-            background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255,255,255,0.15)',
-            color: 'rgba(255,255,255,0.6)',
+            background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            color: 'rgba(255,255,255,0.55)',
           }}>
             DEMO EN VIVO
           </span>
         )}
       </div>
-      {/* Info */}
-      <div style={{ padding: '16px 18px 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff', letterSpacing: -0.3 }}>{template.name}</h3>
-          <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: 1.5 }}>
-            {CATEGORY_LABELS[template.category]}
-          </span>
-        </div>
-        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 14, lineHeight: 1.5 }}>{template.desc}</p>
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {template.tags.slice(0, 3).map(tag => (
-            <span key={tag} style={{
-              fontSize: 10, fontWeight: 600, padding: '3px 10px', borderRadius: 50,
-              background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.22)',
-              color: '#818cf8',
-            }}>{tag}</span>
-          ))}
-        </div>
+
+      {/* Product thumbnails */}
+      <div style={{ display: 'flex', gap: 4, padding: '10px 10px 0' }}>
+        {template.products.slice(0, 4).map((p, i) => (
+          <div key={i} style={{ flex: 1, aspectRatio: '1', overflow: 'hidden', borderRadius: 6, background: 'rgba(255,255,255,0.04)' }}>
+            <img
+              src={p.img}
+              alt={p.name}
+              loading="lazy"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Name + category */}
+      <div style={{ padding: '10px 14px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h3 style={{ fontSize: 15, fontWeight: 800, color: '#fff', letterSpacing: -0.3 }}>{template.name}</h3>
+        <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: 1.5 }}>
+          {CATEGORY_LABELS[template.category]}
+        </span>
       </div>
     </motion.div>
   );
@@ -347,14 +350,17 @@ export default function DiseniosPage() {
         ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 3px; }
         .cat-pill:hover { border-color: rgba(99,102,241,0.5) !important; color: rgba(255,255,255,0.85) !important; }
         .filters-bar::-webkit-scrollbar { display: none; }
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
+          .templates-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 800px) {
           .templates-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .hero-title { font-size: 52px !important; letter-spacing: -2.5px !important; }
           .page-hero { padding: 140px 24px 60px !important; }
           .filters-inner { padding: 0 24px !important; }
           .main-grid { padding: 32px 24px 60px !important; }
         }
-        @media (max-width: 520px) {
+        @media (max-width: 480px) {
           .templates-grid { grid-template-columns: 1fr !important; }
           .hero-title { font-size: 40px !important; letter-spacing: -2px !important; }
           .modal-header-info { display: none !important; }
@@ -453,7 +459,7 @@ export default function DiseniosPage() {
         <motion.div
           className="templates-grid"
           layout
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((template, i) => (
