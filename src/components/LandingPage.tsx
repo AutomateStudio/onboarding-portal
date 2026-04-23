@@ -145,7 +145,7 @@ const STATS = [
   { value: 50, suffix: '+', label: 'Tiendas lanzadas' },
   { value: 7, suffix: ' días', label: 'Tiempo promedio de entrega' },
   { value: 98, suffix: '%', label: 'Clientes satisfechos' },
-  { value: 0, suffix: ' código', label: 'Líneas que necesitas saber' },
+  { value: 24, suffix: '/7', label: 'Soporte en español' },
 ];
 
 const COMPARISON_ROWS = [
@@ -275,9 +275,10 @@ export default function LandingPage() {
           .section-pad { padding: 60px 20px !important; }
           .section-title { font-size: 32px !important; letter-spacing: -1px !important; }
           .comp-headers { display: none !important; }
+          .comp-mobile-header { display: grid !important; }
           .comp-row { grid-template-columns: 1fr 1fr !important; }
           .comp-label { display: none !important; }
-          .summary-cards { grid-template-columns: 1fr 1fr !important; }
+          .summary-cards { grid-template-columns: 1fr !important; }
           .steps-grid { grid-template-columns: 1fr !important; }
           .plans-grid { grid-template-columns: 1fr !important; }
           .testimonials-grid { grid-template-columns: 1fr !important; }
@@ -491,6 +492,21 @@ export default function LandingPage() {
           </FadeUp>
 
           <FadeUp delay={0.15}>
+            {/* Header visible solo en móvil */}
+            <div className="comp-mobile-header" style={{ display: 'none', gridTemplateColumns: '1fr 1fr', marginBottom: 4 }}>
+              <div style={{ padding: '10px 16px', textAlign: 'center', background: 'rgba(255,255,255,0.03)', borderRadius: '10px 0 0 0', border: '1px solid rgba(255,255,255,0.08)', borderRight: 'none' }}>
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.4)' }}>
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#ef4444', display: 'inline-block' }} />
+                  Agencia
+                </span>
+              </div>
+              <div style={{ padding: '10px 16px', textAlign: 'center', background: 'rgba(99,102,241,0.12)', borderRadius: '0 10px 0 0', border: '1px solid rgba(99,102,241,0.3)', borderLeft: 'none' }}>
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 12, fontWeight: 700, color: '#818cf8' }}>
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
+                  Automate
+                </span>
+              </div>
+            </div>
             <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)' }}>
               {COMPARISON_ROWS.map((row, i) => (
                 <div key={row.label} className="comp-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
