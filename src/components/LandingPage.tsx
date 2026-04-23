@@ -401,7 +401,7 @@ export default function LandingPage() {
             >
               Empieza ahora →
             </a>
-            <a href="/disenos.html" style={{
+            <a href="/disenos" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '16px 36px', borderRadius: 50,
               border: '1.5px solid rgba(255,255,255,0.15)',
@@ -615,7 +615,7 @@ export default function LandingPage() {
           </div>
         ))}
         <div style={{ textAlign: 'center', padding: '48px 40px 80px' }}>
-          <a href="/disenos.html" style={{
+          <a href="/disenos" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 32px', borderRadius: 50,
             border: '1.5px solid rgba(99,102,241,0.35)', color: '#fff', fontWeight: 600, fontSize: 15,
             background: 'rgba(99,102,241,0.08)', transition: 'all 0.3s',
