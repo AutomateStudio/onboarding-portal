@@ -11,6 +11,8 @@ export async function POST(req: NextRequest) {
     const results: Record<string, string> = {};
 
     // ── Google Sheets (Apps Script webhook) ──────────────────────────────
+    // Apps Script devuelve 302 redirect en POST — es comportamiento normal,
+    // no seguimos el redirect para evitar el error 411 de Content-Length.
     const sheetsUrl = process.env.GOOGLE_SCRIPT_URL;
     if (sheetsUrl) {
       try {
@@ -18,8 +20,10 @@ export async function POST(req: NextRequest) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
+          redirect: 'manual',
         });
-        results.sheets = res.ok ? 'ok' : `error ${res.status}`;
+        // 200 = ok directo, 302 = redirect normal de Apps Script (también es éxito)
+        results.sheets = (res.ok || res.status === 302) ? 'ok' : `error ${res.status}`;
       } catch (e) {
         results.sheets = `fetch error: ${e}`;
         console.error('Google Sheets error:', e);
