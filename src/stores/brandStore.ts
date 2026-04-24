@@ -8,6 +8,7 @@ interface BrandState {
   errors: Record<string, string>;
 
   // Step 1 — Welcome
+  hasShopifyStore: boolean | null;
   storeName: string;
   shopifyUrl: string;
   industry: string;
@@ -37,6 +38,7 @@ interface BrandState {
   whatsapp: string;
 
   // Step 1 Actions
+  setHasShopifyStore: (has: boolean) => void;
   setStoreName: (name: string) => void;
   setShopifyUrl: (url: string) => void;
   setIndustry: (industry: string) => void;
@@ -83,6 +85,7 @@ const initialState = {
   isLoading: false,
   errors: {},
 
+  hasShopifyStore: null as boolean | null,
   storeName: '',
   shopifyUrl: '',
   industry: 'jewelry',
@@ -111,6 +114,7 @@ export const useBrandStore = create<BrandState>((set) => ({
   ...initialState,
 
   // Step 1
+  setHasShopifyStore: (hasShopifyStore) => set({ hasShopifyStore }),
   setStoreName: (storeName) => set({ storeName }),
   setShopifyUrl: (shopifyUrl) => set({ shopifyUrl }),
   setIndustry: (industry) => set({ industry }),
