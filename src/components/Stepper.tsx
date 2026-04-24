@@ -8,6 +8,7 @@ const ICONS = ['👋', '🎨', '💎', '⚡', '📝', '🔐'];
 
 export function Stepper() {
   const currentStep = useBrandStore((state) => state.currentStep);
+  const goToStep = useBrandStore((state) => state.goToStep);
 
   return (
     <>
@@ -35,27 +36,33 @@ export function Stepper() {
           const stepNum = index + 1;
           const isCompleted = currentStep > stepNum;
           const isCurrent = currentStep === stepNum;
+          const isLocked = currentStep < stepNum;
 
           return (
             <div key={index} className="flex-1 flex items-center min-w-0">
               <div className="flex items-center gap-1.5 flex-shrink-0">
                 <motion.div
+                  onClick={() => isCompleted && goToStep(stepNum)}
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300 ${
                     isCompleted
-                      ? 'bg-gray-900 text-white'
+                      ? 'bg-gray-900 text-white cursor-pointer'
                       : isCurrent
-                      ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20'
-                      : 'bg-gray-100 text-gray-400'
+                      ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20 cursor-default'
+                      : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
                   }`}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={isCompleted ? { scale: 1.1 } : {}}
                   transition={{ type: 'spring', stiffness: 300 }}
+                  title={isLocked ? 'Completa los pasos anteriores primero' : title}
                 >
-                  {isCompleted ? '✓' : ICONS[index]}
+                  {isCompleted ? '✓' : isLocked ? '🔒' : ICONS[index]}
                 </motion.div>
                 <div className="hidden lg:block">
-                  <p className={`text-[11px] font-semibold transition-colors duration-300 whitespace-nowrap ${
-                    isCurrent ? 'text-gray-900' : isCompleted ? 'text-gray-500' : 'text-gray-400'
-                  }`}>
+                  <p
+                    onClick={() => isCompleted && goToStep(stepNum)}
+                    className={`text-[11px] font-semibold transition-colors duration-300 whitespace-nowrap ${
+                      isCurrent ? 'text-gray-900' : isCompleted ? 'text-gray-500 cursor-pointer hover:text-gray-900' : 'text-gray-400 cursor-not-allowed opacity-50'
+                    }`}
+                  >
                     {title}
                   </p>
                 </div>

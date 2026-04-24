@@ -285,12 +285,13 @@ export function OnboardingLayout() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-4 sm:gap-6">
           <div className="flex-shrink-0">
-            <span
-              className="text-lg sm:text-xl font-black tracking-tight"
-              style={{ color: '#fff' }}
+            <a
+              href="/"
+              className="text-lg sm:text-xl font-black tracking-tight hover:opacity-80 transition-opacity"
+              style={{ color: '#fff', textDecoration: 'none' }}
             >
               automate.
-            </span>
+            </a>
           </div>
           <div className="flex-1 min-w-0 ob-stepper">
             <Stepper />
