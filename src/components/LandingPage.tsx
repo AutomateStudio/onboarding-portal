@@ -645,7 +645,7 @@ export default function LandingPage() {
                   <div style={{ display: 'flex', gap: 2, marginBottom: 20 }}>
                     {Array.from({ length: t.stars }).map((_, j) => <span key={j} style={{ color: '#fbbf24', fontSize: 16 }}>★</span>)}
                   </div>
-                  <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', lineHeight: 1.75, marginBottom: 24 }}>"{t.text}"</p>
+                  <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', lineHeight: 1.75, marginBottom: 24 }}>&ldquo;{t.text}&rdquo;</p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                     <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #a855f7)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#fff', flexShrink: 0 }}>{t.avatar}</div>
                     <div>

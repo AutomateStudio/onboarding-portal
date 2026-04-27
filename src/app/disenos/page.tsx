@@ -49,6 +49,7 @@ function NetworkCanvas() {
     }));
 
     function draw() {
+      if (!canvas) return;
       frame++;
       if (frame % 2 === 0) { raf = requestAnimationFrame(draw); return; }
       const w = canvas.width, h = canvas.height;
